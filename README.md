@@ -1,6 +1,8 @@
+Fullstack app in MongoDB, Express, Angular, Node (MEAN stack).
+
 WHAT IS THIS:
 
-This is a fictional e-commerce store that sells high quality luxury watches at cheaper prices.
+- This is a fictional e-commerce store that sells high quality luxury watches at cheaper prices.
 
 WHAT DO YOU GET FROM THIS:
 Idea of what I can do for YOUR TEAM in YOUR PROJECT at YOUR COMPANY.
