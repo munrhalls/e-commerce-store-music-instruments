@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Watch = require("../models/Watch");
 const mongoose = require("mongoose");
+const auth = require("../middleware/auth");
 
 // Get all watches
-router.get("/", async (req, res, next) => {
+router.get("/", auth, async (req, res, next) => {
   try {
     const watches = await Watch.find();
     res.json(watches);
@@ -14,7 +15,7 @@ router.get("/", async (req, res, next) => {
 });
 
 // Create new watch
-router.post("/", async (req, res, next) => {
+router.post("/", auth, async (req, res, next) => {
   try {
     const newWatch = new Watch(req.body);
     const savedWatch = await newWatch.save();
@@ -29,7 +30,7 @@ router.post("/", async (req, res, next) => {
 });
 
 // Get specific watch
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", auth, async (req, res, next) => {
   const id = req.params.id;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send("Invalid ID format"); // Bad request
@@ -46,7 +47,7 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // Delete a watch
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", auth, async (req, res, next) => {
   try {
     const deletedWatch = await Watch.findByIdAndDelete(req.params.id);
 
@@ -64,7 +65,7 @@ router.delete("/:id", async (req, res, next) => {
 });
 
 // Update a watch
-router.patch("/:id", async (req, res, next) => {
+router.patch("/:id", auth, async (req, res, next) => {
   try {
     const watchToUpdate = await Watch.findById(req.params.id);
     if (!watchToUpdate) {
@@ -94,5 +95,4 @@ router.patch("/:id", async (req, res, next) => {
   }
 });
 
-// ?
 module.exports = router;
