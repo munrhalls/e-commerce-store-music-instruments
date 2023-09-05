@@ -38,24 +38,21 @@ const jwt = require("jsonwebtoken");
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  // Check if user exists
   const user = await User.findOne({ email });
   if (!user) {
-    return res.status(400).json({ message: "User not found" });
+    return res.status(400).json({ message: "Invalid email or password" });
   }
 
-  // Verify password
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    return res.status(400).json({ message: "Invalid credentials" });
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    return res.status(400).json({ message: "Invalid email or password" });
   }
 
-  // Generate JWT
-  const token = jwt.sign({ id: user._id }, "yourSecretKey", {
-    expiresIn: "1h",
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: "1d",
   });
 
-  res.status(200).json({ token });
+  res.status(200).json({ token, message: "Logged in successfully" });
 });
 
 router.get("/profile", authMiddleware, async (req, res) => {
