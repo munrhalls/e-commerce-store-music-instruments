@@ -1,23 +1,29 @@
-require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.JWT_SECRET;
 
-const UNAUTHORIZED = 401;
+class AuthError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "AuthError";
+  }
+}
+
+class AuthorizationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "AuthorizationError";
+  }
+}
 
 module.exports = (req, res, next) => {
   const authHeader = req.header("Authorization");
   if (!authHeader) {
-    return res
-      .status(UNAUTHORIZED)
-      .json({ message: "No Authorization header, authorization denied" });
+    throw new AuthError("No Authorization header");
   }
 
   const token = authHeader.split(" ")[1];
-
   if (!token) {
-    return res
-      .status(UNAUTHORIZED)
-      .json({ message: "No token, authorization denied" });
+    throw new AuthError("No token provided");
   }
 
   try {
@@ -25,6 +31,10 @@ module.exports = (req, res, next) => {
     req.user = decoded.id;
     next();
   } catch (err) {
-    res.status(UNAUTHORIZED).json({ message: "Token is not valid" });
+    if (err instanceof jwt.JsonWebTokenError) {
+      throw new AuthError("Invalid token");
+    } else {
+      throw new AuthorizationError("Authorization failed");
+    }
   }
 };
