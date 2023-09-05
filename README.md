@@ -1,46 +1,37 @@
 WHAT IS THIS:
-Fictional e-commerce store that sells high quality, used watches.
-Built using MongoDB, Mongoose, Node, Express for backend, and Angular for frontend.
-This is a solo project to learn from, build and put on my web developer's portfolio.
+
+This is a fictional e-commerce store that sells high quality luxury watches at cheaper prices.
 
 WHAT DO YOU GET FROM THIS:
-Idea of what I can do, in terms of building a real-world, advanced web development project, such as a full stack e-commerce store.
-Idea of how someone like this can help YOUR PROJECT for YOUR TEAM for YOUR COMPANY.
+Idea of what I can do for YOUR TEAM in YOUR PROJECT at YOUR COMPANY.
 
-HOW DO YOU GET IT:
+HOW DO YOU GET THIS:
+See the e-commerce store PRODUCT LIVE: //url later//
+See the SOURCE CODE:
+Read HOW I WORKED ON THIS:
+A) Pre-development, for starters:
 
-See the OUTCOME PRODUCT, fictional e-commerce store live: //LINK HERE WHEN I HOST IT//
+- formulate general idea and product design (how it'll look like, feel [UI] & work [UX] on phone, desktop etc.)
+- use git, version control
+- use https://kanbanflow.com kanban board to set build order, tasks and self-management about TASKS, TIMELINES & CONTINGENCY PLANS on delays, getting stuck, blocks, milestones & when's etc.
 
-Look at SOURCE CODE:
+B) During development:
 
-- how I've organized the project
-- how I've built a fullstack app using MEAN stack, starting from the backend and REST API
+- start from backend
+- initialize MongoDB cloud storage, Mongoose, connect successfully
+- set up Node and Express REST API endpoints
+- handle REST API errors & validation
+- make ENDPOINTS TESTS COLLECTION in thunder client, DOCUMENT IT
 
-List of FEATURE-TASKS realized:
-For starters, pre-development:
+// DOCUMENTATION
 
-- use version control (git),
-- carefully yet efficiently formulate core idea & design for outcome product (phone version, desktop version),
-- formulate general idea of development process tasks & timelines in https://kanbanflow.com to manage this solo-project
-- follow jira-like process (kanban in this case) to oversee & manage myself about delays, getting stuck, missing timelines, blockers etc.
+TESTS:
+Backend and frontend folders contain a /tests folder, which has all respective tests for backend/frontend.
+Backend:
 
-  Development:
+- thunder client requests collection of POSITIVE/INTENTIONALLY BAD REST API REQUESTS
 
-1. set up backend using MongoDB Cloud storage, Mongoose
-2. build REST API using Node, Express
-3. handle REST API Errors & Validation using Mongoose / Express middleware
-4. TEST API requests using client (Thunder) to write & run the collection of TESTS for ALL ENDPOINTS; export and DOCUMENT the TEST
-
-////
-
-DOCUMENTATION:
-
-1. TESTS (all are in the /tests) folder:
-
-- REST API tests: exported thunder collection (CRUD + INTENTIONALLY BAD REQUESTS )
--
-
-# ECommerceStore
+# ECommerceStoreWatches
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2.
 

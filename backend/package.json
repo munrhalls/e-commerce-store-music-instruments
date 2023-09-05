@@ -1,0 +1,37 @@
+{
+  "name": "e-commerce-store-backend",
+  "version": "1.0.0",
+  "description": "Backend dependencies.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest",
+    "dev": "nodemon index.js"
+  },
+  "private": true,
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/munrhalls/e-commerce-store-watches.git"
+  },
+  "keywords": [
+    "backend",
+    "e-commerce-store",
+    "Node",
+    "Express",
+    "MongoDB",
+    "Mongoose"
+  ],
+  "author": "Munrhalls",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/munrhalls/e-commerce-store-watches/issues"
+  },
+  "homepage": "https://github.com/munrhalls/e-commerce-store-watches#readme"
+}
