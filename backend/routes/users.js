@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const authMiddleware = require("./middleware/auth");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
+const authMiddleware = require("../middleware/auth");
 
 router.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
@@ -51,6 +51,19 @@ router.post("/login", async (req, res) => {
   });
 
   res.status(200).json({ token });
+});
+
+router.get("/profile", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user).select("-password"); // Exclude password
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
 });
 
 module.exports = router;

@@ -1,14 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const watchRoutes = require("./routes/watches");
-
+const userRoutes = require("./routes/users");
 const app = express();
 const port = 3000;
 
-// Express parsing JSON bodies
 app.use(express.json());
-
-// JSON parsing errors
 app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
     console.error(err);
@@ -26,8 +23,8 @@ mongoose
   .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => console.log("Failed to connect to MongoDB Atlas", err));
 
-// Use the watch routes
 app.use("/watches", watchRoutes);
+app.use("/users", userRoutes);
 
 // Handle errors
 app.use((err, req, res, next) => {

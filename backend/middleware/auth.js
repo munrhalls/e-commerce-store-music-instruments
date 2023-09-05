@@ -17,24 +17,22 @@ class AuthorizationError extends Error {
 
 module.exports = (req, res, next) => {
   const authHeader = req.header("Authorization");
+
   if (!authHeader) {
-    throw new AuthError("No Authorization header");
+    return res.status(401).json({ message: "No Authorization header" });
   }
 
   const token = authHeader.split(" ")[1];
+
   if (!token) {
-    throw new AuthError("No token provided");
+    return res.status(401).json({ message: "No token, authorization denied" });
   }
 
   try {
-    const decoded = jwt.verify(token, jwtSecret);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded.id;
     next();
   } catch (err) {
-    if (err instanceof jwt.JsonWebTokenError) {
-      throw new AuthError("Invalid token");
-    } else {
-      throw new AuthorizationError("Authorization failed");
-    }
+    res.status(401).json({ message: "Token is not valid" });
   }
 };
