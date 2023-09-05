@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const authMiddleware = require("../middleware/auth");
+const jwtSecret = process.env.JWT_SECRET;
 
 router.post("/register", async (req, res) => {
   try {
@@ -13,10 +14,16 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+    // Check if user already exists by email
+    const existingUserByEmail = await User.findOne({ email });
+    if (existingUserByEmail) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
+    // Check if user already exists by username
+    const existingUserByUsername = await User.findOne({ username });
+    if (existingUserByUsername) {
+      return res.status(400).json({ message: "Username already exists" });
     }
 
     // Hash the password
@@ -37,6 +44,10 @@ router.post("/register", async (req, res) => {
       id: savedUser._id, // User ID from MongoDB
       username: savedUser.username,
     };
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      return res.status(500).json({ message: "JWT Secret is not defined" });
+    }
 
     const token = jwt.sign(payload, jwtSecret, { expiresIn: "1h" }); // 1 hour expiry
 
@@ -53,6 +64,9 @@ router.post("/register", async (req, res) => {
     res.status(201).json({ message: "User registered successfully", token });
   } catch (err) {
     console.error(err);
+    if (err.code === 11000) {
+      return res.status(400).json({ message: "Duplicate field value entered" });
+    }
     return res.status(500).json({ message: "Server error" });
   }
 });
