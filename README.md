@@ -3,23 +3,41 @@ Fictional e-commerce store that sells high quality, used watches.
 Built using MongoDB, Mongoose, Node, Express for backend, and Angular for frontend.
 This is a solo project to learn from, build and put on my web developer's portfolio.
 
-WHAT DO I GET FROM THIS:
-Idea of what I can do, in terms of building a real-world, advanced web development project, such as full stack e-commerce store.
+WHAT DO YOU GET FROM THIS:
+Idea of what I can do, in terms of building a real-world, advanced web development project, such as a full stack e-commerce store.
 Idea of how someone like this can help YOUR PROJECT for YOUR TEAM for YOUR COMPANY.
 
-HOW DO I GET IT:
+HOW DO YOU GET IT:
 
 See the OUTCOME PRODUCT, fictional e-commerce store live: //LINK HERE WHEN I HOST IT//
 
 Look at SOURCE CODE:
 
 - how I've organized the project
-- how I've built a fullstack app using MEAN stack
+- how I've built a fullstack app using MEAN stack, starting from the backend and REST API
 
-Consider FEATURES:
+List of FEATURE-TASKS realized:
+For starters, pre-development:
 
-- backend using MongoDB, Mongoose
-- REST API using Node, Express
+- use version control (git),
+- carefully yet efficiently formulate core idea & design for outcome product (phone version, desktop version),
+- formulate general idea of development process tasks & timelines in https://kanbanflow.com to manage this solo-project
+- follow jira-like process (kanban in this case) to oversee & manage myself about delays, getting stuck, missing timelines, blockers etc.
+
+  Development:
+
+1. set up backend using MongoDB Cloud storage, Mongoose
+2. build REST API using Node, Express
+3. handle REST API Errors & Validation using Mongoose / Express middleware
+4. TEST API requests using client (Thunder) to write & run the collection of TESTS for ALL ENDPOINTS; export and DOCUMENT the TEST
+
+////
+
+DOCUMENTATION:
+
+1. TESTS (all are in the /tests) folder:
+
+- REST API tests: exported thunder collection (CRUD + INTENTIONALLY BAD REQUESTS )
 -
 
 # ECommerceStore
