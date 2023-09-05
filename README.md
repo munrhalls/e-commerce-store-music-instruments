@@ -1,3 +1,27 @@
+WHAT IS THIS:
+Fictional e-commerce store that sells high quality, used watches.
+Built using MongoDB, Mongoose, Node, Express for backend, and Angular for frontend.
+This is a solo project to learn from, build and put on my web developer's portfolio.
+
+WHAT DO I GET FROM THIS:
+Idea of what I can do, in terms of building a real-world, advanced web development project, such as full stack e-commerce store.
+Idea of how someone like this can help YOUR PROJECT for YOUR TEAM for YOUR COMPANY.
+
+HOW DO I GET IT:
+
+See the OUTCOME PRODUCT, fictional e-commerce store live: //LINK HERE WHEN I HOST IT//
+
+Look at SOURCE CODE:
+
+- how I've organized the project
+- how I've built a fullstack app using MEAN stack
+
+Consider FEATURES:
+
+- backend using MongoDB, Mongoose
+- REST API using Node, Express
+-
+
 # ECommerceStore
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2.

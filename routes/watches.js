@@ -48,13 +48,17 @@ router.get("/:id", async (req, res, next) => {
 // Delete a watch
 router.delete("/:id", async (req, res, next) => {
   try {
-    const watch = await Watch.findById(req.params.id);
-    if (!watch) {
-      return next(new Error("Watch not found"));
-    }
     const deletedWatch = await Watch.findByIdAndDelete(req.params.id);
+
+    if (!deletedWatch) {
+      return res.status(404).json({ message: "Watch not found" });
+    }
+
     res.json(deletedWatch);
   } catch (err) {
+    if (err instanceof mongoose.Error.CastError) {
+      return res.status(400).json({ message: "Invalid ID format" });
+    }
     next(err);
   }
 });
