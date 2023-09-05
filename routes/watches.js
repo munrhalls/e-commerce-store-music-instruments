@@ -62,17 +62,28 @@ router.delete("/:id", async (req, res, next) => {
 // Update a watch
 router.patch("/:id", async (req, res, next) => {
   try {
-    const watch = await Watch.findById(req.params.id);
-    if (!watch) {
+    const watchToUpdate = await Watch.findById(req.params.id);
+    if (!watchToUpdate) {
       return next(new Error("Watch not found"));
     }
+
+    watchToUpdate.set(req.body); // set the updated fields on the model
+
+    // Manual validation check
+    const validationError = watchToUpdate.validateSync();
+    if (validationError) {
+      return next(validationError);
+    }
+
     const updatedWatch = await Watch.findByIdAndUpdate(
       req.params.id,
       req.body,
       {
         new: true,
+        runValidators: true, // Make sure to include this
       }
     );
+
     res.json(updatedWatch);
   } catch (err) {
     next(err);

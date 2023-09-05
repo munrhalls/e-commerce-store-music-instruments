@@ -29,10 +29,15 @@ mongoose
 // Use the watch routes
 app.use("/watches", watchRoutes);
 
-// Handle errors - keep this after all your routes
+// Handle errors
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send("Something went wrong!");
+
+  if (err instanceof mongoose.Error.ValidationError) {
+    return res.status(400).json({ error: err.message });
+  }
+
+  return res.status(500).json({ error: "Something went wrong!" });
 });
 
 // Start the server
