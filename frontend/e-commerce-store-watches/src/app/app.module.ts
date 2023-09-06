@@ -5,13 +5,17 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { StoreComponent } from './store/store.component';
 import { FooterComponent } from './footer/footer.component';
+import { StoreMenuComponent } from './store/store-menu/store-menu.component';
+import { StoreDisplayComponent } from './store/store-display/store-display.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     StoreComponent,
-    FooterComponent
+    FooterComponent,
+    StoreMenuComponent,
+    StoreDisplayComponent
   ],
   imports: [
     BrowserModule
