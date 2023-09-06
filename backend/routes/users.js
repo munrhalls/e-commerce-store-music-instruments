@@ -4,6 +4,17 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const authMiddleware = require("../middleware/auth");
 const jwt = require("jsonwebtoken");
+const { check, validationResult } = require("express-validator");
+
+// Middleware for rate-limiting
+const rateLimit = require("express-rate-limit");
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+});
+
+// Apply rate-limiting middleware to all routes
+router.use(limiter);
 
 const validateFields = (req, res) => {
   const { username, email, password } = req.body;
@@ -74,28 +85,42 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: "Invalid email or password" });
+// Login route with input validation and additional features
+router.post(
+  "/login",
+  [
+    check("email", "Please include a valid email").isEmail(),
+    check("password", "Password is required").exists(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(400).json({ message: "Invalid email or password" });
-    }
-    // Generate JWT token
-    const token = generateToken(user); // Assuming you've defined generateToken as before
+    try {
+      const { email, password } = req.body;
 
-    res.json({ token });
-  } catch (err) {
-    console.error("Error during login:", err);
-    res.status(500).json({ message: "Server error during login" });
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(400).json({ message: "Invalid email or password" });
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        return res.status(400).json({ message: "Invalid email or password" });
+      }
+
+      // Generate JWT token
+      const token = generateToken(user);
+
+      res.json({ token });
+    } catch (err) {
+      console.error("Error during login:", err);
+      res.status(500).json({ message: "Server error during login" });
+    }
   }
-});
+);
 
 router.get("/profile", authMiddleware, async (req, res) => {
   try {

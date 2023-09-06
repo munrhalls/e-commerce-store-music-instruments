@@ -1,0 +1,104 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "E-commerce-store-watches auth tests",
+  "dateExported": "2023-09-06T09:35:25.507Z",
+  "version": "1.1",
+  "folders": [],
+  "requests": [
+    {
+      "_id": "a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890",
+      "colId": "ef9c8008-377e-4504-8534-9af7a742ded6",
+      "containerId": "",
+      "name": "LOGIN: Valid Login",
+      "url": "http://localhost:3000/users/login",
+      "method": "POST",
+      "sortNum": 60001,
+      "created": "2023-09-06T09:40:00.000Z",
+      "modified": "2023-09-06T09:40:15.000Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"valid.email@example.com\",\n  \"password\": \"validPassword\"\n}\n",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "b2c3d4e5-f678-90a1-b2c3-d4e5f67890a1",
+      "colId": "ef9c8008-377e-4504-8534-9af7a742ded6",
+      "containerId": "",
+      "name": "LOGIN: Invalid Email",
+      "url": "http://localhost:3000/users/login",
+      "method": "POST",
+      "sortNum": 60002,
+      "created": "2023-09-06T09:41:00.000Z",
+      "modified": "2023-09-06T09:41:15.000Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"invalid.email@example.com\",\n  \"password\": \"validPassword\"\n}\n",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "c3d4e5f6-7890-a1b2-c3d4-e5f67890a1b2",
+      "colId": "ef9c8008-377e-4504-8534-9af7a742ded6",
+      "containerId": "",
+      "name": "LOGIN: Invalid Password",
+      "url": "http://localhost:3000/users/login",
+      "method": "POST",
+      "sortNum": 60003,
+      "created": "2023-09-06T09:42:00.000Z",
+      "modified": "2023-09-06T09:42:15.000Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"valid.email@example.com\",\n  \"password\": \"invalidPassword\"\n}\n",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "d4e5f678-90a1-b2c3-d4e5-f67890a1b2c3",
+      "colId": "ef9c8008-377e-4504-8534-9af7a742ded6",
+      "containerId": "",
+      "name": "LOGIN: Missing Email",
+      "url": "http://localhost:3000/users/login",
+      "method": "POST",
+      "sortNum": 60004,
+      "created": "2023-09-06T09:43:00.000Z",
+      "modified": "2023-09-06T09:43:15.000Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"password\": \"validPassword\"\n}\n",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "e5f67890-a1b2-c3d4-e5f6-7890a1b2c3d4",
+      "colId": "ef9c8008-377e-4504-8534-9af7a742ded6",
+      "containerId": "",
+      "name": "LOGIN: Missing Password",
+      "url": "http://localhost:3000/users/login",
+      "method": "POST",
+      "sortNum": 60005,
+      "created": "2023-09-06T09:44:00.000Z",
+      "modified": "2023-09-06T09:44:15.000Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"valid.email@example.com\"\n}\n",
+        "form": []
+      },
+      "tests": []
+    }
+  ]
+}
