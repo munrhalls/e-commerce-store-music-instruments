@@ -5,75 +5,55 @@ const bcrypt = require("bcryptjs");
 const authMiddleware = require("../middleware/auth");
 const jwt = require("jsonwebtoken");
 
+const validateFields = (req, res) => {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: "Please enter all fields" });
+  }
+};
+
+const checkExistingUser = async (req, res) => {
+  const { email, username } = req.body;
+  const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+  if (existingUser) {
+    return res.status(400).json({ message: "User already exists" });
+  }
+};
+
+const generateToken = (user) => {
+  const payload = {
+    id: user._id,
+    username: user.username,
+  };
+  const jwtSecret = process.env.JWT_SECRET;
+  if (!jwtSecret) {
+    throw new Error("JWT Secret is not defined");
+  }
+  return jwt.sign(payload, jwtSecret, { expiresIn: "1h" });
+};
+
 router.post("/register", async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    validateFields(req, res);
+    await checkExistingUser(req, res);
 
-    // Check for missing fields
-    if (!username || !email || !password) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-
-    // Check if user already exists by email
-    const existingUserByEmail = await User.findOne({ email });
-    if (existingUserByEmail) {
-      return res.status(400).json({ message: "Email already exists" });
-    }
-
-    // Check if user already exists by username
-    const existingUserByUsername = await User.findOne({ username });
-    if (existingUserByUsername) {
-      return res.status(400).json({ message: "Username already exists" });
-    }
-
-    // Hash the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    // Create new user
+    // Hash password and save user
     const newUser = new User({
-      username,
-      email,
-      password: hashedPassword,
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
     });
-
+    const salt = await bcrypt.genSalt(10);
+    newUser.password = await bcrypt.hash(newUser.password, salt);
     const savedUser = await newUser.save();
 
     // Generate JWT token
-    const payload = {
-      id: savedUser._id, // User ID from MongoDB
-      username: savedUser.username,
-    };
-    const jwtSecret = process.env.JWT_SECRET;
-    if (!jwtSecret) {
-      return res.status(500).json({ message: "JWT Secret is not defined" });
-    }
+    const token = generateToken(savedUser);
 
-    let token;
-    try {
-      token = jwt.sign(payload, jwtSecret, { expiresIn: "1h" }); // 1 hour expiry
-    } catch (err) {
-      console.error("Error generating JWT:", err);
-      return res.status(500).json({ message: "Error generating JWT" });
-    }
-
-    // Send the token in HTTP-only cookie
-    const isProduction = process.env.NODE_ENV === "production";
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: isProduction, // only transfer cookie over HTTPS in production
-      sameSite: "strict", // protection against CSRF attacks
-    });
-
-    // Send success response
-    res.status(201).json({ message: "User registered successfully", token });
+    res.json({ token });
   } catch (err) {
     console.error(err);
-    if (err.code === 11000) {
-      return res.status(400).json({ message: "Duplicate field value entered" });
-    }
-    return res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server Error" });
   }
 });
 
