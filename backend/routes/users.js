@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const authMiddleware = require("../middleware/auth");
-const jwtSecret = process.env.JWT_SECRET;
+const jwt = require("jsonwebtoken");
 
 router.post("/register", async (req, res) => {
   try {
@@ -49,7 +49,13 @@ router.post("/register", async (req, res) => {
       return res.status(500).json({ message: "JWT Secret is not defined" });
     }
 
-    const token = jwt.sign(payload, jwtSecret, { expiresIn: "1h" }); // 1 hour expiry
+    let token;
+    try {
+      token = jwt.sign(payload, jwtSecret, { expiresIn: "1h" }); // 1 hour expiry
+    } catch (err) {
+      console.error("Error generating JWT:", err);
+      return res.status(500).json({ message: "Error generating JWT" });
+    }
 
     // Send the token in HTTP-only cookie
     const isProduction = process.env.NODE_ENV === "production";
@@ -70,8 +76,6 @@ router.post("/register", async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 });
-
-const jwt = require("jsonwebtoken");
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
