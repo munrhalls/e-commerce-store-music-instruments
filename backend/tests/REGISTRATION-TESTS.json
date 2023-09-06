@@ -6,6 +6,39 @@
   "folders": [],
   "requests": [
     {
+      "_id": "new-id-1",
+      "name": "REGISTER: Short Password",
+      "url": "http://localhost:3000/users/register",
+      "method": "POST",
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"pass\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "new-id-2",
+      "name": "REGISTER: No Body",
+      "url": "http://localhost:3000/users/register",
+      "method": "POST",
+      "body": {
+        "type": "json",
+        "raw": "{}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "new-id-3",
+      "name": "REGISTER: Invalid JSON",
+      "url": "http://localhost:3000/users/register",
+      "method": "POST",
+      "body": {
+        "type": "json",
+        "raw": "{ invalid json }"
+      },
+      "tests": []
+    },
+    {
       "_id": "7bc5636d-ec91-4164-9b08-739b31c458ca",
       "colId": "ef9c8008-377e-4504-8534-9af7a742ded6",
       "containerId": "",
