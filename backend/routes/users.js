@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const validateFields = (req, res) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
-    return res.status(400).json({ message: "Please enter all fields" });
+    throw new Error("Please enter all fields");
   }
 };
 
@@ -16,7 +16,7 @@ const checkExistingUser = async (req, res) => {
   const { email, username } = req.body;
   const existingUser = await User.findOne({ $or: [{ email }, { username }] });
   if (existingUser) {
-    return res.status(400).json({ message: "User already exists" });
+    throw new Error("User already exists");
   }
 };
 
@@ -34,7 +34,7 @@ const generateToken = (user) => {
 
 router.post("/register", async (req, res) => {
   try {
-    if (validateFields(req, res)) return;
+    validateFields(req, res);
     await checkExistingUser(req, res);
 
     // Hash password and save user
