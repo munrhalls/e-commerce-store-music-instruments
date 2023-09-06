@@ -122,6 +122,17 @@ router.post(
   }
 );
 
+// Logout Endpoint
+router.post("/logout", (req, res) => {
+  res.clearCookie("token");
+
+  // Send a success response
+  res.status(200).json({
+    status: "success",
+    message: "Successfully logged out",
+  });
+});
+
 router.get("/profile", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user).select("-password"); // Exclude password
