@@ -34,7 +34,7 @@ const generateToken = (user) => {
 
 router.post("/register", async (req, res) => {
   try {
-    validateFields(req, res);
+    if (validateFields(req, res)) return;
     await checkExistingUser(req, res);
 
     // Hash password and save user
@@ -52,29 +52,41 @@ router.post("/register", async (req, res) => {
 
     res.json({ token });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server Error" });
+    console.error("Error during registration:", err);
+
+    if (err.code === 11000) {
+      return res
+        .status(400)
+        .json({ message: "Username or email already exists" });
+    }
+
+    return res
+      .status(500)
+      .json({ message: "Server error during registration" });
   }
 });
 
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.status(400).json({ message: "Invalid email or password" });
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+    // Generate JWT token
+    const token = generateToken(user); // Assuming you've defined generateToken as before
+
+    res.json({ token });
+  } catch (err) {
+    console.error("Error during login:", err);
+    res.status(500).json({ message: "Server error during login" });
   }
-
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) {
-    return res.status(400).json({ message: "Invalid email or password" });
-  }
-
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
-  });
-
-  res.status(200).json({ token, message: "Logged in successfully" });
 });
 
 router.get("/profile", authMiddleware, async (req, res) => {
