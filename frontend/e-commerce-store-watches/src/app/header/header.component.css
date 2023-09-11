@@ -1,13 +1,27 @@
 nav {
-  padding: 1rem;
+  background-color: #16171b;
 }
 .logo-container {
-  height: 10rem;
-  width: 10rem;
+  height: 100%;
 }
+.mobile-divider-line {
+  display: none;
+}
+
 .logo {
   width: 100%;
   height: auto;
   object-fit: contain;
   border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  .logo-container {
+    height: 8rem;
+    width: 100%;
+  }
+  .mobile-divider-line {
+    display: block;
+    border-top: 1px solid #f5cd8b;
+  }
 }
