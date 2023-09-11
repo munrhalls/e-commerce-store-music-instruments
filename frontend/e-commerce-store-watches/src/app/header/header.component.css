@@ -1,15 +1,13 @@
-.navbar {
-  background-color: #676767; /* Granite-like color */
+nav {
+  padding: 1rem;
 }
-
-.navbar-brand {
-  color: #ffd700; /* Gold for luxury */
+.logo-container {
+  height: 10rem;
+  width: 10rem;
 }
-
-.nav-link {
-  color: #ffffff; /* White for readability */
-}
-
-.nav-link:hover {
-  color: #c0c0c0; /* Light gray for hover effect */
+.logo {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 5px;
 }

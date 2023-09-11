@@ -1,0 +1,11 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 2fr 5fr; /* 1st column is 4rem, 2nd column stretches */
+  padding: 0 2rem 0 0;
+}
+
+.grid-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
