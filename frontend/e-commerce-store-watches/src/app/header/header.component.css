@@ -1,9 +1,8 @@
 nav {
   display: grid;
-  grid-template-columns: 2fr 8fr 4fr;
-  gap: 0 7.5rem;
+  grid-template-columns: 2fr 3rem 8fr 3rem 2fr 3rem;
   background-color: #16171b;
-  height: 10rem;
+  height: 12.5rem;
   align-items: center;
 }
 /* LOGO */
@@ -19,8 +18,6 @@ nav {
   max-width: 30rem;
   border-bottom: 1px solid #f5cd8b;
 }
-
-
 .search-input {
   width: 100%;
   padding-left: 0;
@@ -38,7 +35,6 @@ nav {
   white-space: nowrap;
   overflow: hidden;
 }
-
 .search-icon {
   position: absolute;
   right: 0;
@@ -46,7 +42,6 @@ nav {
   transform: translateY(-50%);
   color: #f5cd8b;
 }
-
 @media only screen and (max-width: 37.5em) {
   nav {
     height: 5rem;
@@ -59,4 +54,14 @@ nav {
   .search-icon {
     right: 0.75rem;
   }
+}
+/* ACCOUNT */
+.account {
+  display: flex;
+  flex-direction: column;
+}
+button {
+  padding: 1rem;
+  color: #a50101;
+  background-color: #f5cd8b;
 }
