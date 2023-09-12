@@ -61,7 +61,11 @@ nav {
   flex-direction: column;
 }
 button {
+  margin: 0.25rem;
   padding: 1rem;
-  color: #a50101;
+  border-radius: 3px;
+  border: none;
+  font-weight: bold;
   background-color: #f5cd8b;
+  color: #a50101;
 }
