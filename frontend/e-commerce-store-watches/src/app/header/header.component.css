@@ -16,9 +16,10 @@ nav {
 .search-container {
   position: relative;
   margin-top: 1rem;
-  max-width: 24rem;
-  border-bottom: 1px solid silver;
+  max-width: 30rem;
+  border-bottom: 1px solid #f5cd8b;
 }
+
 
 .search-input {
   width: 100%;
@@ -30,7 +31,8 @@ nav {
   border: none;
   background-color: transparent;
   background: transparent;
-  color: #eaeaea;
+  color: #a50101;
+  font-size: 1.5rem;
   font-weight: lighter;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -42,7 +44,7 @@ nav {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  color: #ccc;
+  color: #f5cd8b;
 }
 
 @media only screen and (max-width: 37.5em) {
