@@ -7,6 +7,7 @@ import { StoreComponent } from './store/store.component';
 import { FooterComponent } from './footer/footer.component';
 import { StoreMenuComponent } from './store/store-menu/store-menu.component';
 import { StoreDisplayComponent } from './store/store-display/store-display.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { StoreDisplayComponent } from './store/store-display/store-display.compo
     StoreDisplayComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

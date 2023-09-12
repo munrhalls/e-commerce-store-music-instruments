@@ -5,13 +5,51 @@ nav {
   height: 10rem;
   align-items: center;
 }
+/* LOGO */
 .logo {
   height: 10rem;
   max-height: 100%;
 }
 
+/* SEARCH INPUT */
+.search-container {
+  position: relative;
+  max-width: 24rem;
+}
+
+.search-input {
+  width: 100%;
+  padding-left: 2rem;
+  padding-top: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid darkred;
+  background-color: transparent;
+  background: transparent;
+  color: #eaeaea;
+  font-weight: lighter;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ccc;
+}
+
 @media only screen and (max-width: 37.5em) {
   nav {
     height: 5rem;
+  }
+  .search-input {
+    padding: 0.4rem 1.5rem 0.4rem 0.4rem;
+    font-size: 0.9rem;
+  }
+
+  .search-icon {
+    right: 0.75rem;
   }
 }
