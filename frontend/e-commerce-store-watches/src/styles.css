@@ -94,6 +94,12 @@ h6 {
   font-size: var(--small-text);
 }
 
+/* 768 */
+@media only screen and (max-width: 48em) {
+  :root {
+    --base-font-size: 14px;
+  }
+}
 /* 600 */
 @media only screen and (max-width: 37.5em) {
   :root {

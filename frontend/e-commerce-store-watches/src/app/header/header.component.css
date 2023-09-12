@@ -8,6 +8,9 @@ nav {
   align-items: center;
   justify-content: center;
 }
+.mobile-footer-nav {
+  display: none;
+}
 /* LOGO */
 .logo {
   justify-self: center;
@@ -63,6 +66,7 @@ button {
   background-color: transparent;
   text-align: left;
   color: #a50101;
+  text-transform: uppercase;
   font-size: 1.875rem;
   font-family: "Montserrat", "Lato", "Roboto", Arial, Helvetica, sans-serif;
   font-weight: 200;
@@ -78,6 +82,7 @@ fa-icon {
 button span {
   margin-top: -0.25rem;
 }
+
 /* 1840px */
 @media only screen and (max-width: 115em) {
   html {
@@ -85,6 +90,10 @@ button span {
   }
   .account {
     flex-direction: column;
+    align-items: flex-start;
+  }
+  .account button {
+    width: 100%;
   }
 }
 /* 1700px */
@@ -146,6 +155,34 @@ button span {
     font-size: 1.25rem;
   }
 }
+/* 768 */
+@media only screen and (max-width: 48em) {
+  nav {
+    height: 8rem;
+    grid-template-columns: 0.25fr 4fr 7fr 4fr;
+  }
+  .logo {
+    height: 6rem;
+    margin-top: 0;
+  }
+  .search-container {
+    margin: 0;
+    padding: 0.1rem;
+    min-width: 12rem;
+    max-width: 80%;
+  }
+  .search-container input {
+    font-size: 1rem;
+  }
+  .account {
+    margin-top: 0;
+    justify-self: center;
+  }
+  .account button {
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+  }
+}
 /* 600px */
 @media only screen and (max-width: 37.5em) {
   nav {
@@ -181,6 +218,7 @@ button span {
 
   button {
     margin: 0;
+    margin-right: 0;
   }
   button fa-icon {
     margin: 0;
