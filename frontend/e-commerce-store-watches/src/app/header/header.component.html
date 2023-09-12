@@ -1,22 +1,23 @@
 <nav>
-  <img src="./../assets/LOGO.png" alt="Lux Logium" class="logo" />
   <div></div>
+  <img src="./../assets/LOGO.png" alt="Lux Logium" class="logo" />
+  <!-- <div></div> -->
   <div class="search-container">
     <input
       type="text"
       class="search-input"
-      placeholder="Search in /NUMBER/ products..."
+      placeholder="Search in 7941 products..."
     />
     <fa-icon [icon]="faSearch" class="search-icon fa-2x"></fa-icon>
   </div>
-  <div></div>
+  <!-- <div></div> -->
   <div class="account">
-    <button class="text-overlay">
-      <fa-icon [icon]="faUser"></fa-icon> Log In
+    <button class="sign-in"><fa-icon [icon]="faUser"></fa-icon> Sign in</button>
+    <button class="reserve">
+      <fa-icon [icon]="faShieldAlt"></fa-icon> Reservations
     </button>
-    <button><fa-icon [icon]="faShieldAlt"></fa-icon> Reserve watch</button>
     <button class="cart">
-      <fa-icon [icon]="faShoppingCart"></fa-icon> ORDER
+      <fa-icon [icon]="faShoppingCart"></fa-icon> Order
     </button>
   </div>
   <div></div>
