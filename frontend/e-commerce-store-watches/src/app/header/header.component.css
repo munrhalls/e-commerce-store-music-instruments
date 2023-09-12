@@ -65,13 +65,12 @@ button {
   color: #a50101;
   font-size: 1.875rem;
   font-family: "Montserrat", "Lato", "Roboto", Arial, Helvetica, sans-serif;
-  font-weight: 400;
+  font-weight: 200;
   cursor: pointer;
 }
 fa-icon {
-  margin-right: 0.75rem;
+  margin-right: 1rem;
   color: #f5cd8b;
-  font-size: 1.875rem;
 }
 .account fa-icon {
   margin-top: 0.75rem;
@@ -81,6 +80,9 @@ button span {
 }
 /* 1840px */
 @media only screen and (max-width: 115em) {
+  html {
+    font-size: 5px;
+  }
   .account {
     flex-direction: column;
   }
@@ -146,6 +148,7 @@ button span {
 }
 /* 600px */
 @media only screen and (max-width: 37.5em) {
+
   nav {
     height: 6rem;
     grid-template-columns: 0fr 1fr;
