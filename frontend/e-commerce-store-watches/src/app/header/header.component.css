@@ -15,21 +15,24 @@ nav {
 .search-container {
   position: relative;
   max-width: 24rem;
+  border-bottom: 1px solid darkred;
 }
 
 .search-input {
-  width: 100%;
+  width: 80%;
   padding-left: 2rem;
   padding-top: 1rem;
   padding-right: 1rem;
   padding-bottom: 1rem;
   outline: none;
   border: none;
-  border-bottom: 1px solid darkred;
   background-color: transparent;
   background: transparent;
   color: #eaeaea;
   font-weight: lighter;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .search-icon {
