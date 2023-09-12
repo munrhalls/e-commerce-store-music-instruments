@@ -111,6 +111,7 @@ button span {
   }
   .account {
     padding-top: 0.25rem;
+    justify-content: center;
   }
   button {
     font-size: 1.5rem;
@@ -146,14 +147,42 @@ button span {
 /* 600px */
 @media only screen and (max-width: 37.5em) {
   nav {
+    height: 6rem;
+    grid-template-columns: 0fr 1fr;
+    justify-content: center;
+    align-items: center;
+  }
+  nav .logo {
+    height: 5.75rem;
+    margin-top: 0.25rem;
+  }
+  nav .search-container,
+  nav .account {
+    display: none;
+  }
+  .mobile-footer-nav {
+    position: fixed;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr 1fr;
+    align-items: center;
     height: 5rem;
+    width: 100%;
+    background-color: #16171b;
   }
-  .search-input {
-    padding: 0.4rem 1.5rem 0.4rem 0.4rem;
-    font-size: 0.9rem;
+  .mobile-footer-nav .search-container {
+    margin: 0;
+    padding: 0;
+    min-width: 8rem;
+    max-width: 10rem;
   }
-
-  .search-icon {
-    right: 0.75rem;
+  button {
+    margin: 0;
+  }
+  button fa-icon {
+    margin: 0;
+  }
+  button span {
+    display: none;
   }
 }
