@@ -155,8 +155,8 @@ button span {
     font-size: 1.25rem;
   }
 }
-/* 768 */
-@media only screen and (max-width: 48em) {
+/* 992 */
+@media only screen and (max-width: 62em) {
   nav {
     height: 8rem;
     grid-template-columns: 0.25fr 4fr 7fr 4fr;
@@ -183,8 +183,8 @@ button span {
     line-height: 0.75rem;
   }
 }
-/* 600px */
-@media only screen and (max-width: 37.5em) {
+/* 768 */
+@media only screen and (max-width: 48em) {
   nav {
     height: 6rem;
     grid-template-columns: 0fr 1fr;
