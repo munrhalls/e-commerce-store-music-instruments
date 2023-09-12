@@ -79,10 +79,68 @@ fa-icon {
 button span {
   margin-top: -0.25rem;
 }
-/* 1750px */
-@media only screen and (max-width: 110em) {
+/* 1840px */
+@media only screen and (max-width: 115em) {
   .account {
     flex-direction: column;
+  }
+}
+/* 1700px */
+@media only screen and (max-width: 106em) {
+  nav {
+    grid-template-columns: 1fr 6fr 12fr 8fr 1fr;
+  }
+}
+/* 1575px */
+@media only screen and (max-width: 98em) {
+  nav {
+    grid-template-columns: 1fr 6fr 12fr 8fr 0fr;
+  }
+}
+/* 1450 */
+@media only screen and (max-width: 90em) {
+  nav {
+    height: 10rem;
+  }
+  .search-container {
+    min-width: 24rem;
+    max-width: 24rem;
+  }
+  .search-input {
+    font-size: 1.5rem;
+  }
+  .account {
+    padding-top: 0.25rem;
+  }
+  button {
+    font-size: 1.5rem;
+    padding: 0.25rem;
+  }
+  fa-icon {
+    font-size: 1.5rem;
+  }
+}
+/* 1300 */
+@media only screen and (max-width: 81em) {
+  .logo {
+    height: 8rem;
+    margin-top: 0.25rem;
+  }
+  .search-container {
+    margin-top: 0.405rem;
+  }
+  .search-input {
+    font-size: 1.25rem;
+  }
+  .account {
+    padding-top: 0.25rem;
+  }
+  button {
+    font-size: 1.25rem;
+    padding: 0.25rem;
+  }
+  fa-icon {
+    font-size: 1.25rem;
   }
 }
 /* 600px */
