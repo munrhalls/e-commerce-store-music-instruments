@@ -63,9 +63,11 @@ nav {
 button {
   margin: 0.25rem;
   padding: 1rem;
-  border-radius: 3px;
   border: none;
-  font-weight: bold;
-  background-color: #f5cd8b;
+  background-color: transparent;
+  text-align: left;
   color: #a50101;
+  cursor: pointer;
+}
+fa-icon {
 }

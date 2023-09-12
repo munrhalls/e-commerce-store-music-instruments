@@ -11,3 +11,7 @@ WRITING CSS PROPERTIES:
 - b) margin padding borders etc.
 - c) heights widths max min heights etc.
 - d) internals font color bg etc.
+
+- THIS ORDER HAS USEFUL EFFECTS, OTHER THAN JUST CLARITY:
+    - e.g., if you need to push one element from another, always choose to do so using the "FURTHER FROM ELEMENT" guideline
+    - need icon pushed from text? do it in the containing element if it makes sense
