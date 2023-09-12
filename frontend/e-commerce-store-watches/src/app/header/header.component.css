@@ -2,15 +2,16 @@
 
 nav {
   display: grid;
-  grid-template-columns: 1fr 5fr 8fr 7fr 1fr;
+  grid-template-columns: 1fr 5fr 8fr 9fr 1fr;
   background-color: #16171b;
-  height: 12.5rem;
+  height: 14rem;
   align-items: center;
   justify-content: center;
 }
 /* LOGO */
 .logo {
   justify-self: center;
+  margin-top: -1rem;
   height: 10rem;
   max-height: 100%;
 }
@@ -19,7 +20,7 @@ nav {
 .search-container {
   justify-self: center;
   position: relative;
-  margin-top: 1rem;
+  margin-top: -1rem;
   max-width: 30rem;
   min-width: 30rem;
   border-bottom: 1px solid #f5cd8b;
@@ -28,14 +29,15 @@ nav {
   width: 100%;
   padding-left: 0;
   padding-right: 3rem;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
   outline: none;
   border: none;
   background-color: transparent;
   background: transparent;
   color: #a50101;
-  font-size: 1.5rem;
-  font-weight: light;
+  font-size: 2rem;
+  font-family: "Montserrat", "Lato", "Roboto", Arial, Helvetica, sans-serif;
+  font-weight: 300;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -47,6 +49,43 @@ nav {
   transform: translateY(-50%);
   color: #f5cd8b;
 }
+/* ACCOUNT */
+.account {
+  justify-self: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: -1rem;
+}
+button {
+  margin: 0.25rem 2.5rem 0.25rem 0;
+  padding: 0.5rem;
+  border: none;
+  background-color: transparent;
+  text-align: left;
+  color: #a50101;
+  font-size: 1.875rem;
+  font-family: "Montserrat", "Lato", "Roboto", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+}
+fa-icon {
+  margin-right: 0.75rem;
+  color: #f5cd8b;
+  font-size: 1.875rem;
+}
+.account fa-icon {
+  margin-top: 0.75rem;
+}
+button span {
+  margin-top: -0.25rem;
+}
+/* 1750px */
+@media only screen and (max-width: 110em) {
+  .account {
+    flex-direction: column;
+  }
+}
+/* 600px */
 @media only screen and (max-width: 37.5em) {
   nav {
     height: 5rem;
@@ -59,26 +98,4 @@ nav {
   .search-icon {
     right: 0.75rem;
   }
-}
-/* ACCOUNT */
-.account {
-  justify-self: center;
-  display: flex;
-  justify-content: space-between;
-  /* flex-direction: column; */
-}
-button {
-  margin: 0.25rem 0.5rem 0.25rem 0.5rem;
-  padding: 0.5rem;
-  border: none;
-  background-color: transparent;
-  text-align: left;
-  color: #a50101;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-fa-icon {
-  margin-right: 0.5rem;
-  color: #f5cd8b;
-  font-size: 2rem;
 }
