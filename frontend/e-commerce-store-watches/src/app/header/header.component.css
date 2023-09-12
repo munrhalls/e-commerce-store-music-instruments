@@ -14,15 +14,16 @@ nav {
 /* SEARCH INPUT */
 .search-container {
   position: relative;
-  max-width: 24rem;
+  height: 5rem;
+  max-width: 30rem;
   border-bottom: 1px solid darkred;
 }
 
 .search-input {
-  width: 80%;
+  width: 100%;
   padding-left: 2rem;
   padding-top: 1rem;
-  padding-right: 1rem;
+  padding-right: 3rem;
   padding-bottom: 1rem;
   outline: none;
   border: none;

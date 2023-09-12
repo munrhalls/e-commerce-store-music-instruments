@@ -51,6 +51,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "hmr": true
+          },
           "configurations": {
             "production": {
               "browserTarget": "e-commerce-store-watches:build:production"
@@ -58,6 +61,15 @@
             "development": {
               "browserTarget": "e-commerce-store-watches:build:development"
             }
+          },
+          "hmr": {
+            "browserTarget": "e-commerce-store-watches:build:development",
+            "fileReplacements": [
+              {
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.hmr.ts"
+              }
+            ]
           },
           "defaultConfiguration": "development"
         },
