@@ -148,7 +148,6 @@ button span {
 }
 /* 600px */
 @media only screen and (max-width: 37.5em) {
-
   nav {
     height: 6rem;
     grid-template-columns: 0fr 1fr;
@@ -175,10 +174,11 @@ button span {
   }
   .mobile-footer-nav .search-container {
     margin: 0;
-    padding: 0;
+    padding: 0.1rem;
     min-width: 8rem;
-    max-width: 10rem;
+    max-width: 80%;
   }
+
   button {
     margin: 0;
   }
