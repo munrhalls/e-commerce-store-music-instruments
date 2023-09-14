@@ -38,7 +38,6 @@ nav {
   background-color: transparent;
   background: transparent;
   color: #a50101;
-  font-size: 2rem;
   font-family: "Montserrat", "Lato", "Roboto", Arial, Helvetica, sans-serif;
   font-weight: 300;
   text-overflow: ellipsis;
@@ -67,17 +66,14 @@ button {
   text-align: left;
   color: #a50101;
   text-transform: uppercase;
-  font-size: 1.875rem;
   font-family: "Montserrat", "Lato", "Roboto", Arial, Helvetica, sans-serif;
   font-weight: 200;
   cursor: pointer;
 }
 fa-icon {
-  margin-right: 1rem;
   color: #f5cd8b;
 }
 .account fa-icon {
-  margin-top: 0.75rem;
 }
 button span {
   margin-top: -0.25rem;
@@ -86,7 +82,6 @@ button span {
 /* 1840px */
 @media only screen and (max-width: 115em) {
   html {
-    font-size: 5px;
   }
   .account {
     flex-direction: column;
@@ -118,18 +113,15 @@ button span {
     max-width: 24rem;
   }
   .search-input {
-    font-size: 1.5rem;
   }
   .account {
     padding-top: 0.25rem;
     justify-content: center;
   }
   button {
-    font-size: 1.5rem;
     padding: 0.25rem;
   }
   fa-icon {
-    font-size: 1.5rem;
   }
 }
 /* 1300 */
@@ -142,17 +134,14 @@ button span {
     margin-top: 0.405rem;
   }
   .search-input {
-    font-size: 1.25rem;
   }
   .account {
     padding-top: 0.25rem;
   }
   button {
-    font-size: 1.25rem;
     padding: 0.25rem;
   }
   fa-icon {
-    font-size: 1.25rem;
   }
 }
 /* 992 */
@@ -172,14 +161,12 @@ button span {
     max-width: 80%;
   }
   .search-container input {
-    font-size: 1rem;
   }
   .account {
     margin-top: 0;
     justify-self: center;
   }
   .account button {
-    font-size: 0.75rem;
     line-height: 0.75rem;
   }
 }
@@ -203,27 +190,24 @@ button span {
     position: fixed;
     bottom: 0;
     display: grid;
-    grid-template-columns: 4fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     align-items: center;
     height: 5rem;
     width: 100%;
     background-color: #16171b;
   }
-  .mobile-footer-nav .search-container {
-    margin: 0;
-    padding: 0.1rem;
-    min-width: 8rem;
-    max-width: 80%;
-  }
 
   button {
     margin: 0;
     margin-right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  button fa-icon {
-    margin: 0;
+  button:not(.menu-button) fa-icon {
+    margin: 0 0 0.75rem 0;
   }
-  button span {
-    display: none;
+  .menu-button fa-icon {
   }
 }
