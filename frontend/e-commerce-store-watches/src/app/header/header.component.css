@@ -1,4 +1,4 @@
-/* Mobile First Styles */
+/* MOBILE-FIRST: CSS FOR PHONE -> STEPS OF MEDIA QUERIES TOWARDS LARGER SCREENS  */
 
 /* HEADER LAYOUT */
 nav {
@@ -8,6 +8,16 @@ nav {
   background-color: #16171b;
   align-items: center;
   justify-content: center;
+}
+.mobile-footer-nav {
+  position: fixed;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  height: 5rem;
+  width: 100%;
+  background-color: #16171b;
 }
 
 /* ALL: ICON BUTTONS */
@@ -22,25 +32,15 @@ button {
   border: none;
   cursor: pointer;
 }
-
 fa-icon {
   color: #f5cd8b;
 }
-
 button span {
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
   white-space: nowrap;
 }
-
-.mobile-footer-nav {
-  position: fixed;
-  bottom: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  align-items: center;
-  height: 5rem;
-  width: 100%;
-  background-color: #16171b;
+.notepad-menu-button {
+  margin-top: 0.275rem;
 }
 
 /* LOGO */
@@ -53,18 +53,18 @@ button span {
 /* SEARCH INPUT & ACCOUNT */
 .search-container,
 .account,
+
+/* MENU BUTTON */
 .notepad-menu-button {
   display: none;
 }
-
-/* MENU BUTTON */
 .mobile-menu-button {
   display: flex;
 }
 
 /* CART  */
 .cart fa-icon {
-  margin-left: -0.25rem;
+  margin-left: -0.275rem;
 }
 
 /* Media Queries for larger screens */
