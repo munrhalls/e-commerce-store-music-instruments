@@ -144,6 +144,10 @@ button {
   font-size: 100%;
   vertical-align: baseline;
   outline: none;
+  background-color: none;
+  background: none;
+  border: none;
+  box-shadow: none;
 }
 
 /* Focus outline none */

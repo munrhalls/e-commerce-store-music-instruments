@@ -1,227 +1,99 @@
+/* Mobile First Styles */
+
 /* HEADER LAYOUT */
 nav {
   display: grid;
-  grid-template-columns: 5fr 8fr 9fr;
+  grid-template-columns: 1fr;
+  height: 6rem;
   background-color: #16171b;
-  height: 14rem;
   align-items: center;
   justify-content: center;
 }
+
 .mobile-footer-nav {
+  position: fixed;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  height: 5rem;
+  width: 100%;
+  background-color: #16171b;
+}
+
+/* LOGO */
+.logo {
+  justify-self: center;
+  height: 5.75rem;
+  margin-top: 0.25rem;
+}
+
+/* SEARCH INPUT & ACCOUNT */
+.search-container,
+.account,
+.notepad-menu-button {
   display: none;
 }
-/* ALL HEADER BUTTONS & ICONS */
+
+/* MENU BUTTON */
+.mobile-menu-button {
+  display: flex;
+}
+
+/* BUTTONS & ICONS */
 button {
   margin: 0;
-  margin-right: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-button:not(.menu-button) fa-icon {
-  margin: 0 0 0.75rem 0;
-}
-
-/* MENU BUTTON */
-nav .menu-button {
-  display: none;
-}
-/* LOGO */
-.logo {
-  justify-self: center;
-  margin-top: -1rem;
-  height: 10rem;
-  max-height: 100%;
-}
-
-/* SEARCH INPUT */
-.search-container {
-  justify-self: center;
-  position: relative;
-  margin-top: -1rem;
-  max-width: 30rem;
-  min-width: 30rem;
-  border-bottom: 1px solid #f5cd8b;
-}
-.search-input {
-  width: 100%;
-  padding-left: 0;
-  padding-right: 3rem;
-  padding-bottom: 0.5rem;
-  outline: none;
-  border: none;
   background-color: transparent;
-  background: transparent;
   color: #a50101;
-  font-family: "Montserrat", "Lato", "Roboto", Arial, Helvetica, sans-serif;
-  font-weight: 300;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.search-icon {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #f5cd8b;
-}
-/* ACCOUNT */
-.account {
-  justify-self: center;
-  display: flex;
-  justify-content: space-between;
-  margin-top: -1rem;
-}
-button {
-  margin: 0.25rem 2.5rem 0.25rem 0;
-  padding: 0.5rem;
   border: none;
-  background-color: transparent;
-  text-align: left;
-  color: #a50101;
-  text-transform: uppercase;
-  font-family: "Montserrat", "Lato", "Roboto", Arial, Helvetica, sans-serif;
-  font-weight: 200;
   cursor: pointer;
 }
+
 fa-icon {
   color: #f5cd8b;
 }
-.account fa-icon {
-}
-button span {
-  margin-top: -0.25rem;
+
+/* Media Queries for larger screens */
+
+/* 768 PHONES */
+@media only screen and (min-width: 48em) {
+  nav {
+    grid-template-columns: 1fr 3fr 5fr 3fr;
+    height: 8rem;
+  }
+
+  .search-container,
+  .account {
+    display: flex;
+  }
+
+  .notepad-menu-button {
+    display: flex;
+  }
+
+  .mobile-menu-button {
+    display: none;
+  }
+
+  .mobile-footer-nav {
+    display: none;
+  }
+
+  /* Add additional styles as required */
 }
 
+/* ... Other media queries ... */
+
 /* 1840px */
-@media only screen and (max-width: 115em) {
-  html {
-  }
-  .account {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .account button {
-    width: 100%;
-  }
-}
-/* 1700px */
-@media only screen and (max-width: 106em) {
+@media only screen and (min-width: 115em) {
   nav {
-    grid-template-columns: 1fr 6fr 12fr 8fr 1fr;
+    grid-template-columns: 5fr 8fr 9fr;
+    height: 14rem;
   }
-}
-/* 1575px */
-@media only screen and (max-width: 98em) {
-  nav {
-    grid-template-columns: 1fr 6fr 12fr 8fr 0fr;
-  }
-}
-/* 1450 */
-@media only screen and (max-width: 90em) {
-  nav {
-    height: 10rem;
-  }
-  .search-container {
-    min-width: 24rem;
-    max-width: 24rem;
-  }
-  .search-input {
-  }
-  .account {
-    padding-top: 0.25rem;
-    justify-content: center;
-  }
-  button {
-    padding: 0.25rem;
-  }
-  fa-icon {
-  }
-}
-/* 1300 */
-@media only screen and (max-width: 81em) {
-  .notepad-menu-button {
-    display: none;
-  }
-  .logo {
-    height: 8rem;
-    margin-top: 0.25rem;
-  }
-  .search-container {
-    margin-top: 0.405rem;
-  }
-  .search-input {
-  }
-  .account {
-    padding-top: 0.25rem;
-  }
-  button {
-    padding: 0.25rem;
-  }
-  fa-icon {
-  }
-}
-/* 992 */
-@media only screen and (max-width: 62em) {
-  nav {
-    height: 8rem;
-    grid-template-columns: 0.25fr 4fr 7fr 4fr;
-  }
-  .notepad-menu-button {
-    display: flex;
-  }
-  .logo {
-    height: 6rem;
-    margin-top: 0;
-  }
-  .search-container {
-    margin: 0;
-    padding: 0.1rem;
-    min-width: 12rem;
-    max-width: 80%;
-  }
-  .search-container input {
-  }
-  .account {
-    margin-top: 0;
-    justify-self: center;
-  }
-  .account button {
-    line-height: 0.75rem;
-  }
-}
-/* 768 */
-@media only screen and (max-width: 48em) {
-  nav {
-    height: 6rem;
-    grid-template-columns: 0fr 1fr;
-    justify-content: center;
-    align-items: center;
-  }
-  nav .logo {
-    height: 5.75rem;
-    margin-top: 0.25rem;
-  }
-  nav .search-container,
-  nav .account {
-    display: none;
-  }
-  .notepad-menu-button {
-    display: none;
-  }
-  .mobile-menu-button {
-    display: flex;
-  }
-  .mobile-footer-nav {
-    position: fixed;
-    bottom: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    align-items: center;
-    height: 5rem;
-    width: 100%;
-    background-color: #16171b;
-  }
+
+  /* Add additional styles as required */
 }
