@@ -48,8 +48,9 @@ button span {
 /* MENU BUTTON */
 .mobile-menu-button {
   display: flex;
+  margin-top: -0.25rem;
 }
-.notepad-menu-button {
+.tablet-menu-button {
   display: none;
 }
 
@@ -64,8 +65,12 @@ button span {
 
 .search {
   display: none;
+  color: #a50101;
+  border-bottom: 1px solid;
 }
-
+.search input {
+  color: #a50101;
+}
 /* USER BUTTONS  */
 .buttons {
   display: none;
@@ -98,7 +103,7 @@ button span {
     justify-content: flex-start;
     margin-left: 2rem;
   }
-  .shop .notepad-menu-button {
+  .shop .tablet-menu-button {
     display: block;
     margin: 0.1rem 1rem 0 0;
     font-size: 3.5em;
@@ -121,8 +126,8 @@ button span {
 
 /* 1050+ SMALL NOTEPADS*/
 @media only screen and (min-width: 64em) {
-  .search {
-    display: block !important;
+  .tablet-menu-button .search {
+    display: block;
   }
   .btn-search {
     display: none;
