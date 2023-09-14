@@ -14,7 +14,7 @@ body {
 
 /* Font Size & Scaling factor */
 :root {
-  --base-font-size: 16px;
+  --base-font-size: 12px;
   --scale-factor: 1.5;
   --h1: calc(
     var(--base-font-size) * var(--scale-factor) * var(--scale-factor) *
@@ -94,15 +94,17 @@ h6 {
   font-size: var(--small-text);
 }
 
-/* 768 */
-@media only screen and (max-width: 48em) {
-  :root {
-    --base-font-size: 14px;
-  }
+@media only screen and (min-width: 21em) {
 }
 /* 600 */
-@media only screen and (max-width: 37.5em) {
+@media only screen and (min-width: 37.5em) {
   :root {
     --base-font-size: 12px;
+  }
+}
+/* 768 */
+@media only screen and (min-width: 48em) {
+  :root {
+    --base-font-size: 14px;
   }
 }
