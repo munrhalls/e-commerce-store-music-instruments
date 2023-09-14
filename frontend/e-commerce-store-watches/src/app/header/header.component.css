@@ -64,13 +64,29 @@ button span {
 /* SEARCH INPUT */
 
 .search {
+  position: relative;
   display: none;
-  color: #a50101;
-  border-bottom: 1px solid;
-}
-.search input {
+  width: 100%;
   color: #a50101;
 }
+.search input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  padding-right: 30px; /* Make space for the icon */
+  border: none;
+  border-bottom: 1px solid #a50101;
+  color: #f5cd8b;
+}
+
+.search fa-icon {
+  position: absolute;
+  right: 0.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #f5cd8b;
+  font-size: 1.5rem;
+}
+
 /* USER BUTTONS  */
 .buttons {
   display: none;
@@ -126,7 +142,10 @@ button span {
 
 /* 1050+ SMALL NOTEPADS*/
 @media only screen and (min-width: 64em) {
-  .tablet-menu-button .search {
+  .shop .tablet-menu-button {
+    display: none;
+  }
+  .search {
     display: block;
   }
   .btn-search {
