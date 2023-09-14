@@ -93,7 +93,8 @@ button span {
   }
   .shop .notepad-menu-button {
     display: block;
-    margin: 0.15rem 1rem 0 0;
+    margin: 0.1rem 1rem 0 0;
+    font-size: 3.5em;
   }
 
   .buttons {
