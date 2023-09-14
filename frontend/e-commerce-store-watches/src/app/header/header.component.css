@@ -1,6 +1,6 @@
 /* MOBILE-FIRST: CSS FOR PHONE -> STEPS OF MEDIA QUERIES TOWARDS LARGER SCREENS  */
 
-/* HEADER LAYOUT */
+/* NAVBAR */
 nav {
   display: grid;
   grid-template-columns: 1fr;
@@ -39,9 +39,18 @@ button span {
   margin-top: 0.5rem;
   white-space: nowrap;
 }
+
+/* SHOP (shop menu & brand logo)*/
+.shop {
+  display: flex;
+  justify-content: center;
+}
+/* MENU BUTTON */
+.mobile-menu-button {
+  display: flex;
+}
 .notepad-menu-button {
-  margin-top: 0.275rem;
-  margin-left: 2rem;
+  display: none;
 }
 
 /* LOGO */
@@ -51,24 +60,20 @@ button span {
   margin-top: 0.25rem;
 }
 
-/* SEARCH INPUT & ACCOUNT */
-.search-container,
-.account,
-
-/* MENU BUTTON */
-.notepad-menu-button {
+/* SEARCH INPUT */
+.search-input {
   display: none;
 }
-.mobile-menu-button {
-  display: flex;
-}
 
-/* CART  */
-.cart fa-icon {
+/* USER BUTTONS  */
+.buttons {
+  display: none;
+}
+.btn-cart fa-icon {
   margin-left: -0.275rem;
 }
 
-/* Media Queries for larger screens */
+/* 350 SMALL PHONES */
 @media only screen and (min-width: 21em) {
   button span {
     text-transform: uppercase;
@@ -77,31 +82,34 @@ button span {
 /* 768 PHONES */
 @media only screen and (min-width: 48em) {
   nav {
-    grid-template-columns: 1fr 3fr 5fr 3fr;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
     height: 6.5rem;
   }
-
-  .search-container,
-  .account {
+  .shop {
     display: flex;
+    justify-content: flex-start;
+    margin-left: 2rem;
+  }
+  .shop .notepad-menu-button {
+    display: block;
+    margin: 0.15rem 1rem 0 0;
   }
 
-  .notepad-menu-button {
+  .buttons {
     display: flex;
+    justify-content: flex-end;
   }
-
+  .buttons button {
+    margin-right: 2rem;
+  }
   .mobile-menu-button {
     display: none;
   }
-
   .mobile-footer-nav {
     display: none;
   }
-
-  /* Add additional styles as required */
 }
-
-/* ... Other media queries ... */
 
 /* 1840px */
 @media only screen and (min-width: 115em) {

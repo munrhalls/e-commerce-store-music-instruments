@@ -1,25 +1,30 @@
 <nav>
-  <button class="notepad-menu-button offset-top">
-    <fa-icon [icon]="faBars" class="fa-3x"></fa-icon>
-  </button>
-  <img src="./../assets/LOGO.png" alt="Lux Logium" class="logo offset-top" />
-  <div class="search-container">
-    <input
-      type="text"
-      class="search-input"
-      placeholder="Search in 7941 products..."
-    />
+  <div class="shop">
+    <button class="notepad-menu-button">
+      <fa-icon [icon]="faBars" class="fa-3x"></fa-icon>
+    </button>
+    <img src="./../assets/LOGO.png" alt="Lux Logium" class="logo" />
+  </div>
+
+  <div class="search-input">
+    <input type="text" placeholder="Search in 7941 products..." />
     <fa-icon [icon]="faSearch" class="search-icon fa-2x"></fa-icon>
   </div>
-  <div class="account">
-    <button class="sign-in">
-      <fa-icon [icon]="faUser"></fa-icon> <span>Sign in</span>
+
+  <div class="buttons">
+    <button class="btn-search">
+      <fa-icon [icon]="faSearch" class="fa-xl"></fa-icon>
+      <span>Search</span>
     </button>
-    <button class="reserve">
-      <fa-icon [icon]="faShieldAlt"></fa-icon><span>Reserve</span>
+    <button class="btn-sign-in">
+      <fa-icon [icon]="faUser" class="fa-xl"></fa-icon> <span>Sign in</span>
     </button>
-    <button class="cart">
-      <fa-icon [icon]="faShoppingCart"></fa-icon> <span>Order</span>
+    <button class="btn-reserve">
+      <fa-icon [icon]="faShieldAlt" class="fa-xl"></fa-icon><span>Reserve</span>
+    </button>
+    <button class="btn-cart">
+      <fa-icon [icon]="faShoppingCart" class="fa-xl"></fa-icon>
+      <span>Order</span>
     </button>
   </div>
 </nav>
@@ -28,19 +33,18 @@
   <button class="mobile-menu-button">
     <fa-icon [icon]="faBars" class="fa-3x"></fa-icon>
   </button>
-  <button class="search">
+
+  <button>
     <fa-icon [icon]="faSearch" class="fa-xl"></fa-icon>
     <span>Search</span>
   </button>
-  <button class="sign-in">
+  <button>
     <fa-icon [icon]="faUser" class="fa-xl"></fa-icon> <span>Sign in</span>
   </button>
-
-  <button class="reserve">
+  <button>
     <fa-icon [icon]="faShieldAlt" class="fa-xl"></fa-icon><span>Reserve</span>
   </button>
-
-  <button class="cart">
+  <button class="btn-cart">
     <fa-icon [icon]="faShoppingCart" class="fa-xl"></fa-icon> <span>Order</span>
   </button>
 </div>
