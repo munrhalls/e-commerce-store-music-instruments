@@ -4,10 +4,32 @@
 nav {
   display: grid;
   grid-template-columns: 1fr;
-  height: 6rem;
+  height: 7rem;
   background-color: #16171b;
   align-items: center;
   justify-content: center;
+}
+
+/* ALL: ICON BUTTONS */
+button {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color: #a50101;
+  border: none;
+  cursor: pointer;
+}
+
+fa-icon {
+  color: #f5cd8b;
+}
+
+button span {
+  margin-top: 0.25rem;
+  white-space: nowrap;
 }
 
 .mobile-footer-nav {
@@ -40,25 +62,17 @@ nav {
   display: flex;
 }
 
-/* BUTTONS & ICONS */
-button {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  color: #a50101;
-  border: none;
-  cursor: pointer;
-}
-
-fa-icon {
-  color: #f5cd8b;
+/* CART  */
+.cart fa-icon {
+  margin-left: -0.25rem;
 }
 
 /* Media Queries for larger screens */
-
+@media only screen and (min-width: 21em) {
+  button span {
+    text-transform: uppercase;
+  }
+}
 /* 768 PHONES */
 @media only screen and (min-width: 48em) {
   nav {
