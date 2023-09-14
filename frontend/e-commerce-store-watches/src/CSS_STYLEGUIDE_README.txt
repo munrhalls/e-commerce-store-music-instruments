@@ -3,7 +3,13 @@ COLORS PALETTE:
 #f5cd8b / rgba(245,205,139,255) - light golden font
 #640101 crimson fit color for font
 
-WRITING CSS PROPERTIES:
+HTML SELECTORS:
+- as much native's (button, etc.) as possible
+- as little classes as possible
+- if full feature, use short name (e.g. search)
+- if not feature, prefix that name (e.g. btn-search)
+
+ORDER OF CSS PROPERTIES:
 - From "FURTHEST FROM ELEMENT" to "ELEMENT CENTER"
 - Don't take it literally
 - But try to generally write in order:
