@@ -61,7 +61,8 @@ button span {
 }
 
 /* SEARCH INPUT */
-.search-input {
+
+.search {
   display: none;
 }
 
@@ -73,13 +74,19 @@ button span {
   margin-left: -0.275rem;
 }
 
-/* 350 SMALL PHONES */
+/* REMEMBER COMMON GOTCHA'S: 
+- UPDATE GRID-TEMPLATE-COLUMNS ON display:none/block
+- ROOT FONT = 12px
+- BUT CALCULATION STILL = USING <num>/16
+*/
+
+/* 350+ PHONES */
 @media only screen and (min-width: 21em) {
   button span {
     text-transform: uppercase;
   }
 }
-/* 768 PHONES */
+/* 768+ TABLETS */
 @media only screen and (min-width: 48em) {
   nav {
     display: grid;
@@ -109,6 +116,19 @@ button span {
   }
   .mobile-footer-nav {
     display: none;
+  }
+}
+
+/* 1050+ SMALL NOTEPADS*/
+@media only screen and (min-width: 64em) {
+  .search {
+    display: block !important;
+  }
+  .btn-search {
+    display: none;
+  }
+  nav {
+    grid-template-columns: 2fr 3fr 3fr;
   }
 }
 
