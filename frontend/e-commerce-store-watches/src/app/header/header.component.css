@@ -66,6 +66,7 @@ button span {
 .search {
   position: relative;
   display: none;
+  max-width: 36rem;
   width: 100%;
   color: #a50101;
 }
@@ -162,19 +163,15 @@ button span {
   }
 }
 
-/* 
-.shop {
-  justify-content: center;
-}
-.logo {
-  margin-left: 0;
-} */
-/* 1840px */
-@media only screen and (min-width: 115em) {
+/* 1400 */
+@media only screen and (min-width: 88em) {
   nav {
-    grid-template-columns: 5fr 8fr 9fr;
-    height: 14rem;
+    grid-template-columns: 2fr 3fr 3fr;
   }
-
-  /* Add additional styles as required */
+  .logo {
+    margin-left: 3rem;
+  }
+  .buttons {
+    margin-right: 3rem;
+  }
 }
