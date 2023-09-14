@@ -1,14 +1,30 @@
 /* HEADER LAYOUT */
-
 nav {
   display: grid;
-  grid-template-columns: 1fr 5fr 8fr 9fr 1fr;
+  grid-template-columns: 5fr 8fr 9fr;
   background-color: #16171b;
   height: 14rem;
   align-items: center;
   justify-content: center;
 }
 .mobile-footer-nav {
+  display: none;
+}
+/* ALL HEADER BUTTONS & ICONS */
+button {
+  margin: 0;
+  margin-right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+button:not(.menu-button) fa-icon {
+  margin: 0 0 0.75rem 0;
+}
+
+/* MENU BUTTON */
+nav .menu-button {
   display: none;
 }
 /* LOGO */
@@ -126,6 +142,9 @@ button span {
 }
 /* 1300 */
 @media only screen and (max-width: 81em) {
+  .notepad-menu-button {
+    display: none;
+  }
   .logo {
     height: 8rem;
     margin-top: 0.25rem;
@@ -149,6 +168,9 @@ button span {
   nav {
     height: 8rem;
     grid-template-columns: 0.25fr 4fr 7fr 4fr;
+  }
+  .notepad-menu-button {
+    display: flex;
   }
   .logo {
     height: 6rem;
@@ -186,6 +208,12 @@ button span {
   nav .account {
     display: none;
   }
+  .notepad-menu-button {
+    display: none;
+  }
+  .mobile-menu-button {
+    display: flex;
+  }
   .mobile-footer-nav {
     position: fixed;
     bottom: 0;
@@ -195,19 +223,5 @@ button span {
     height: 5rem;
     width: 100%;
     background-color: #16171b;
-  }
-
-  button {
-    margin: 0;
-    margin-right: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  button:not(.menu-button) fa-icon {
-    margin: 0 0 0.75rem 0;
-  }
-  .menu-button fa-icon {
   }
 }

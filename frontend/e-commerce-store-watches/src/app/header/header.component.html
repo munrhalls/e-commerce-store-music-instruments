@@ -1,7 +1,9 @@
 <nav>
-  <div></div>
+  <button class="notepad-menu-button">
+    <fa-icon [icon]="faBars" class="fa-2x"></fa-icon>
+    <span>Menu</span>
+  </button>
   <img src="./../assets/LOGO.png" alt="Lux Logium" class="logo" />
-  <!-- <div></div> -->
   <div class="search-container">
     <input
       type="text"
@@ -10,7 +12,6 @@
     />
     <fa-icon [icon]="faSearch" class="search-icon fa-2x"></fa-icon>
   </div>
-  <!-- <div></div> -->
   <div class="account">
     <button class="sign-in">
       <fa-icon [icon]="faUser"></fa-icon> <span>Sign in</span>
@@ -22,11 +23,10 @@
       <fa-icon [icon]="faShoppingCart"></fa-icon> <span>Order</span>
     </button>
   </div>
-  <div></div>
 </nav>
 
 <div class="mobile-footer-nav">
-  <button class="menu-button">
+  <button class="mobile-menu-button">
     <fa-icon [icon]="faBars" class="fa-3x"></fa-icon>
   </button>
   <button class="search">
