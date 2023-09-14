@@ -142,6 +142,12 @@ button span {
 
 /* 1050+ SMALL NOTEPADS*/
 @media only screen and (min-width: 64em) {
+  nav {
+    grid-template-columns: 2fr 2fr 3fr;
+  }
+  .logo {
+    margin-left: 2rem;
+  }
   .shop .tablet-menu-button {
     display: none;
   }
@@ -151,11 +157,18 @@ button span {
   .btn-search {
     display: none;
   }
-  nav {
-    grid-template-columns: 2fr 3fr 3fr;
+  .buttons {
+    margin-right: 2rem;
   }
 }
 
+/* 
+.shop {
+  justify-content: center;
+}
+.logo {
+  margin-left: 0;
+} */
 /* 1840px */
 @media only screen and (min-width: 115em) {
   nav {
