@@ -8,10 +8,12 @@
   position: fixed;
   top: var(--nav-mobile-height);
   bottom: var(--mobile-footer-nav);
-  padding-top: 2rem;
+  padding: 2rem 0;
   width: 27rem;
   background: #16171b;
   overflow-y: scroll;
+  border-top: 1px solid #f5cd8b;
+  border-bottom: 1px solid #f5cd8b;
 }
 ul {
   padding: 0;
