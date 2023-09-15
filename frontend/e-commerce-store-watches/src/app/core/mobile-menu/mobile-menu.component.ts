@@ -1,4 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { MenuService } from './../menu-service.service';
 
 @Component({
@@ -7,16 +9,21 @@ import { MenuService } from './../menu-service.service';
   styleUrls: ['./mobile-menu.component.css'],
 })
 export class MobileMenuComponent implements OnInit, OnDestroy {
-  constructor(private menuService: MenuService) {}
+  private unsubscribe$ = new Subject<void>();
   isOpen: boolean = false;
 
+  constructor(private menuService: MenuService) {}
+
   ngOnInit(): void {
-    this.menuService.isMobileMenuOpen.subscribe((isMobileMenuOpen) => {
-      this.isOpen = isMobileMenuOpen;
-    });
+    this.menuService.isMobileMenuOpen
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((isMobileMenuOpen) => {
+        this.isOpen = isMobileMenuOpen;
+      });
   }
 
   ngOnDestroy(): void {
-    this.menuService.isMobileMenuOpen.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
