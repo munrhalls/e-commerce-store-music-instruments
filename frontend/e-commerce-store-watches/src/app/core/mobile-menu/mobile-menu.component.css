@@ -1,21 +1,29 @@
-.isOpen {
-  display: block;
-}
-.isClosed {
-  display: none;
-}
 .mobile-menu {
+  display: grid;
+  grid-template-columns: 0 5fr 0;
   position: fixed;
   top: var(--nav-mobile-height);
   bottom: var(--mobile-footer-nav);
   padding: 2rem 0;
-  width: 27rem;
+  width: 100%;
   background: #16171b;
   overflow-y: scroll;
   border-top: 1px solid #f5cd8b;
   border-bottom: 1px solid #f5cd8b;
 }
+.mobile-menu::before,
+.mobile-menu::after {
+  content: "";
+}
+.isOpen {
+  display: grid;
+}
+.isClosed {
+  display: none;
+}
+
 ul {
+  grid-column: 2;
   padding: 0;
   list-style: none;
 }
@@ -62,6 +70,19 @@ fa-icon {
   padding: 1rem;
   border-radius: 3px;
   box-shadow: inset #f5cd8b 0 0 10px 1px;
+}
+
+/* 400+ */
+@media screen and (min-width: 25em) {
+  .mobile-menu {
+    grid-template-columns: 1fr 10fr 1fr;
+  }
+}
+/* 600+ */
+@media screen and (min-width: 36em) {
+  .mobile-menu {
+    grid-template-columns: 1fr 4fr 1fr;
+  }
 }
 /* 
 #16171b / rgba(22,23,27,255) - dark shade
