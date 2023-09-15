@@ -29,8 +29,8 @@
   </div>
 </nav>
 
-<div [ngClass]="isMobileMenuOn ? 'mobileMenuOn' : ''" class="mobile-footer-nav">
-  <button class="mobile-menu-button">
+<div class="mobile-footer-nav">
+  <button (click)="toggleisMobileMenuOpen()" class="mobile-menu-button">
     <fa-icon [icon]="faBars" class="fa-3x"></fa-icon>
   </button>
 

@@ -9,6 +9,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { StoreMenuComponent } from './store/store-menu/store-menu.component';
 import { StoreDisplayComponent } from './store/store-display/store-display.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MobileMenuComponent } from './core/mobile-menu/mobile-menu.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FooterComponent,
     StoreMenuComponent,
     StoreDisplayComponent,
+    MobileMenuComponent,
   ],
   imports: [AppRoutingModule, BrowserModule, FontAwesomeModule],
   providers: [],
