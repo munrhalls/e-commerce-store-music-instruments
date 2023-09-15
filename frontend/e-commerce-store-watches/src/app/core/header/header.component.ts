@@ -18,4 +18,9 @@ export class HeaderComponent {
   faShieldAlt = faShieldAlt;
   faShoppingCart = faShoppingCart;
   faBars = faBars;
+  isMobileMenuOn: boolean = false;
+
+  toggleIsMobileMenuOn() {
+    this.isMobileMenuOn = !this.isMobileMenuOn;
+  }
 }

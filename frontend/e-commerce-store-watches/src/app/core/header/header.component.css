@@ -1,4 +1,4 @@
-/* MOBILE-FIRST: CSS FOR PHONE -> STEPS OF MEDIA QUERIES TOWARDS LARGER SCREENS  */
+/* MOBILE-FIRST: CSS FOR PHONE -> MIN-WIDTH MEDIA QUERIES TOWARDS LARGER SCREENS  */
 
 /* NAVBAR */
 nav {
@@ -40,11 +40,12 @@ button span {
   white-space: nowrap;
 }
 
-/* SHOP (shop menu & brand logo)*/
+/* SHOP MENU & LOGO*/
 .shop {
   display: flex;
   justify-content: center;
 }
+
 /* MENU BUTTON */
 .mobile-menu-button {
   display: flex;
@@ -78,7 +79,6 @@ button span {
   border-bottom: 1px solid #a50101;
   color: #f5cd8b;
 }
-
 .search fa-icon {
   position: absolute;
   right: 0.1rem;
@@ -96,7 +96,7 @@ button span {
   margin-left: -0.275rem;
 }
 
-/* REMEMBER COMMON GOTCHA'S: 
+/* MEDIA QUERY COMMON GOTCHA'S: 
 - UPDATE GRID-TEMPLATE-COLUMNS ON display:none/block
 - ROOT FONT = 12px
 - BUT CALCULATION STILL = USING <num>/16
@@ -108,6 +108,7 @@ button span {
     text-transform: uppercase;
   }
 }
+
 /* 768+ TABLETS */
 @media only screen and (min-width: 48em) {
   nav {
@@ -163,15 +164,19 @@ button span {
   }
 }
 
-/* 1400 */
+/* 1400+ LAPTOPS/PC'S */
 @media only screen and (min-width: 88em) {
   nav {
-    grid-template-columns: 2fr 3fr 3fr;
+    grid-template-columns: 3fr 4fr 3fr;
   }
-  .logo {
-    margin-left: 3rem;
+  .shop {
+    justify-content: center;
+  }
+  .shop .logo {
+    margin-right: 15%;
   }
   .buttons {
-    margin-right: 3rem;
+    margin-right: 0;
+    justify-content: center;
   }
 }

@@ -29,7 +29,7 @@
   </div>
 </nav>
 
-<div class="mobile-footer-nav">
+<div [ngClass]="isMobileMenuOn ? 'mobileMenuOn' : ''" class="mobile-footer-nav">
   <button class="mobile-menu-button">
     <fa-icon [icon]="faBars" class="fa-3x"></fa-icon>
   </button>
