@@ -8,6 +8,7 @@
   position: fixed;
   top: var(--nav-mobile-height);
   bottom: var(--mobile-footer-nav);
+  padding-top: 2rem;
   width: 27rem;
   background: #16171b;
   overflow-y: scroll;
