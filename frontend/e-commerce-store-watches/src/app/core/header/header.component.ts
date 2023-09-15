@@ -1,4 +1,3 @@
-import { MenuToggleService } from '../menu-toggle.service';
 import { Component } from '@angular/core';
 import {
   faSearch,
@@ -20,10 +19,9 @@ export class HeaderComponent {
   faShoppingCart = faShoppingCart;
   faBars = faBars;
 
-  constructor(private menuToggleService: MenuToggleService) {}
+  constructor() {}
 
   toggleisMobileMenuOpen() {
     console.log('TOGGLE MENU OPEN');
-    this.menuToggleService.toggleMenu();
   }
 }
