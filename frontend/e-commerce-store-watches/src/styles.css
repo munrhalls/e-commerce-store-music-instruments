@@ -12,7 +12,7 @@ body {
   min-height: 100vh;
 }
 
-/* Font Size & Scaling factor */
+/* GLOBALS  && FONT SIZE - Font Size & Scaling factor */
 :root {
   --base-font-size: 12px;
   --scale-factor: 1.5;
@@ -29,6 +29,8 @@ body {
     var(--base-font-size) / var(--scale-factor) / var(--scale-factor) /
       var(--scale-factor)
   );
+  --nav-mobile-height: 7rem;
+  --mobile-footer-nav: 5rem;
 }
 
 /* Font scale system */

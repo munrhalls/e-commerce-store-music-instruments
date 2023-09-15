@@ -1,3 +1,10 @@
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -7,10 +14,19 @@ import { MenuService } from './../menu-service.service';
   selector: 'app-mobile-menu',
   templateUrl: './mobile-menu.component.html',
   styleUrls: ['./mobile-menu.component.css'],
+  animations: [
+    trigger('slideIn', [
+      state('in', style({ transform: 'translateX(0)' })),
+      state('out', style({ transform: 'translateX(-100%)' })),
+      transition('out => in', animate('300ms ease-in')),
+      transition('in => out', animate('300ms ease-out')),
+    ]),
+  ],
 })
 export class MobileMenuComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   isOpen: boolean = false;
+  menuState = 'out'; // Initial state is 'out'
 
   constructor(private menuService: MenuService) {}
 
@@ -19,6 +35,7 @@ export class MobileMenuComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((isMobileMenuOpen) => {
         this.isOpen = isMobileMenuOpen;
+        this.menuState = this.menuState === 'out' ? 'in' : 'out';
       });
   }
 

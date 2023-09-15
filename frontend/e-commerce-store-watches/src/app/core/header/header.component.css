@@ -4,7 +4,7 @@
 nav {
   display: grid;
   grid-template-columns: 1fr;
-  height: 7rem;
+  height: var(--nav-mobile-height);
   background-color: #16171b;
   align-items: center;
   justify-content: center;
@@ -15,7 +15,7 @@ nav {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   align-items: center;
-  height: 5rem;
+  height: var(--mobile-footer-nav);
   width: 100%;
   background-color: #16171b;
 }

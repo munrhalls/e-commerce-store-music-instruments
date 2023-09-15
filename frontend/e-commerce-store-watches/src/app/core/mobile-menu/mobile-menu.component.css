@@ -5,19 +5,26 @@
   display: none;
 }
 .mobile-menu {
-  padding: 20px;
-  width: 250px;
-  background-color: #f5cd8b;
+  position: fixed;
+  top: 0;
+  left: -100%; /* Initial position, off-screen */
+  width: 80%; /* Adjust the width as needed */
+  height: 100%;
+  background-color: #16171b; /* Background color as specified */
+  z-index: 1000; /* Ensure it's above other elements */
+  transition: transform 300ms ease-in-out; /* Add smooth sliding transition */
 }
+
+/* Add more styles for your mobile menu content */
+
 .mobile-menu ul {
   list-style: none;
   padding: 0;
 }
 .mobile-menu li {
-  margin-bottom: 10px;
 }
 .mobile-menu a {
   text-decoration: none;
   color: #640101;
-  font-size: 18px;
+  font-size: 1.5rem;
 }
