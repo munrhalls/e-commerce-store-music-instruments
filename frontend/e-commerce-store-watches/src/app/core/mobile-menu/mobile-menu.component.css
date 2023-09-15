@@ -9,7 +9,12 @@
   top: var(--nav-mobile-height);
   bottom: var(--mobile-footer-nav);
   width: 27rem;
-  background-color: #fff;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.8) 10%,
+    rgba(222, 222, 222, 0.9) 60%,
+    rgba(146, 146, 146, 0.4) 100%
+  );
   overflow-y: scroll;
 }
 ul {
@@ -17,23 +22,34 @@ ul {
   list-style: none;
 }
 li {
-  display: grid;
-  grid-template-columns: 6fr 1fr;
-  margin: 0 1rem;
-  border-bottom: 1px solid #16171b;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.8) 10%,
+    rgba(222, 222, 222, 0.9) 60%,
+    rgba(146, 146, 146, 0.4) 100%
+  );
 }
 li:last-child {
   border-bottom: none;
 }
 a {
+  display: grid;
+  grid-template-columns: 6fr 1fr;
+  align-items: center;
+  margin: 0 1rem;
   padding: 1rem 0;
   text-decoration: none;
   color: #16171b;
-  font-size: 1.5rem;
-  font-weight: bold;
+  border-bottom: 1px solid #16171b;
+  font-size: 1.25rem;
+  font-family: "Montserrat", "Lato", "Roboto", Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
 }
 fa-icon {
   justify-self: center;
+  margin-right: 2rem;
+  align-self: center;
   color: #640101;
 }
 /* 
