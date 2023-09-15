@@ -15,12 +15,6 @@
 .mobile-menu::after {
   content: "";
 }
-.isOpen {
-  display: grid;
-}
-.isClosed {
-  display: none;
-}
 
 ul {
   grid-column: 2;

@@ -2,8 +2,8 @@ import {
   trigger,
   state,
   style,
-  animate,
   transition,
+  animate,
 } from '@angular/animations';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -17,18 +17,18 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './mobile-menu.component.html',
   styleUrls: ['./mobile-menu.component.css'],
   animations: [
-    trigger('slideIn', [
-      state('in', style({ transform: 'translateX(0)' })),
-      state('out', style({ transform: 'translateX(-100%)' })),
-      transition('out => in', animate('300ms ease-in')),
-      transition('in => out', animate('300ms ease-out')),
+    trigger('slideInOut', [
+      state('in', style({ transform: 'translateX(-100%)' })),
+      state('out', style({ transform: 'translateX(0%)' })),
+      transition('in => out', [animate('400ms ease-in-out')]),
+      transition('out => in', [animate('300ms ease-in-out')]),
     ]),
   ],
 })
 export class MobileMenuComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   isOpen: boolean = false;
-  menuState = 'out'; // Initial state is 'out'
+  menuState: string = 'out';
   faAngleRight = faAngleRight;
 
   constructor(private menuService: MenuService) {}
