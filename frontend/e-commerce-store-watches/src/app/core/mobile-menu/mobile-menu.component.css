@@ -67,6 +67,16 @@ fa-icon {
     grid-template-columns: 1fr 4fr 1fr;
   }
 }
+/* 768+ */
+@media screen and (min-width: 48em) {
+  .mobile-menu {
+    top: var(--nav-notepad-height);
+    bottom: 2px;
+    grid-template-columns: 0 10fr 0;
+    width: 28rem;
+    border-bottom: 1px solid #f5cd8b;
+  }
+}
 /* 
 #16171b / rgba(22,23,27,255) - dark shade
 #f5cd8b / rgba(245,205,139,255) - light golden font

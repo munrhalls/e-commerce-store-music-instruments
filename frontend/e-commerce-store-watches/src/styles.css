@@ -30,6 +30,7 @@ body {
       var(--scale-factor)
   );
   --nav-mobile-height: 7rem;
+  --nav-notepad-height: 6.5rem;
   --mobile-footer-nav: 5rem;
 }
 
