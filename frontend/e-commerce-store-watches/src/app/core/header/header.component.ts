@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { MenuService } from '../menu-service.service';
+import { Component, OnInit, Inject } from '@angular/core';
 import {
   faSearch,
   faUser,
@@ -19,9 +20,9 @@ export class HeaderComponent {
   faShoppingCart = faShoppingCart;
   faBars = faBars;
 
-  constructor() {}
+  constructor(private menuService: MenuService) {}
 
-  toggleisMobileMenuOpen() {
-    console.log('TOGGLE MENU OPEN');
+  toggleMobileMenu() {
+    this.menuService.toggleMobileMenu();
   }
 }

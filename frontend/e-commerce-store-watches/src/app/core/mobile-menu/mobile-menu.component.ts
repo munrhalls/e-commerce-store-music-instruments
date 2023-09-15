@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MobileMenuService } from './mobile-menu-service.service';
+import { MenuService } from './../menu-service.service';
 
 @Component({
   selector: 'app-mobile-menu',
@@ -7,16 +7,16 @@ import { MobileMenuService } from './mobile-menu-service.service';
   styleUrls: ['./mobile-menu.component.css'],
 })
 export class MobileMenuComponent implements OnInit, OnDestroy {
-  constructor(private mobileMenuService: MobileMenuService) {}
+  constructor(private menuService: MenuService) {}
   isOpen: boolean = false;
 
   ngOnInit(): void {
-    this.mobileMenuService.isOpen.subscribe((isOpen) => {
-      this.isOpen = isOpen;
+    this.menuService.isMobileMenuOpen.subscribe((isMobileMenuOpen) => {
+      this.isOpen = isMobileMenuOpen;
     });
   }
 
   ngOnDestroy(): void {
-    this.mobileMenuService.isOpen.unsubscribe();
+    this.menuService.isMobileMenuOpen.unsubscribe();
   }
 }
