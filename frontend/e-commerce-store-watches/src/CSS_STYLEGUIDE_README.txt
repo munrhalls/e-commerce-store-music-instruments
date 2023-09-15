@@ -2,6 +2,7 @@ COLORS PALETTE:
 #16171b / rgba(22,23,27,255) - BG#1 dark shade for core bg's
 #f5cd8b / rgba(245,205,139,255) - light golden font
 #640101 crimson fit color for font
+#a50101 lighter crimson
 
 HTML SELECTORS:
 - as much native's (button, etc.) as possible
