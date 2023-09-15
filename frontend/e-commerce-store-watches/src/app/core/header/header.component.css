@@ -8,6 +8,7 @@ nav {
   background-color: #16171b;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 .mobile-footer-nav {
   position: fixed;
@@ -19,7 +20,10 @@ nav {
   width: 100%;
   background-color: #16171b;
 }
-
+.disable-scroll {
+  position: relative;
+  overflow: hidden;
+}
 /* ALL: ICON BUTTONS */
 button {
   margin: 0;

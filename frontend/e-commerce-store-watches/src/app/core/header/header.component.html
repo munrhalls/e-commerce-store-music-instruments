@@ -1,4 +1,4 @@
-<nav>
+<nav [ngClass]="{ 'disable-scroll': isMobileMenuOpen }">
   <div class="shop">
     <button class="tablet-menu-button">
       <fa-icon [icon]="faBars"></fa-icon>

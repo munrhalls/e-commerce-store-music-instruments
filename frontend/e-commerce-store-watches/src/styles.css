@@ -110,3 +110,9 @@ h6 {
     --base-font-size: 14px;
   }
 }
+
+/* UTILITY */
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}

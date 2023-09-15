@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MenuService } from '../menu-service.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
 import {
   faSearch,
   faUser,
@@ -9,7 +9,6 @@ import {
   faShoppingCart,
   faBars,
   faTimes,
-  faCheck
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -27,7 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   faBars = faBars;
   faTimes = faTimes;
 
-  constructor(private menuService: MenuService) {}
+  constructor(private menuService: MenuService, private renderer: Renderer2) {}
 
   toggleMobileMenu() {
     this.menuService.toggleMobileMenu();
@@ -37,6 +36,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((isMobileMenuOpen) => {
         this.isMobileMenuOpen = isMobileMenuOpen;
+        if (this.isMobileMenuOpen === true) {
+          this.renderer.addClass(document.body, 'no-scroll');
+        } else {
+          this.renderer.removeClass(document.body, 'no-scroll');
+        }
       });
   }
 
