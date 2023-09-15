@@ -9,6 +9,7 @@ import {
   faShoppingCart,
   faBars,
   faTimes,
+  faCheck
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

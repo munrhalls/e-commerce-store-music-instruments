@@ -10,6 +10,8 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MenuService } from './../menu-service.service';
 
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-mobile-menu',
   templateUrl: './mobile-menu.component.html',
@@ -27,6 +29,7 @@ export class MobileMenuComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   isOpen: boolean = false;
   menuState = 'out'; // Initial state is 'out'
+  faAngleRight = faAngleRight;
 
   constructor(private menuService: MenuService) {}
 
