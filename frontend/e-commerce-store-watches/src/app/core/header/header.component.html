@@ -31,7 +31,8 @@
 
 <div class="mobile-footer-nav">
   <button (click)="toggleMobileMenu()" class="mobile-menu-button">
-    <fa-icon [icon]="faBars" class="fa-3x"></fa-icon>
+    <fa-icon *ngIf="!isMobileMenuOpen" [icon]="faBars" class="fa-3x"></fa-icon>
+    <fa-icon *ngIf="isMobileMenuOpen" [icon]="faTimes" class="fa-3x"></fa-icon>
   </button>
 
   <button>

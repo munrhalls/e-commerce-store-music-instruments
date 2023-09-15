@@ -9,5 +9,6 @@ export class MenuService {
   constructor() {}
   toggleMobileMenu() {
     this.isMobileMenuOpen.next(!this.isMobileMenuOpen.value);
+    console.log('Menu open: ' + this.isMobileMenuOpen.value);
   }
 }
