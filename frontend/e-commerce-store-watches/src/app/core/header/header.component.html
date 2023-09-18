@@ -35,10 +35,18 @@
     <fa-icon *ngIf="isMobileMenuOpen" [icon]="faTimes" class="fa-3x"></fa-icon>
   </button>
 
-  <button>
-    <fa-icon [icon]="faSearch" class="fa-xl"></fa-icon>
-    <span>Search</span>
+  <button (click)="toggleSearchForm()">
+    <div *ngIf="!isMobileSearchOpen">
+      <fa-icon [icon]="faSearch" class="fa-xl"></fa-icon>
+      <span>Search</span>
+    </div>
+    <fa-icon
+      *ngIf="isMobileSearchOpen"
+      [icon]="faTimes"
+      class="fa-3x"
+    ></fa-icon>
   </button>
+
   <button>
     <fa-icon [icon]="faUser" class="fa-xl"></fa-icon> <span>Sign in</span>
   </button>

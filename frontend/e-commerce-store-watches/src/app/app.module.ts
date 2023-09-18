@@ -12,6 +12,7 @@ import { StoreComponent } from './store/store.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { StoreMenuComponent } from './store/store-menu/store-menu.component';
 import { StoreDisplayComponent } from './store/store-display/store-display.component';
+import { MobileSearchComponent } from './core/mobile-search/mobile-search.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { StoreDisplayComponent } from './store/store-display/store-display.compo
     FooterComponent,
     StoreMenuComponent,
     StoreDisplayComponent,
+    MobileSearchComponent,
   ],
   imports: [
     AppRoutingModule,

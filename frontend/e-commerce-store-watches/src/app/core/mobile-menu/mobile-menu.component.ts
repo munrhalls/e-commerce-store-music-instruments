@@ -1,3 +1,4 @@
+import { MenuService } from './../menu-service.service';
 import {
   trigger,
   state,
@@ -8,8 +9,6 @@ import {
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MenuService } from './../menu-service.service';
-
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
