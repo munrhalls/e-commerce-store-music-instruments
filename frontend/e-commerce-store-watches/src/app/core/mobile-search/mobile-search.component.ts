@@ -28,7 +28,7 @@ export class MobileSearchComponent implements OnInit {
   constructor(private menuService: MenuService) {}
   private unsubscribe$ = new Subject<void>();
   isOpen: boolean = false;
-  searchFormState: string = 'out';
+  searchFormState: string = 'in';
   faSearch = faSearch;
 
   ngOnInit(): void {

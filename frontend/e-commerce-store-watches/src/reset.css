@@ -148,6 +148,7 @@ button {
   background: none;
   border: none;
   box-shadow: none;
+  box-sizing: border-box;
 }
 
 /* Focus outline none */
