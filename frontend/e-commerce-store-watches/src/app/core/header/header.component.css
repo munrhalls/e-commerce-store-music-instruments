@@ -96,6 +96,10 @@ button span {
 .buttons {
   display: none;
 }
+.btn-search .container {
+  display: flex;
+  flex-direction: column;
+}
 .btn-cart fa-icon {
   margin-left: -0.275rem;
 }

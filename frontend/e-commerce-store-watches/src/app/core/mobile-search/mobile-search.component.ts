@@ -1,4 +1,5 @@
 import { MenuService } from '../menu-service.service';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import {
   trigger,
   state,
@@ -28,6 +29,7 @@ export class MobileSearchComponent implements OnInit {
   private unsubscribe$ = new Subject<void>();
   isOpen: boolean = false;
   searchFormState: string = 'out';
+  faSearch = faSearch;
 
   ngOnInit(): void {
     this.menuService.isMobileSearchOpen
