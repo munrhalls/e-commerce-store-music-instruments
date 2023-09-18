@@ -1,7 +1,16 @@
 <nav [ngClass]="{ 'disable-scroll': openElementName.length > 0 }">
   <div class="shop">
     <button (click)="toggleMobileMenu()" class="tablet-menu-button">
-      <fa-icon [icon]="faBars"></fa-icon>
+      <div>
+        <fa-icon
+          *ngIf="openElementName !== 'mobile-menu'"
+          [icon]="faBars"
+        ></fa-icon>
+        <fa-icon
+          *ngIf="openElementName === 'mobile-menu'"
+          [icon]="faTimes"
+        ></fa-icon>
+      </div>
     </button>
     <img src="./../assets/LOGO.png" alt="Lux Logium" class="logo" />
   </div>
