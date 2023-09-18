@@ -17,10 +17,10 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./mobile-search.component.css'],
   animations: [
     trigger('slideInOut', [
-      state('in', style({ transform: 'translateX(-100%)' })),
-      state('out', style({ transform: 'translateX(0%)' })),
-      transition('in => out', [animate('250ms ease-in-out')]),
-      transition('out => in', [animate('200ms ease-in-out')]),
+      state('open', style({ transform: 'translateX(100%)' })),
+      state('closed', style({ transform: 'translateX(0%)' })),
+      transition('open => closed', [animate('250ms ease-in-out')]),
+      transition('closed => open', [animate('200ms ease-in-out')]),
     ]),
   ],
 })
@@ -28,15 +28,16 @@ export class MobileSearchComponent implements OnInit {
   constructor(private menuService: MenuService) {}
   private unsubscribe$ = new Subject<void>();
   isOpen: boolean = false;
-  searchFormState: string = 'in';
+  searchFormState: string = 'out';
   faSearch = faSearch;
 
   ngOnInit(): void {
-    this.menuService.isMobileSearchOpen
+    this.menuService.openElementName
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((isMobileSearchOpen) => {
-        this.isOpen = isMobileSearchOpen;
-        this.searchFormState = this.searchFormState === 'out' ? 'in' : 'out';
+      .subscribe((openElementName) => {
+        this.isOpen = openElementName === 'mobile-search';
+        this.searchFormState =
+          this.isOpen && this.searchFormState === 'closed' ? 'open' : 'closed';
       });
   }
   ngOnDestroy(): void {

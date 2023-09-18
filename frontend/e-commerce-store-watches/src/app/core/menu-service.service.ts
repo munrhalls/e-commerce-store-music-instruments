@@ -5,16 +5,22 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class MenuService {
-  isMobileMenuOpen: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  isMobileSearchOpen: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  constructor() {}
-  toggleMobileMenu() {
-    this.isMobileMenuOpen.next(!this.isMobileMenuOpen.value);
-    console.log('Menu open: ' + this.isMobileMenuOpen.value);
-  }
-  toggleMobileSearchFormOpen() {
-    this.isMobileSearchOpen.next(!this.isMobileSearchOpen.value);
+  openElementName: BehaviorSubject<string> = new BehaviorSubject('');
 
-    console.log('Mobile search form open: ' + this.isMobileSearchOpen.value);
+  constructor() {}
+
+  toggleMobileMenu() {
+    this.openElementName.next(
+      this.openElementName.value === 'mobile-menu' ? '' : 'mobile-menu'
+    );
+    console.log('Menu open: ' + this.openElementName.value);
+  }
+
+  toggleMobileSearchFormOpen() {
+    this.openElementName.next(
+      this.openElementName.value === 'mobile-search' ? '' : 'mobile-search'
+    );
+
+    console.log('Mobile search form open: ' + this.openElementName.value);
   }
 }

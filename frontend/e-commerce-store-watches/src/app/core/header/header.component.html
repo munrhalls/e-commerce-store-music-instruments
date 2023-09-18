@@ -1,4 +1,4 @@
-<nav [ngClass]="{ 'disable-scroll': isMobileMenuOpen }">
+<nav [ngClass]="{ 'disable-scroll': openElementName.length > 0 }">
   <div class="shop">
     <button (click)="toggleMobileMenu()" class="tablet-menu-button">
       <fa-icon [icon]="faBars"></fa-icon>
@@ -31,17 +31,25 @@
 
 <div class="mobile-footer-nav">
   <button (click)="toggleMobileMenu()" class="mobile-menu-button">
-    <fa-icon *ngIf="!isMobileMenuOpen" [icon]="faBars" class="fa-3x"></fa-icon>
-    <fa-icon *ngIf="isMobileMenuOpen" [icon]="faTimes" class="fa-3x"></fa-icon>
+    <fa-icon
+      *ngIf="openElementName !== 'mobile-menu'"
+      [icon]="faBars"
+      class="fa-3x"
+    ></fa-icon>
+    <fa-icon
+      *ngIf="openElementName === 'mobile-menu'"
+      [icon]="faTimes"
+      class="fa-3x"
+    ></fa-icon>
   </button>
 
   <button (click)="toggleSearchForm()" class="btn-search">
-    <div *ngIf="!isMobileSearchOpen" class="container">
+    <div *ngIf="openElementName !== 'mobile-search'" class="container">
       <fa-icon [icon]="faSearch" class="fa-xl"></fa-icon>
       <span>Search</span>
     </div>
     <fa-icon
-      *ngIf="isMobileSearchOpen"
+      *ngIf="openElementName === 'mobile-search'"
       [icon]="faTimes"
       class="fa-3x"
     ></fa-icon>

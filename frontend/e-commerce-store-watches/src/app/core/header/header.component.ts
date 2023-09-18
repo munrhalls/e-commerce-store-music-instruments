@@ -18,9 +18,7 @@ import {
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
-  isMobileMenuOpen: boolean = false;
-  isMobileSearchOpen: boolean = false;
-
+  openElementName: string = '';
   faSearch = faSearch;
   faUser = faUser;
   faShieldAlt = faShieldAlt;
@@ -37,27 +35,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.toggleMobileSearchFormOpen();
   }
   ngOnInit(): void {
-    this.menuService.isMobileMenuOpen
+    this.menuService.openElementName
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((isMobileMenuOpen) => {
-        this.isMobileMenuOpen = isMobileMenuOpen;
-        if (this.isMobileMenuOpen === true) {
+      .subscribe((openElementName: string) => {
+        this.openElementName = openElementName;
+        if (this.openElementName?.length > 0) {
           this.renderer.addClass(document.body, 'no-scroll');
         } else {
           this.renderer.removeClass(document.body, 'no-scroll');
         }
       });
-    this.menuService.isMobileSearchOpen
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((isMobileSearchOpen) => {
-        this.isMobileSearchOpen = isMobileSearchOpen;
-        if (this.isMobileSearchOpen === true) {
-          this.renderer.addClass(document.body, 'no-scroll');
-        } else {
-          this.renderer.removeClass(document.body, 'no-scroll');
-        }
-      });
+    console.log(this.openElementName);
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 }

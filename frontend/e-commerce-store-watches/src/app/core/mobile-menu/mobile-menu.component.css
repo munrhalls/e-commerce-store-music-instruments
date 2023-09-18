@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 0 5fr 0;
   position: fixed;
+  left: -100%;
   top: var(--nav-mobile-height);
   bottom: var(--mobile-footer-nav);
   padding: 2rem 0;

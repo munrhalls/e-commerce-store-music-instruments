@@ -17,27 +17,29 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./mobile-menu.component.css'],
   animations: [
     trigger('slideInOut', [
-      state('in', style({ transform: 'translateX(-100%)' })),
-      state('out', style({ transform: 'translateX(0%)' })),
-      transition('in => out', [animate('400ms ease-in-out')]),
-      transition('out => in', [animate('300ms ease-in-out')]),
+      state('open', style({ transform: 'translateX(100%)' })),
+      state('closed', style({ transform: 'translateX(0%)' })),
+      transition('open => closed', [animate('400ms ease-in-out')]),
+      transition('closed => open', [animate('300ms ease-in-out')]),
     ]),
   ],
 })
 export class MobileMenuComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   isOpen: boolean = false;
-  menuState: string = 'out';
+  menuState: string = 'closed';
   faAngleRight = faAngleRight;
 
   constructor(private menuService: MenuService) {}
 
   ngOnInit(): void {
-    this.menuService.isMobileMenuOpen
+    this.menuService.openElementName
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((isMobileMenuOpen) => {
-        this.isOpen = isMobileMenuOpen;
-        this.menuState = this.menuState === 'out' ? 'in' : 'out';
+      .subscribe((openElementName) => {
+        this.isOpen = openElementName === 'mobile-menu';
+
+        this.menuState =
+          this.isOpen && this.menuState === 'closed' ? 'open' : 'closed';
       });
   }
 
