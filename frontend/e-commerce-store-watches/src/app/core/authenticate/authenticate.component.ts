@@ -15,6 +15,34 @@ import {
   selector: 'app-authenticate',
   templateUrl: './authenticate.component.html',
   styleUrls: ['./authenticate.component.css'],
+  animations: [
+    trigger('routeAnimations', [
+      transition('* <=> authenticate', [
+        query(
+          ':enter',
+          [
+            style({ transform: 'translateX(-100%)' }),
+            animate(
+              '1000ms ease-in-out',
+              style({ transform: 'translateX(0%)' })
+            ),
+          ],
+          { optional: true }
+        ),
+        query(
+          ':leave',
+          [
+            style({ transform: 'translateX(0%)' }),
+            animate(
+              '1000ms ease-in-out',
+              style({ transform: 'translateX(100%)' })
+            ),
+          ],
+          { optional: true }
+        ),
+      ]),
+    ]),
+  ],
 })
 export class AuthenticateComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private menuService: MenuService) {}

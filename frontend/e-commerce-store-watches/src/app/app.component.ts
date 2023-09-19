@@ -14,34 +14,6 @@ import {
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [
-    trigger('routeAnimations', [
-      transition('* <=> authenticate', [
-        query(
-          ':enter',
-          [
-            style({ transform: 'translateX(-80%)' }),
-            animate(
-              '1000ms ease-in-out',
-              style({ transform: 'translateX(15%)' })
-            ),
-          ],
-          { optional: true }
-        ),
-        query(
-          ':leave',
-          [
-            style({ transform: 'translateX(0%)' }),
-            animate(
-              '1000ms ease-in-out',
-              style({ transform: 'translateX(80%)' })
-            ),
-          ],
-          { optional: true }
-        ),
-      ]),
-    ]),
-  ],
 })
 export class AppComponent implements OnInit {
   constructor(private contexts: ChildrenOutletContexts) {}
