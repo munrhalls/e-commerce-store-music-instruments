@@ -1,1 +1,17 @@
-<p>authenticate works!</p>
+<div class="authenticate">
+  <div class="sign-up" *ngIf="account === 'no-account'">
+    <div class="has-account">
+      <span>Already have account?</span>
+      <button (click)="toggleAccount()">Sign in</button>
+    </div>
+    <h1>SIGN UP</h1>
+  </div>
+
+  <div class="sign-in" *ngIf="account === 'has-account'">
+    <div class="no-account">
+      <span> No account?</span>
+      <button (click)="toggleAccount()">Sign up</button>
+    </div>
+    <h1>SIGN IN</h1>
+  </div>
+</div>

@@ -31,11 +31,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   toggleMobileMenu() {
     this.menuService.toggleMobileMenu();
   }
-  toggleSearchForm() {
+  toggleMobileSearch() {
     this.menuService.toggleMobileSearch();
   }
-  toggleAuthenticateForm() {
-    this.menuService.toggleAuthenticateForm();
+  toggleAuthenticate() {
+    this.menuService.toggleAuthenticate();
   }
 
   ngOnInit(): void {

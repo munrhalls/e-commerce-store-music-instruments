@@ -97,7 +97,8 @@ button span {
   display: none;
 }
 
-.btn-search .container {
+.mobile-footer-nav .btn-container,
+.buttons .btn-container {
   display: flex;
   flex-direction: column;
 }
@@ -145,7 +146,7 @@ button span {
     margin-right: 2rem;
   }
 
-  .btn-search .icon-close {
+  .buttons .icon-close {
     padding-right: 0.75rem;
   }
 

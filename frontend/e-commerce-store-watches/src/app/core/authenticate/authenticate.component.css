@@ -1,0 +1,23 @@
+.authenticate {
+  padding: 2rem 0;
+  height: 100%;
+  width: 100%;
+
+  border-top: 1px solid #f5cd8b;
+  border-bottom: 1px solid #f5cd8b;
+  overflow-y: scroll;
+
+  background: #16171b;
+  color: #fff;
+}
+button {
+  color: #fff;
+}
+
+/* TABLETS 768+ */
+@media screen and (min-width: 48em) {
+  .authenticate {
+    top: var(--nav-notepad-height);
+    bottom: 0;
+  }
+}

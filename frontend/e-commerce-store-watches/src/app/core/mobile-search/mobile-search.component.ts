@@ -24,7 +24,7 @@ import { takeUntil } from 'rxjs/operators';
     ]),
   ],
 })
-export class MobileSearchComponent implements OnInit {
+export class MobileSearchComponent implements OnInit, OnDestroy {
   constructor(private menuService: MenuService) {}
   private unsubscribe$ = new Subject<void>();
   isOpen: boolean = false;

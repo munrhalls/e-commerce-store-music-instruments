@@ -1,33 +1,50 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MenuService {
   openElementName: BehaviorSubject<string> = new BehaviorSubject('');
+  private previousUrl: string = '/';
 
-  constructor() {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.previousUrl = params['previousUrl'] || '/';
+    });
+  }
 
   toggleMobileMenu() {
     this.openElementName.next(
       this.openElementName.value === 'mobile-menu' ? '' : 'mobile-menu'
     );
-    console.log('Menu open: ' + this.openElementName.value);
+    this.navigateToPreviousURL();
   }
 
   toggleMobileSearch() {
     this.openElementName.next(
       this.openElementName.value === 'mobile-search' ? '' : 'mobile-search'
     );
-
-    console.log('Mobile search form open: ' + this.openElementName.value);
+    this.navigateToPreviousURL();
   }
-  toggleAuthenticateForm() {
+
+  toggleAuthenticate() {
     this.openElementName.next(
       this.openElementName.value === 'authenticate' ? '' : 'authenticate'
     );
+    if (this.openElementName.value === 'authenticate') {
+      this.router
+        .navigate(['/authenticate'])
+        .catch((err) => console.error('Navigation Error:', err));
+    } else {
+      this.navigateToPreviousURL();
+    }
+  }
 
-    console.log('Authenticate open: ' + this.openElementName.value);
+  navigateToPreviousURL() {
+    this.router
+      .navigate([this.previousUrl])
+      .catch((err) => console.error('Navigation Error:', err));
   }
 }
