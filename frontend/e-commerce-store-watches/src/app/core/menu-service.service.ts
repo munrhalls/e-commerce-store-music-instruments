@@ -9,39 +9,32 @@ export class MenuService {
   openElementName: BehaviorSubject<string> = new BehaviorSubject('');
   private previousUrl: string = '/';
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-    this.activatedRoute.queryParams.subscribe((params) => {
+  constructor(private router: Router, private route: ActivatedRoute) {
+    this.route.queryParams.subscribe((params) => {
       this.previousUrl = params['previousUrl'] || '/';
     });
+  }
+  setOpenElementNameManually(name: string) {
+    this.openElementName.next(name);
   }
   toggleMobileMenu() {
     this.openElementName.next(
       this.openElementName.value === 'mobile-menu' ? '' : 'mobile-menu'
     );
-    this.navigateToPreviousURL();
+    this.closeAuthenticateURL();
   }
   toggleMobileSearch() {
     this.openElementName.next(
       this.openElementName.value === 'mobile-search' ? '' : 'mobile-search'
     );
-    this.navigateToPreviousURL();
+    this.closeAuthenticateURL();
   }
-  toggleAuthenticate() {
-    this.openElementName.next(
-      this.openElementName.value === 'authenticate' ? '' : 'authenticate'
-    );
-    this.handleAuthenticateRouting();
+  openAuthenticateURL() {
+    this.router
+      .navigate(['/authenticate'])
+      .catch((err) => console.error('Navigation Error:', err));
   }
-  handleAuthenticateRouting() {
-    if (this.openElementName.value === 'authenticate') {
-      this.router
-        .navigate(['/authenticate'])
-        .catch((err) => console.error('Navigation Error:', err));
-    } else {
-      this.navigateToPreviousURL();
-    }
-  }
-  navigateToPreviousURL() {
+  closeAuthenticateURL() {
     this.router
       .navigate([this.previousUrl])
       .catch((err) => console.error('Navigation Error:', err));

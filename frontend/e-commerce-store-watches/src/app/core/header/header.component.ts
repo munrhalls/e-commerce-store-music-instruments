@@ -1,7 +1,8 @@
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MenuService } from '../menu-service.service';
-import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
+import { Component, Renderer2, OnInit } from '@angular/core';
 import {
   faSearch,
   faUser,
@@ -16,9 +17,9 @@ import {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent {
-  private unsubscribe$ = new Subject<void>();
+export class HeaderComponent implements OnInit {
   openElementName: string = '';
+  isAuthenticationOpen: boolean = false;
   faSearch = faSearch;
   faUser = faUser;
   faShieldAlt = faShieldAlt;
@@ -26,7 +27,12 @@ export class HeaderComponent {
   faBars = faBars;
   faTimes = faTimes;
 
-  constructor(private menuService: MenuService, private renderer: Renderer2) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private menuService: MenuService,
+    private renderer: Renderer2
+  ) {}
 
   toggleMobileMenu() {
     this.menuService.toggleMobileMenu();
@@ -34,26 +40,34 @@ export class HeaderComponent {
   toggleMobileSearch() {
     this.menuService.toggleMobileSearch();
   }
-  toggleAuthenticate() {
-    this.menuService.toggleAuthenticate();
+  openAuthenticateURL() {
+    this.menuService.openAuthenticateURL();
+  }
+  closeAuthenticateURL() {
+    this.menuService.closeAuthenticateURL();
   }
 
-  // ngOnInit(): void {
-  //   this.menuService.openElementName
-  //     .pipe(takeUntil(this.unsubscribe$))
-  //     .subscribe((openElementName: string) => {
-  //       this.openElementName = openElementName;
-  //       if (this.openElementName?.length > 0) {
-  //         this.renderer.addClass(document.body, 'no-scroll');
-  //       } else {
-  //         this.renderer.removeClass(document.body, 'no-scroll');
-  //       }
-  //     });
-  //   console.log(this.openElementName);
-  // }
+  ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const url = event.urlAfterRedirects;
+        if (url.includes('authenticate')) {
+          this.menuService.setOpenElementNameManually('');
+          this.isAuthenticationOpen = true;
+        } else {
+          this.isAuthenticationOpen = false;
+        }
+      }
+    });
 
-  // ngOnDestroy(): void {
-  //   this.unsubscribe$.next();
-  //   this.unsubscribe$.complete();
-  // }
+    this.menuService.openElementName.subscribe((openElementName: string) => {
+      this.openElementName = openElementName;
+      if (this.openElementName?.length > 0) {
+        this.isAuthenticationOpen = false;
+        this.renderer.addClass(document.body, 'no-scroll');
+      } else {
+        this.renderer.removeClass(document.body, 'no-scroll');
+      }
+    });
+  }
 }

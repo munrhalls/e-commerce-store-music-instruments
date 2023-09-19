@@ -1,15 +1,9 @@
-import { Router } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { MenuService } from '../menu-service.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import {
-  trigger,
-  transition,
-  style,
-  query,
-  animate,
-} from '@angular/animations';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-authenticate',
@@ -17,27 +11,22 @@ import {
   styleUrls: ['./authenticate.component.css'],
   animations: [
     trigger('authenticateAnimation', [
-      transition('* <=> authenticate', [
-        query(':enter', [
-          style({ transform: 'translateX(-100%)' }),
-          animate('1000ms ease-in-out', style({ transform: 'translateX(0%)' })),
-        ]),
-        query(':leave', [
-          style({ transform: 'translateX(0%)' }),
-          animate(
-            '1000ms ease-in-out',
-            style({ transform: 'translateX(100%)' })
-          ),
-        ]),
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('1000ms ease-in-out', style({ transform: 'translateX(0%)' })),
+      ]),
+      transition(':leave', [
+        style({ transform: 'translateX(0%)' }),
+        animate('1000ms ease-in-out', style({ transform: 'translateX(100%)' })),
       ]),
     ]),
   ],
 })
 export class AuthenticateComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private menuService: MenuService) {}
+
   private unsubscribe$ = new Subject<void>();
   isOpen: boolean = false;
-  menuState: string = 'closed';
   account: string = 'has-account';
 
   toggleAccount() {
@@ -50,10 +39,21 @@ export class AuthenticateComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((openElementName) => {
         this.isOpen = openElementName === 'authenticate';
-
-        this.menuState =
-          this.isOpen && this.menuState === 'closed' ? 'open' : 'closed';
       });
+
+    this.router.events.subscribe((event) => {
+      // if (
+      //   event instanceof NavigationStart &&
+      //   event.url.includes('authenticate')
+      // ) {
+      //   this.isOpen = true;
+      //   this.menuService.navigateAuthenticateURL();
+      // }
+      // if (event instanceof NavigationEnd) {
+      //   this.isOpen = false;
+      //   this.menuService.navigateAuthenticateURL();
+      // }
+    });
   }
 
   ngOnDestroy(): void {

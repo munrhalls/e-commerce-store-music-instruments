@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// COMPONENTS
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './core/header/header.component';
 import { MobileMenuComponent } from './core/mobile-menu/mobile-menu.component';

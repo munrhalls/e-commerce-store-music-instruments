@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ChildrenOutletContexts } from '@angular/router';
 
 @Component({
   selector: 'app-root',

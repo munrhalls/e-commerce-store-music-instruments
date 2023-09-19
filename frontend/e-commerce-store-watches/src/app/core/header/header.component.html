@@ -33,13 +33,18 @@
       ></fa-icon>
     </button>
 
-    <button (click)="toggleAuthenticate()">
-      <div *ngIf="openElementName !== 'authenticate'" class="btn-container">
+    <button>
+      <div
+        (click)="openAuthenticateURL()"
+        *ngIf="!isAuthenticationOpen"
+        class="btn-container"
+      >
         <fa-icon [icon]="faUser" class="fa-xl"></fa-icon>
         <span>Sign in</span>
       </div>
       <fa-icon
-        *ngIf="openElementName === 'authenticate'"
+        (click)="closeAuthenticateURL()"
+        *ngIf="isAuthenticationOpen"
         [icon]="faTimes"
         class="icon-close fa-3x"
       ></fa-icon>
@@ -80,13 +85,18 @@
     ></fa-icon>
   </button>
 
-  <button (click)="toggleAuthenticate()">
-    <div *ngIf="openElementName !== 'authenticate'" class="btn-container">
+  <button>
+    <div
+      (click)="openAuthenticateURL()"
+      *ngIf="!isAuthenticationOpen"
+      class="btn-container"
+    >
       <fa-icon [icon]="faUser" class="fa-xl"></fa-icon>
       <span>Sign in</span>
     </div>
     <fa-icon
-      *ngIf="openElementName === 'authenticate'"
+      (click)="closeAuthenticateURL()"
+      *ngIf="isAuthenticationOpen"
       [icon]="faTimes"
       class="fa-3x"
     ></fa-icon>
