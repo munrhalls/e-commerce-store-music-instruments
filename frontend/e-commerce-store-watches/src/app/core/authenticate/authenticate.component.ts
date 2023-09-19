@@ -1,4 +1,4 @@
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { MenuService } from '../menu-service.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -46,14 +46,6 @@ export class AuthenticateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.menuState = event.urlAfterRedirects.includes('authenticate')
-          ? 'open'
-          : 'closed';
-      }
-    });
-
     this.menuService.openElementName
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((openElementName) => {

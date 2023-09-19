@@ -2,10 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {
-  BrowserAnimationsModule,
-  provideAnimations,
-} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // COMPONENTS
 import { AppComponent } from './app.component';
@@ -36,7 +33,7 @@ import { AuthenticateComponent } from './core/authenticate/authenticate.componen
     BrowserAnimationsModule,
     FontAwesomeModule,
   ],
-  providers: [provideAnimations()],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
