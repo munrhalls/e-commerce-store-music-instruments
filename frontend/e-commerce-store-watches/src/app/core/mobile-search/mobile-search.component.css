@@ -52,3 +52,11 @@ button {
   color: #a50101;
   cursor: pointer;
 }
+
+/* TABLETS 768+ */
+@media screen and (min-width: 48em) {
+  .mobile-search {
+    top: var(--nav-notepad-height);
+    bottom: 2px;
+  }
+}
