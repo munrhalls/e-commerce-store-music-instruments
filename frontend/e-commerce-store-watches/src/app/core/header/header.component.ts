@@ -16,7 +16,7 @@ import {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent {
   private unsubscribe$ = new Subject<void>();
   openElementName: string = '';
   faSearch = faSearch;
@@ -38,22 +38,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.toggleAuthenticate();
   }
 
-  ngOnInit(): void {
-    this.menuService.openElementName
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((openElementName: string) => {
-        this.openElementName = openElementName;
-        if (this.openElementName?.length > 0) {
-          this.renderer.addClass(document.body, 'no-scroll');
-        } else {
-          this.renderer.removeClass(document.body, 'no-scroll');
-        }
-      });
-    console.log(this.openElementName);
-  }
+  // ngOnInit(): void {
+  //   this.menuService.openElementName
+  //     .pipe(takeUntil(this.unsubscribe$))
+  //     .subscribe((openElementName: string) => {
+  //       this.openElementName = openElementName;
+  //       if (this.openElementName?.length > 0) {
+  //         this.renderer.addClass(document.body, 'no-scroll');
+  //       } else {
+  //         this.renderer.removeClass(document.body, 'no-scroll');
+  //       }
+  //     });
+  //   console.log(this.openElementName);
+  // }
 
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
+  // ngOnDestroy(): void {
+  //   this.unsubscribe$.next();
+  //   this.unsubscribe$.complete();
+  // }
 }

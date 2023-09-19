@@ -14,21 +14,18 @@ export class MenuService {
       this.previousUrl = params['previousUrl'] || '/';
     });
   }
-
   toggleMobileMenu() {
     this.openElementName.next(
       this.openElementName.value === 'mobile-menu' ? '' : 'mobile-menu'
     );
     this.navigateToPreviousURL();
   }
-
   toggleMobileSearch() {
     this.openElementName.next(
       this.openElementName.value === 'mobile-search' ? '' : 'mobile-search'
     );
     this.navigateToPreviousURL();
   }
-
   toggleAuthenticate() {
     this.openElementName.next(
       this.openElementName.value === 'authenticate' ? '' : 'authenticate'
