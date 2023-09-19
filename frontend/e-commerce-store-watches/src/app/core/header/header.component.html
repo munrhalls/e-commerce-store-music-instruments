@@ -21,10 +21,18 @@
   </div>
 
   <div class="buttons">
-    <button class="btn-search">
-      <fa-icon [icon]="faSearch" class="fa-xl"></fa-icon>
-      <span>Search</span>
+    <button (click)="toggleSearchForm()" class="btn-search">
+      <div class="container" *ngIf="openElementName !== 'mobile-search'">
+        <fa-icon [icon]="faSearch" class="fa-xl"></fa-icon>
+        <span>Search</span>
+      </div>
+      <fa-icon
+        *ngIf="openElementName === 'mobile-search'"
+        [icon]="faTimes"
+        class="icon-close fa-3x"
+      ></fa-icon>
     </button>
+
     <button class="btn-sign-in">
       <fa-icon [icon]="faUser" class="fa-xl"></fa-icon> <span>Sign in</span>
     </button>
