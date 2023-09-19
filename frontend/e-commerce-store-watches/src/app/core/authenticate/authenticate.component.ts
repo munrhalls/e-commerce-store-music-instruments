@@ -16,30 +16,19 @@ import {
   templateUrl: './authenticate.component.html',
   styleUrls: ['./authenticate.component.css'],
   animations: [
-    trigger('routeAnimations', [
+    trigger('authenticateAnimation', [
       transition('* <=> authenticate', [
-        query(
-          ':enter',
-          [
-            style({ transform: 'translateX(-100%)' }),
-            animate(
-              '1000ms ease-in-out',
-              style({ transform: 'translateX(0%)' })
-            ),
-          ],
-          { optional: true }
-        ),
-        query(
-          ':leave',
-          [
-            style({ transform: 'translateX(0%)' }),
-            animate(
-              '1000ms ease-in-out',
-              style({ transform: 'translateX(100%)' })
-            ),
-          ],
-          { optional: true }
-        ),
+        query(':enter', [
+          style({ transform: 'translateX(-100%)' }),
+          animate('1000ms ease-in-out', style({ transform: 'translateX(0%)' })),
+        ]),
+        query(':leave', [
+          style({ transform: 'translateX(0%)' }),
+          animate(
+            '1000ms ease-in-out',
+            style({ transform: 'translateX(100%)' })
+          ),
+        ]),
       ]),
     ]),
   ],

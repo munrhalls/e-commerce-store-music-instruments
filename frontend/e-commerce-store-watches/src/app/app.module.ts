@@ -33,8 +33,8 @@ import { AuthenticateComponent } from './core/authenticate/authenticate.componen
   imports: [
     AppRoutingModule,
     BrowserModule,
-    FontAwesomeModule,
     BrowserAnimationsModule,
+    FontAwesomeModule,
   ],
   providers: [provideAnimations()],
   bootstrap: [AppComponent],

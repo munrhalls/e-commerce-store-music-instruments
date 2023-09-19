@@ -33,6 +33,9 @@ export class MenuService {
     this.openElementName.next(
       this.openElementName.value === 'authenticate' ? '' : 'authenticate'
     );
+    this.handleAuthenticateRouting();
+  }
+  handleAuthenticateRouting() {
     if (this.openElementName.value === 'authenticate') {
       this.router
         .navigate(['/authenticate'])
@@ -41,7 +44,6 @@ export class MenuService {
       this.navigateToPreviousURL();
     }
   }
-
   navigateToPreviousURL() {
     this.router
       .navigate([this.previousUrl])
