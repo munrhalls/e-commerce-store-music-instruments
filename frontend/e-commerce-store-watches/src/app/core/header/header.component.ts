@@ -32,8 +32,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.toggleMobileMenu();
   }
   toggleSearchForm() {
-    this.menuService.toggleMobileSearchFormOpen();
+    this.menuService.toggleMobileSearch();
   }
+  toggleAuthenticateForm() {
+    this.menuService.toggleAuthenticateForm();
+  }
+
   ngOnInit(): void {
     this.menuService.openElementName
       .pipe(takeUntil(this.unsubscribe$))

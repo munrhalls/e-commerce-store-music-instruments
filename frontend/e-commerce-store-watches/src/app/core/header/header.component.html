@@ -33,7 +33,7 @@
       ></fa-icon>
     </button>
 
-    <button class="btn-sign-in">
+    <button (click)="toggleAuthenticateForm()" class="btn-sign-in">
       <fa-icon [icon]="faUser" class="fa-xl"></fa-icon> <span>Sign in</span>
     </button>
     <button class="btn-reserve">
@@ -41,7 +41,7 @@
     </button>
     <button class="btn-cart">
       <fa-icon [icon]="faShoppingCart" class="fa-xl"></fa-icon>
-      <span>Order</span>
+      <span>Cart</span>
     </button>
   </div>
 </nav>

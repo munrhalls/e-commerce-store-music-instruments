@@ -13,6 +13,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { StoreMenuComponent } from './store/store-menu/store-menu.component';
 import { StoreDisplayComponent } from './store/store-display/store-display.component';
 import { MobileSearchComponent } from './core/mobile-search/mobile-search.component';
+import { AuthenticateComponent } from './core/authenticate/authenticate.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MobileSearchComponent } from './core/mobile-search/mobile-search.compon
     StoreMenuComponent,
     StoreDisplayComponent,
     MobileSearchComponent,
+    AuthenticateComponent,
   ],
   imports: [
     AppRoutingModule,

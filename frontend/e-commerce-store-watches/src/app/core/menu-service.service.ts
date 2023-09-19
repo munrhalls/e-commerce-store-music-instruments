@@ -16,11 +16,18 @@ export class MenuService {
     console.log('Menu open: ' + this.openElementName.value);
   }
 
-  toggleMobileSearchFormOpen() {
+  toggleMobileSearch() {
     this.openElementName.next(
       this.openElementName.value === 'mobile-search' ? '' : 'mobile-search'
     );
 
     console.log('Mobile search form open: ' + this.openElementName.value);
+  }
+  toggleAuthenticateForm() {
+    this.openElementName.next(
+      this.openElementName.value === 'authenticate' ? '' : 'authenticate'
+    );
+
+    console.log('Authenticate open: ' + this.openElementName.value);
   }
 }
