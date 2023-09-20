@@ -1,7 +1,8 @@
 import { ActivatedRoute } from '@angular/router';
 
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
+
 import {
   query,
   animateChild,
@@ -37,6 +38,7 @@ export class AuthenticateComponent implements OnInit {
   account: string = 'has-account';
   animationState = {};
   constructor(private route: ActivatedRoute) {}
+  faClose = faClose;
 
   ngOnInit() {
     this.animationState = this.route.snapshot.data['animation'];
