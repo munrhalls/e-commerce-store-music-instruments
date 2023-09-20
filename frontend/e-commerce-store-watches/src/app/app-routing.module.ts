@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: 'authenticate',
     component: AuthenticateComponent,
-    data: { animation: 'authenticate' },
+    data: { animation: 'authenticateAnimation' },
   },
   { path: 'store', component: StoreComponent },
 ];
