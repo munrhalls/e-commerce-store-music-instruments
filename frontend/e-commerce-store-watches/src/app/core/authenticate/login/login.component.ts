@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faClose } from '@fortawesome/free-solid-svg-icons';
 import {
   FormGroup,
   FormControl,
@@ -23,7 +23,8 @@ export class LoginComponent {
       Validators.minLength(8),
     ] as ((control: AbstractControl) => ValidationErrors | null)[]),
   });
-  faTimes = faTimes;
+  public faCircle = faCircle;
+  public faClose = faClose;
 
   onSubmit() {
     if (this.loginForm.valid) {
