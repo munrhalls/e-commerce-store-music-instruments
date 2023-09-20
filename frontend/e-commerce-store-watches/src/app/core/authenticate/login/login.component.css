@@ -44,11 +44,12 @@ span {
 
 /* Submit Button */
 button {
+  margin-bottom: 1rem;
   padding: 0.7rem 1.5rem;
-  background-color: var(--form-background-color);
-  color: var(--form-field-color);
   border: 1px solid var(--form-field-color);
   border-radius: 4px;
+  background-color: var(--form-background-color);
+  color: var(--form-field-color);
   font-size: 1rem;
   cursor: pointer;
 }
@@ -61,4 +62,13 @@ button:disabled {
   background-color: #ccc;
   color: #fff;
   cursor: not-allowed;
+}
+
+footer {
+  color: #fff;
+}
+footer span {
+  font-size: 1rem;
+  color: var(--form-field-color);
+  cursor: alias;
 }
