@@ -11,7 +11,7 @@
 .authenticate {
   position: fixed;
   padding: 2rem 0;
-  top: var(--nav-mobile-height);
+  top: 0;
   bottom: 1px;
   width: 100%;
 
@@ -49,6 +49,12 @@ button {
 }
 footer {
   margin: 2rem auto;
+}
+/* SMALL PHONES 450*/
+@media screen and (min-width: 28em) {
+  .authenticate {
+    top: var(--nav-mobile-height);
+  }
 }
 /* TABLETS 768+ */
 @media screen and (min-width: 48em) {

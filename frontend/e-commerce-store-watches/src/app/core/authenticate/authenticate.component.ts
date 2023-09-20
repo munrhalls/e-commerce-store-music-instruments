@@ -1,5 +1,5 @@
+import { MenuService } from '../menu-service.service';
 import { ActivatedRoute } from '@angular/router';
-
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
@@ -35,15 +35,20 @@ import {
   ],
 })
 export class AuthenticateComponent implements OnInit {
+  constructor(
+    private menuService: MenuService,
+    private route: ActivatedRoute
+  ) {}
   account: string = 'has-account';
   animationState = {};
-  constructor(private route: ActivatedRoute) {}
   faClose = faClose;
 
   ngOnInit() {
     this.animationState = this.route.snapshot.data['animation'];
   }
-
+  closeAuthenticateURL() {
+    this.menuService.closeAuthenticateURL();
+  }
   toggleAccount() {
     this.account =
       this.account === 'has-account' ? 'no-account' : 'has-account';

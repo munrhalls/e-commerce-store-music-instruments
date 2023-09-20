@@ -70,7 +70,9 @@ button[type="submit"]:disabled {
   color: #fff;
   cursor: not-allowed;
 }
-
+.forgot-password {
+  color: #a50101;
+}
 footer {
   color: #fff;
 }
