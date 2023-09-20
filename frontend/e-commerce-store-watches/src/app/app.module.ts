@@ -12,11 +12,6 @@ import { FooterComponent } from './core/footer/footer.component';
 import { StoreMenuComponent } from './store/store-menu/store-menu.component';
 import { StoreDisplayComponent } from './store/store-display/store-display.component';
 import { MobileSearchComponent } from './core/mobile-search/mobile-search.component';
-import { AuthenticateComponent } from './core/authenticate/authenticate.component';
-import { LoginComponent } from './core/authenticate/login/login.component';
-import { RegisterComponent } from './core/authenticate/register/register.component';
-import { ForgotPasswordComponent } from './core/authenticate/forgot-password/forgot-password.component';
-import { SharedComponent } from './core/authenticate/shared/shared.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +23,6 @@ import { SharedComponent } from './core/authenticate/shared/shared.component';
     StoreMenuComponent,
     StoreDisplayComponent,
     MobileSearchComponent,
-    AuthenticateComponent,
-    LoginComponent,
-    RegisterComponent,
-    ForgotPasswordComponent,
-    SharedComponent,
   ],
   imports: [
     AppRoutingModule,
