@@ -1,3 +1,5 @@
+import { ActivatedRoute } from '@angular/router';
+
 import { Component, HostBinding, OnInit } from '@angular/core';
 import {
   query,
@@ -8,7 +10,6 @@ import {
   transition,
   state,
 } from '@angular/animations';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-authenticate',

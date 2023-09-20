@@ -1,3 +1,9 @@
+:host {
+  /* 400px */
+  --form-mobile-width: 25em;
+  --form-mobile-padding: 2rem;
+}
+
 .authenticate {
   position: fixed;
   padding: 2rem 0;
@@ -11,18 +17,21 @@
   background: #5f5f5f;
   color: #fff;
 }
-
-.sign-in {
-
-}
-.no-account {
-  
+.authenticate-container {
+  margin: auto;
+  padding: var(--form-mobile-padding);
+  max-width: var(--form-mobile-width);
 }
 
 button {
   color: #fff;
 }
 
+footer {
+  margin: auto;
+  padding: var(--form-mobile-padding);
+  max-width: var(--form-mobile-width);
+}
 /* TABLETS 768+ */
 @media screen and (min-width: 48em) {
   .authenticate {
