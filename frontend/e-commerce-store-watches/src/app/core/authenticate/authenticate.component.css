@@ -9,10 +9,10 @@
 }
 
 .authenticate {
-  /* position: fixed; */
+  position: fixed;
   padding: 2rem 0;
   top: var(--nav-mobile-height);
-  bottom: var(--mobile-footer-nav);
+  bottom: 1px;
   width: 100%;
 
   border-top: 1px solid #f5cd8b;
@@ -30,7 +30,6 @@
 button {
   color: #fff;
 }
-
 footer {
   margin: 2rem auto;
 }
