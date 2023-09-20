@@ -8,9 +8,17 @@
   border-top: 1px solid #f5cd8b;
   border-bottom: 1px solid #f5cd8b;
 
-  background: #16171b;
+  background: #5f5f5f;
   color: #fff;
 }
+
+.sign-in {
+
+}
+.no-account {
+  
+}
+
 button {
   color: #fff;
 }
