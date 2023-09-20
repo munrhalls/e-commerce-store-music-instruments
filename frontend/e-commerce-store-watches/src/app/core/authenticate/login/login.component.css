@@ -1,8 +1,12 @@
+:host {
+  display: block;
+  height: 100%;
+}
 /* Form Container */
 form {
   margin: auto;
-  color: var(--form-field-color);
   padding: var(--form-mobile-padding);
+  color: var(--form-field-color);
   /* 400px */
   /* max-width: var(--form-mobile-width); */
   border-radius: 8px;
@@ -12,13 +16,14 @@ form {
 }
 
 h2 {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   font-size: var(--h3);
 }
 
 .form-field {
   margin-bottom: 1rem;
 }
+
 /* Labels and Inputs */
 label {
   display: block;
@@ -44,6 +49,7 @@ span {
 
 /* Submit Button */
 button {
+  margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 0.7rem 1.5rem;
   border: 1px solid var(--form-field-color);

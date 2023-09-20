@@ -1,4 +1,6 @@
 :host {
+  display: block;
+  height: 100%;
   /* 400px */
   --form-mobile-width: 25em;
   --form-mobile-padding: 2rem;
@@ -7,7 +9,7 @@
 }
 
 .authenticate {
-  position: fixed;
+  /* position: fixed; */
   padding: 2rem 0;
   top: var(--nav-mobile-height);
   bottom: var(--mobile-footer-nav);

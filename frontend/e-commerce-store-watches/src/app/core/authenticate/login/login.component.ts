@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import {
   FormGroup,
   FormControl,
@@ -22,6 +23,7 @@ export class LoginComponent {
       Validators.minLength(8),
     ] as ((control: AbstractControl) => ValidationErrors | null)[]),
   });
+  faTimes = faTimes;
 
   onSubmit() {
     if (this.loginForm.valid) {

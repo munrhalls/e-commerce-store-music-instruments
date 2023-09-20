@@ -1,6 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 
 import { Component, HostBinding, OnInit } from '@angular/core';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import {
   query,
   animateChild,
