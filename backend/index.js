@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const watchRoutes = require("./routes/watches");
 const userRoutes = require("./routes/users");
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use((err, req, res, next) => {
@@ -15,12 +15,12 @@ app.use((err, req, res, next) => {
   next();
 });
 
-// Connect to MongoDB Atlas
-const uri =
-  "mongodb+srv://antarcticdepths71:fzFba9H61iU2IAAT@clusterwatches.1ssaico.mongodb.net/";
-
+// CONNECT TO MONGODB ATLAS DATABASE
 mongoose
-  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => console.log("Failed to connect to MongoDB Atlas", err));
 
