@@ -24,7 +24,7 @@ fa-icon {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  color: #fff;
+  color: var(--form-field-color);
   background-color: #413f3f;
   border-radius: 50%;
   padding: 1px 4px;
