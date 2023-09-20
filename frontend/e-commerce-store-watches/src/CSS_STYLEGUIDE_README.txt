@@ -3,6 +3,7 @@ COLORS PALETTE:
 #f5cd8b / rgba(245,205,139,255) - light golden font
 #640101 crimson fit color for font
 #a50101 lighter crimson
+#413f3f dark grey background for form views:
 
 HTML SELECTORS:
 - as much native's (button, etc.) as possible

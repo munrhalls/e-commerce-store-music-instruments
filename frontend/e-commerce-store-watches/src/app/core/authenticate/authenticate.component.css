@@ -2,6 +2,8 @@
   /* 400px */
   --form-mobile-width: 25em;
   --form-mobile-padding: 2rem;
+  --form-field-color: #f5cd8b;
+  --form-background-color: #16171b;
 }
 
 .authenticate {
@@ -14,12 +16,12 @@
   border-top: 1px solid #f5cd8b;
   border-bottom: 1px solid #f5cd8b;
 
-  background: #5f5f5f;
+  background: #413f3f;
   color: #fff;
 }
 .authenticate-container {
   margin: auto;
-  padding: var(--form-mobile-padding);
+  padding: 1rem;
   max-width: var(--form-mobile-width);
 }
 
