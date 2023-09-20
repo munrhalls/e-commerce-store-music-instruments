@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { OAuthModule } from 'angular-oauth2-oidc';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -24,6 +25,12 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     AuthenticateRoutingModule,
     RouterModule,
     FontAwesomeModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['http://api.yourserver.com'],
+        sendAccessToken: true,
+      },
+    }),
   ],
 })
 export class AuthenticateModule {}

@@ -73,6 +73,16 @@ button[type="submit"]:disabled {
 .forgot-password {
   color: #a50101;
 }
+
+.no-account {
+  color: #fff;
+}
+.no-account span {
+  font-size: 1rem;
+  color: var(--form-field-color);
+  text-decoration: underline;
+  text-decoration-color: var(--form-field-color);
+}
 footer {
   color: #fff;
 }
