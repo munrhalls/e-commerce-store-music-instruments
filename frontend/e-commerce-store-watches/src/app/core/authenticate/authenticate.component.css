@@ -28,9 +28,7 @@ button {
 }
 
 footer {
-  margin: auto;
-  padding: var(--form-mobile-padding);
-  max-width: var(--form-mobile-width);
+  margin: 2rem auto;
 }
 /* TABLETS 768+ */
 @media screen and (min-width: 48em) {

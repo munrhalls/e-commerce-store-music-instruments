@@ -8,7 +8,9 @@ form {
   /* border: 1px solid #ccc; */
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
-
+form .form-field {
+  margin-bottom: 1rem;
+}
 /* Labels and Inputs */
 label {
   display: block;
@@ -19,7 +21,7 @@ label {
 input {
   width: 100%;
   padding: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-family: "Montserrat", sans-serif;
