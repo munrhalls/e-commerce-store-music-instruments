@@ -1,6 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const passport = require("passport");
+require("./config/passport-config");
 const watchRoutes = require("./routes/watches");
 const userRoutes = require("./routes/users");
 const app = express();
@@ -37,6 +39,8 @@ app.use((err, req, res, next) => {
 
   return res.status(500).json({ error: "Something went wrong!" });
 });
+
+app.use(passport.initialize());
 
 // Start the server
 app.listen(port, () => {
