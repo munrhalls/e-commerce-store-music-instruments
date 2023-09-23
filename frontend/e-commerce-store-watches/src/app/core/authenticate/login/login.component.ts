@@ -6,6 +6,7 @@ import {
   ValidationErrors,
   AbstractControl,
 } from '@angular/forms';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent {
       Validators.minLength(8),
     ] as ((control: AbstractControl) => ValidationErrors | null)[]),
   });
+  faGoogle = faGoogle
 
   onSubmit() {
     if (this.loginForm.valid) {
