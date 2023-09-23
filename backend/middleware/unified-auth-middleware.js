@@ -3,7 +3,7 @@ const passport = require("passport");
 
 module.exports = (req, res, next) => {
   if (req.header("Authorization")) {
-    // Your existing JWT middleware logic
+    // JWT middleware logic
     const authHeader = req.header("Authorization");
     const token = authHeader.split(" ")[1];
     try {

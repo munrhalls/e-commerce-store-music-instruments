@@ -122,15 +122,46 @@ router.post(
   }
 );
 
-// Logout Endpoint
-router.post("/logout", (req, res) => {
-  res.clearCookie("token");
+// Current user
+router.get("/current-user", (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ message: "Not authorized" });
+    }
+    console.log(req.user);
+    res.status(200).json(req.user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
-  // Send a success response
-  res.status(200).json({
-    status: "success",
-    message: "Successfully logged out",
+// Logout Endpoint
+router.get("/logout", (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(400).json({
+      status: "error",
+      message: "No logged in user, request not valid.",
+    });
+  }
+
+  req.logout();
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({
+        status: "error",
+        message: "Failed to destroy session.",
+      });
+    }
+
+    res.clearCookie("connect.sid", {
+      path: "/",
+      httpOnly: true,
+      secure: false,
+      maxAge: null,
+    });
   });
+  console.log("User logged out");
 });
 
 router.get("/profile", authMiddleware, async (req, res) => {

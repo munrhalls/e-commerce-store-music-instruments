@@ -7,10 +7,23 @@ const watchRoutes = require("./routes/watches");
 const userRoutes = require("./routes/users");
 const oAuthRoutes = require("./routes/oAuthRoutes");
 const session = require("express-session");
+const isProd = process.env.NODE_ENV === "production";
 
 const app = express();
 // const port = process.env.PORT || 3000;
 const port = 3000;
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      sameSite: isProd ? "none" : "lax",
+      secure: isProd,
+    },
+  })
+);
 
 app.use(express.json());
 app.use((err, req, res, next) => {
@@ -53,22 +66,22 @@ const closeMongoDBConnection = () => {
     });
 };
 
-app.use(
-  session({
-    secret: "your_secret_key",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
 app.use(passport.session());
-
+app.use(passport.initialize());
 app.get("/", (req, res) => {
   res.send("Home Page");
 });
-app.use(passport.initialize());
 app.use("/watches", watchRoutes);
 app.use("/users", userRoutes);
 app.use("/auth", oAuthRoutes);
+
+app.use((err, req, res, next) => {
+  res.status(500).json({
+    status: "error",
+    message: "Internal Server Error",
+  });
+});
+
 // Start the server
 // const startServer = () => {
 //   return app.listen(port, () => {

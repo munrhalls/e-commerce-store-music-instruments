@@ -1,19 +1,5 @@
 const jwt = require("jsonwebtoken");
 
-class AuthError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = "AuthError";
-  }
-}
-
-class AuthorizationError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = "AuthorizationError";
-  }
-}
-
 module.exports = (req, res, next) => {
   const authHeader = req.header("Authorization");
 
