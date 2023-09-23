@@ -16,3 +16,21 @@
   height: 1px;
   background: #fff;
 }
+
+.oAuth button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.oAuth button span {
+  margin-top: 0.15rem;
+  font-size: 0.7rem;
+  color: #fff;
+}
+.oAuth button fa-icon {
+  font-size: 2rem;
+  color: #fff;
+}

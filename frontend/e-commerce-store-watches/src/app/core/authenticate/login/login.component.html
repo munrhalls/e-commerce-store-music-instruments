@@ -31,17 +31,20 @@
       >
     </div>
   </div>
+
   <div class="divider">
     <span class="line"></span>
     <span class="text">OR</span>
     <span class="line"></span>
   </div>
 
-  <div class="form-field">
+  <div class="oAuth form-field">
     <button>
       <fa-icon [icon]="faGoogle"></fa-icon>
+      <span>GOOGLE</span>
     </button>
   </div>
+
   <button type="submit" [disabled]="!loginForm.valid">Login</button>
   <div class="form-field">
     <a routerLink="../forgot-password" class="forgot-password"
