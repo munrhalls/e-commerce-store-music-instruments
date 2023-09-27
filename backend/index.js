@@ -9,10 +9,12 @@ const { ProfilingIntegration } = require("@sentry/profiling-node");
 const watchRoutes = require("./routes/watches");
 const userRoutes = require("./routes/users");
 const oAuthRoutes = require("./routes/oAuthRoutes");
+const logger = require("./logger");
 
 // Configurations
 require("dotenv").config();
 require("./passport-config");
+// Example: Log server start
 
 // Constants
 const isProd = process.env.NODE_ENV === "production";
@@ -113,12 +115,13 @@ const closeApp = async () => {
 const startServer = async (port) => {
   await initializeApp();
   return app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}/`);
+    logger.info(`Server running on port ${port}`);
   });
 };
 
 if (require.main === module) {
   startServer(3000);
+  logger.info(`Server running on port ${port}`);
 }
 
 module.exports = { initializeApp, closeApp, app };

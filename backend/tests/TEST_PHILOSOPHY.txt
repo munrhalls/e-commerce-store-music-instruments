@@ -1,4 +1,8 @@
-THE POINT IS: AN ISSUE CAN'T AVOID SHOWING WHERE IT IS - and it's accomplished with absolutely minimal amount of tests possible
+Tests should be simplest possible gps for auto-identify & auto-locate an issue.
+
+THE POINT IS: AN ISSUE CAN'T AVOID BEING EASY TO IDENTIFY AND FIND - and it's accomplished with absolutely minimal amount of tests possible. 
+
+The keyword is "easy" to find.
 
 - EXCLUDE THE POSSIBILITY OF HUGE TIME-WASTE ON LOOKING FOR WHERE THE ISSUE STARTS. 
 - HAVE AS FEW TESTS AS POSSIBLE, WHILE STILL MAXIMIZING CHANCES OF NEVER HAVING TO WASTE TIME ON LOOKING FOR *WHERE* THE ISSUE STARTS
@@ -19,3 +23,4 @@ TESTS ALIGN WITH THE GOAL OF MAXIMIZING TIME SAVES:
 In short: use test-blockades to organize possibilities such that an issue can't avoid showing where it is
 
 The less tests there are, the easier it is for them to do their job: save time by showing where the issue is.
+
