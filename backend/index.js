@@ -90,6 +90,9 @@ const connectToMongoDB = async () => {
     console.error("Failed to connect to MongoDB Atlas", err);
   }
 };
+const disconnectFromMongoDB = async () => {
+  await mongoose.disconnect();
+};
 
 // Initialization
 const initializeApp = async () => {
@@ -100,9 +103,22 @@ const initializeApp = async () => {
   await connectToMongoDB();
 };
 
+// Teardown
+const closeApp = async () => {
+  await disconnectFromMongoDB();
+  Sentry.close(2000);
+};
+
 // Start App
-initializeApp().then(() => {
-  app.listen(port, () =>
-    console.log(`Server running at http://localhost:${port}/`)
-  );
-});
+const startServer = async (port) => {
+  await initializeApp();
+  return app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}/`);
+  });
+};
+
+if (require.main === module) {
+  startServer(3000);
+}
+
+module.exports = { initializeApp, closeApp, app };
