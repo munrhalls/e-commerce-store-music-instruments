@@ -15,6 +15,15 @@ describe("OAuth Google Login", () => {
   });
 });
 
+describe("OAuth Google Callback", () => {
+  it("should handle Google callback and redirect", async () => {
+    const response = await request(app).get(
+      "/auth/google/callback?code=mockCode"
+    );
+    expect(response.status).toBe(302);
+  });
+});
+
 afterAll(async () => {
   await closeApp();
 });
