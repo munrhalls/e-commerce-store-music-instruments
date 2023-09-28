@@ -44,14 +44,6 @@ const initSentry = () => {
 const setupMiddleware = () => {
   app.use(express.json());
   app.use(
-    session({
-      secret: process.env.SESSION_SECRET,
-      resave: false,
-      saveUninitialized: true,
-      cookie: { sameSite: isProd ? "none" : "lax", secure: isProd },
-    })
-  );
-  app.use(
     cors({
       origin: "http://localhost:4200",
       methods: "GET,POST",
@@ -59,7 +51,6 @@ const setupMiddleware = () => {
     })
   );
   app.use(passport.initialize());
-  app.use(passport.session());
 };
 
 // Route Setup

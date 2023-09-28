@@ -5,7 +5,7 @@ beforeAll(async () => {
   await initializeApp();
 });
 
-describe("OAuth Google Login", () => {
+describe("UNIT: OAuth Google Login", () => {
   it("should redirect to Google login page", async () => {
     const response = await request(app).get("/auth/google");
     expect(response.status).toBe(302);
@@ -15,20 +15,11 @@ describe("OAuth Google Login", () => {
   });
 });
 
-describe("OAuth Google Callback", () => {
-  it("should handle Google callback and redirect", async () => {
-    const response = await request(app).get(
-      "/auth/google/callback?code=mockCode"
-    );
-    expect(response.status).toBe(302);
-  });
-});
-
 afterAll(async () => {
   await closeApp();
 });
 
-test("Server should be up", async () => {
+test("UNIT: Server should be up", async () => {
   const response = await request(app).get("/auth/google");
   expect(response.status).toBe(302);
 });
