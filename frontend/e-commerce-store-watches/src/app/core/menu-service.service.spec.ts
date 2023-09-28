@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
 import { MenuService } from './menu-service.service';
-
+import { RouterTestingModule } from '@angular/router/testing';
 describe('MenuService', () => {
   let service: MenuService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({ imports: [RouterTestingModule] });
     service = TestBed.inject(MenuService);
   });
 

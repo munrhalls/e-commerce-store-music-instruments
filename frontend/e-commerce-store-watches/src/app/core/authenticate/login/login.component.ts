@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
   faGoogle = faGoogle;
 
   signInWithGoogle(): void {
-    window.location.href = 'http://localhost:3000/auth/google';
+    window.location.href = window.location.origin + 'auth/google';
   }
 
   onSubmit() {

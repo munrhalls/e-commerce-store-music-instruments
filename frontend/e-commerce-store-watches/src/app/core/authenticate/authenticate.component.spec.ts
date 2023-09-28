@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthenticateComponent } from './authenticate.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AuthenticateComponent', () => {
   let component: AuthenticateComponent;
@@ -8,7 +11,13 @@ describe('AuthenticateComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AuthenticateComponent]
+      imports: [
+        BrowserAnimationsModule,
+        FontAwesomeModule,
+        RouterTestingModule,
+      ],
+
+      declarations: [AuthenticateComponent],
     });
     fixture = TestBed.createComponent(AuthenticateComponent);
     component = fixture.componentInstance;
