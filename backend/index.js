@@ -1,8 +1,6 @@
 // Modules
 const express = require("express");
 const mongoose = require("mongoose");
-const passport = require("passport");
-const session = require("express-session");
 const cors = require("cors");
 const Sentry = require("@sentry/node");
 const { ProfilingIntegration } = require("@sentry/profiling-node");
@@ -13,8 +11,8 @@ const logger = require("./logger");
 
 // Configurations
 require("dotenv").config();
-require("./passport-config");
-// Example: Log server start
+const passport = require("passport");
+console.log(passport);
 
 // Constants
 const isProd = process.env.NODE_ENV === "production";
@@ -55,9 +53,9 @@ const setupMiddleware = () => {
 
 // Route Setup
 const setupRoutes = () => {
-  app.use("/watches", watchRoutes);
   app.use("/users", userRoutes);
   app.use("/auth", oAuthRoutes);
+  app.use("/watches", watchRoutes);
 };
 
 // Error Handlers

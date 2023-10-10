@@ -7,6 +7,8 @@ beforeAll(async () => {
 });
 
 test("Server should be up", async () => {
+  console.log(app);
+
   const response = await request(app).get("/auth/google");
   expect(response.status).toBe(302);
 });
