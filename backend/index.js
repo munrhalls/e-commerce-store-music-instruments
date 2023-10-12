@@ -6,13 +6,14 @@ const Sentry = require("@sentry/node");
 const { ProfilingIntegration } = require("@sentry/profiling-node");
 const watchRoutes = require("./routes/watches");
 const userRoutes = require("./routes/users");
-const oAuthRoutes = require("./routes/oAuthRoutes");
+const oAuthRoutes = require("./routes/oAuth");
+const homeRoute = require("./routes/home");
+
 const logger = require("./logger");
 
 // Configurations
 require("dotenv").config();
 const passport = require("passport");
-console.log(passport);
 
 // Constants
 const isProd = process.env.NODE_ENV === "production";
@@ -53,9 +54,11 @@ const setupMiddleware = () => {
 
 // Route Setup
 const setupRoutes = () => {
-  app.use("/users", userRoutes);
   app.use("/auth", oAuthRoutes);
-  app.use("/watches", watchRoutes);
+  app.use("/", homeRoute);
+  // API routes
+  app.use("/api/users", userRoutes);
+  app.use("/api/watches", watchRoutes);
 };
 
 // Error Handlers
@@ -109,7 +112,7 @@ const startServer = async (port) => {
 };
 
 if (require.main === module) {
-  startServer(3000);
+  startServer(port);
   logger.info(`Server running on port ${port}`);
 }
 

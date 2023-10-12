@@ -60,6 +60,9 @@
   },
   "homepage": "https://github.com/munrhalls/e-commerce-store-watches#readme",
   "devDependencies": {
+    "eslint": "^8.51.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-standard": "^5.0.0",
     "jest": "^29.7.0",
     "supertest": "^6.3.3"
   }
