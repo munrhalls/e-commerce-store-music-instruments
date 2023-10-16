@@ -1,37 +1,10 @@
-Fullstack app in MongoDB, Express, Angular, Node (MEAN stack).
+Large-scale, fullstack fictional e-commerce store application for my portfolio. 
+- Backend written using MongoDB, Mongoose, Express, Node.js. Backend tests written in jest.
+- Frontend written in Angular. Tests in Karma/Jasmine.
 
-WHAT IS THIS:
+Features:
+- RWD covers all device sizes
 
-- This is a fictional e-commerce store that sells high quality luxury watches at cheaper prices.
-
-WHAT DO YOU GET FROM THIS:
-Idea of what I can do for YOUR TEAM in YOUR PROJECT at YOUR COMPANY.
-
-HOW DO YOU GET THIS:
-See the e-commerce store PRODUCT LIVE: //url later//
-See the SOURCE CODE:
-Read HOW I WORKED ON THIS:
-A) Pre-development, for starters:
-
-- formulate general idea and product design (how it'll look like, feel [UI] & work [UX] on phone, desktop etc.)
-- use git, version control
-- use https://kanbanflow.com kanban board to set build order, tasks and self-management about TASKS, TIMELINES & CONTINGENCY PLANS on delays, getting stuck, blocks, milestones & when's etc.
-
-B) During development:
-
-- start from backend
-- initialize MongoDB cloud storage, Mongoose, connect successfully
-- set up Node and Express REST API endpoints
-- handle REST API errors & validation
-- make ENDPOINTS TESTS COLLECTION in thunder client, DOCUMENT IT
-
-// DOCUMENTATION
-
-TESTS:
-Backend and frontend folders contain a /tests folder, which has all respective tests for backend/frontend.
-Backend:
-
-- thunder client requests collection of POSITIVE/INTENTIONALLY BAD REST API REQUESTS
 
 # ECommerceStoreWatches
 

@@ -14,6 +14,7 @@ const logger = require("./logger");
 // Configurations
 require("dotenv").config();
 const passport = require("passport");
+require('./middleware/passport-config')
 
 // Constants
 const isProd = process.env.NODE_ENV === "production";
@@ -44,7 +45,7 @@ const setupMiddleware = () => {
   app.use(express.json());
   app.use(
     cors({
-      origin: "http://localhost:4200",
+      origin: "http://localhost:3000",
       methods: "GET,POST",
       credentials: true,
     })
