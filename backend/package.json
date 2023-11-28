@@ -7,10 +7,10 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "test": "jest",
     "sentry": "node fetchSentryIssues.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon server.js"
   },
   "private": true,
   "dependencies": {
@@ -27,11 +27,13 @@
     "express-rate-limit": "^6.10.0",
     "express-session": "^1.17.3",
     "express-validator": "^7.0.1",
+    "http": "^0.0.1-security",
     "jest-mock-express": "^0.1.1",
     "jest-puppeteer": "^9.0.0",
     "mongodb": "^6.1.0",
     "mongoose": "^7.5.0",
     "nock": "^13.3.3",
+    "node-http-server": "^8.1.5",
     "passport-jwt": "^4.0.1",
     "passport-mocked": "^1.4.0",
     "passport-oauth2-jwt-bearer": "^0.2.0",
