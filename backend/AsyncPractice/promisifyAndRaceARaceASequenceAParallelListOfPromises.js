@@ -74,13 +74,18 @@ const parallel = async function () {
   //   console.log('PARALLEL: ', parallel);
 };
 
+// 3 TYPES OF PROMISE COLLECTIONS RESOLVED COLLECTIVELY
 (async function () {
-  //   const raceRes = await race();
-  //   console.log(raceRes);
-  //   const sequenceRes = await sequence();
-  //   console.log(sequenceRes);
-  //   const parallelRes = await parallel();
-  //   console.log(parallelRes);
+  const raceRes = await race();
+  // console.log(raceRes);
+  const sequenceRes = await sequence();
+  // console.log(sequenceRes);
+  const parallelRes = await parallel();
+  // console.log(parallelRes);
+})();
+
+// RACE OF RACE / PARALLEL / SEQUENCE
+(async function () {
   const raceOfRaceSequenceParallel = await Promise.race([
     sequence(),
     parallel(),
@@ -88,5 +93,3 @@ const parallel = async function () {
   ]);
   console.log(raceOfRaceSequenceParallel);
 })();
-
-// RACE OF RACE / PARALLEL / SEQUENCE
