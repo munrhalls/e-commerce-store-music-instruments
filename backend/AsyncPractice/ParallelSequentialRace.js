@@ -4,23 +4,29 @@
 // 3. create race of promises - only the first to finish counts
 
 const baseUrl = 'https://jsonplaceholder.typicode.com/';
-const routes = ['posts', 'todos', 'users'].map(route => baseUrl + route);
+const routes = ['todos', 'posts', 'users'].map(route => baseUrl + route);
 
-// 1.
+1;
 const processInParallel = async routes => {
-  return Promise.allSettled(
-    routes.map(async route => {
+  return Promise.all(
+    routes.map(async (route, index) => {
       const result = await fetch(route);
       const data = await result.json();
-      return data;
+      if (index === 0)
+        await new Promise((resolve, _reject) => setTimeout(resolve, 1000));
+      return [index, data.length];
     })
   );
 };
-const parallelResults = processInParallel(routes).map(res => res.length);
-console.log('PARALLEL: ', parallelResults);
-// on first try, gj
+
+(async function () {
+  const parallelResults = await processInParallel(routes);
+  //   console.log('PARALLEL: ', parallelResults);
+})();
 
 // 2.
+// Idea: use for await
+// Why: each iteration only proceeds after current has finished
 const processInSequence = async routes => {
   let results = [];
   for await (const route of routes) {
@@ -31,6 +37,31 @@ const processInSequence = async routes => {
   return results;
 };
 
-const sequence = processInSequence(routes).then(data =>
-  console.log('SEQUENCE: ', data.length)
-);
+(async function () {
+  const sequence = await processInSequence(routes);
+  //   console.log(
+  //     'SEQUENCE: ',
+  //     sequence.map(el => el.length)
+  //   );
+})();
+
+// 3.
+// idea: create race of promises
+// why race? to test it; why call it race? it's first-to-complete counts;
+// take these 3 and put into .race, which is for that^
+
+(async function () {
+  const raceResult = await Promise.race([
+    ...routes.map(route =>
+      (async function () {
+        const res = await fetch(route);
+        const data = await res.json();
+        return data;
+      })()
+    ),
+    new Promise((_resolve, reject) =>
+      setTimeout(() => reject('TIMEOUT'), 4000)
+    ),
+  ]);
+  console.log('RACE: ', raceResult);
+})();
