@@ -1,12 +1,13 @@
-Large-scale, fullstack fictional e-commerce store application for my portfolio. 
+Large-scale, fullstack fictional e-commerce store application for my portfolio.
+
 - Backend written using MongoDB, Mongoose, Express, Node.js. Backend tests written in jest.
 - Frontend written in Angular. Tests in Karma/Jasmine.
 
 Features:
+
 - RWD covers all device sizes
 
-
-# ECommerceStoreWatches
+# E-commerce Store Musical Instruments
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2.
 
