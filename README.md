@@ -7,7 +7,7 @@ Features:
 
 - RWD covers all device sizes
 
-# ECommerceStoreMusicInstruments
+# ECommerce Store Music Instruments
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2.
 
