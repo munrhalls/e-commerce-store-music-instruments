@@ -1,3 +1,10 @@
-import { doShit } from './pracc2';
+const { get } = require('node:https');
 
-console.log(doShit());
+const baseUrl =
+  'https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=cumulative';
+
+get(baseUrl, res => {
+  res.on('data', data => {
+    return data.json()l
+  });
+});
