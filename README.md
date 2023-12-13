@@ -5,7 +5,7 @@ AS A WHOLE:
 - GraphQL querying for server-client request-response cycle,
 - Angular Frontend,
 - Backend with MongoDB/Mongoose for database, Node.js runtime,
-  Fastify + Typescript for git server, and GraphQL for server-client
+  Fastify + Typescript for server, and GraphQL for server-client
 
 BACKEND:
 
@@ -23,11 +23,7 @@ Features:
 
 - RWD covers all device sizes
 
-# ECommerce Store Music Instruments
-
-# E-commerce Store Musical Instruments
-
-> > > > > > > backend-remake
+# E-commerce Store Music Instruments
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2.
 
