@@ -1,7 +1,23 @@
 Large-scale, fullstack fictional e-commerce store application for my portfolio.
 
-- Backend written using MongoDB, Mongoose, Express, Node.js. Backend tests written in jest.
-- Frontend written in Angular. Tests in Karma/Jasmine.
+AS A WHOLE:
+
+- GraphQL querying for server-client request-response cycle,
+- Angular Frontend,
+- Backend with MongoDB/Mongoose for database, Node.js runtime,
+  Fastify + Typescript for server, and GraphQL for server-client
+
+BACKEND:
+
+- Backend tests: <...>
+- MongoDB, Mongoose for database & querying
+- Fastify for server (framework similar to express but much faster, more modern, with decent typescript support, simply better)
+- Node.js for server runtime (single threaded, event-loop based, faster than multi-threaded runtime's)
+
+FRONTEND:
+
+- Frontend tests: Karma/Jasmine (Angular, built-in's)
+- Angular, with module splitting, lazy-loading and Angular routing
 
 Features:
 
