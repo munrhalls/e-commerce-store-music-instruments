@@ -1,2 +1,2 @@
 console.log('bla')
-console.log('bla bla!')
+return console.log('bla bla!')
