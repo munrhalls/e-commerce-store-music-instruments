@@ -1,3 +1,11 @@
+CSS:
+
+#16171b / rgba(22,23,27,255) - BG#1 dark shade for core bg's
+#f5cd8b / rgba(245,205,139,255) - light golden font
+#640101 crimson fit color for font
+#a50101 lighter crimson
+#413f3f dark grey background for form views:
+
 COLORS PALETTE:
 #16171b / rgba(22,23,27,255) - BG#1 dark shade for core bg's
 #f5cd8b / rgba(245,205,139,255) - light golden font
