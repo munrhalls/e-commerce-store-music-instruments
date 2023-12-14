@@ -23,7 +23,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "20"
       - name: Install backend dependencies
         run: npm ci --prefix backend/
       - name: Lint and Test Backend
@@ -41,7 +41,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "20"
       - name: Install frontend dependencies
         run: npm ci --prefix frontend/
       - name: Lint and Test Frontend
