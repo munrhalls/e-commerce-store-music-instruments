@@ -1,0 +1,58 @@
+name: CI for Dev to Main Merge
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "backend/**"
+      - "frontend/**"
+
+jobs:
+  backend-test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Install backend dependencies
+        run: npm ci --prefix backend/
+      - name: Lint and Test Backend
+        run: |
+          npm run lint --prefix backend/
+          npm test --prefix backend/
+
+  frontend-test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Install frontend dependencies
+        run: npm ci --prefix frontend/
+      - name: Lint and Test Frontend
+        run: |
+          npm run lint --prefix frontend/
+          npm test --prefix frontend/
+
+  merge-to-main:
+    needs: [backend-test, frontend-test]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/dev'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Merge dev to main
+        run: |
+          git fetch origin
+          git checkout main
+          git merge --no-ff dev
+          git push origin main
