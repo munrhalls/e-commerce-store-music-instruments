@@ -1,0 +1,43 @@
+{
+  "name": "e-commerce-store-musical-instruments-backend",
+  "version": "1.0.0",
+  "description": "DB + DB query language -> Node.js Fastify Typescript server + GraphQL query language as the server-side of the store.",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "lint": "eslint ./src/**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/munrhalls/e-commerce-store-music-instruments.git"
+  },
+  "keywords": [
+    "e-commerce",
+    "store",
+    "musical",
+    "instruments",
+    "backend",
+    "mongodb",
+    "mongoose",
+    "fastify",
+    "typescript",
+    "graphql",
+    "jest"
+  ],
+  "author": "Munrhalls",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/munrhalls/e-commerce-store-music-instruments/issues"
+  },
+  "homepage": "https://github.com/munrhalls/e-commerce-store-music-instruments#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "eslint": "^8.55.0",
+    "eslint-config-standard-with-typescript": "^42.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-n": "^16.4.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "typescript": "^5.3.3"
+  }
+}
