@@ -1,0 +1,101 @@
+@import url("./../shared/shared.component.css");
+:host {
+  display: block;
+  height: 100%;
+}
+/* CONTAINER */
+form {
+  position: relative;
+  margin: auto;
+  padding: var(--form-mobile-padding);
+  color: var(--form-field-color);
+  border-radius: 8px;
+  background-color: var(--form-background-color);
+  /* 400px */
+  /* max-width: var(--form-mobile-width); */
+  /* border: 1px solid #ccc; */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+/* TITLE */
+h2 {
+  margin-bottom: 2rem;
+  font-size: var(--h3);
+}
+
+/* FORM FIELD*/
+.form-field {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: "Montserrat", sans-serif;
+  color: #fff;
+}
+
+/* ERRORS */
+span {
+  color: red;
+  font-size: 0.8rem;
+}
+
+/* BUTTONS */
+button[type="submit"],
+button.create-account {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.7rem 1.5rem;
+  border: 1px solid var(--form-field-color);
+  border-radius: 4px;
+  background-color: var(--form-background-color);
+  color: var(--form-field-color);
+  font-size: 1rem;
+  cursor: pointer;
+}
+button[type="submit"]:hover {
+  box-shadow: inset 0 0 5px 0 rgba(245, 205, 139, 0.3);
+}
+button[type="submit"]:disabled {
+  border: 1px solid #ccc;
+  background-color: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+}
+/* FORGOT PW */
+.forgot-password {
+  color: #a50101;
+}
+/* CREATE ACCOUNT */
+.no-account {
+  color: #fff;
+}
+.no-account span {
+  font-size: 1rem;
+  color: var(--form-field-color);
+  text-decoration: underline;
+  text-decoration-color: var(--form-field-color);
+}
+.create-account a {
+  color: var(--form-field-color);
+  text-decoration: none;
+}
+/* FOOTER */
+footer {
+  color: #fff;
+}
+footer span {
+  font-size: 1rem;
+  color: var(--form-field-color);
+  cursor: alias;
+}
