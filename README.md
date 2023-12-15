@@ -1,5 +1,7 @@
 Large-scale, fullstack fictional e-commerce store application for my portfolio.
 
+TEST WORKFLOW
+////
 AS A WHOLE:
 
 - GraphQL querying for server-client request-response cycle,
