@@ -1,12 +1,13 @@
 {
-  "name": "e-commerce-store-watches",
+  "name": "e-commerce-store-musical-instruments",
   "version": "0.0.0",
   "lockfileVersion": 3,
   "requires": true,
   "packages": {
     "": {
-      "name": "e-commerce-store-watches",
+      "name": "e-commerce-store-musical-instruments",
       "version": "0.0.0",
+      "license": "ISC",
       "dependencies": {
         "@angular/animations": "^16.2.5",
         "@angular/common": "^16.2.5",

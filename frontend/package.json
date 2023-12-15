@@ -1,5 +1,5 @@
 {
-  "name": "e-commerce-store-watches",
+  "name": "e-commerce-store-musical-instruments",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -53,5 +53,27 @@
     "prettier": "^3.1.1",
     "typescript": "~5.0.2",
     "vite": "5.0.5"
-  }
+  },
+  "description": "Electronic store with musical instruments: project for web developer's portfolio. Coded in MongoDB/Mongoose + Node.js/Fastify/TypeScript + GraphQL BACKEND & Angular FRONTEND.",
+  "main": "src/index.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/munrhalls/e-commerce-store-music-instruments.git"
+  },
+  "keywords": [
+    "MongoDB",
+    "Mongoose",
+    "Node.js",
+    "Node",
+    "Fastify",
+    "TypeScript",
+    "GraphQL",
+    "Angular"
+  ],
+  "author": "Munrhalls",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/munrhalls/e-commerce-store-music-instruments/issues"
+  },
+  "homepage": "https://github.com/munrhalls/e-commerce-store-music-instruments#readme"
 }
