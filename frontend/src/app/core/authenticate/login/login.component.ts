@@ -1,6 +1,6 @@
 // import { take, catchError } from 'rxjs/operators'
 import { throwError } from 'rxjs'
-import { type HttpClient } from '@angular/common/http'
+// import { type HttpClient } from '@angular/common/http'
 import { Component, type OnInit } from '@angular/core'
 import {
   FormGroup,
@@ -46,11 +46,11 @@ export class LoginComponent implements OnInit {
     window.location.href = window.location.origin + 'auth/google'
   }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.value)
-    }
-  }
+  // onSubmit():  {
+  //   if (this.loginForm.valid) {
+  //     console.log(this.loginForm.value)
+  //   }
+  // }
 
   handleCredentialResponse(response: any): void {
     console.log(response)

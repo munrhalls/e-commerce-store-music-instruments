@@ -3,8 +3,8 @@ import {
   type ActivatedRoute,
   NavigationEnd
 } from '@angular/router'
-import { Subject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
+// import { Subject } from 'rxjs'
+// import { takeUntil } from 'rxjs/operators'
 import { type MenuService } from '../menu-service.service'
 import { Component, type Renderer2, type OnInit } from '@angular/core'
 import {
@@ -38,19 +38,19 @@ export class HeaderComponent implements OnInit {
     private readonly renderer: Renderer2
   ) {}
 
-  toggleMobileMenu() {
+  toggleMobileMenu(): void {
     this.menuService.toggleMobileMenu()
   }
 
-  toggleMobileSearch() {
+  toggleMobileSearch(): void {
     this.menuService.toggleMobileSearch()
   }
 
-  openAuthenticateURL() {
+  openAuthenticateURL(): void {
     this.menuService.openAuthenticateURL()
   }
 
-  closeAuthenticateURL() {
+  closeAuthenticateURL(): void {
     this.menuService.closeAuthenticateURL()
   }
 
