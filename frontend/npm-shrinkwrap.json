@@ -248,7 +248,6 @@
     "node_modules/@angular-devkit/build-angular/node_modules/vite": {
       "version": "4.5.1",
       "resolved": "https://registry.npmjs.org/vite/-/vite-4.5.1.tgz",
-      "integrity": "sha512-6pYf9QJ1mHylfVh39HpuSfMPojPSKVxZvnclX1K1FyZ1PXDOcLBibdq5t1qxJSnL63ca8Wf4zts6mD8u8oc9Fw==",
       "dev": true,
       "dependencies": {
         "esbuild": "^0.18.10",

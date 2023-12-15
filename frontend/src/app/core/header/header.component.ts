@@ -1,12 +1,8 @@
-import {
-  type Router,
-  type ActivatedRoute,
-  NavigationEnd
-} from '@angular/router'
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'
 // import { Subject } from 'rxjs'
 // import { takeUntil } from 'rxjs/operators'
-import { type MenuService } from '../menu-service.service'
-import { Component, type Renderer2, type OnInit } from '@angular/core'
+import { MenuService } from '../menu-service.service'
+import { Inject, Component, Renderer2, type OnInit } from '@angular/core'
 import {
   faSearch,
   faUser,
@@ -32,10 +28,10 @@ export class HeaderComponent implements OnInit {
   faTimes = faTimes
 
   constructor(
-    private readonly router: Router,
-    private readonly route: ActivatedRoute,
-    private readonly menuService: MenuService,
-    private readonly renderer: Renderer2
+    @Inject(Router) private readonly router: Router,
+    @Inject(ActivatedRoute) private readonly route: ActivatedRoute,
+    @Inject(MenuService) private readonly menuService: MenuService,
+    @Inject(Renderer2) private readonly renderer: Renderer2
   ) {}
 
   toggleMobileMenu(): void {
