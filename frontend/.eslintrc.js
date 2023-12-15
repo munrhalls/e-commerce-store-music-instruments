@@ -13,11 +13,18 @@ module.exports = {
       parserOptions: {
         sourceType: 'script'
       }
+    },
+    {
+      files: ['*routing.module.ts'],
+      rules: {
+        '@typescript-eslint/promise-function-async': 'off'
+      }
     }
   ],
   parserOptions: {
     ecmaVersion: 'latest'
   },
+
   rules: {
     '@typescript-eslint/consistent-type-imports': 'error'
   }

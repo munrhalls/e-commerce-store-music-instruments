@@ -6,8 +6,8 @@ import { StoreComponent } from './store/store.component'
 const routes: Routes = [
   {
     path: 'authenticate',
-    loadChildren: async () =>
-      await import('./core/authenticate/authenticate.module').then(
+    loadChildren: () =>
+      import('./core/authenticate/authenticate.module').then(
         (m) => m.AuthenticateModule
       )
   },

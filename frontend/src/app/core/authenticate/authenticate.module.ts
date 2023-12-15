@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core'
+import { RouterModule } from '@angular/router'
 import { ReactiveFormsModule } from '@angular/forms'
 import { LoginComponent } from './login/login.component'
 import { AuthenticateComponent } from './authenticate.component'
@@ -37,6 +38,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
     }
   ],
   imports: [
+    RouterModule,
     ReactiveFormsModule,
     FontAwesomeModule
     // HttpClientModule,

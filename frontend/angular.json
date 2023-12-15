@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "e-commerce-store-watches": {
+    "e-commerce-store-musical-instruments": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/e-commerce-store-watches",
+            "outputPath": "dist/e-commerce-store-musical-instruments",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -64,13 +64,13 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "e-commerce-store-watches:build:production"
+              "browserTarget": "e-commerce-store-musical-instruments:build:production"
             },
             "development": {
-              "browserTarget": "e-commerce-store-watches:build:development"
+              "browserTarget": "e-commerce-store-musical-instruments:build:development"
             },
             "hmr": {
-              "browserTarget": "e-commerce-store-watches:build:hmr",
+              "browserTarget": "e-commerce-store-musical-instruments:build:hmr",
               "hmr": true
             }
           },
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "e-commerce-store-watches:build"
+            "browserTarget": "e-commerce-store-musical-instruments:build"
           }
         },
         "test": {
