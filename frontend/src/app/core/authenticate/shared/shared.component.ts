@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-shared',
   templateUrl: './shared.component.html',
   styleUrls: ['./shared.component.css']
 })
-export class SharedComponent {
-
-}
+export class SharedComponent {}

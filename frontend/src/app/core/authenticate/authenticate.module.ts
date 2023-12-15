@@ -1,30 +1,28 @@
-import { NgModule } from '@angular/core';
-import { LoginComponent } from './login/login.component';
-import { HttpClientModule } from '@angular/common/http';
-import { OAuthModule } from 'angular-oauth2-oidc';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AuthenticateRoutingModule } from './authenticate-routing.module';
-import { AuthenticateComponent } from './authenticate.component';
-import { RegisterComponent } from './register/register.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { NgModule } from '@angular/core'
+import { LoginComponent } from './login/login.component'
+import { HttpClientModule } from '@angular/common/http'
+import { OAuthModule } from 'angular-oauth2-oidc'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { CommonModule } from '@angular/common'
+import { RouterModule } from '@angular/router'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { AuthenticateRoutingModule } from './authenticate-routing.module'
+import { AuthenticateComponent } from './authenticate.component'
+import { RegisterComponent } from './register/register.component'
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
 import {
   SocialLoginModule,
-  SocialAuthServiceConfig,
-} from '@abacritt/angularx-social-login';
-import {
+  type SocialAuthServiceConfig,
   GoogleLoginProvider,
-  FacebookLoginProvider,
-} from '@abacritt/angularx-social-login';
+  FacebookLoginProvider
+} from '@abacritt/angularx-social-login'
 
 @NgModule({
   declarations: [
     AuthenticateComponent,
     LoginComponent,
     RegisterComponent,
-    ForgotPasswordComponent,
+    ForgotPasswordComponent
   ],
   providers: [
     {
@@ -34,15 +32,15 @@ import {
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('Google-OAuth-Client-Id'),
+            provider: new GoogleLoginProvider('Google-OAuth-Client-Id')
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('Facebook-App-Id'),
-          },
-        ],
-      } as SocialAuthServiceConfig,
-    },
+            provider: new FacebookLoginProvider('Facebook-App-Id')
+          }
+        ]
+      } as SocialAuthServiceConfig
+    }
   ],
   imports: [
     HttpClientModule,
@@ -52,7 +50,7 @@ import {
     CommonModule,
     AuthenticateRoutingModule,
     RouterModule,
-    FontAwesomeModule,
-  ],
+    FontAwesomeModule
+  ]
 })
 export class AuthenticateModule {}

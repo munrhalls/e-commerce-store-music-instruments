@@ -1,23 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, type OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor() {}
-  title = 'Lux Logium';
-  isMobile: boolean = false;
+  title = 'Sang Logium'
+  isMobile: boolean = false
 
-  ngOnInit() {
-    this.checkScreenSize();
+  ngOnInit(): void {
+    this.checkScreenSize()
     window.addEventListener('resize', () => {
-      this.checkScreenSize();
-    });
+      this.checkScreenSize()
+    })
   }
 
-  checkScreenSize() {
-    this.isMobile = window.innerWidth <= 1050;
+  checkScreenSize(): void {
+    this.isMobile = window.innerWidth <= 1050
   }
 }
