@@ -9,6 +9,7 @@ import {
   type ValidationErrors,
   type AbstractControl
 } from '@angular/forms'
+
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 // import {
 //   SocialAuthService,
@@ -46,11 +47,11 @@ export class LoginComponent implements OnInit {
     window.location.href = window.location.origin + 'auth/google'
   }
 
-  // onSubmit():  {
-  //   if (this.loginForm.valid) {
-  //     console.log(this.loginForm.value)
-  //   }
-  // }
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value)
+    }
+  }
 
   handleCredentialResponse(response: any): void {
     console.log(response)
