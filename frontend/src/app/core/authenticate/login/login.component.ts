@@ -1,4 +1,4 @@
-import { take, catchError } from 'rxjs/operators'
+// import { take, catchError } from 'rxjs/operators'
 import { throwError } from 'rxjs'
 import { type HttpClient } from '@angular/common/http'
 import { Component, type OnInit } from '@angular/core'
@@ -10,12 +10,12 @@ import {
   type AbstractControl
 } from '@angular/forms'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
-import {
-  SocialAuthService,
-  GoogleLoginProvider,
-  FacebookLoginProvider
-} from '@abacritt/angularx-social-login'
-import { environment } from 'src/environments/environment'
+// import {
+//   SocialAuthService,
+//   GoogleLoginProvider,
+//   FacebookLoginProvider
+// } from '@abacritt/angularx-social-login'
+// import { environment } from 'src/environments/environment'
 
 @Component({
   selector: 'app-login',
@@ -23,22 +23,20 @@ import { environment } from 'src/environments/environment'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor(private readonly http: HttpClient) {}
-  private handleError(error: any) {
+  // constructor(private readonly http: HttpClient) {}
+  private handleError(error: any): void {
     console.error('Authentication error:', error)
-    return throwError(
-      () => new Error('Authentication failed; please try again.')
-    )
+    throwError(() => new Error('Authentication failed; please try again.'))
   }
 
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [
-      Validators.required,
-      Validators.email
+      (control: AbstractControl) => Validators.required(control),
+      (control: AbstractControl) => Validators.email(control)
     ] as Array<(control: AbstractControl) => ValidationErrors | null>),
     password: new FormControl(null, [
-      Validators.required,
-      Validators.minLength(8)
+      (control: AbstractControl) => Validators.required(control),
+      (control: AbstractControl) => Validators.minLength(8)(control)
     ] as Array<(control: AbstractControl) => ValidationErrors | null>)
   })
 

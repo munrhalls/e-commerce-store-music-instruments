@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core'
+import { Inject, Injectable } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
-import type { ActivatedRoute } from '@angular/router'
-import { Router, NavigationEnd } from '@angular/router'
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'
 import { filter } from 'rxjs/operators'
 
 @Injectable({
@@ -12,8 +11,8 @@ export class MenuService {
   private readonly urlStack: string[] = []
 
   constructor(
-    private readonly router: Router,
-    private readonly route: ActivatedRoute
+    @Inject(Router) private readonly router: Router,
+    @Inject(ActivatedRoute) private readonly route: ActivatedRoute
   ) {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -26,34 +25,34 @@ export class MenuService {
       })
   }
 
-  setOpenElementNameManually(name: string) {
+  setOpenElementNameManually(name: string): void {
     this.openElementName.next(name)
   }
 
-  toggleMobileMenu() {
+  toggleMobileMenu(): void {
     this.openElementName.next(
       this.openElementName.value === 'mobile-menu' ? '' : 'mobile-menu'
     )
     this.closeAuthenticateURL()
   }
 
-  toggleMobileSearch() {
+  toggleMobileSearch(): void {
     this.openElementName.next(
       this.openElementName.value === 'mobile-search' ? '' : 'mobile-search'
     )
     this.closeAuthenticateURL()
   }
 
-  openAuthenticateURL() {
+  openAuthenticateURL(): void {
     this.router.navigate(['/authenticate']).catch((err) => {
       console.error('Navigation Error:', err)
     })
   }
 
-  closeAuthenticateURL() {
+  closeAuthenticateURL(): void {
     if (this.urlStack.length > 1) {
       this.urlStack.pop() // Remove current URL
-      const lastUrl = this.urlStack.pop() || '/' // Get last URL
+      const lastUrl = this.urlStack.pop() ?? '/' // Get last URL
       this.router.navigate([lastUrl]).catch((err) => {
         console.error('Navigation Error:', err)
       })

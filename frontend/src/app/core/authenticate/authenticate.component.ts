@@ -44,15 +44,15 @@ export class AuthenticateComponent implements OnInit {
   animationState = {}
   faClose = faClose
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.animationState = this.route.snapshot.data['animation']
   }
 
-  closeAuthenticateURL() {
+  closeAuthenticateURL(): void {
     this.menuService.closeAuthenticateURL()
   }
 
-  toggleAccount() {
+  toggleAccount(): void {
     this.account = this.account === 'has-account' ? 'no-account' : 'has-account'
   }
 }
