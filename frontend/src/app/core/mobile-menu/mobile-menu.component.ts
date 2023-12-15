@@ -1,6 +1,6 @@
-import { type MenuService } from './../menu-service.service'
+import { MenuService } from './../menu-service.service'
 import { trigger, state, style, transition, animate } from '@angular/animations'
-import { Component, type OnInit, type OnDestroy } from '@angular/core'
+import { Inject, Component, type OnInit, type OnDestroy } from '@angular/core'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
@@ -24,12 +24,12 @@ export class MobileMenuComponent implements OnInit, OnDestroy {
   menuState: string = 'closed'
   faAngleRight = faAngleRight
 
-  constructor(private readonly menuService: MenuService) {}
+  constructor(@Inject(MenuService) private readonly menuService: MenuService) {}
 
   ngOnInit(): void {
     this.menuService.openElementName
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((openElementName) => {
+      .subscribe((openElementName: string) => {
         this.isOpen = openElementName === 'mobile-menu'
 
         this.menuState =

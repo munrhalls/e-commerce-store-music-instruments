@@ -1,7 +1,7 @@
-import { type MenuService } from '../menu-service.service'
+import { MenuService } from '../menu-service.service'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { trigger, state, style, transition, animate } from '@angular/animations'
-import { Component, type OnInit, type OnDestroy } from '@angular/core'
+import { Inject, Component, type OnInit, type OnDestroy } from '@angular/core'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
@@ -19,7 +19,7 @@ import { takeUntil } from 'rxjs/operators'
   ]
 })
 export class MobileSearchComponent implements OnInit, OnDestroy {
-  constructor(private readonly menuService: MenuService) {}
+  constructor(@Inject(MenuService) private readonly menuService: MenuService) {}
   private readonly unsubscribe$ = new Subject<void>()
   isOpen: boolean = false
   searchFormState: string = 'out'
