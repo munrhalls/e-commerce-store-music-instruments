@@ -4,7 +4,7 @@
   "description": "DB + DB query language -> Node.js Fastify Typescript server + GraphQL query language as the server-side of the store.",
   "main": "server.js",
   "scripts": {
-    "test": "test",
+    "test": "echo 'No tests yet'",
     "lint": "eslint ./src/**/*.ts"
   },
   "repository": {
