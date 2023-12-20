@@ -21,6 +21,22 @@ services:
       timeout: 10s
       retries: 3
 
+  server:
+    build:
+      context: ./backend/server
+      dockerfile: Dockerfile
+    ports:
+      - "8443:8443"
+    depends_on:
+      - mongo
+    env_file:
+      - ./backend/server/.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    networks:
+      - mongo-network
+
 networks:
   mongo-network:
     driver: bridge
