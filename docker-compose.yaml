@@ -8,9 +8,6 @@ services:
       - ./data/db:/data/db
     env_file:
       - ./backend/database/.env
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     expose:
       - 27017
     networks:
@@ -31,9 +28,6 @@ services:
       - mongo
     env_file:
       - ./backend/server/.env
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     networks:
       - mongo-network
 
