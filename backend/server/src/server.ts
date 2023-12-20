@@ -1,3 +1,4 @@
+import 'graphql-import-node'
 import fastify from 'fastify'
 
 const server = fastify()
