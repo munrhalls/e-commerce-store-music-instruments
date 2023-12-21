@@ -49,7 +49,7 @@ server.route({
   }
 })
 
-server.listen({ port: 8080 }, (err, address) => {
+server.listen({ port: 8443 }, (err, address) => {
   if (err !== null) {
     console.error(err)
     process.exit(1)
