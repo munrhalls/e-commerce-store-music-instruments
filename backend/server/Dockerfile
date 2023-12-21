@@ -12,4 +12,4 @@ RUN npm run build
 
 EXPOSE 8443
 
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "run", "start"]
