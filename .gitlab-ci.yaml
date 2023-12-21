@@ -1,0 +1,39 @@
+image: docker:latest
+
+services:
+  mongo:
+    image: mongo:5.0.23
+    volumes:
+      - ./data/db:/data/db
+    env_file:
+      - ./backend/database/.env
+    expose:
+      - 27017
+    networks:
+      - mongo-network
+
+  server:
+    build:
+      context: ./backend/server
+      dockerfile: Dockerfile
+    ports:
+      - "8443:8443"
+    depends_on:
+      - mongo
+    env_file:
+      - ./backend/server/.env
+    networks:
+      - mongo-network
+
+networks:
+  mongo-network:
+    driver: bridge
+
+test:
+  stage: test
+  script:
+    - docker-compose up -d
+    - wait_for_it -t 30 http://server:8443/ping
+    - wget http://server:8443/healthcheck -O healthcheck.txt
+    - grep -q "up and running" healthcheck.txt
+    - docker-compose down -v
