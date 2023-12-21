@@ -23,7 +23,7 @@ server.route({
       body: req.body
     }
 
-    if (shouldRenderGraphiQL(request)) {
+    if (shouldRenderGraphiQL(request) === true) {
       await reply.header('Content-Type', 'text/html')
 
       await reply.send(
