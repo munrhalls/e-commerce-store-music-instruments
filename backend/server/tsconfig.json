@@ -1,7 +1,9 @@
 {
   "exclude": ["node_modules", ".eslintrc.js"],
+  "include": ["src/**/*"],
   "compilerOptions": {
     "outDir": "./dist",
+    "typeRoots": ["node_modules/@types", "src/@types"],
     "target": "es2017",
     "module": "commonjs", // or "esnext" if using ECMAScript modules
     "moduleResolution": "node",
