@@ -1,0 +1,54 @@
+stages:
+  - build
+  - test
+
+build_server:
+  stage: build
+  script:
+    - npm ci
+    - npm run lint
+    - npm run build
+  only:
+    - main
+
+test_server_ubuntu:
+  stage: test
+  image: node:20
+  services:
+    - mongo:latest
+  script:
+    - npm test
+  tags:
+    - ubuntu-runner
+  only:
+    - main
+
+test_server_windows:
+  stage: test
+  image: mcr.microsoft.com/windows/servercore:ltsc2019
+  script:
+    - choco install nodejs --version 20.0.0
+    - refreshenv
+    - npm install --prefix ./backend/server
+    - npm run lint --prefix ./backend/server
+    - npm run build --prefix ./backend/server
+    - npm test --prefix ./backend/server
+  tags:
+    - windows-runner
+  only:
+    - main
+
+test_server_macos:
+  stage: test
+  script:
+    - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    - brew install node@20
+    - export PATH="/usr/local/opt/node@20/bin:$PATH"
+    - npm install --prefix ./backend/server
+    - npm run lint --prefix ./backend/server
+    - npm run build --prefix ./backend/server
+    - npm test --prefix ./backend/server
+  tags:
+    - macos-runner
+  only:
+    - main
