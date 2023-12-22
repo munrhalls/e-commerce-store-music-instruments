@@ -6,8 +6,13 @@ services:
     image: mongo:5.0.23
     volumes:
       - ./data/db:/data/db
-    env_file:
-      - ./backend/database/.env
+    # env_file:
+    #   - ./backend/database/.env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+
     expose:
       - 27017
     networks:
@@ -26,8 +31,10 @@ services:
       - "8443:8443"
     depends_on:
       - mongo
-    env_file:
-      - ./backend/server/.env
+    # env_file:
+    #   - ./backend/server/.env
+    environment:
+      - MONGO_URI=${MONGO_URI}
     networks:
       - mongo-network
 
