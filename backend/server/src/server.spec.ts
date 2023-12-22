@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+import 'd'
 
 describe('GraphQL Server Tests', () => {
   it('should fetch data from the GraphQL endpoint', async () => {
@@ -11,13 +12,16 @@ describe('GraphQL Server Tests', () => {
       }
     `
 
-    const response = await fetch('http://localhost:PORT/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ query })
-    })
+    const response = await fetch(
+      `http://localhost:${process.env.PORT}/graphql`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ query })
+      }
+    )
 
     const data = await response.json()
 

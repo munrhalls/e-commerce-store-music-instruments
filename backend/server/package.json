@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "@graphql-tools/schema": "^10.0.2",
+    "dotenv": "^16.3.1",
     "fastify": "^4.25.1",
     "graphql": "^16.8.1",
     "graphql-helix": "^1.13.0",
