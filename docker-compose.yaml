@@ -28,7 +28,7 @@ services:
       context: ./backend/server
       dockerfile: Dockerfile
     ports:
-      - "8443:8443"
+      - PORT=${PORT}
     depends_on:
       - mongo
     # env_file:
