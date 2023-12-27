@@ -1,3 +1,13 @@
+/*
+IMPORTANT!
+
+Fastify DOCS about config:
+
+Note: Set target property in tsconfig.json to es2017 or greater to avoid FastifyDeprecation warning.
+
+Note 2: Avoid using "moduleResolution": "NodeNext" in tsconfig.json with "type": "module" in package.json. This combination is currently not supported by fastify typing system. ts(2349) warning.
+*/
+
 {
   "exclude": ["node_modules", ".eslintrc.js"],
   "include": ["src/**/*"],
@@ -5,7 +15,7 @@
     "outDir": "./dist",
     "typeRoots": ["node_modules/@types", "src/@types"],
     "target": "es2017",
-    "module": "commonjs", // or "esnext" if using ECMAScript modules
+    "module": "ESNext", // or "esnext" if using ECMAScript modules
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,

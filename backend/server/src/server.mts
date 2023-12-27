@@ -3,12 +3,12 @@ import fastify from 'fastify'
 import {
   getGraphQLParameters,
   processRequest,
-  type Request,
+  Request,
   sendResult,
   shouldRenderGraphiQL,
   renderGraphiQL
 } from 'graphql-helix'
-import { schema } from './schema'
+import { schema } from './schema.mjs'
 
 const server = fastify()
 
@@ -23,7 +23,7 @@ server.route({
       body: req.body
     }
 
-    if (shouldRenderGraphiQL(request) === true) {
+    if (shouldRenderGraphiQL(request)) {
       await reply.header('Content-Type', 'text/html')
 
       await reply.send(
