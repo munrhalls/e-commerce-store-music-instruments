@@ -5,11 +5,11 @@
   "description": "DB + DB query language -> Node.js Fastify Typescript server + GraphQL query language as the server-side of the store.",
   "main": "server.mjs",
   "scripts": {
-    "lint": "eslint ./src/**/*.ts",
-    "build": "tsc -p tsconfig.json && node graphql-to-dist.cjs",
+    "lint": "eslint ./src/**/*.{ts,mts}",
+    "build": "ts-node -O '{\"module\": \"commonjs\"}'   -r ts-node/register/transpile-only src/server.mts && node graphql-to-dist.cjs",
+    "test": "mocha -r ts-node/register --extensions .mts,.ts 'src/**/*.{spec.ts,spec.mts}'",
     "dev": "ts-node-dev --exit-child src/server.ts",
-    "test": "mocha -r ts-node/register --extensions .mts,.ts 'src/**/*.spec.ts'",
-    "start": "tsc -p tsconfig.json && node graphql-to-dist.cjs &&  node dist/server.js"
+    "start": "ts-node src/server.ts && node graphql-to-dist.cjs"
   },
   "repository": {
     "type": "git",

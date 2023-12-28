@@ -1,4 +1,6 @@
 {
+  "include": ["src/**/*.ts", "src/**/*.mts"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "target": "es2017",
     "module": "es2020",
@@ -20,7 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
-  },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  }
 }
