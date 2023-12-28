@@ -56,3 +56,5 @@ server.listen({ port: 8443 }, (err, address) => {
   }
   console.log(`Server listening at ${address}`)
 })
+
+export default server
