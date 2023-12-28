@@ -1,4 +1,5 @@
-import { describe, it, expect, afterAll } from 'vitest';
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
 import server from './server.mts';
 
 describe('GraphQL Fastify Server Tests', () => {
@@ -15,11 +16,9 @@ describe('GraphQL Fastify Server Tests', () => {
       }
     });
 
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).to.equal(200);
   });
   // Rest of the code...
 
-  afterAll(async () => {
-    await server.close();
-  })``;
+  server.close();
 });
