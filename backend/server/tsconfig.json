@@ -15,8 +15,8 @@ Note 2: Avoid using "moduleResolution": "NodeNext" in tsconfig.json with "type":
     "outDir": "./dist",
     "typeRoots": ["node_modules/@types", "src/@types"],
     "target": "es2017",
-    "module": "ESNext", // or "esnext" if using ECMAScript modules
-    "moduleResolution": "bundler",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
     "allowImportingTsExtensions": true,
