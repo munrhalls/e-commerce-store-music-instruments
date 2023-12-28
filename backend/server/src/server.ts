@@ -8,11 +8,11 @@ import {
   shouldRenderGraphiQL,
   renderGraphiQL
 } from 'graphql-helix';
-import { schema } from './schema.mts';
+import { schema } from './schema';
 
-const app = fastify();
+const server = fastify();
 
-app.route({
+server.route({
   method: ['POST', 'GET'],
   url: '/graphql',
   handler: async (req, reply) => {
@@ -49,13 +49,12 @@ app.route({
   }
 });
 
-function build(opts = {}) {
-  const app = fastify(opts);
-  app.get('/', async function (request, reply) {
-    return { hello: 'world' };
-  });
+server.listen({ port: 8443 }, (err, address) => {
+  if (err !== null) {
+    console.error(err);
+    process.exit(1);
+  }
+  console.log(`server listening at ${address}`);
+});
 
-  return app;
-}
-
-export default build;
+export default server;

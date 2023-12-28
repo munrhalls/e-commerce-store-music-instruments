@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import server from './server.mts';
+import server from './server';
 
 describe('GraphQL Fastify Server Tests', () => {
   it('should respond to a GraphQL query', async () => {
