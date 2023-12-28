@@ -10,9 +10,9 @@ import {
 } from 'graphql-helix';
 import { schema } from './schema.mts';
 
-const server = fastify();
+const app = fastify();
 
-server.route({
+app.route({
   method: ['POST', 'GET'],
   url: '/graphql',
   handler: async (req, reply) => {
@@ -49,12 +49,13 @@ server.route({
   }
 });
 
-server.listen({ port: 8443 }, (err, address) => {
-  if (err !== null) {
-    console.error(err);
-    process.exit(1);
-  }
-  console.log(`Server listening at ${address}`);
-});
+function build(opts = {}) {
+  const app = fastify(opts);
+  app.get('/', async function (request, reply) {
+    return { hello: 'world' };
+  });
 
-export default server;
+  return app;
+}
+
+export default build;

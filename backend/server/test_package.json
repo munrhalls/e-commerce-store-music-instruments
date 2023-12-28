@@ -1,0 +1,12 @@
+{
+  "name": "e-commerce-store-musical-instruments-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "mocha -r ts-node/register --extensions .mts,.ts 'src/**/*.spec.ts'",
+    "start": "tsc -p tsconfig.json && node graphql-to-dist.cjs && node dist/server.js"
+  },
+  "devDependencies": {
+    "ts-node": "^10.4.0",
+    "mocha": "^9.1.3"
+  }
+}
