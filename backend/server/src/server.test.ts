@@ -21,5 +21,5 @@ describe('GraphQL Fastify Server Tests', () => {
 
   afterAll(async () => {
     await server.close();
-  });
+  })``;
 });
