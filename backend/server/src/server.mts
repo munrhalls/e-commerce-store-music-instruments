@@ -1,5 +1,5 @@
-import 'graphql-import-node'
-import fastify from 'fastify'
+import 'graphql-import-node';
+import fastify from 'fastify';
 import {
   getGraphQLParameters,
   processRequest,
@@ -7,10 +7,10 @@ import {
   sendResult,
   shouldRenderGraphiQL,
   renderGraphiQL
-} from 'graphql-helix'
-import { schema } from './schema.mjs'
+} from 'graphql-helix';
+import { schema } from './schema.mts';
 
-const server = fastify()
+const server = fastify();
 
 server.route({
   method: ['POST', 'GET'],
@@ -21,21 +21,21 @@ server.route({
       method: req.method,
       query: req.query,
       body: req.body
-    }
+    };
 
     if (shouldRenderGraphiQL(request)) {
-      await reply.header('Content-Type', 'text/html')
+      await reply.header('Content-Type', 'text/html');
 
       await reply.send(
         renderGraphiQL({
           endpoint: '/graphql'
         })
-      )
+      );
 
-      return
+      return;
     }
 
-    const { operationName, query, variables } = getGraphQLParameters(request)
+    const { operationName, query, variables } = getGraphQLParameters(request);
 
     const result = await processRequest({
       request,
@@ -43,18 +43,18 @@ server.route({
       operationName,
       query,
       variables
-    })
+    });
 
-    await sendResult(result, reply.raw)
+    await sendResult(result, reply.raw);
   }
-})
+});
 
 server.listen({ port: 8443 }, (err, address) => {
   if (err !== null) {
-    console.error(err)
-    process.exit(1)
+    console.error(err);
+    process.exit(1);
   }
-  console.log(`Server listening at ${address}`)
-})
+  console.log(`Server listening at ${address}`);
+});
 
-export default server
+export default server;
