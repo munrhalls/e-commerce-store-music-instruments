@@ -3,12 +3,12 @@ import fastify from 'fastify';
 import {
   getGraphQLParameters,
   processRequest,
-  Request,
+  type Request,
   sendResult,
   shouldRenderGraphiQL,
   renderGraphiQL
 } from 'graphql-helix';
-import { schema } from './schema';
+import { schema } from './schema/schema';
 
 const server = fastify();
 
