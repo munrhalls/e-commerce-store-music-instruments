@@ -1,7 +1,7 @@
 import server from './server';
 
-test('Querying GraphQL with {products {name, price}} should return products list with name & price fields', async () => {
-  const responseToQuery = await server.inject({
+test('GraphQL Query { products { name, price } } should return status code 200', async () => {
+  const response = await server.inject({
     method: 'POST',
     url: '/graphql',
     payload: {
@@ -9,5 +9,5 @@ test('Querying GraphQL with {products {name, price}} should return products list
     }
   });
 
-  expect(responseToQuery).toBeDefined();
+  expect(response.statusCode).toEqual(200);
 });
