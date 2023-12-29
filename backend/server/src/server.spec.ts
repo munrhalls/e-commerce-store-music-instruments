@@ -1,5 +1,9 @@
 import server from './server';
 
+afterAll(async () => {
+  await server.close();
+});
+
 test('GraphQL Query { products { name, price } } should return status code 200', async () => {
   const response = await server.inject({
     method: 'POST',
@@ -10,8 +14,4 @@ test('GraphQL Query { products { name, price } } should return status code 200',
   });
 
   expect(response.statusCode).toEqual(200);
-});
-
-afterAll(async () => {
-  await server.close();
 });
