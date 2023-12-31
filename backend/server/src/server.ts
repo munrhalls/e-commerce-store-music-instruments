@@ -1,53 +1,15 @@
 import 'graphql-import-node';
 import { fastify, type FastifyInstance } from 'fastify';
-import {
-  getGraphQLParameters,
-  processRequest,
-  type Request,
-  sendResult,
-  shouldRenderGraphiQL,
-  renderGraphiQL
-} from 'graphql-helix';
-import { schema } from './schema/schema';
+import { printSchema } from 'graphql';
+import mercurius from 'mercurius';
+import { schema, resolvers } from './schema/schema';
 
 export const createServer = function (): FastifyInstance {
   const server = fastify();
 
-  server.route({
-    method: ['POST', 'GET'],
-    url: '/graphql',
-    handler: async (req, reply) => {
-      const request: Request = {
-        headers: req.headers,
-        method: req.method,
-        query: req.query,
-        body: req.body
-      };
-
-      if (shouldRenderGraphiQL(request)) {
-        await reply.header('Content-Type', 'text/html');
-
-        await reply.send(
-          renderGraphiQL({
-            endpoint: '/graphql'
-          })
-        );
-
-        return;
-      }
-
-      const { operationName, query, variables } = getGraphQLParameters(request);
-
-      const result = await processRequest({
-        request,
-        schema,
-        operationName,
-        query,
-        variables
-      });
-
-      await sendResult(result, reply.raw);
-    }
+  void server.register(mercurius, {
+    schema: printSchema(schema),
+    resolvers
   });
 
   return server;
@@ -57,11 +19,11 @@ if (require.main === module) {
   const server = createServer();
   const port = 8443;
 
-  server.listen({ port }, (err, address) => {
+  server.listen({ port }, err => {
     if (err !== null) {
       console.error(err);
       process.exit(1);
     }
-    console.log(`server listening at ${address}`);
+    console.log(`server listening on ${port}.`);
   });
 }

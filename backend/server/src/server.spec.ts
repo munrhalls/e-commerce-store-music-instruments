@@ -1,5 +1,3 @@
-// TODO A:file-2 distinguish server build from server app, and modify tests to accomodate it
-
 import { createServer } from './server';
 
 const server = createServer();

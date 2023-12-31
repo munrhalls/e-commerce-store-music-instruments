@@ -1,5 +1,6 @@
-import typeDefs from './schema.graphql';
-import { makeExecutableSchema } from '@graphql-tools/schema';
+import { loadSchemaSync } from '@graphql-tools/load';
+import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
+import path from 'path';
 
 const rndProds = [
   { name: 'some fucking product 1', price: 49 },
@@ -15,7 +16,9 @@ const resolvers = {
   }
 };
 
-export const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers
+// Load and merge .graphql files
+const schema = loadSchemaSync(path.join(__dirname, './**/*.graphql'), {
+  loaders: [new GraphQLFileLoader()]
 });
+
+export { schema, resolvers };
