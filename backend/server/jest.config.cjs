@@ -4,6 +4,6 @@ module.exports = {
   testEnvironment: 'node',
   transform: {
     '^.+\\.ts$': 'ts-jest',
-    '^.+\\.graphql$': '<rootDir>/raw-loader.cjs'
+    '^.+\\.graphql$': '<rootDir>/utils/raw-loader.cjs'
   }
 };
