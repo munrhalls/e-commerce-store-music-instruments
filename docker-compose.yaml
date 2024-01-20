@@ -1,18 +1,17 @@
-version: v2.23.3-desktop.2
+version: "3.8"
 
 services:
   mongo:
     restart: always
     image: mongo:5.0.23
     volumes:
-      - ./data/db:/data/db
-    # env_file:
-    #   - ./backend/database/.env
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
-
+      - ./database/data/db:/data/db
+    env_file:
+      - ./database/.env
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+    #   - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    #   - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
     expose:
       - 27017
     networks:
@@ -25,16 +24,17 @@ services:
 
   server:
     build:
-      context: ./backend/server
+      context: ./server
       dockerfile: Dockerfile
-    ports:
-      - PORT=${PORT}
     depends_on:
       - mongo
-    # env_file:
-    #   - ./backend/server/.env
-    environment:
-      - MONGO_URI=${MONGO_URI}
+    env_file:
+      - ./server/.env
+    # ports:
+    #   - "${PORT}:8443"
+    # environment:
+    #   - MONGO_URI=${MONGO_URI}
+    #   - NODE_ENV=${NODE_ENV}
     networks:
       - mongo-network
 
