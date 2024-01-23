@@ -1,23 +1,42 @@
-# Use an official Node runtime as a parent image
-FROM node:18
+# VERSION 2
+# Use NGINX as a lightweight server
+FROM nginx:alpine
 
-# Set the working directory to /app
-WORKDIR /app
+# Set the working directory to NGINX's default public directory
+WORKDIR /usr/share/nginx/html/
 
-# Copy package.json and package-lock.json to /app
-COPY package*.json ./
+# Copy the Angular production build from the local machine to the container
+COPY /dist/* .
 
-# Install Angular CLI globally
-RUN npm install -g @angular/cli@16
+# Expose port 80 for NGINX to listen on
+EXPOSE 80
 
-# Install project dependencies
-RUN npm install
 
-# Copy the current directory contents into the container at /app
-COPY . .
 
-# Make port 4200 available to the world outside this container
-EXPOSE 4200
+# //////////////// VERSION 1
+# # Use an official Node runtime as a parent image
+# FROM node:18
 
-# Define the command to run your Angular app when the container starts
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+# # Set the working directory to /app
+# WORKDIR /app
+
+# # Copy package.json and package-lock.json to /app
+# COPY package*.json ./
+
+# # Install Angular CLI globally
+# RUN npm install -g @angular/cli@16
+
+# # Install project dependencies
+# RUN npm install
+# # Build
+# RUN npm run build
+
+
+# # Copy the current directory contents into the container at /app
+# COPY . .
+
+# # Make port 4200 available to the world outside this container
+# EXPOSE 4200
+
+# # Define the command to run your Angular app when the container starts
+# CMD ["ng", "serve", "--host", "0.0.0.0"]
