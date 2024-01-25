@@ -8,6 +8,9 @@ WORKDIR /usr/share/nginx/html/
 # Copy the Angular production build from the local machine to the container
 COPY /dist/* .
 
+# Nginx configuration
+COPY default.conf /etc/nginx/conf.d/default.conf
+
 # Expose port 80 for NGINX to listen on
 EXPOSE 80
 
