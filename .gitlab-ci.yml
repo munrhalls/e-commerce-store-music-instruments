@@ -1,11 +1,23 @@
 stages:
   - build
   - test
-  - deploy
+  - lint
 
-build_client:
+variables:
+  DOCKER_IMAGE_NAME: munrhalls/sang-logium-frontend
+
+build:
   stage: build
   script:
-    - echo "Build process starts..."
-  only:
-    - main
+    - cd frontend
+    - docker build -t $DOCKER_IMAGE_NAME .
+
+test:
+  stage: test
+  script:
+    - docker run $DOCKER_IMAGE_NAME npm test
+
+lint:
+  stage: lint
+  script:
+    - docker run $DOCKER_IMAGE_NAME npm run lint
