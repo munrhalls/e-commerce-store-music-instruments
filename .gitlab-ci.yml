@@ -10,7 +10,6 @@ variables:
   DOCKER_TLS_CERTDIR: "/certs"
 
 before_script:
-  - chmod +x ./frontend/buildFrontend.sh
   - apk add --no-cache docker-compose  # Install docker-compose on Alpine-based images
 
 build:
