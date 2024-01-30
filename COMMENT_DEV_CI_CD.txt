@@ -17,3 +17,5 @@
 
 # TODO Commit to main -> trigger CI/CD
   # TODO ng build Angular prod
+
+  test
