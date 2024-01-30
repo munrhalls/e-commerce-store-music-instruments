@@ -1,0 +1,19 @@
+  # (this is all happening on GitLab PC, not on my local PC and not on droplet PC)
+
+  # TODO Commit to main -> trigger CI/CD
+  # CLIENT TESTS
+    # TODO ng build Angular prod
+    # TODO Build Docker Image -> Container
+    # TODO npm test
+    # TODO lint
+  # SERVER TESTS
+    # TODO Build Docker Image -> Container
+    # TODO npm test
+    # TODO lint
+  # IF ZERO ERRORS, DEPLOY
+    # TODO push image to Docker Hub
+    # TODO SSH access droplet, pull images
+    # TODO docker-compose down, up -d
+
+# TODO Commit to main -> trigger CI/CD
+  # TODO ng build Angular prod

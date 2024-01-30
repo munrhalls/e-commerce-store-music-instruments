@@ -6,13 +6,27 @@ FROM nginx:alpine
 WORKDIR /usr/share/nginx/html/
 
 # Copy the Angular production build from the local machine to the container
-COPY /dist/* .
+COPY dist/* .
+
+
+EXPOSE 80
+
+# EXPOSE 80
+
+
 
 # Nginx configuration
-COPY default.conf /etc/nginx/conf.d/default.conf
+# COPY default.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 80 for NGINX to listen on
-EXPOSE 80
+
+
+#  Run NGINX as a non-root user
+# RUN chown -R nginx:nginx /usr/share/nginx/html && \
+#     chmod -R 755 /usr/share/nginx/html && \
+#     sed -i 's/listen  .*/listen 8080;/g' /etc/nginx/conf.d/default.conf && \
+#     sed -i '/user  nginx;/d' /etc/nginx/nginx.conf
+# USER nginx
+
 
 
 

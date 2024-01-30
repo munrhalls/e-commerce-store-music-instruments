@@ -31,7 +31,7 @@ services:
 
   sang-logium-frontend:
     build:
-      # context: ./frontend
+      context: ./frontend
       dockerfile: Dockerfile
     image: munrhalls/sang-logium-frontend:latest
     ports:
