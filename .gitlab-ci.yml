@@ -4,10 +4,15 @@ stages:
 build_dist:
   stage: build
   image: node:20.10.0-alpine  # Ensure npm and ng are available
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-node-modules
+    paths:
+      - frontend/node_modules/
+      - /root/.npm/
   script:
-    - npm install -g @angular/cli
+    - if [ ! -f /usr/local/bin/ng ]; then npm install -g @angular/cli; fi # Cache Angular CLI
     - cd frontend
-    - npm install
+    - npm ci
     - ng build
   artifacts:
     paths:
