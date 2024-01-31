@@ -18,7 +18,7 @@ build_dist:
     - ng build
   artifacts:
     paths:
-      - frontend/dist/  # Frontend Angular client just copies /dist
+      - frontend/dist/  # Frontend image simply copies Angular /dist folder
 
 dockerize_frontend:
   stage: dockerize
@@ -28,6 +28,6 @@ dockerize_frontend:
   before_script:
     - apk add --no-cache docker-compose
   script:
-    - docker-compose -f docker-compose.yml build sang-logium-frontend
+    - docker-compose -f docker-compose.yaml build sang-logium-frontend
   only:
     - main
