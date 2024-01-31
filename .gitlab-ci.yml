@@ -15,6 +15,7 @@ prepare:
   script:
     - cd frontend
     - npm ci
+    - npm install -g @angular/cli # Install Angular CLI globally
   artifacts:
     paths:
       - frontend/node_modules/
