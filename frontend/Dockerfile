@@ -5,7 +5,6 @@ FROM nginx:alpine
 WORKDIR /usr/share/nginx/html/
 
 # Copy from my PC to the container
-RUN ng build
 COPY dist/* .
 
 # Expose port

@@ -1,32 +1,61 @@
-stages:
-  - build
-  - deploy
+# stages:
+#   - build
+#   - deploy
 
-variables:
-  DOCKER_COMPOSE_VERSION: "v2.23.3-desktop.2"
+# variables:
+#   DOCKER_COMPOSE_VERSION: "v2.23.3-desktop.2"
 
-before_script:
-  - apk add --no-cache docker-compose
-  - docker-compose --version
+# before_script:
+#   - apk add --no-cache docker-compose
+#   - docker-compose --version
 
-build_and_push:
-  stage: build
-  image: docker:24.0.7
-  services:
-    - docker:24.0.7-dind
-  before_script:
-    - apk add --no-cache docker-compose
-  script:
-    - docker-compose build
-    - docker-compose up -d mongo
-    - docker-compose run --rm server /bin/sh -c "npm run lint && npm run test"
-    # - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_ACCESS_TOKEN
-    # - docker-compose push
-  only:
-    - main
-# deploy:
-#   stage: deploy
+# build_and_push:
+#   stage: build
+#   image: docker:24.0.7
+#   services:
+#     - docker:24.0.7-dind
+#   before_script:
+#     - apk add --no-cache docker-compose
 #   script:
-#     - echo "Deploy multi-container application"
+#     - docker-compose build
+#     - docker-compose up -d mongo
+#     - docker-compose run --rm server /bin/sh -c "npm run lint && npm run test"
+#     # - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_ACCESS_TOKEN
+#     # - docker-compose push
 #   only:
 #     - main
+# # deploy:
+# #   stage: deploy
+# #   script:
+# #     - echo "Deploy multi-container application"
+# #   only:
+# #     - main
+
+# # stages:
+# #   - build
+# #   - test
+
+# # services:
+# #   - docker:dind
+
+# # variables:
+# #   DOCKER_DRIVER: overlay2
+# #   DOCKER_TLS_CERTDIR: "/certs"
+
+# # before_script:
+# #   - apk add --no-cache docker-compose  # Install docker-compose on Alpine-based images
+
+# # build:
+# #   stage: build
+# #   image: docker:latest  # Using Docker image which includes Docker CLI
+# #   script:
+# #     - docker-compose build sang-logium-frontend
+
+# # test:
+# #   stage: test
+# #   image: docker:latest
+# #   script:
+# #     - docker-compose up -d sang-logium-frontend
+# #     - docker-compose exec sang-logium-frontend npm test
+# #     - docker-compose exec sang-logium-frontend npm run lint
+# #     - docker-compose down
