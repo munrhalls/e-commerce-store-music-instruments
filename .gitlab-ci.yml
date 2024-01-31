@@ -5,6 +5,7 @@ build_dist:
   stage: build
   image: node:20.10.0-alpine  # Ensure npm and ng are available
   script:
+    - cd frontend
     - npm install
     - ng build
   artifacts:
