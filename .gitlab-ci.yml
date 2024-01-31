@@ -20,6 +20,18 @@ prepare:
     paths:
       - frontend/node_modules/
 
+unit_test_frontend:
+  stage: test
+  image: node:20.10.0-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-node-modules
+    paths:
+      - frontend/node_modules/
+  script:
+    - cd frontend
+    - apk update && apk add chromium
+    - npx ng test --watch=false --browsers=ChromeHeadless
+
 lint_frontend:
   stage: lint
   image: node:20.10.0-alpine
@@ -30,17 +42,6 @@ lint_frontend:
   script:
     - cd frontend
     - npm run lint
-
-unit_test_frontend:
-  stage: test
-  image: node:20.10.0-alpine
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}-node-modules
-    paths:
-      - frontend/node_modules/
-  script:
-    - cd frontend
-    - npx ng test --watch=false --browsers=ChromeHeadless
 
 build_dist:
   stage: build
@@ -67,3 +68,9 @@ dockerize_frontend:
     - docker-compose -f docker-compose.yaml build sang-logium-frontend
   only:
     - main
+
+
+# deploy frontend
+# TODO Docker tag image
+# TODO Push image to dockerhub
+# TODO ssh into
