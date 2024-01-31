@@ -17,6 +17,7 @@ services:
   #     interval: 10m
   #     timeout: 10s
   #     retries: 3
+  # restart: unless-stopped
 
   # server:
   #   build:
@@ -28,6 +29,7 @@ services:
   #     - ./server/.env
   #   networks:
   #     - mongo-network
+  # restart: unless-stopped
 
   sang-logium-frontend:
     build:
@@ -38,6 +40,7 @@ services:
       - "80:80"
     networks:
       - app-network
+    restart: unless-stopped
 
 networks:
   mongo-network:
