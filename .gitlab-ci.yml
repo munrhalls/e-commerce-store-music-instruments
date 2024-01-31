@@ -9,4 +9,4 @@ build_dist:
     - ng build
   artifacts:
     paths:
-      - dist/  # Frontend Angular client just copies /dist
+      - frontend/dist/  # Frontend Angular client just copies /dist
