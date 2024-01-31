@@ -1,27 +1,59 @@
 stages:
+  - prepare
+  - lint
+  - test
   - build
   - dockerize
-  - test
 
-build_dist:
-  stage: build
-  image: node:20.10.0-alpine  # Ensure npm and ng are available
+prepare:
+  stage: prepare
+  image: node:20.10.0-alpine
   cache:
     key: ${CI_COMMIT_REF_SLUG}-node-modules
     paths:
       - frontend/node_modules/
-      - /root/.npm/
   script:
-    - if [ ! -f /usr/local/bin/ng ]; then npm install -g @angular/cli; fi # Cache Angular CLI
     - cd frontend
     - npm ci
-    - ng test --watch=false --browsers=ChromeHeadlessCI
-    - ng lint
-    - ng build
-
   artifacts:
     paths:
-      - frontend/dist/  # Frontend image simply copies Angular /dist folder
+      - frontend/node_modules/
+
+lint_frontend:
+  stage: lint
+  image: node:20.10.0-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-node-modules
+    paths:
+      - frontend/node_modules/
+  script:
+    - cd frontend
+    - npm run lint
+
+unit_test_frontend:
+  stage: test
+  image: node:20.10.0-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-node-modules
+    paths:
+      - frontend/node_modules/
+  script:
+    - cd frontend
+    - ng test --watch=false --browsers=ChromeHeadless
+
+build_dist:
+  stage: build
+  image: node:20.10.0-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-node-modules
+    paths:
+      - frontend/node_modules/
+  script:
+    - cd frontend
+    - ng build
+  artifacts:
+    paths:
+      - frontend/dist/
 
 dockerize_frontend:
   stage: dockerize
@@ -34,11 +66,3 @@ dockerize_frontend:
     - docker-compose -f docker-compose.yaml build sang-logium-frontend
   only:
     - main
-
-test_frontend:
-  stage: test
-  script:
-    - cd frontend
-    - npm ci
-    - ng test  # Run Angular tests
-    - ng lint  # Run Angular linting
