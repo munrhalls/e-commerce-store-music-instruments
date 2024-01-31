@@ -1,7 +1,7 @@
 stages:
   - build
   - dockerize
-
+  - test
 
 build_dist:
   stage: build
@@ -15,7 +15,10 @@ build_dist:
     - if [ ! -f /usr/local/bin/ng ]; then npm install -g @angular/cli; fi # Cache Angular CLI
     - cd frontend
     - npm ci
+    - ng test --watch=false --browsers=ChromeHeadlessCI
+    - ng lint
     - ng build
+
   artifacts:
     paths:
       - frontend/dist/  # Frontend image simply copies Angular /dist folder
@@ -31,3 +34,11 @@ dockerize_frontend:
     - docker-compose -f docker-compose.yaml build sang-logium-frontend
   only:
     - main
+
+test_frontend:
+  stage: test
+  script:
+    - cd frontend
+    - npm ci
+    - ng test  # Run Angular tests
+    - ng lint  # Run Angular linting
