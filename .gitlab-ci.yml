@@ -93,7 +93,7 @@ deploy_frontend:
     - docker tag sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:latest
     - docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:latest
     # SSH into the droplet, pull the latest image, and run docker-compose up -d
-    - ssh root@$DROPLET_IP "docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:latest && docker-compose -f /path/to/your/docker-compose.yaml up -d"
+    - ssh root@$DROPLET_IP "docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:latest && docker-compose -f /root/sang-logium/docker-compose up -d"
   only:
     - main
 
