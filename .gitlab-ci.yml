@@ -1,7 +1,7 @@
 stages:
   - prepare
-  - lint
   - test
+  - lint
   - build
   - dockerize
 
@@ -30,7 +30,9 @@ unit_test_frontend:
   script:
     - cd frontend
     - apk update && apk add chromium
-    - npx ng test --watch=false --browsers=ChromeHeadless
+    - export CHROME_BIN=/usr/bin/chromium-browser  # Set CHROME_BIN to the path of the installed Chromium binary
+    - npx ng test --no-watch --no-progress --browsers=ChromeHeadless
+
 
 lint_frontend:
   stage: lint
