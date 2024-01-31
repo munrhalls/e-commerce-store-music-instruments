@@ -15,7 +15,7 @@ prepare:
   script:
     - cd frontend
     - npm ci
-    - npm install -g @angular/cli # Install Angular CLI globally
+    - npm install --save-dev @angular/cli
   artifacts:
     paths:
       - frontend/node_modules/
@@ -40,7 +40,7 @@ unit_test_frontend:
       - frontend/node_modules/
   script:
     - cd frontend
-    - ng test --watch=false --browsers=ChromeHeadless
+    - npx ng test --watch=false --browsers=ChromeHeadless
 
 build_dist:
   stage: build
@@ -51,7 +51,7 @@ build_dist:
       - frontend/node_modules/
   script:
     - cd frontend
-    - ng build
+    - npx ng build
   artifacts:
     paths:
       - frontend/dist/
