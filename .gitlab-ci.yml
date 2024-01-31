@@ -4,6 +4,7 @@ stages:
   - lint
   - build
   - dockerize
+  - deploy
 
 prepare:
   stage: prepare
@@ -71,6 +72,30 @@ dockerize_frontend:
   only:
     - main
 
+deploy_frontend:
+  stage: deploy
+  image: docker:24.0.7-dind
+  services:
+    - docker:dind
+  before_script:
+    # Login to DockerHub
+    - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+    # Prepare SSH key and set known hosts
+    - apk add --no-cache openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    # Tag and push the image to DockerHub
+    - docker tag sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:latest
+    - docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:latest
+    # SSH into the droplet, pull the latest image, and run docker-compose up -d
+    - ssh root@$DROPLET_IP "docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:latest && docker-compose -f /path/to/your/docker-compose.yaml up -d"
+  only:
+    - main
 
 # deploy frontend
 # TODO Docker tag image
