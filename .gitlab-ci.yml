@@ -91,9 +91,13 @@ deploy:
     # Build the Docker image using docker-compose
     - docker-compose -f docker-compose.yaml build sang-logium-frontend
 
+    # Get the commit message and parse it to get the tag
+    - chmod +x ./parseCommitToTag.sh
+    - export GENERATED_TAG=$(./parseCommitToTag.sh)
+
     # Tag and push the built image to DockerHub
     # - docker tag sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:latest
-    - docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:latest
+    - docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
 
     # SSH into the droplet, pull the latest image, and run docker-compose to update the services
     - ssh -o StrictHostKeyChecking=no root@$DROPLET_IP "docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:latest && docker-compose -f /root/sang-logium/docker-compose.yaml up -d"
