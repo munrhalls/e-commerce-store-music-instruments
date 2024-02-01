@@ -60,28 +60,14 @@ build_dist:
     paths:
       - frontend/dist/
 
-dockerize_frontend:
-  stage: dockerize
-  image: docker:24.0.7-dind
-  services:
-    - docker:dind
-  before_script:
-    - apk add --no-cache docker-compose
-  script:
-    - docker-compose -f docker-compose.yaml build sang-logium-frontend
-  only:
-    - main
-
 deploy_frontend:
   stage: deploy
   image: docker:24.0.7-dind
   services:
     - docker:dind
   before_script:
-    # Login to DockerHub
-    - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
-    # Prepare SSH key and set known hosts
-    - apk add --no-cache openssh-client
+    - apk add --no-cache docker-compose openssh-client
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
@@ -89,11 +75,10 @@ deploy_frontend:
     - ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    # Tag and push the image to DockerHub
+    - docker-compose -f docker-compose.yaml build sang-logium-frontend
     - docker tag sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:latest
     - docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:latest
-    # SSH into the droplet, pull the latest image, and run docker-compose up -d
-    - ssh root@$DROPLET_IP "docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:latest && docker-compose -f /root/sang-logium/docker-compose up -d"
+    - ssh -o StrictHostKeyChecking=no root@$DROPLET_IP "docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:latest && docker-compose -f /path/to/your/docker-compose.yaml on droplet up -d"
   only:
     - main
 
