@@ -1,4 +1,4 @@
-Live: https://lux-logium.netlify.app (soon renaming to: sang-logium).
+Live: https://sang-logium.com
 
 Large-scale, fullstack fictional e-commerce store application for my portfolio.
 
