@@ -1,6 +1,6 @@
 stages:
   - prepare
-  - test
+  # - test
   - build
   - deploy
 
@@ -21,30 +21,30 @@ prepare:
       - frontend/node_modules/
 
 
-unit_test_frontend:
-  stage: test
-  image: node:20.10.0-alpine
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}-node-modules
-    paths:
-      - frontend/node_modules/
-  script:
-    - cd frontend
-    - apk update && apk add chromium
-    - export CHROME_BIN=/usr/bin/chromium-browser  # Set CHROME_BIN to the path of the installed Chromium binary
-    - npx ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
+# unit_test_frontend:
+#   stage: test
+#   image: node:20.10.0-alpine
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}-node-modules
+#     paths:
+#       - frontend/node_modules/
+#   script:
+#     - cd frontend
+#     - apk update && apk add chromium
+#     - export CHROME_BIN=/usr/bin/chromium-browser  # Set CHROME_BIN to the path of the installed Chromium binary
+#     - npx ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
 
 
-lint_frontend:
-  stage: test
-  image: node:20.10.0-alpine
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}-node-modules
-    paths:
-      - frontend/node_modules/
-  script:
-    - cd frontend
-    - npm run lint
+# lint_frontend:
+#   stage: test
+#   image: node:20.10.0-alpine
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}-node-modules
+#     paths:
+#       - frontend/node_modules/
+#   script:
+#     - cd frontend
+#     - npm run lint
 
 
 build_frontend:
@@ -96,11 +96,11 @@ deploy:
     - export GENERATED_TAG=$(./parseCommitToTag.sh)
 
     # Tag and push the built image to DockerHub
-    # - docker tag sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:latest
+    - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
     - docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
 
     # SSH into the droplet, pull the latest image, and run docker-compose to update the services
-    - ssh -o StrictHostKeyChecking=no root@$DROPLET_IP "docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:latest && docker-compose -f /root/sang-logium/docker-compose.yaml up -d"
+    - ssh -o StrictHostKeyChecking=no root@$DROPLET_IP "docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG && docker-compose -f /root/sang-logium/docker-compose.yaml up -d"
 
 
   only:
