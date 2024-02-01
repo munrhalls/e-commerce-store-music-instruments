@@ -92,7 +92,7 @@ deploy:
     - docker-compose -f docker-compose.yaml build sang-logium-frontend
 
     # Tag and push the built image to DockerHub
-    - docker tag sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:latest
+    # - docker tag sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:latest
     - docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:latest
 
     # SSH into the droplet, pull the latest image, and run docker-compose to update the services
