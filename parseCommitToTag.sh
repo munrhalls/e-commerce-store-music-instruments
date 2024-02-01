@@ -1,40 +1,43 @@
 #!/bin/bash
 
-# Every commit should have the following format: FEATURE-<feature-name>-<size of change>
-# This script's output should always translate that commit onto <FEATURE>-<feature-name>-<size>-version>
-# sizes are: LARGE, MEDIUM, TINY and correspond to <x.0.0> / <0.x.0> / <0.0.x> respectively
+# FORMAT for commits: <FEATURE>-<FEATURE-NAME>-<SIZE> | <SIZE> VALUES: LARGE|MEDIUM|TINY>
 
-# Fetch the latest commit message
-latest_commit_message=$(git log -1 --pretty=%B)
-echo "Latest COMMIT MESSAGE: $latest_commit_message"
+# A. Get all commit messages that respect the format
+commit_messages=$(git log --pretty=format:"%s" | grep -E '^FEATURE-.*-(LARGE|MEDIUM|TINY)$')
 
-# Extract feature name and size of change from the commit message
-# The commit message format is expected to be: FEATURE-<feature-name>-<size of change>
-feature_name=$(echo $latest_commit_message | cut -d '-' -f 2)
-size_of_change=$(echo $latest_commit_message | cut -d '-' -f 3)
+# B & C. Process each commit message
+declare -A feature_versions
 
-# Initialize version parts
-major=0
-minor=0
-patch=0
+while read -r message; do
+    feature_name=$(echo "$message" | cut -d '-' -f 2)
+    size=$(echo "$message" | cut -d '-' -f 3)
 
-# Determine the version increment based on the size of change
-case "$size_of_change" in
-  "LARGE")
-    major=$((major + 1))
-    ;;
-  "MEDIUM")
-    minor=$((minor + 1))
-    ;;
-  "TINY")
-    patch=$((patch + 1))
-    ;;
-  *)
-    echo "Unknown size of change: $size_of_change"
-    exit 1
-    ;;
-esac
+    # Initialize feature version if it does not exist
+    if [[ -z ${feature_versions[$feature_name]} ]]; then
+        feature_versions[$feature_name]="1.0.0"
+    else
+        # Extract the current version parts
+        IFS='.' read -r major minor patch <<< "${feature_versions[$feature_name]}"
+        case "$size" in
+            LARGE)
+                major=$((major + 1))
+                minor=0
+                patch=0
+                ;;
+            MEDIUM)
+                minor=$((minor + 1))
+                patch=0
+                ;;
+            TINY)
+                patch=$((patch + 1))
+                ;;
+        esac
+        # Update the version
+        feature_versions[$feature_name]="${major}.${minor}.${patch}"
+    fi
+done <<< "$commit_messages"
 
-# Construct the tag
-tag="FEATURE-${feature_name}-${major}.${minor}.${patch}"
-echo $tag
+# Output the tags for each feature
+for feature in "${!feature_versions[@]}"; do
+    echo "FEATURE-${feature}-${feature_versions[$feature]}"
+done
