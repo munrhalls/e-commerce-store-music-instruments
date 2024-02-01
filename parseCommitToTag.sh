@@ -37,4 +37,4 @@ esac
 
 # Construct the tag
 tag="FEATURE-${feature_name}-${major}.${minor}.${patch}"
-echo $tag<newline>
+echo $tag
