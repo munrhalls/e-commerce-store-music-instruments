@@ -19,3 +19,4 @@
   # TODO ng build Angular prod
 
   test
+  test
