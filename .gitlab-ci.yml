@@ -2,7 +2,6 @@ stages:
   - prepare
   - test
   - build
-  - dockerize
   - deploy
 
 
@@ -48,7 +47,7 @@ lint_frontend:
     - npm run lint
 
 
-build_dist:
+build_frontend:
   stage: build
   image: node:20.10.0-alpine
   cache:
@@ -63,7 +62,7 @@ build_dist:
       - frontend/dist/
 
 
-deploy_frontend:
+deploy:
   stage: deploy
   image: docker:24.0.7-dind
   services:
