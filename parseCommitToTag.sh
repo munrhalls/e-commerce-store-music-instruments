@@ -65,7 +65,7 @@ new_tag="FEATURE-${feature_name}-${major}.${minor}.${patch}"
 echo "$new_tag"
 
 
-
+# previous WAY OF DOING IT:
 
 # #!/bin/bash
 
