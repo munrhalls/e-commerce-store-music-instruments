@@ -1,63 +1,68 @@
 #!/bin/bash
 
-# Get all commit messages that follow the pattern
-commit_messages=$(git log --pretty=format:"%s" | grep -E '^FEATURE-.*-(LARGE|MEDIUM|TINY)$')
+# Ensure associative array support is available
+if [ "${BASH_VERSINFO[0]}" -lt 4 ]; then
+    echo "Bash version 4 or later is required."
+    exit 1
+fi
 
-# Initialize the latest tag variable
-latest_tag=""
+# Filter commit messages that match the required format
+commit_messages=($(git log --pretty=format:"%s" | grep -E '^FEATURE-.*-(LARGE|MEDIUM|TINY)$'))
 
-# Loop through each commit message
-while read -r message; do
-    # Extract feature name and size of change
-    feature_name=$(echo "$message" | cut -d '-' -f 2)
-    size=$(echo "$message" | cut -d '-' -f 3)
+# Exit if no matching commits found
+if [ ${#commit_messages[@]} -eq 0 ]; then
+    echo "No commits match the required format."
+    exit 0
+fi
 
-    # Set initial version numbers
-    major=0
-    minor=0
-    patch=0
+# Extract feature name and size from the latest commit
+latest_commit="${commit_messages[0]}"
+feature_name=$(echo "$latest_commit" | cut -d '-' -f 2)
+size=$(echo "$latest_commit" | cut -d '-' -f 3)
 
-    # If this is not the first occurrence of this feature, extract the current version from the latest tag
-    if [[ -n "$latest_tag" ]]; then
-        # Use a regular expression to extract version numbers
-        if [[ $latest_tag =~ $feature_name-([0-9]+)\.([0-9]+)\.([0-9]+) ]]; then
-            major=${BASH_REMATCH[1]}
-            minor=${BASH_REMATCH[2]}
-            patch=${BASH_REMATCH[3]}
+# Initialize version numbers
+major=0
+minor=0
+patch=0
+
+# Loop through all commits to find the highest version number for the feature
+for commit in "${commit_messages[@]}"; do
+    if [[ "$commit" == *"$feature_name"* ]]; then
+        version=$(echo "$commit" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+$')
+        if [[ -n "$version" ]]; then
+            IFS='.' read -r v_major v_minor v_patch <<< "$version"
+            if (( v_major > major )) || (( v_major == major && v_minor > minor )) || (( v_major == major && v_minor == minor && v_patch >= patch )); then
+                major=$v_major
+                minor=$v_minor
+                patch=$v_patch
+            fi
         fi
     fi
+done
 
-    # Increment version numbers based on the size of the change
-    case "$size" in
-        LARGE)
-            major=$((major + 1))
-            minor=0
-            patch=0
-            ;;
-        MEDIUM)
-            minor=$((minor + 1))
-            patch=0
-            ;;
-        TINY)
-            patch=$((patch + 1))
-            ;;
-        *)
-            echo "Invalid size: $size"
-            exit 1
-            ;;
-    esac
+# Increment the version based on the size
+case "$size" in
+    LARGE)
+        major=$((major + 1))
+        minor=0
+        patch=0
+        ;;
+    MEDIUM)
+        minor=$((minor + 1))
+        patch=0
+        ;;
+    TINY)
+        patch=$((patch + 1))
+        ;;
+    *)
+        echo "Invalid size: $size"
+        exit 1
+        ;;
+esac
 
-    # Construct the tag for this commit
-    latest_tag="FEATURE-${feature_name}-${major}.${minor}.${patch}"
-
-done <<< "$commit_messages"
-
-# Output the latest tag
-echo "$latest_tag"
-
-
-
-
+# Construct the new tag
+new_tag="FEATURE-${feature_name}-${major}.${minor}.${patch}"
+echo "$new_tag"
 
 
 
