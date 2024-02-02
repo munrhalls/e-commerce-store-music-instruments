@@ -95,6 +95,9 @@ deploy:
     - chmod +x ./parseCommitToTag.sh
     - export GENERATED_TAG=$(./parseCommitToTag.sh)
 
+    # Check if the script output is empty or contains an error
+    - if [ -z "$GENERATED_TAG" ]; then echo "Commit violates <FEATURE>-<FEATURE-NAME>-<SIZE> format required for proper docker image tagging"; exit 1; fi
+
     # Tag and push the built image to DockerHub
     - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
     - docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
