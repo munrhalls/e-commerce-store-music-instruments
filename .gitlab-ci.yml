@@ -4,7 +4,6 @@ stages:
   - build
   - deploy
 
-
 prepare:
   stage: prepare
   image: node:20.10.0-alpine
@@ -19,6 +18,9 @@ prepare:
   artifacts:
     paths:
       - frontend/node_modules/
+
+variables:
+  GIT_DEPTH: "0"
 
 generate_tag:
   stage: prepare
