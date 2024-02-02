@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # # FORMAT for commits: <FEATURE>-<FEATURE-NAME>-<SIZE> | <SIZE> VALUES: LARGE|MEDIUM|TINY>
+# Fetch latest commit, get details. If not <FEATURE>-<FEATURE-NAME>-<SIZE> format, exit with null
 latest_commit=$(git log --pretty=format:"%s" -1)
 if [[ $latest_commit =~ ^FEATURE-.*-(LARGE|MEDIUM|TINY)$ ]]; then
     read latest_feature_name size <<< $(echo "$latest_commit" | awk -F '-' '{print $2, $3}')
@@ -11,24 +12,32 @@ else
     exit 0
 fi
 
+# Get all commits in chronological order
+commits=$(git log --pretty=format:"%s" | tac)
+
 # Initialize version numbers
 major=0; minor=0; patch=0
 
-# Process only if a valid commit was found
-if [ ! -z "$latest_feature_name" ]; then
-    # Count the number of commits for each size
-    major=$(git log --pretty=format:"%s" | grep -E "^FEATURE-$latest_feature_name-LARGE" | wc -l)
-    minor=$(git log --pretty=format:"%s" | grep -E "^FEATURE-$latest_feature_name-MEDIUM" | wc -l)
-    patch=$(git log --pretty=format:"%s" | grep -E "^FEATURE-$latest_feature_name-TINY" | wc -l)
+# Process each commit
+while IFS= read -r commit; do
+    if [[ $commit =~ ^FEATURE-.*-(LARGE|MEDIUM|TINY)$ ]]; then
+        read feature_name size <<< $(echo "$commit" | awk -F '-' '{print $2, $3}')
 
-    # If a larger version number has been incremented, reset the smaller ones
-    if [ "$major" -gt 0 ]; then
-        minor=0
-        patch=0
-    elif [ "$minor" -gt 0 ]; then
-        patch=0
+        # If the size is LARGE, increment the major version and reset the minor and patch versions
+        if [[ "$size" == "LARGE" ]]; then
+            major=$((major + 1))
+            minor=0
+            patch=0
+        # If the size is MEDIUM, increment the minor version and reset the patch version
+        elif [[ "$size" == "MEDIUM" ]]; then
+            minor=$((minor + 1))
+            patch=0
+        # If the size is TINY, increment the patch version
+        elif [[ "$size" == "TINY" ]]; then
+            patch=$((patch + 1))
+        fi
     fi
-fi
+done <<< "$commits"
 
 # Output the latest tag with properly formatted version number
-echo "FEATURE-${latest_feature_name}-${major}.${minor}.${patch}"
+echo "FEATURE-${feature_name}-${major}.${minor}.${patch}"
