@@ -57,6 +57,7 @@ build_frontend:
   script:
     - cd frontend
     - npx ng build --configuration=production
+    - cd ..
   artifacts:
     paths:
       - frontend/dist/
