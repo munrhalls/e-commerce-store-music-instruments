@@ -72,6 +72,7 @@ deploy:
 
   before_script:
     # Install necessary dependencies
+    - apk add --no-cache bash
     - apk add --no-cache docker-compose openssh-client
 
     # DockerHub login for pushing the image
