@@ -23,6 +23,7 @@ prepare:
 generate_tag:
   stage: prepare
   script:
+    - chmod +x ./parseCommitToTag.sh
     - ./parseCommitToTag.sh > tag.txt
   artifacts:
     paths:
