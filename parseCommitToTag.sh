@@ -16,28 +16,15 @@ major=0; minor=0; patch=0
 
 # Process only if a valid commit was found
 if [ ! -z "$latest_feature_name" ]; then
-    # Extract the highest version number for the feature from previous commits
-    read major minor patch <<< $(git log --pretty=format:"%s" | grep -E "^FEATURE-$latest_feature_name-" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n1 | awk -F '.' '{print $1, $2, $3}')
-
-    # Increment version based on the size
-    case "$size" in
-        LARGE)
-            major=$((major + 1))
-            minor=0
-            patch=0
-            ;;
-        MEDIUM)
-            minor=$((minor + 1))
-            patch=0
-            ;;
-        TINY)
-            patch=$((patch + 1))
-            ;;
-    esac
+    # Count the number of commits for each size
+    major=$(git log --pretty=format:"%s" | grep -E "^FEATURE-$latest_feature_name-LARGE" | wc -l)
+    minor=$(git log --pretty=format:"%s" | grep -E "^FEATURE-$latest_feature_name-MEDIUM" | wc -l)
+    patch=$(git log --pretty=format:"%s" | grep -E "^FEATURE-$latest_feature_name-TINY" | wc -l)
 fi
 
-# Output the latest tag
+# Output the latest tag with properly formatted version number
 echo "FEATURE-${latest_feature_name}-${major}.${minor}.${patch}"
+
 
 
 # #!/bin/bash
