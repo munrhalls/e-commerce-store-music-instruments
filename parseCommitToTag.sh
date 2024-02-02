@@ -1,7 +1,15 @@
 #!/bin/bash
 
-# Fetch the latest commit that follows the format and extract details
-read latest_feature_name size <<< $(git log --pretty=format:"%s" -1 | grep -E '^FEATURE-.*-(LARGE|MEDIUM|TINY)$' | awk -F '-' '{print $2, $3}')
+# Fetch latest commit, get details. If not <FEATURE>-<FEATURE-NAME>-<SIZE> format, exit with null
+latest_commit=$(git log --pretty=format:"%s" -1)
+if [[ $latest_commit =~ ^FEATURE-.*-(LARGE|MEDIUM|TINY)$ ]]; then
+    read latest_feature_name size <<< $(echo "$latest_commit" | awk -F '-' '{print $2, $3}')
+else
+    latest_feature_name=null
+    size=null
+    echo "null"
+    exit 0
+fi
 
 # Initialize version numbers
 major=0; minor=0; patch=0
