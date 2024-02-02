@@ -20,6 +20,13 @@ prepare:
     paths:
       - frontend/node_modules/
 
+generate_tag:
+  stage: prepare
+  script:
+    - ./yourTagGenerationScript.sh > tag.txt
+  artifacts:
+    paths:
+      - tag.txt
 
 # unit_test_frontend:
 #   stage: test
@@ -72,7 +79,6 @@ deploy:
 
   before_script:
     # Install necessary dependencies
-    - apk add --no-cache bash
     - apk add --no-cache docker-compose openssh-client
 
     # DockerHub login for pushing the image
@@ -91,12 +97,10 @@ deploy:
 
   script:
     # Get the commit message and parse it to get the tag
-    - ls -la
-    - chmod +x ./parseCommitToTag.sh
-    - export GENERATED_TAG=$(./parseCommitToTag.sh)
+    - export GENERATED_TAG=$(cat tag.txt)
 
     # Check if the script output is empty or contains an error
-    - if [ -z "$GENERATED_TAG" ]; then echo "Commit violates <FEATURE>-<FEATURE-NAME>-<SIZE> format required for proper docker image tagging"; exit 1; fi
+    - if [ -z "$GENERATED_TAG" ] || [ "$GENERATED_TAG" = "null" ]; then echo "Commit violates <FEATURE>-<FEATURE-NAME>-<SIZE> format required for proper docker image tagging"; exit 1; fi
 
     # Build the Docker image using docker-compose
     - docker-compose -f docker-compose.yaml build sang-logium-frontend
