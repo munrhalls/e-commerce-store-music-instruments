@@ -23,7 +23,7 @@ prepare:
 generate_tag:
   stage: prepare
   script:
-    - ./yourTagGenerationScript.sh > tag.txt
+    - ./parseCommitToTag.sh > tag.txt
   artifacts:
     paths:
       - tag.txt
@@ -98,6 +98,10 @@ deploy:
   script:
     # Get the commit message and parse it to get the tag
     - export GENERATED_TAG=$(cat tag.txt)
+
+    # Check if the tag.txt file exists and is not empty
+    - if [ ! -f "tag.txt" ] || [ ! -s "tag.txt" ]; then echo "tag.txt file is missing or empty"; exit 1; fi
+
 
     # Check if the script output is empty or contains an error
     - if [ -z "$GENERATED_TAG" ] || [ "$GENERATED_TAG" = "null" ]; then echo "Commit violates <FEATURE>-<FEATURE-NAME>-<SIZE> format required for proper docker image tagging"; exit 1; fi
