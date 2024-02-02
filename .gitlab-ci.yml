@@ -31,30 +31,31 @@ generate_tag:
     paths:
       - tag.txt
 
-# unit_test_frontend:
-#   stage: test
-#   image: node:20.10.0-alpine
-#   cache:
-#     key: ${CI_COMMIT_REF_SLUG}-node-modules
-#     paths:
-#       - frontend/node_modules/
-#   script:
-#     - cd frontend
-#     - apk update && apk add chromium
-#     - export CHROME_BIN=/usr/bin/chromium-browser  # Set CHROME_BIN to the path of the installed Chromium binary
-#     - npx ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
+unit_test_frontend:
+  stage: test
+  image: node:20.10.0-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-node-modules
+    paths:
+      - frontend/node_modules/
+  script:
+    - cd frontend
+    - apk update && apk add chromium
+    - export CHROME_BIN=/usr/bin/chromium-browser
+    # Set CHROME_BIN to the path of the installed Chromium binary
+    - npx ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
 
 
-# lint_frontend:
-#   stage: test
-#   image: node:20.10.0-alpine
-#   cache:
-#     key: ${CI_COMMIT_REF_SLUG}-node-modules
-#     paths:
-#       - frontend/node_modules/
-#   script:
-#     - cd frontend
-#     - npm run lint
+lint_frontend:
+  stage: test
+  image: node:20.10.0-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-node-modules
+    paths:
+      - frontend/node_modules/
+  script:
+    - cd frontend
+    - npm run lint
 
 
 build_frontend:
