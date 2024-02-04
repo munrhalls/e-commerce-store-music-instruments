@@ -5,6 +5,9 @@
 latest_commit=$(git log --pretty=format:"%s" -1)
 if [[ $latest_commit =~ ^FEATURE-.*-(LARGE|MEDIUM|TINY)$ ]]; then
     read latest_feature_name size <<< $(echo "$latest_commit" | awk -F '-' '{print $2, $3}')
+
+     # Sanitize feature_name for Docker tag
+    feature_name=$(echo "$feature_name" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9_.-]/-/g')
 else
     latest_feature_name=null
     size=null
@@ -40,4 +43,4 @@ while IFS= read -r commit; do
 done <<< "$commits"
 
 # Output the latest tag with properly formatted version number
-echo "FEATURE-${feature_name}-${major}.${minor}.${patch}"
+echo "feature-${feature_name}-${major}.${minor}.${patch}"
