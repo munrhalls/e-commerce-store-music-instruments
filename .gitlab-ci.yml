@@ -32,7 +32,25 @@ test_build_frontend:
     - npx ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
     - npm run lint
     - npx ng build --configuration=production
-    - cd ..
+    # - cd ..
+
+# test_build_server:
+#   stage: test_build
+#   image: node:20.10.0-alpine
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}-node-modules
+#     paths:
+#       - frontend/node_modules/
+#   script:
+#     - cd server
+#     - npm ci
+#     - npm run test
+#     - npm run lint
+#     - cd ..
+
+
+
+
 
 deploy:
   stage: deploy
