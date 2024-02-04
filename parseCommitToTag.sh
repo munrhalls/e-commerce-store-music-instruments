@@ -5,9 +5,6 @@
 latest_commit=$(git log --pretty=format:"%s" -1)
 if [[ $latest_commit =~ ^FEATURE-.*-(LARGE|MEDIUM|TINY)$ ]]; then
     read latest_feature_name size <<< $(echo "$latest_commit" | awk -F '-' '{print $2, $3}')
-
-     # Sanitize feature_name for Docker tag
-    feature_name=$(echo "$feature_name" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9_.-]/-/g')
 else
     latest_feature_name=null
     size=null
@@ -25,6 +22,9 @@ major=0; minor=0; patch=0
 while IFS= read -r commit; do
     if [[ $commit =~ ^FEATURE-.*-(LARGE|MEDIUM|TINY)$ ]]; then
         read feature_name size <<< $(echo "$commit" | awk -F '-' '{print $2, $3}')
+
+        # Sanitize latest_feature_name for Docker tag
+        feature_name=$(echo "$latest_feature_name" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9_.-]/-/g')
 
         # If the size is LARGE, increment the major version and reset the minor and patch versions
         if [[ "$size" == "LARGE" ]]; then

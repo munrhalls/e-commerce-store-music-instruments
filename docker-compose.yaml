@@ -29,7 +29,7 @@ services:
   #     - ./server/.env
   #   networks:
   #     - mongo-network
-  # restart: unless-stopped
+  #   restart: unless-stopped
 
   sang-logium-frontend:
     build:
