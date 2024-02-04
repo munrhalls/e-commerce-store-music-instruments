@@ -1,4 +1,6 @@
 import { Component, type OnInit } from '@angular/core'
+import { type Observable } from 'rxjs'
+import { HttpClient } from '@angular/common/http'
 
 @Component({
   selector: 'app-root',
@@ -7,12 +9,23 @@ import { Component, type OnInit } from '@angular/core'
 })
 export class AppComponent implements OnInit {
   title = 'Sang Logium'
+  hello: string = ''
   isMobile: boolean = false
 
+  constructor(private readonly http: HttpClient) {}
+
+  getHello(): Observable<any> {
+    return this.http.get('http://server:8443/hello')
+  }
+
   ngOnInit(): void {
-    this.checkScreenSize()
     window.addEventListener('resize', () => {
       this.checkScreenSize()
+    })
+
+    this.getHello().subscribe((data) => {
+      this.hello = data.message
+      console.log(this.hello)
     })
   }
 

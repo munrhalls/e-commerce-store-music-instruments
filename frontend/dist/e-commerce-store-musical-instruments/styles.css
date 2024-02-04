@@ -1,0 +1,301 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/.pnpm/css-loader@6.8.1_webpack@5.89.0/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[1]!./node_modules/.pnpm/postcss-loader@7.3.4_postcss@8.4.33_typescript@5.3.3_webpack@5.89.0/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[2]!./src/reset.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/* Reset CSS */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+/* HTML5 hidden-attribute fix for newer browsers */
+*[hidden] {
+  display: none;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Additional resets for form elements */
+input,
+select,
+textarea,
+button {
+  margin: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  outline: none;
+  background-color: none;
+  background: none;
+  border: none;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+/* Focus outline none */
+:focus {
+  outline: 0;
+}
+
+/* Clearfix */
+.clearfix::before,
+.clearfix::after {
+  content: " ";
+  display: table;
+}
+
+.clearfix::after {
+  clear: both;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/.pnpm/css-loader@6.8.1_webpack@5.89.0/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[1]!./node_modules/.pnpm/postcss-loader@7.3.4_postcss@8.4.33_typescript@5.3.3_webpack@5.89.0/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[2]!./src/styles.css?ngGlobalStyle ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/* Typeface & Base Font Size*/
+
+html {
+  font-family: "Montserrat", "Lato", "Roboto", Arial, Helvetica, sans-serif;
+  font-size: var(--base-font-size);
+}
+
+html,
+body {
+  min-height: 100vh;
+}
+
+/* GLOBALS  && FONT SIZE - Font Size & Scaling factor */
+:root {
+  --base-font-size: 12px;
+  --scale-factor: 1.5;
+  --h1: calc(
+    var(--base-font-size) * var(--scale-factor) * var(--scale-factor) *
+      var(--scale-factor)
+  );
+  --h2: calc(var(--base-font-size) * var(--scale-factor) * var(--scale-factor));
+  --h3: calc(var(--base-font-size) * var(--scale-factor));
+  --h4: var(--base-font-size);
+  --h5: calc(var(--base-font-size) / var(--scale-factor));
+  --h6: calc(var(--base-font-size) / var(--scale-factor) / var(--scale-factor));
+  --small-text: calc(
+    var(--base-font-size) / var(--scale-factor) / var(--scale-factor) /
+      var(--scale-factor)
+  );
+  --nav-mobile-height: 7rem;
+  --nav-notepad-height: 6.5rem;
+  --mobile-footer-nav: 5rem;
+}
+
+/* Font scale system */
+h1 {
+  font-size: var(--h1);
+}
+
+h2 {
+  font-size: var(--h2);
+}
+
+h3 {
+  font-size: var(--h3);
+}
+
+h4 {
+  font-size: var(--h4);
+}
+
+h5 {
+  font-size: var(--h5);
+}
+
+h6 {
+  font-size: var(--h6);
+}
+
+/* Apply Small Text Size */
+.small-text {
+  font-size: var(--small-text);
+}
+
+/* Utility Classes for Text Sizes */
+.text-base {
+  font-size: var(--base-font-size);
+}
+
+.text-h1 {
+  font-size: var(--h1);
+}
+
+.text-h2 {
+  font-size: var(--h2);
+}
+
+.text-h3 {
+  font-size: var(--h3);
+}
+
+.text-h4 {
+  font-size: var(--h4);
+}
+
+.text-h5 {
+  font-size: var(--h5);
+}
+
+.text-h6 {
+  font-size: var(--h6);
+}
+
+.text-small {
+  font-size: var(--small-text);
+}
+
+@media only screen and (min-width: 21em) {
+}
+/* 600 */
+@media only screen and (min-width: 37.5em) {
+  :root {
+    --base-font-size: 12px;
+  }
+}
+/* 768 */
+@media only screen and (min-width: 48em) {
+  :root {
+    --base-font-size: 14px;
+  }
+}
+
+/* UTILITY */
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}
+
+
+/*# sourceMappingURL=styles.css.map*/

@@ -26,6 +26,6 @@ module.exports = {
   },
 
   rules: {
-    '@typescript-eslint/consistent-type-imports': 'error'
+    '@typescript-eslint/consistent-type-imports': 'off'
   }
 }
