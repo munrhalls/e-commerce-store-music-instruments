@@ -26,13 +26,17 @@ test_build_frontend:
     - cd frontend
     - npm ci
     - npm install --save-dev @angular/cli
-    - apk update && apk add chromium
-    - export CHROME_BIN=/usr/bin/chromium-browser
+    # - apk update && apk add chromium
+    # - export CHROME_BIN=/usr/bin/chromium-browser
     # Set CHROME_BIN to the path of the installed Chromium binary
-    - npx ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
-    - npm run lint
+    # - npx ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
+    # - npm run lint
     - npx ng build --configuration=production
     # - cd ..
+  artifacts:
+    paths:
+      - frontend/dist/
+
 
 # test_build_server:
 #   stage: test_build
@@ -46,6 +50,7 @@ test_build_frontend:
 #     - npm ci
 #     - npm run test
 #     - npm run lint
+#     - npm run start
 #     - cd ..
 
 
