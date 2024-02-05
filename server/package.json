@@ -32,7 +32,6 @@
   },
   "homepage": "https://github.com/munrhalls/e-commerce-store-music-instruments#readme",
   "devDependencies": {
-    "@types/fastify-cors": "^2.1.0",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.11.16",
     "@types/supertest": "^6.0.2",
@@ -60,12 +59,12 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@fastify/cors": "^7.0.0",
     "@graphql-tools/graphql-file-loader": "^8.0.0",
     "@graphql-tools/load": "^8.0.1",
     "@graphql-tools/schema": "^10.0.2",
-    "fastify": "^4.25.2",
+    "fastify": "^4.26.0",
     "fastify-cli": "^5.9.0",
-    "fastify-cors": "^6.1.0",
     "graphql": "^16.8.1",
     "graphql-import-node": "^0.0.5",
     "mercurius": "^13.3.3"

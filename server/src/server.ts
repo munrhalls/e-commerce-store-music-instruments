@@ -1,31 +1,27 @@
 import 'graphql-import-node';
-import {
-  fastify,
-  type FastifyInstance,
-  type FastifyPluginAsync
-} from 'fastify';
+import fastify, { type FastifyInstance } from 'fastify';
 import { printSchema } from 'graphql';
 import mercurius from 'mercurius';
 import { schema, resolvers } from './schema/schema';
-import fastifyCors from 'fastify-cors';
+import fastifyCors from '@fastify/cors';
 
 export const createServer = async function (): Promise<FastifyInstance> {
-  const server = fastify();
+  const server = await fastify({ logger: true });
 
-  await server.register(fastifyCors as FastifyPluginAsync, {});
+  await server.register(fastifyCors, {});
 
   await server.register(mercurius, {
     schema: printSchema(schema),
     resolvers
   });
 
-  return await server;
+  return server;
 };
 
-const configureServer = async function () {
-  const server = createServer();
+const configureServer = async function (): Promise<void> {
+  const server = await createServer();
   const port = 8443;
-  await server.route({
+  server.route({
     method: 'GET',
     url: '/hello',
     handler: async (request, reply) => {
@@ -43,9 +39,5 @@ const configureServer = async function () {
 };
 
 if (require.main === module) {
-  try {
-    await configureServer();
-  } catch (err) {
-    console.error(err);
-  }
+  void configureServer();
 }
