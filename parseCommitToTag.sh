@@ -1,6 +1,6 @@
 #!/bin/bash
 #1. VALIDATE COMMIT MESSAGE
-
+# /test
 # FORMAT for commits:
 # <feature>-<feature-name>-<size> | <size> VALUES: large|medium|tiny>
 
