@@ -1,16 +1,47 @@
 #!/bin/bash
 
-# # FORMAT for commits: <feature>-<feature-name>-<size> | <size> VALUES: large|medium|tiny>
+#1. VALIDATE COMMIT MESSAGE
+
+# FORMAT for commits:
+# <feature>-<feature-name>-<size> | <size> VALUES: large|medium|tiny>
+
 # Fetch latest commit, get details. If not <feature>-<feature-name>-<size> format, exit with null
 latest_commit=$(git log --pretty=format:"%s" -1)
-if [[ $latest_commit =~ ^feature-.*-(large|medium|tiny)$ ]]; then
-    read latest_feature_name size <<< $(echo "$latest_commit" | awk -F '-' '{print $2, $3}')
-else
-    latest_feature_name=null
-    size=null
+
+# Check if the commit message starts with "feature-"
+if [[ $latest_commit != feature-* ]]; then
     echo "null"
     exit 0
 fi
+
+# Split the commit message at the hyphens into parts
+IFS='-' read -ra parts <<< "$latest_commit"
+
+# Check if there are exactly three parts
+if [ ${#parts[@]} -ne 3 ]; then
+    echo "null"
+    exit 0
+fi
+
+# Check if the second part (feature_name) is empty or contains a hyphen
+if [[ -z "${parts[1]}" || "${parts[1]}" == *-* ]]; then
+    echo "null"
+    exit 0
+fi
+
+# Check if the third part (size) is not one of "large", "medium", or "tiny"
+if [[ "${parts[2]}" != "large" && "${parts[2]}" != "medium" && "${parts[2]}" != "tiny" ]]; then
+    echo "null"
+    exit 0
+fi
+
+# If all checks pass, extract the feature name and size
+latest_feature_name=${parts[1]}
+size=${parts[2]}
+
+
+
+#2. GENERATE TAG FOR DOCKER IMAGE BASED ON COMMIT MESSAGE
 
 # Get all commits in chronological order
 commits=$(git log --pretty=format:"%s" | tac)
