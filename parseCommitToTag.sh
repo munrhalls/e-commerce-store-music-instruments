@@ -1,5 +1,4 @@
 #!/bin/bash
-# test 2
 #1. VALIDATE COMMIT MESSAGE
 
 # FORMAT for commits:
