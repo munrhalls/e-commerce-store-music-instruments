@@ -4,7 +4,7 @@ import { printSchema } from 'graphql';
 import mercurius from 'mercurius';
 import { schema, resolvers } from './schema/schema';
 import fastifyCors from '@fastify/cors';
-
+// test commit name
 export const createServer = async function (): Promise<FastifyInstance> {
   const server = await fastify({ logger: true });
 
