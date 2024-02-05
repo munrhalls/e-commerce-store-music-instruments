@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# # FORMAT for commits: <FEATURE>-<FEATURE-NAME>-<SIZE> | <SIZE> VALUES: LARGE|MEDIUM|TINY>
-# Fetch latest commit, get details. If not <FEATURE>-<FEATURE-NAME>-<SIZE> format, exit with null
+# # FORMAT for commits: <feature>-<feature-name>-<size> | <size> VALUES: large|medium|tiny>
+# Fetch latest commit, get details. If not <feature>-<feature-name>-<size> format, exit with null
 latest_commit=$(git log --pretty=format:"%s" -1)
-if [[ $latest_commit =~ ^FEATURE-.*-(LARGE|MEDIUM|TINY)$ ]]; then
+if [[ $latest_commit =~ ^feature-.*-(large|medium|tiny)$ ]]; then
     read latest_feature_name size <<< $(echo "$latest_commit" | awk -F '-' '{print $2, $3}')
 else
     latest_feature_name=null
@@ -20,23 +20,23 @@ major=0; minor=0; patch=0
 
 # Process each commit
 while IFS= read -r commit; do
-    if [[ $commit =~ ^FEATURE-.*-(LARGE|MEDIUM|TINY)$ ]]; then
+    if [[ $commit =~ ^feature-.*-(large|medium|tiny)$ ]]; then
         read feature_name size <<< $(echo "$commit" | awk -F '-' '{print $2, $3}')
 
         # Sanitize latest_feature_name for Docker tag
         feature_name=$(echo "$latest_feature_name" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9_.-]/-/g')
 
-        # If the size is LARGE, increment the major version and reset the minor and patch versions
-        if [[ "$size" == "LARGE" ]]; then
+        # If the size is large, increment the major version and reset the minor and patch versions
+        if [[ "$size" == "large" ]]; then
             major=$((major + 1))
             minor=0
             patch=0
-        # If the size is MEDIUM, increment the minor version and reset the patch version
-        elif [[ "$size" == "MEDIUM" ]]; then
+        # If the size is medium, increment the minor version and reset the patch version
+        elif [[ "$size" == "medium" ]]; then
             minor=$((minor + 1))
             patch=0
-        # If the size is TINY, increment the patch version
-        elif [[ "$size" == "TINY" ]]; then
+        # If the size is tiny, increment the patch version
+        elif [[ "$size" == "tiny" ]]; then
             patch=$((patch + 1))
         fi
     fi
