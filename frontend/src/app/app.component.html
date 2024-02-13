@@ -16,5 +16,11 @@
   >And if you see me, then the CI/CD pipeline works after a tiny minor add
   --configuration=production to ng build in CI/CD.</h2
 >
-<h1>Greeting from the server: {{ this.hello || '...' }}</h1>
+<h1
+  >Greeting from the server with url req with port 8443:
+  {{
+    this.hello ||
+      "Frontend did not receive anything from the server, it's not quite connected yet..."
+  }}</h1
+>
 <router-outlet></router-outlet>

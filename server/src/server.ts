@@ -1,15 +1,24 @@
 import 'graphql-import-node';
-import fastify, { type FastifyInstance } from 'fastify';
+import fastify, {
+  type FastifyInstance,
+  type FastifyPluginAsync
+} from 'fastify';
 import { printSchema } from 'graphql';
 import mercurius from 'mercurius';
 import { schema, resolvers } from './schema/schema';
-import fastifyCors from '@fastify/cors';
+import fastifyCors, { type FastifyCorsOptions } from '@fastify/cors';
 
 export const createServer = async function (): Promise<FastifyInstance> {
   const server = await fastify({ logger: true });
 
-  await server.register(fastifyCors, {});
-
+  // Declare CORS options with the FastifyCorsOptions type
+  const corsOptions: FastifyCorsOptions = {
+    origin: 'http://localhost:80',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+  };
+  await server.register(fastifyCors as FastifyPluginAsync, corsOptions);
   await server.register(mercurius, {
     schema: printSchema(schema),
     resolvers
@@ -29,7 +38,7 @@ const configureServer = async function (): Promise<void> {
     }
   });
 
-  server.listen({ port }, err => {
+  server.listen({ port, host: '0.0.0.0' }, err => {
     if (err !== null) {
       console.error(err);
       process.exit(1);
