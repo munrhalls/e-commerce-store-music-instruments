@@ -24,8 +24,8 @@ export class AppComponent implements OnInit {
     })
 
     this.getHello().subscribe((data) => {
+      console.log(data)
       this.hello = data.message
-      console.log(this.hello)
     })
   }
 

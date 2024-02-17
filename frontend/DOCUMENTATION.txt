@@ -1,3 +1,10 @@
+Angular 17 requirements:
+- DOCS 16 -> 17: https://update.angular.io/?l=3&v=16.0-17.0
+- node version v18.13.0 or higher
+- TS 5.2 or higher
+- Angular v16 supports Zone.js version 0.14.x or later.
+
+
 Test .github worklows
 
 CSS:

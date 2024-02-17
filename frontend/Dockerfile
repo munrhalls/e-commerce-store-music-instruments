@@ -1,8 +1,7 @@
 # Use lightweight server
-FROM nginx:alpine
+FROM node:20.11.1-alpine3.19
 
-# Main folder -> NGINX's default public directory
-WORKDIR /usr/share/nginx/html/
+WORKDIR /
 
 # Copy from my PC to the container
 COPY dist/* .

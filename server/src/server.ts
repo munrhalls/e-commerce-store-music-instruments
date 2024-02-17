@@ -7,17 +7,30 @@ import { printSchema } from 'graphql';
 import mercurius from 'mercurius';
 import { schema, resolvers } from './schema/schema';
 import fastifyCors, { type FastifyCorsOptions } from '@fastify/cors';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const isDevelopment = process.env.NODE_ENV === 'development';
+console.log('Is development node env: ', isDevelopment);
 
 export const createServer = async function (): Promise<FastifyInstance> {
   const server = await fastify({ logger: true });
 
-  // Declare CORS options with the FastifyCorsOptions type
-  const corsOptions: FastifyCorsOptions = {
-    origin: 'http://localhost:80',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-  };
+  const corsOptions: FastifyCorsOptions = isDevelopment
+    ? {
+        // Development
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization']
+      }
+    : {
+        // Production
+        origin: ['https://sang-logium.com'],
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        credentials: true
+      };
+
   await server.register(fastifyCors as FastifyPluginAsync, corsOptions);
   await server.register(mercurius, {
     schema: printSchema(schema),

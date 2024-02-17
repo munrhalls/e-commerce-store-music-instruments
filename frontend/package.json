@@ -28,7 +28,7 @@
     "font-awesome": "^4.7.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.13.0"
+    "zone.js": "^0.14.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.2.10",
@@ -51,7 +51,7 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "nodemon": "^3.0.2",
     "prettier": "^3.1.1",
-    "typescript": "~5.0.2",
+    "typescript": "^5.3.3",
     "vite": "5.0.5"
   },
   "description": "Electronic store with musical instruments: project for web developer's portfolio. Coded in MongoDB/Mongoose + Node.js/Fastify/TypeScript + GraphQL BACKEND & Angular FRONTEND.",
