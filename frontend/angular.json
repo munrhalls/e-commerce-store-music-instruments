@@ -64,14 +64,14 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "e-commerce-store-musical-instruments:build:production"
+              "buildTarget": "e-commerce-store-musical-instruments:build:production"
             },
             "development": {
-              "browserTarget": "e-commerce-store-musical-instruments:build:development"
+              "buildTarget": "e-commerce-store-musical-instruments:build:development"
             },
             "hmr": {
-              "browserTarget": "e-commerce-store-musical-instruments:build:hmr",
-              "hmr": true
+              "hmr": true,
+              "buildTarget": "e-commerce-store-musical-instruments:build:hmr"
             }
           },
 
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "e-commerce-store-musical-instruments:build"
+            "buildTarget": "e-commerce-store-musical-instruments:build"
           }
         },
         "test": {
