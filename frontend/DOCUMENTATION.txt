@@ -1,18 +1,23 @@
-Angular 17 requirements:
-- DOCS 16 -> 17: https://update.angular.io/?l=3&v=16.0-17.0
-- node version v18.13.0 or higher
-- TS 5.2 or higher
-- Angular v16 supports Zone.js version 0.14.x or later.
-- Make sure you configure setupTestingRouter, canceledNavigationResolution, paramsInheritanceStrategy, titleStrategy, urlUpdateStrategy, urlHandlingStrategy, and malformedUriErrorHandler in provideRouter or RouterModule.forRoot since these properties are now not part of the Router's public API
-- Handle URL parsing errors in the UrlSerializer.parse instead of malformedUriErrorHandler because it's now part of the public API surface.
-- You may need to adjust your router configuration to prevent infinite redirects after absolute redirects. In v17 we no longer prevent additional redirects after absolute redirects.
-- Change references to AnimationDriver.NOOP to use NoopAnimationDriver because AnimationDriver.NOOP is now deprecated.
-- You may need to adjust the equality check for NgSwitch because now it defaults to stricter check with === instead of ==. Angular will log a warning message for the usages where you'd need to provide an adjustment.
-- If you want the child routes of loadComponent routes to inherit data from their parent specify the paramsInheritanceStrategy to always, which in v17 is now set to emptyOnly.
-- If you want the child routes of loadComponent routes to inherit data from their parent specify the paramsInheritanceStrategy to always, which in v17 is now set to emptyOnly. !!!
+VERSION REQUIREMENTS:
+- (!!!) node version v18.13.0 or higher
 
 
+IN SIMPLE TERMS, HOW THE CLIENT APP WORKS:
 
+Initial Load:
+
+  User visits the app.
+  Angular app makes an API request to the SSR server.
+  SSR server generates HTML with initial data.
+  SSR server sends HTML to the browser.
+  Browser parses and displays the initial content.
+
+Subsequent Requests:
+  User interacts with the app (clicks, navigates).
+  Angular app handles everything directly.
+  Angular fetches data through API calls if needed.
+  Nginx serves static assets (scripts, styles) efficiently.
+  This achieves both SEO benefits from initial SSR and performance gains from Nginx serving most assets.
 
 
 Test .github worklows
@@ -50,3 +55,16 @@ ORDER OF CSS PROPERTIES:
 - THIS ORDER HAS USEFUL EFFECTS, OTHER THAN JUST CLARITY:
     - e.g., if you need to push one element from another, always choose to do so using the "FURTHER FROM ELEMENT" guideline
     - need icon pushed from text? do it in the containing element if it makes sense
+
+ANGULAR 16 -> 17 REQUIREMENTS:
+  - DOCS 16 -> 17: https://update.angular.io/?l=3&v=16.0-17.0
+  - node version v18.13.0 or higher
+  - TS 5.2 or higher
+  - Angular v16 supports Zone.js version 0.14.x or later.
+  - Make sure you configure setupTestingRouter, canceledNavigationResolution, paramsInheritanceStrategy, titleStrategy, urlUpdateStrategy, urlHandlingStrategy, and malformedUriErrorHandler in provideRouter or RouterModule.forRoot since these properties are now not part of the Router's public API
+  - Handle URL parsing errors in the UrlSerializer.parse instead of malformedUriErrorHandler because it's now part of the public API surface.
+  - You may need to adjust your router configuration to prevent infinite redirects after absolute redirects. In v17 we no longer prevent additional redirects after absolute redirects.
+  - Change references to AnimationDriver.NOOP to use NoopAnimationDriver because AnimationDriver.NOOP is now deprecated.
+  - You may need to adjust the equality check for NgSwitch because now it defaults to stricter check with === instead of ==. Angular will log a warning message for the usages where you'd need to provide an adjustment.
+  - If you want the child routes of loadComponent routes to inherit data from their parent specify the paramsInheritanceStrategy to always, which in v17 is now set to emptyOnly.
+  - If you want the child routes of loadComponent routes to inherit data from their parent specify the paramsInheritanceStrategy to always, which in v17 is now set to emptyOnly. !!!

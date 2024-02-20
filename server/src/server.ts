@@ -47,7 +47,10 @@ const configureServer = async function (): Promise<void> {
     method: 'GET',
     url: '/hello',
     handler: async (request, reply) => {
-      return { message: 'Hello, World!' };
+      return {
+        message:
+          'Hello, World! CONFIRMATION NOTE: IF YOU ARE SEEING THIS MESSAGE, THEN IT IS {message: <...>} sent from the fastify ts node gql server. This means that inter-container communication works within docker compose network. GJ!'
+      };
     }
   });
 

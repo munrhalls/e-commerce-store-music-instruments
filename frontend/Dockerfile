@@ -1,10 +1,9 @@
-# Use lightweight server
-FROM node:20.11.1-alpine3.19
-
-WORKDIR /
-
-# Copy from my PC to the container
-COPY dist/* .
-
-# Expose port
+FROM node:20.11.1-alpine3.19 as build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
 EXPOSE 80
+RUN npx ng build --configuration production
+RUN npx ng run e-commerce-store-musical-instruments:server
+CMD ["node", "dist/e-commerce-store-musical-instruments/server/main.js"]

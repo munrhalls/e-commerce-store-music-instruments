@@ -19,14 +19,18 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.addEventListener('resize', () => {
-      this.checkScreenSize()
-    })
-
     this.getHello().subscribe((data) => {
       console.log(data)
       this.hello = data.message
     })
+  }
+
+  afterRender(): void {
+    window.addEventListener('resize', () => {
+      this.checkScreenSize()
+    })
+
+    this.checkScreenSize()
   }
 
   checkScreenSize(): void {

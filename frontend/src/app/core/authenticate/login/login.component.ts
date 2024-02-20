@@ -1,7 +1,7 @@
 // import { take, catchError } from 'rxjs/operators'
 import { throwError } from 'rxjs'
 // import { type HttpClient } from '@angular/common/http'
-import { Component, type OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import {
   FormGroup,
   FormControl,
@@ -23,7 +23,7 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   // constructor(private readonly http: HttpClient) {}
   private handleError(error: any): void {
     console.error('Authentication error:', error)
@@ -57,6 +57,4 @@ export class LoginComponent implements OnInit {
     console.log(response)
     // Send token to backend
   }
-
-  ngOnInit(): void {}
 }

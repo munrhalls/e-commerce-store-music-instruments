@@ -2,7 +2,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'
 // import { Subject } from 'rxjs'
 // import { takeUntil } from 'rxjs/operators'
 import { MenuService } from '../menu-service.service'
-import { Inject, Component, Renderer2, type OnInit } from '@angular/core'
+import { Inject, Component, Renderer2 } from '@angular/core'
 import {
   faSearch,
   faUser,
@@ -17,7 +17,7 @@ import {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   openElementName: string = ''
   isAuthenticationOpen: boolean = false
   faSearch = faSearch
@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
     this.menuService.closeAuthenticateURL()
   }
 
-  ngOnInit(): void {
+  afterRender(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const url = event.urlAfterRedirects
