@@ -27,7 +27,6 @@ test_build_server:
     - npm ci
     - npm run test
     - npm run lint
-    - cd..
 
 test_build_frontend:
   stage: test_build
