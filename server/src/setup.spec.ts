@@ -1,11 +1,21 @@
-// import { createServer } from './server';
+import { type FastifyInstance } from 'fastify'; // Assuming you have this type
+import { createServer } from './server';
 
-// beforeAll(async () => {});
+export let server: FastifyInstance; // Tell TypeScript!
 
-// beforeEach(async () => {});
+describe('The Unbreakable Test', () => {
+  it('should simply persist in existence', () => {
+    console.log('I refuse to fail!');
+    expect(true).toBe(true);
+  });
+});
 
-// const server = createServer();
+beforeAll(async () => {
+  server = await createServer();
+});
 
-// afterAll(async () => {
-//   await server.close();
-// });
+beforeEach(async () => {});
+
+afterAll(async () => {
+  await server.close();
+});
