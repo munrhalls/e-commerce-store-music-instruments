@@ -1,102 +1,103 @@
-stages:
-  - prepare
-  - test_build
-  - deploy
+  stages:
+    # - prepare
+    # - test_build
+    - deploy
 
-variables:
-  GIT_DEPTH: "0"
+  variables:
+    GIT_DEPTH: "0"
 
-generate_tag:
-  stage: prepare
-  script:
-    - chmod +x ./parseCommitToTag.sh
-    - ./parseCommitToTag.sh > tag.txt
-  artifacts:
-    paths:
-      - tag.txt
+  generate_tag:
+    stage: prepare
+    script:
+      - chmod +x ./parseCommitToTag.sh
+      - ./parseCommitToTag.sh > tag.txt
+    artifacts:
+      paths:
+        - tag.txt
 
-test_build_server:
-  stage: test_build
-  image: node:20.10.0-alpine
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}-node-modules
-    paths:
-      - frontend/node_modules/
-  script:
-    - cd server
-    - npm ci
-    - npm run test
-    - npm run lint
+  test_build_server:
+    stage: test_build
+    image: node:20.10.0-alpine
+    cache:
+      key: ${CI_COMMIT_REF_SLUG}-node-modules
+      paths:
+        - frontend/node_modules/
+    script:
+      - cd server
+      - npm ci
+      - npm run test
+      - npm run lint
 
-test_build_frontend:
-  stage: test_build
-  image: node:20.10.0-alpine
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}-node-modules
-    paths:
-      - frontend/node_modules/
-  script:
-    - cd frontend
-    - npm ci
-    - npm install --save-dev @angular/cli
-    - apk update && apk add chromium
-    - export CHROME_BIN=/usr/bin/chromium-browser
-    # Set CHROME_BIN to the path of the installed Chromium binary
-    - npx ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
-    - npm run lint
-    - npx ng build --configuration=production
+  test_build_frontend:
+    stage: test_build
+    image: node:20.10.0-alpine
+    cache:
+      key: ${CI_COMMIT_REF_SLUG}-node-modules
+      paths:
+        - frontend/node_modules/
+    script:
+      - cd frontend
+      - npm ci
+      - npm install --save-dev @angular/cli
+      - apk update && apk add chromium
+      - export CHROME_BIN=/usr/bin/chromium-browser
+      # Set CHROME_BIN to the path of the installed Chromium binary
+      - npx ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
+      - npm run lint
+      - npx ng build --configuration=production
 
-  artifacts:
-    paths:
-      - frontend/dist/
+    artifacts:
+      paths:
+        - frontend/dist/
 
-deploy:
-  stage: deploy
-  image: docker:24.0.7-dind
-  services:
-    - docker:dind
+  deploy:
+    stage: deploy
+    image: docker:24.0.7-dind
+    services:
+      - docker:dind
 
+    before_script:
+      # Install necessary dependencies
+      - apk add --no-cache docker-compose openssh-client
 
-  before_script:
-    # Install necessary dependencies
-    - apk add --no-cache docker-compose openssh-client
+      # DockerHub login for pushing the image
+      - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
 
-    # DockerHub login for pushing the image
-    - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+      # Setup SSH agent for secure connection to the droplet
+      - eval $(ssh-agent -s)
+      - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+      - mkdir -p ~/.ssh
+      - chmod 700 ~/.ssh
 
-    # Setup SSH agent for secure connection to the droplet
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-
-    # Add droplet IP to known hosts to avoid interactive prompt
-    - ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
-
-
-  script:
-    # Get the commit message and parse it to get the tag
-    - export GENERATED_TAG=$(cat tag.txt)
-
-    # Check if the tag.txt file exists and is not empty
-    - if [ ! -f "tag.txt" ] || [ ! -s "tag.txt" ]; then echo "tag.txt file is missing or empty"; exit 1; fi
+      # Add droplet IP to known hosts to avoid interactive prompt
+      - ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
+      - chmod 644 ~/.ssh/known_hosts
 
 
-    # Check if the script output is empty or contains an error
-    - if [ -z "$GENERATED_TAG" ] || [ "$GENERATED_TAG" = "null" ]; then echo "Commit violates <FEATURE>-<FEATURE-NAME>-<SIZE> format required for proper docker image tagging"; exit 1; fi
+    script:
+      # Get the commit message and parse it to get the tag
+      - export GENERATED_TAG=$(cat tag.txt)
 
-    # Build the Docker image using docker-compose
-    - docker-compose -f docker-compose.yaml build sang-logium-frontend
+      # Check if the tag.txt file exists and is not empty
+      - if [ ! -f "tag.txt" ] || [ ! -s "tag.txt" ]; then echo "tag.txt file is missing or empty"; exit 1; fi
 
+      # Check if the script output is empty or contains an error
+      - if [ -z "$GENERATED_TAG" ] || [ "$GENERATED_TAG" = "null" ]; then echo "Commit violates <FEATURE>-<FEATURE-NAME>-<SIZE> format required for proper docker image tagging"; exit 1; fi
 
-    # Tag and push the built image to DockerHub
-    - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
-    - docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
+      # Build the Docker image using docker-compose
+      - docker-compose -f docker-compose.yaml build sang-logium-frontend
 
-    # SSH into the droplet, pull the latest image, and run docker-compose to update the services
-    - ssh -o StrictHostKeyChecking=no root@$DROPLET_IP "docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG && docker-compose -f /root/sang-logium/docker-compose.yaml up -d"
+      # Tag and push the built image to DockerHub
+      - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
+      - docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
 
+      # SSH into the droplet, pull the latest image, and run docker-compose to update the services
+      - ssh root@$DROPLET_IP "
+          echo 'GENERATED_TAG=$GENERATED_TAG' > /root/sang-logium/.env && \
+          echo 'The .env file on DROPLET PC updated successfully' && \
+          docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG && \
+          docker-compose -f /root/sang-logium/docker-compose.yaml up -d
+        "
 
-  only:
-    - main
+    only:
+      - main

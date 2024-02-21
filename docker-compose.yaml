@@ -6,8 +6,8 @@ services:
     image: mongo:5.0.23
     volumes:
       - ./database/data/db:/data/db
-    env_file:
-      - ./database/.env
+    # env_file:
+    #   - ./database/.env
     expose:
       - 27017
     networks:
@@ -17,6 +17,10 @@ services:
       interval: 10m
       timeout: 10s
       retries: 3
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
 
   server:
     build:
@@ -24,19 +28,23 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - mongo
-    env_file:
-      - ./server/.env
+    # env_file:
+    #   - ./server/.env
     networks:
       - app-network
     restart: unless-stopped
+    environment:
+      MONGO_URI: ${MONGO_URI}
+      DATA_SERVER_NODE_ENV: ${DATA_SERVER_NODE_ENV}
+      DATA_SERVER_PORT: ${DATA_SERVER_PORT}
 
   sang-logium-frontend:
     environment:
       - PORT=80
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    # image: munrhalls/sang-logium-frontend:latest
+    # build:
+    #   context: ./frontend
+    #   dockerfile: Dockerfile
+    image: munrhalls/sang-logium-frontend:${GENERATED_TAG}
     ports:
       - "80:80"
     networks:
