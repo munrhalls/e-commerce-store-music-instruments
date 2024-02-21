@@ -89,7 +89,8 @@
 
       # Tag and push the built image to DockerHub
       - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
-      - docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
+      - "echo Image tagged with: $GENERATED_TAG"
+      - if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then echo "Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; fi
 
       # SSH into the droplet, pull the latest image, and run docker-compose to update the services
       - ssh root@$DROPLET_IP "
@@ -98,7 +99,6 @@
           docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG && \
           docker-compose -f /root/sang-logium/docker-compose.yaml up -d
         "
-
 
     only:
       - main
