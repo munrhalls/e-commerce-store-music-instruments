@@ -92,7 +92,7 @@
       - docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
 
       # SSH into the droplet, pull the latest image, and run docker-compose to update the services
-      - ssh root@$DROPLET_IP "echo 'GENERATED_TAG=$GENERATED_TAG' > /root/sang-logium/.env; echo 'The .env file on DROPLET PC updated successfully'; docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; docker-compose -f /root/sang-logium/docker-compose.yaml up -d"
+      - ssh root@$DROPLET_IP "echo 'GENERATED_TAG=$GENERATED_TAG' > /root/sang-logium/.env && echo 'The .env file on DROPLET PC updated successfully' && docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG && docker-compose -f /root/sang-logium/docker-compose.yaml up -d"
 
 
     only:
