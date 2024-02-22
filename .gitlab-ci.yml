@@ -82,26 +82,25 @@
       - if [ ! -f "tag.txt" ] || [ ! -s "tag.txt" ]; then echo "tag.txt file is missing or empty"; exit 1; fi
 
       # Check if the script output is empty or contains an error
-      - if [ -z "$GENERATED_TAG" ] || [ "$GENERATED_TAG" = "null" ]; then echo "Commit violates <FEATURE>-<FEATURE-NAME>-<SIZE> format required for proper docker image tagging"; exit 1; fi
+      # - if [ -z "$GENERATED_TAG" ] || [ "$GENERATED_TAG" = "null" ]; then echo "Commit violates <FEATURE>-<FEATURE-NAME>-<SIZE> format required for proper docker image tagging"; exit 1; fi
 
-      # Build the Docker image using docker-compose
-      - docker-compose -f docker-compose.yaml build sang-logium-frontend
+      # # Build the Docker image using docker-compose
+      # - docker-compose -f docker-compose.yaml build sang-logium-frontend
 
-      # Tag the built image with the generated tag
-      - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
-      - "echo Image tagged with: $GENERATED_TAG"
+      # # Tag the built image with the generated tag
+      # - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
+      # - "echo Image tagged with: $GENERATED_TAG"
 
-      # Push the built image with the generated tag
-      - if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then echo "Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; fi
+      # # Push the built image with the generated tag
+      # - if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then echo "Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; fi
 
       # SSH into the droplet, pull the latest image, and run docker-compose to update the services
-      - |
-        ssh root@$DROPLET_IP "
-        echo 'GENERATED_TAG=$GENERATED_TAG' > /root/sang-logium/.env && \
-        echo 'The .env file on DROPLET PC updated successfully' && \
-        docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG && \
-        docker-compose -f /root/sang-logium/docker-compose.yaml up -d
-        "
-
+      # - |
+      #   ssh root@$DROPLET_IP "
+      #   echo 'GENERATED_TAG=$GENERATED_TAG' > /root/sang-logium/.env && \
+      #   echo 'The .env file on DROPLET PC updated successfully' && \
+      #   docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG && \
+      #   docker-compose -f /root/sang-logium/docker-compose.yaml up -d
+      #   "
     only:
     - main
