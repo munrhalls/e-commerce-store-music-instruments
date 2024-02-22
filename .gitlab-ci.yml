@@ -90,17 +90,15 @@
       - "if [ -z \"$GENERATED_TAG\" ]; then echo \"Error: Generated tag is empty.\"; exit 1; else echo \"Tag extracted: $GENERATED_TAG\"; fi"
       - 'echo "Tag extracted: $GENERATED_TAG"'
 
-
-
-      # Check if the script output is empty or contains an error
-      # - if [ -z "$GENERATED_TAG" ] || [ "$GENERATED_TAG" = "null" ]; then echo "Commit violates <FEATURE>-<FEATURE-NAME>-<SIZE> format required for proper docker image tagging"; exit 1; fi
+      # CHECK IF TAG SATISFIES TAG FORMAT
+      - if [ -z "$GENERATED_TAG" ]; then echo "Commit violates <FEATURE>-<FEATURE-NAME>-<SIZE> format required for proper docker image tagging"; exit 1; fi
 
       # # Build the Docker image using docker-compose
-      # - docker-compose -f docker-compose.yaml build sang-logium-frontend
+      - docker-compose -f docker-compose.yaml build sang-logium-frontend
 
-      # # Tag the built image with the generated tag
-      # - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
-      # - "echo Image tagged with: $GENERATED_TAG"
+      # Tag the built image with the generated tag
+      - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
+      - "echo Image tagged with: $GENERATED_TAG"
 
       # # Push the built image with the generated tag
       # - if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then echo "Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; fi
