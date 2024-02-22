@@ -54,4 +54,3 @@ services:
 networks:
   app-network:
     driver: bridge
-# for commit
