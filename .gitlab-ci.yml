@@ -113,16 +113,16 @@
       - docker-compose -f docker-compose.yaml build sang-logium-frontend
 
       # Tag the built image with the generated tag
-      - echo "Tagging the built image with the generated tag..."
+      - "echo Tagging the built image with the generated tag: $GENERATED_TAG"
       - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
       - "echo Image tagged with: $GENERATED_TAG"
 
-      # # Push the built image with the generated tag
+      # Push the built image with the generated tag
       - "echo Pushing the built image with the generated tag: $GENERATED_TAG"
       - if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then echo "Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; fi
 
       - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      - echo "PHASE 2 SUCCESSFUL - BUILT UPDATED IMAGES FROM REPOSITORY, TAGGED, PUSHED TO DOCKERHUB"
+      - echo "PHASE 2 SUCCESSFUL - BUILT UPDATED IMAGES FROM REPOSITORY, TAGGED AS $GENERATED_TAG, PUSHED TO DOCKERHUB"
       - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
       - echo "||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| |||"
 
@@ -149,7 +149,7 @@
 
 
       - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      - echo "ALL PHASES SUCCESSFUL - PRODUCTION DEPLOYMENT READY FOR LIVE CHECKS"
+      - "echo ALL PHASES SUCCESSFUL - PRODUCTION DEPLOYMENT: $GENERATED_TAG IS READY FOR LIVE CHECKS"
       - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
 
     only:
