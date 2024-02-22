@@ -79,7 +79,18 @@
       - export GENERATED_TAG=$(cat tag.txt)
 
       # CHECK IF TAG.TXT IS MISSING OR EMPTY
+      - echo "Checking for tag.txt file..."
       - if [ ! -f "tag.txt" ] || [ ! -s "tag.txt" ]; then echo "tag.txt file is missing or empty"; exit 1; fi
+
+      - echo "Ensuring tag.txt is not empty..."
+      - "if [ ! -s 'tag.txt' ]; then echo 'Error: tag.txt file is empty.'; exit 1; fi"
+
+      - echo "Reading GENERATED_TAG from tag.txt..."
+      - export GENERATED_TAG=$(cat tag.txt)
+      - "if [ -z \"$GENERATED_TAG\" ]; then echo \"Error: Generated tag is empty.\"; exit 1; else echo \"Tag extracted: $GENERATED_TAG\"; fi"
+      - 'echo "Tag extracted: $GENERATED_TAG"'
+
+
 
       # Check if the script output is empty or contains an error
       # - if [ -z "$GENERATED_TAG" ] || [ "$GENERATED_TAG" = "null" ]; then echo "Commit violates <FEATURE>-<FEATURE-NAME>-<SIZE> format required for proper docker image tagging"; exit 1; fi
