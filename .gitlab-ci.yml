@@ -95,10 +95,11 @@
       # CHECK IF TAG TAG FOR THE DOCKER IMAGE SATISFIES TAG FORMAT
       - echo "Checking if GENERATED_TAG satisfies the <feature>-<feature-name>-<size> format..."
       - if [ -z "$GENERATED_TAG" ]; then echo "Commit violates <feature>-<feature-name>-<size> format required for proper docker image tagging"; exit 1; fi
-
+      # //
       - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
       - echo "PHASE 1 SUCCESSFUL. TAG FOR DOCKER IMAGES GENERATED."
       - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
+      - echo "||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| |||"
 
 
 
@@ -117,12 +118,13 @@
       - "echo Image tagged with: $GENERATED_TAG"
 
       # # Push the built image with the generated tag
-      - echo "Pushing the built image with the generated tag..."
+      - "echo Pushing the built image with the generated tag: $GENERATED_TAG"
       - if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then echo "Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; fi
 
       - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
       - echo "PHASE 2 SUCCESSFUL - BUILT UPDATED IMAGES FROM REPOSITORY, TAGGED, PUSHED TO DOCKERHUB"
       - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
+      - echo "||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| |||"
 
 
 
@@ -141,11 +143,13 @@
       - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
       - echo "PHASE 3 SUCCESSFUL - SSH LOGGED INTO DROPLET PC, PULLED UPDATED IMAGES FROM DOCKERHUB, RE-BUILT PRODUCTION VIA DOCKER-COMPOSE"
       - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
+      - echo "||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| |||"
+
 
 
 
       - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      - echo "ALL PHASES SUCCESSFUL - UPDATED PRODUCTION DEPLOYMENT READY FOR LIVE CHECKS"
+      - echo "ALL PHASES SUCCESSFUL - PRODUCTION DEPLOYMENT READY FOR LIVE CHECKS"
       - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
 
     only:
