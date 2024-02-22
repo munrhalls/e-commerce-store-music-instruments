@@ -41,10 +41,10 @@ services:
   sang-logium-frontend:
     environment:
       - PORT=80
-    # build:
-    #   context: ./frontend
-    #   dockerfile: Dockerfile
-    image: munrhalls/sang-logium-frontend:${GENERATED_TAG}
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    # image: munrhalls/sang-logium-frontend:${GENERATED_TAG}
     ports:
       - "80:80"
     networks:

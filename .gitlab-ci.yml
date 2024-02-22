@@ -75,6 +75,8 @@
 
 
     script:
+      - echo "STARTING PHASE 1 - GENERATING TAG FOR UPDATING DOCKER IMAGES"
+
       # PARSE COMMIT MESSAGE -> GET TAG FOR THE DOCKER IMAGE
       - export GENERATED_TAG=$(cat tag.txt)
 
@@ -90,15 +92,22 @@
       - "if [ -z \"$GENERATED_TAG\" ]; then echo \"Error: Generated tag is empty.\"; exit 1; else echo \"Tag extracted: $GENERATED_TAG\"; fi"
       - 'echo "Tag extracted: $GENERATED_TAG"'
 
-      # CHECK IF TAG SATISFIES TAG FORMAT
-      - if [ -z "$GENERATED_TAG" ]; then echo "Commit violates <FEATURE>-<FEATURE-NAME>-<SIZE> format required for proper docker image tagging"; exit 1; fi
+      # CHECK IF TAG TAG FOR THE DOCKER IMAGE SATISFIES TAG FORMAT
+      - echo "Checking if GENERATED_TAG satisfies the <feature>-<feature-name>-<size> format..."
+      - if [ -z "$GENERATED_TAG" ]; then echo "Commit violates <feature>-<feature-name>-<size> format required for proper docker image tagging"; exit 1; fi
 
-      # # Build the Docker image using docker-compose
+      - echo "TAG FOR DOCKER IMAGES GENERATED. PHASE 1 SUCCESSFUL."
+      - echo "////////////////////////////////////////////////////"
+
+      - echo "STARTING PHASE 2 - BUILD UPDATED IMAGES IN REPOSITORY, TAG THEM, PUSH TO DOCKERHUB"
+
+      # ACCESS UPDATED DOCKER IMAGE IN GITLAB REPOSITORY AND BUILD IT VIA DOCKER-COMPOSE
+      - echo ""
       - docker-compose -f docker-compose.yaml build sang-logium-frontend
 
       # Tag the built image with the generated tag
-      - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
-      - "echo Image tagged with: $GENERATED_TAG"
+      # - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
+      # - "echo Image tagged with: $GENERATED_TAG"
 
       # # Push the built image with the generated tag
       # - if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then echo "Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; fi
