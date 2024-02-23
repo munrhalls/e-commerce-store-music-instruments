@@ -114,7 +114,7 @@
 
       # Tag the built image with the generated tag
       - "echo Tagging the built image with the generated tag: $GENERATED_TAG"
-      - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
+      - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend:latest $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
       - "echo Image tagged with: $GENERATED_TAG"
 
       # Push the built image with the generated tag
