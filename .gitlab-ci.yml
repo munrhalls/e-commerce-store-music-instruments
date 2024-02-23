@@ -96,9 +96,6 @@
       - docker image rm munrhalls/sang-logium-frontend:latest -f
       - docker-compose -f docker-compose.yaml build --no-cache sang-logium-frontend || exit 1
 
-      - "echo Tagging the built image with the generated tag: $GENERATED_TAG"
-      - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG || exit 1
-
       - "echo DOCKER_HUB_USERNAME: $DOCKER_HUB_USERNAME"
       - "echo GENERATED_TAG: $GENERATED_TAG"
       - "echo Pushing the built image with the generated tag: $GENERATED_TAG"
