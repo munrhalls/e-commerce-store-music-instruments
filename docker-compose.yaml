@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  mongo:
+  sang-logium-database:
     restart: always
     image: mongo:5.0.23
     volumes:
@@ -22,10 +22,11 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
 
-  server:
+  sang-logium-server:
     build:
       context: ./server
       dockerfile: Dockerfile
+    image: munrhalls/sang-logium-server:${GENERATED_TAG}
     depends_on:
       - mongo
     # env_file:
@@ -44,7 +45,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: munrhalls/sang-logium-frontend:${GENERATED_TAG}
+      # The image tag defaults to "local-development-version" locally, and GENERATED_TAG in CI/CD production runtime
+    image: munrhalls/sang-logium-frontend:${GENERATED_TAG:-local-development-version
     ports:
       - "80:80"
     networks:
