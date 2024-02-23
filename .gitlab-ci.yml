@@ -110,7 +110,7 @@
 
       # ACCESS UPDATED DOCKER IMAGE IN GITLAB REPOSITORY AND BUILD IT VIA DOCKER-COMPOSE
       - echo "Using docker-compose to build the updated images in the repository..."
-      - docker-compose -f docker-compose.yaml build --no-cache sang-logium-frontend
+      - docker-compose -f docker-compose.yaml build --no-cache $DOCKER_HUB_USERNAME/sang-logium-frontend
 
       # Tag the built image with the generated tag
       - "echo Tagging the built image with the generated tag: $GENERATED_TAG"
