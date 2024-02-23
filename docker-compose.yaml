@@ -44,7 +44,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    # image: munrhalls/sang-logium-frontend:${GENERATED_TAG}
+    image: munrhalls/sang-logium-frontend:${GENERATED_TAG}
     ports:
       - "80:80"
     networks:
