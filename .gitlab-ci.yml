@@ -102,12 +102,11 @@
       - if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then echo "Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; fi || exit 1
 
       - "echo SSH into the droplet, pull the latest image, and run docker-compose to update the services..."
-      - |
-        ssh root@$DROPLET_IP || exit 1"
-        echo 'GENERATED_TAG=$GENERATED_TAG' > /root/sang-logium/.env && \
-        echo 'The .env file on DROPLET PC updated successfully' && \
-        docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG && \
-        docker-compose -f /root/sang-logium/docker-compose.yaml up -d
-        || exit 1"
+      - ssh root@$DROPLET_IP || exit 1"
+      - echo 'GENERATED_TAG=$GENERATED_TAG' > /root/sang-logium/.env || exit 1
+      - echo 'The .env file on DROPLET PC updated successfully'
+      - docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG || exit 1
+      - docker-compose -f /root/sang-logium/docker-compose.yaml up -d || exit 1
+
     only:
     - main
