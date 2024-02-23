@@ -93,11 +93,14 @@
       - if [ -z "$GENERATED_TAG" ]; then echo "Commit violates <feature>-<feature-name>-<size> format required for proper docker image tagging"; exit 1; fi
 
       - echo "Using docker-compose to build the updated images in the repository..."
+      - docker image rm munrhalls/sang-logium-frontend:latest -f
       - docker-compose -f docker-compose.yaml build --no-cache sang-logium-frontend
 
       - "echo Tagging the built image with the generated tag: $GENERATED_TAG"
       - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
 
+      - "echo DOCKER_HUB_USERNAME: $DOCKER_HUB_USERNAME"
+      - "echo GENERATED_TAG: $GENERATED_TAG"
       - "echo Pushing the built image with the generated tag: $GENERATED_TAG"
       - if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then echo "Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; fi
 
