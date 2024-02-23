@@ -97,12 +97,20 @@
 
       - "echo DOCKER_HUB_USERNAME: $DOCKER_HUB_USERNAME"
       - "echo GENERATED_TAG: $GENERATED_TAG"
-      - "echo Pushing the built image withs the generated tag: $GENERATED_TAG"
+      - "echo Pushing the built images withs the generated tag: $GENERATED_TAG"
+
       - if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then echo "Frontend Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; exit 1; fi
+
       - if docker push $DOCKER_HUB_USERNAME/sang-logium-server:$GENERATED_TAG; then echo "Server Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; exit 1; fi
+
       - if docker push $DOCKER_HUB_USERNAME/sang-logium-database:$GENERATED_TAG; then echo "Database Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; exit 1; fi
 
-      - ssh root@$DROPLET_IP "echo 'GENERATED_TAG=$GENERATED_TAG' > /root/sang-logium/.env && docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG && docker-compose -f /root/sang-logium/docker-compose.yaml up -d"
+      - ssh root@$DROPLET_IP
+      - "echo 'GENERATED_TAG=$GENERATED_TAG' > /root/sang-logium/.env"
+      - docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
+      - docker pull $DOCKER_HUB_USERNAME/sang-logium-server:$GENERATED_TAG
+      - docker pull $DOCKER_HUB_USERNAME/sang-logium-database:$GENERATED_TAG
+      - docker-compose -f /root/sang-logium/docker-compose.yaml up -d"
 
 
     only:
