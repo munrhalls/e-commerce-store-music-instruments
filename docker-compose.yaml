@@ -3,7 +3,10 @@ version: "3.8"
 services:
   database:
     restart: always
-    image: mongo:5.0.23${GENERATED_TAG:-local-development-version}
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    image: mongo:5.0.23-${GENERATED_TAG-local-development-version}
     volumes:
       - ./database/data/db:/data/db
     # env_file:
