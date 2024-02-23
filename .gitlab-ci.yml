@@ -96,7 +96,7 @@
       - docker-compose -f docker-compose.yaml build --no-cache sang-logium-frontend
 
       - "echo Tagging the built image with the generated tag: $GENERATED_TAG"
-      - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend:latest $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
+      - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
 
       - "echo Pushing the built image with the generated tag: $GENERATED_TAG"
       - if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then echo "Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; fi
