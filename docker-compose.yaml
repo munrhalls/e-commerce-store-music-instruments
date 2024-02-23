@@ -26,9 +26,9 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    image: munrhalls/sang-logium-server:${GENERATED_TAG}
+    image: munrhalls/sang-logium-server:${GENERATED_TAG:-local-development-version}
     depends_on:
-      - mongo
+      - database
     # env_file:
     #   - ./server/.env
     networks:
