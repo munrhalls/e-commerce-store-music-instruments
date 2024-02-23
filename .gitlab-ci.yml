@@ -57,31 +57,26 @@
       - docker:dind
 
     before_script:
-      # Install necessary dependencies
+      - echo "Installing necessary dependencies..."
       - apk add --no-cache docker-compose openssh-client
 
-      # DockerHub login for pushing the image
+      - "echo Logging into DockerHub..."
       - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
 
-      # SSH INTO DROPLET
+      - "echo SSH INTO DROPLET"
       - eval $(ssh-agent -s)
       - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
       - mkdir -p ~/.ssh
       - chmod 700 ~/.ssh
 
-      # Add droplet IP to known hosts to avoid interactive prompt
+      - "echo Add droplet IP to known hosts to avoid interactive prompt"
       - ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
       - chmod 644 ~/.ssh/known_hosts
 
 
     script:
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      - echo "STARTING PHASE 1 - GENERATING TAG FOR UPDATING DOCKER IMAGES"
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-
-      # PARSE COMMIT MESSAGE -> GET TAG FOR THE DOCKER IMAGE
       - export GENERATED_TAG=$(cat tag.txt)
-      # CHECK IF TAG.TXT IS MISSING OR EMPTY
+
       - echo "Checking for tag.txt file..."
       - if [ ! -f "tag.txt" ] || [ ! -s "tag.txt" ]; then echo "tag.txt file is missing or empty"; exit 1; fi
 
@@ -90,49 +85,23 @@
 
       - echo "Reading GENERATED_TAG from tag.txt..."
       - export GENERATED_TAG=$(cat tag.txt)
+
       - "if [ -z \"$GENERATED_TAG\" ]; then echo \"Error: Generated tag is empty.\"; exit 1; else echo \"Tag extracted: $GENERATED_TAG\"; fi"
       - 'echo "Tag extracted: $GENERATED_TAG"'
-      # CHECK IF TAG TAG FOR THE DOCKER IMAGE SATISFIES TAG FORMAT
+
       - echo "Checking if GENERATED_TAG satisfies the <feature>-<feature-name>-<size> format..."
       - if [ -z "$GENERATED_TAG" ]; then echo "Commit violates <feature>-<feature-name>-<size> format required for proper docker image tagging"; exit 1; fi
-      # //
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      - echo "PHASE 1 SUCCESSFUL. TAG FOR DOCKER IMAGES GENERATED."
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      - echo "||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| |||"
 
-
-
-
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      - echo "STARTING PHASE 2 - BUILD UPDATED IMAGES IN REPOSITORY, TAG THEM, PUSH TO DOCKERHUB"
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-
-      # ACCESS UPDATED DOCKER IMAGE IN GITLAB REPOSITORY AND BUILD IT VIA DOCKER-COMPOSE
       - echo "Using docker-compose to build the updated images in the repository..."
       - docker-compose -f docker-compose.yaml build --no-cache sang-logium-frontend
 
-      # Tag the built image with the generated tag
       - "echo Tagging the built image with the generated tag: $GENERATED_TAG"
       - docker tag $DOCKER_HUB_USERNAME/sang-logium-frontend:latest $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG
-      - "echo Image tagged with: $GENERATED_TAG"
 
-      # Push the built image with the generated tag
       - "echo Pushing the built image with the generated tag: $GENERATED_TAG"
       - if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then echo "Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; fi
 
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      - echo "PHASE 2 SUCCESSFUL - BUILT UPDATED IMAGES FROM REPOSITORY, TAGGED AS $GENERATED_TAG, PUSHED TO DOCKERHUB"
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      - echo "||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| |||"
-
-
-
-
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      - echo "STARTING PHASE 3 - SSH INTO DROPLET PC, PULL UPDATED IMAGES FROM DOCKERHUB, RE-BUILD PRODUCTION VIA DOCKER-COMPOSE"
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      # SSH into the droplet, pull the latest image, and run docker-compose to update the services
+      - "echo SSH into the droplet, pull the latest image, and run docker-compose to update the services..."
       - |
         ssh root@$DROPLET_IP "
         echo 'GENERATED_TAG=$GENERATED_TAG' > /root/sang-logium/.env && \
@@ -140,17 +109,5 @@
         docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG && \
         docker-compose -f /root/sang-logium/docker-compose.yaml up -d
         "
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      - echo "PHASE 3 SUCCESSFUL - SSH LOGGED INTO DROPLET PC, PULLED UPDATED IMAGES FROM DOCKERHUB, RE-BUILT PRODUCTION VIA DOCKER-COMPOSE"
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      - echo "||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| ||| |||"
-
-
-
-
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-      - "echo ALL PHASES SUCCESSFUL - PRODUCTION DEPLOYMENT: $GENERATED_TAG IS READY FOR LIVE CHECKS"
-      - echo "*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***"
-
     only:
     - main
