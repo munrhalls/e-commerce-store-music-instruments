@@ -104,7 +104,7 @@
       # - if docker push $DOCKER_HUB_USERNAME/sang-logium-server:$GENERATED_TAG; then echo "Server Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; exit 1; fi
 
       # - if docker push $DOCKER_HUB_USERNAME/sang-logium-database:$GENERATED_TAG; then echo "Database Image successfully pushed to DockerHub"; else echo "Failed to push image to DockerHub"; exit 1; fi
-      - ssh root@$DROPLET_IP <<'EOF'
+      - ssh root@$DROPLET_IP <<EOF
         echo 'GENERATED_TAG=\$GENERATED_TAG' > /root/sang-logium/.env &&
         docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:\$GENERATED_TAG || { echo 'Failed to pull frontend image'; exit 1; } &&
         docker pull $DOCKER_HUB_USERNAME/sang-logium-server:\$GENERATED_TAG || { echo 'Failed to pull server image'; exit 1; } &&
