@@ -114,6 +114,7 @@
     #   - main
 
       - ssh root@$DROPLET_IP <<EOF
+
         echo 'GENERATED_TAG=$GENERATED_TAG' > /root/sang-logium/.env &&
         docker-compose -f /root/sang-logium/docker-compose.yaml up -d || { echo 'Failed to start services with docker-compose'; exit 1; }
         EOF
