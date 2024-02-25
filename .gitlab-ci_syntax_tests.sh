@@ -21,3 +21,9 @@
 # - |
 # echo "Using docker-compose to build the updated images in the repository..."
 # docker-compose -f docker-compose.yaml build --no-cache || exit 1
+
+
+# - |
+#     echo DOCKER_HUB_USERNAME: $DOCKER_HUB_USERNAME
+#     echo GENERATED_TAG: $GENERATED_TAG
+#     echo "Pushing the built images with the generated tag: $GENERATED_TAG"
