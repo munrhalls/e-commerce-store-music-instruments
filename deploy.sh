@@ -1,3 +1,4 @@
+#!/bin/bash
 ssh root@$DROPLET_IP "bash -c '\
 echo \"GENERATED_TAG=$GENERATED_TAG\" > /root/sang-logium/.env && \
 scp /root/sang-logium/.env root@$DROPLET_IP:/root/sang-logium/.env
@@ -19,5 +20,3 @@ docker pull $DOCKER_HUB_USERNAME/sang-logium-server:$GENERATED_TAG || { echo \"F
 docker pull $DOCKER_HUB_USERNAME/sang-logium-database:$GENERATED_TAG || { echo \"Failed to pull database image\"; exit 1; } && \
 docker-compose -f /root/sang-logium/docker-compose.yaml up -d || { echo \"Failed to start services with docker-compose\"; exit 1; } \
 '"
-
-# chmod
