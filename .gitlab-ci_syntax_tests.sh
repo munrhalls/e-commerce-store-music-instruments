@@ -35,3 +35,11 @@
 #         echo "Failed to push image to DockerHub";
 #         exit 1;
 #     fi
+
+# - |
+#     if docker push $DOCKER_HUB_USERNAME/sang-logium-server:$GENERATED_TAG; then
+#         echo "Server Image successfully pushed to DockerHub";
+#     else
+#         echo "Failed to push image to DockerHub";
+#         exit 1;
+#     fi
