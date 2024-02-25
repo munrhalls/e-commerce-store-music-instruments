@@ -52,7 +52,7 @@
     #         exit 1;
     #     fi
 
-    #     - |
+    # - |
     # ssh root@$DROPLET_IP "bash -c '\
     # echo \"GENERATED_TAG=\$GENERATED_TAG\" > /root/sang-logium/.env && \
     # docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:\$GENERATED_TAG || { echo \"Failed to pull frontend image\"; exit 1; } && \
@@ -60,3 +60,18 @@
     # docker pull $DOCKER_HUB_USERNAME/sang-logium-database:\$GENERATED_TAG || { echo \"Failed to pull database image\"; exit 1; } && \
     # docker-compose -f /root/sang-logium/docker-compose.yaml up -d || { echo \"Failed to start services with docker-compose\"; exit 1; } \
     # '"
+
+
+# Substitute variables in docker-compose.yaml.template
+
+# sed -e "s/\${MONGO_INITDB_ROOT_USERNAME}/$MONGO_INITDB_ROOT_USERNAME/g" /path/to/docker-compose.yaml.template > /root/sang-logium/docker-compose.yaml
+
+# sed -e "s/\${MONGO_INITDB_ROOT_PASSWORD}/$MONGO_INITDB_ROOT_PASSWORD/g" /path/to/docker-compose.yaml.template > /root/sang-logium/docker-compose.yaml
+
+# sed -e "s/\${MONGO_INITDB_DATABASE}/$MONGO_INITDB_DATABASE/g" /path/to/docker-compose.yaml.template > /root/sang-logium/docker-compose.yaml
+
+# sed -e "s/\${MONGO_URI}/$MONGO_URI/g" /path/to/docker-compose.yaml.template > /root/sang-logium/docker-compose.yaml
+
+# sed -e "s/\${DATA_SERVER_NODE_ENV}/$DATA_SERVER_NODE_ENV/g" /path/to/docker-compose.yaml.template > /root/sang-logium/docker-compose.yaml
+
+# sed -e "s/\${DATA_SERVER_PORT}/$DATA_SERVER_PORT/g" /path/to/docker-compose.yaml.template > /root/sang-logium/docker-compose.yaml
