@@ -43,3 +43,11 @@
 #         echo "Failed to push image to DockerHub";
 #         exit 1;
 #     fi
+
+    # - |
+    #     if docker push $DOCKER_HUB_USERNAME/sang-logium-database:$GENERATED_TAG; then
+    #         echo "Database Image successfully pushed to DockerHub";
+    #     else
+    #         echo "Failed to push image to DockerHub";
+    #         exit 1;
+    #     fi
