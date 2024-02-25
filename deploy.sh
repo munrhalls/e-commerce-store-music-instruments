@@ -1,4 +1,5 @@
 #!/bin/bash
+pwd
 scp /root/sang-logium/.env root@$DROPLET_IP:/root/sang-logium/.env
 ssh root@$DROPLET_IP "bash -c '\
 echo \"GENERATED_TAG=$GENERATED_TAG\" > /root/sang-logium/.env && \
