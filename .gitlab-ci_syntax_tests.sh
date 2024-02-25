@@ -17,3 +17,7 @@
 #     echo "Commit violates <feature>-<feature-name>-<size> format required for proper docker image tagging";
 #     exit 1;
 # fi
+
+# - |
+# echo "Using docker-compose to build the updated images in the repository..."
+# docker-compose -f docker-compose.yaml build --no-cache || exit 1
