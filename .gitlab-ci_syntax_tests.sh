@@ -51,3 +51,12 @@
     #         echo "Failed to push image to DockerHub";
     #         exit 1;
     #     fi
+
+    #     - |
+    # ssh root@$DROPLET_IP "bash -c '\
+    # echo \"GENERATED_TAG=\$GENERATED_TAG\" > /root/sang-logium/.env && \
+    # docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:\$GENERATED_TAG || { echo \"Failed to pull frontend image\"; exit 1; } && \
+    # docker pull $DOCKER_HUB_USERNAME/sang-logium-server:\$GENERATED_TAG || { echo \"Failed to pull server image\"; exit 1; } && \
+    # docker pull $DOCKER_HUB_USERNAME/sang-logium-database:\$GENERATED_TAG || { echo \"Failed to pull database image\"; exit 1; } && \
+    # docker-compose -f /root/sang-logium/docker-compose.yaml up -d || { echo \"Failed to start services with docker-compose\"; exit 1; } \
+    # '"
