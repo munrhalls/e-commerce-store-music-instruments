@@ -130,7 +130,7 @@
         fi
 
 
-      - |``
+      - |
         if docker push $DOCKER_HUB_USERNAME/sang-logium-database:$GENERATED_TAG; then
             echo "Database Image successfully pushed to DockerHub";
         else
