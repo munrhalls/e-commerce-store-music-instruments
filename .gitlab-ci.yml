@@ -79,15 +79,22 @@
       - |
         echo "Checking for tag.txt file..."
         if [ ! -f "tag.txt" ] || [ ! -s "tag.txt" ]; then
-          echo "tag.txt file is missing or empty"
+          echo "Error: tag.txt file is missing or empty"
           exit 1
         fi
 
-      # - echo "Ensuring tag.txt is not empty..."
-      # - "if [ ! -s 'tag.txt' ]; then echo 'Error: tag.txt file is empty.'; exit 1; fi || exit 1"
+      - |
+        echo "Reading GENERATED_TAG from tag.txt..."
+        export GENERATED_TAG=$(cat tag.txt) || exit 1
 
-      # - echo "Reading GENERATED_TAG from tag.txt..."
-      # - export GENERATED_TAG=$(cat tag.txt) || exit 1
+      - |
+          if [ -z "$GENERATED_TAG" ]; then
+            echo "Error: Generated tag is empty.";
+            exit 1;
+          else
+            echo "Tag extracted: $GENERATED_TAG";
+          fi || exit 1
+          echo "Tag extracted: $GENERATED_TAG"
 
       # - "if [ -z \"$GENERATED_TAG\" ]; then echo \"Error: Generated tag is empty.\"; exit 1; else echo \"Tag extracted: $GENERATED_TAG\"; fi || exit 1"
       # - 'echo "Tag extracted: $GENERATED_TAG"'
