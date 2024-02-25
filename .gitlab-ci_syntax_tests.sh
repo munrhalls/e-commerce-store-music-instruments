@@ -9,3 +9,11 @@
 # - |
 # echo "Reading GENERATED_TAG from tag.txt..."
 # export GENERATED_TAG=$(cat tag.txt) || exit 1
+
+
+# - |
+# echo "Checking if GENERATED_TAG satisfies the <feature>-<feature-name>-<size> format..."
+# if [ -z "$GENERATED_TAG" ]; then
+#     echo "Commit violates <feature>-<feature-name>-<size> format required for proper docker image tagging";
+#     exit 1;
+# fi
