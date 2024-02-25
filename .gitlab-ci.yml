@@ -74,9 +74,11 @@
       - chmod 644 ~/.ssh/known_hosts
 
 
+
     script:
-      - echo "Checking for tag.txt file..."
-      - if [ ! -f "tag.txt" ] || [ ! -s "tag.txt" ]; then
+      - |
+        echo "Checking for tag.txt file..."
+        if [ ! -f "tag.txt" ] || [ ! -s "tag.txt" ]; then
           echo "tag.txt file is missing or empty"
           exit 1
         fi
