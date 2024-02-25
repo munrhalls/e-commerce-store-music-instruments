@@ -72,6 +72,8 @@
       - "echo Add droplet IP to known hosts to avoid interactive prompt"
       - ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
       - chmod 644 ~/.ssh/known_hosts
+      - chmod +x ./deploy.sh
+
 
 
 
@@ -138,7 +140,6 @@
       #       exit 1;
       #   fi
 
-      - chmod +x ./deploy.sh
       - ./deploy.sh
 
 
