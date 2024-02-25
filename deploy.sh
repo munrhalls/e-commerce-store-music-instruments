@@ -19,3 +19,5 @@ docker pull $DOCKER_HUB_USERNAME/sang-logium-server:$GENERATED_TAG || { echo \"F
 docker pull $DOCKER_HUB_USERNAME/sang-logium-database:$GENERATED_TAG || { echo \"Failed to pull database image\"; exit 1; } && \
 docker-compose -f /root/sang-logium/docker-compose.yaml up -d || { echo \"Failed to start services with docker-compose\"; exit 1; } \
 '"
+
+# chmod
