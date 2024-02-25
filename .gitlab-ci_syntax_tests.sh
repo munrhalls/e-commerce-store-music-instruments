@@ -27,3 +27,11 @@
 #     echo DOCKER_HUB_USERNAME: $DOCKER_HUB_USERNAME
 #     echo GENERATED_TAG: $GENERATED_TAG
 #     echo "Pushing the built images with the generated tag: $GENERATED_TAG"
+
+# - |
+#     if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then
+#         echo "Frontend Image successfully pushed to DockerHub";
+#     else
+#         echo "Failed to push image to DockerHub";
+#         exit 1;
+#     fi
