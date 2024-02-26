@@ -140,7 +140,8 @@
       #       echo "Failed to push image to DockerHub";
       #       exit 1;
       #   fi
-
+      - pwd
+      - ls -la
       - ./deploy.sh
 
     only:
