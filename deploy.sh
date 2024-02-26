@@ -1,5 +1,11 @@
 echo "Deploy script running"
 
+docker info > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo "Error: Docker daemon is not running."
+    exit 1
+fi
+
 scp /root/sang-logium/.env root@$DROPLET_IP:/root/sang-logium/.env
 ssh root@$DROPLET_IP "bash -c '\
 echo \"GENERATED_TAG=$GENERATED_TAG\" > /root/sang-logium/.env && \
