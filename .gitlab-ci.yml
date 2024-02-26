@@ -74,9 +74,6 @@
       - chmod 644 ~/.ssh/known_hosts
       - chmod +x ./deploy.sh
 
-
-
-
     script:
       # - |
       #   echo "Checking for tag.txt file..."
@@ -141,7 +138,6 @@
       #   fi
 
       - ./deploy.sh
-
 
     only:
       - main
