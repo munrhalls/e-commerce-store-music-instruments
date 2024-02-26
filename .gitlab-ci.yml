@@ -49,7 +49,7 @@
     # artifacts:
     #   paths:
     #     - frontend/dist/
-
+# wtf
   deploy:
     stage: deploy
     # image: docker:24.0.7-dind
