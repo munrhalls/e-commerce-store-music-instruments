@@ -49,11 +49,11 @@
     # artifacts:
     #   paths:
     #     - frontend/dist/
-# wtf
+
   deploy:
     stage: deploy
     # image: docker:24.0.7-dind
-    image: 25.0.3-cli-alpine3.19
+    image: alpine:3.19.1
     services:
       # - docker:dind
       - docker
