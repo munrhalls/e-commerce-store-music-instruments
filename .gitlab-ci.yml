@@ -52,10 +52,8 @@
 
   deploy:
     stage: deploy
-    # image: docker:24.0.7-dind
     image: alpine:3.19.1
     services:
-      # - docker:dind
       - docker
 
 
@@ -82,7 +80,8 @@
         ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
         chmod 644 ~/.ssh/known_hosts
 
-      - chmod +x ./deploy.sh
+      - |
+        chmod +x ./deploy.sh
 
     script:
       - |
