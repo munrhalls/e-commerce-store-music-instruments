@@ -52,7 +52,7 @@
 
   deploy:
     stage: deploy
-    image: alpine:3.19.1
+    image: docker:25.0.3-dind-alpine3.19
     services:
       - docker:dind
 
