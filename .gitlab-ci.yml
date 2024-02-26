@@ -60,21 +60,28 @@
 
 
     before_script:
-      - echo "Installing necessary dependencies..."
-      - apk add --no-cache docker-compose openssh-client
+      - |
+        echo "Installing necessary dependencies..."
+        apk add --no-cache docker-compose openssh-client
 
-      - "echo Logging into DockerHub..."
-      - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+      - |
+        echo "Logging into DockerHub..."
+        echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
 
-      - "echo SSH INTO DROPLET"
-      - eval $(ssh-agent -s)
-      - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-      - mkdir -p ~/.ssh
-      - chmod 700 ~/.ssh
+      - |
+        echo "SSH INTO DROPLET"
+        eval $(ssh-agent -s)
 
-      - "echo Add droplet IP to known hosts to avoid interactive prompt"
-      - ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
-      - chmod 644 ~/.ssh/known_hosts
+      - |
+        echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+
+      - |
+        echo "Add droplet IP to known hosts to avoid interactive prompt"
+        ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
+        chmod 644 ~/.ssh/known_hosts
+
       - chmod +x ./deploy.sh
 
     script:
