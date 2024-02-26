@@ -1,4 +1,3 @@
-#!/bin/bash
 echo "Deploy script running"
 pwd
 # scp /root/sang-logium/.env root@$DROPLET_IP:/root/sang-logium/.env
