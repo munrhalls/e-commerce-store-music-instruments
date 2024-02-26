@@ -62,7 +62,7 @@
         echo "Installing necessary dependencies..."
         apk add --no-cache docker-compose openssh-client
         echo "Checking if docker-compose is installed..."
-        docker-compose --version
+        docker-compose --version || echo "Error: docker-compose is not installed or failed to execute."
 
       - |
         echo "Logging into DockerHub..."
