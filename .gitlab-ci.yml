@@ -54,7 +54,7 @@
     stage: deploy
     image: alpine:3.19.1
     services:
-      - docker
+      - docker:dind
 
 
     before_script:
@@ -80,6 +80,7 @@
         ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
         chmod 644 ~/.ssh/known_hosts
 
+      - chmod +x ./deployValidate.sh
       - chmod +x ./deploy.sh
 
     script:
