@@ -76,7 +76,6 @@
       - ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
       - chmod 644 ~/.ssh/known_hosts
 
-      - chmod +x ./deploy.sh
 
     script:
       # - |
@@ -142,6 +141,7 @@
       #   fi
       - pwd
       - ls -la
+      - chmod +x ./deploy.sh
       - ./deploy.sh
 
     only:
