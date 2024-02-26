@@ -1,11 +1,44 @@
   stages:
+    - pre-flight-checks
     - prepare
     # - test_build
     - deploy
 
+
+  pre_flight_checks:
+    stage: pre-flight-checks
+    image: docker:25.0.3-dind-alpine3.19
+    script:
+      - |
+          echo "Directory Existence and Content Validation"
+          if [ ! -d "/root/sang-logium/database" ]; then
+            echo "Database directory not found."
+            exit 1
+          fi
+          if [ -z "$(ls -A /root/sang-logium/database)" ]; then
+            echo "Database directory is empty."
+            exit 1
+          fi
+          ls -ld /root/sang-logium/database || { echo "Cannot access database directory."; exit 1; }
+      - |
+        echo "Docker Daemon Availability Check"
+        docker info > /dev/null 2>&1
+        if [ $? -ne 0 ]; then
+          echo "Docker daemon not running."
+          exit 1
+        fi
+      # - |
+      #   # Environment Variables Validation
+      #   required_vars=("VARIABLE_1" "VARIABLE_2" "VARIABLE_3")  # Replace these with actual variable names
+      #   for var in "${required_vars[@]}"; do
+      #     if [ -z "${!var}" ]; then  # Indirect parameter expansion to check if variable is set
+      #       echo "$var is not set."
+      #       exit 1
+      #     fi
+      #   done
+
   variables:
     GIT_DEPTH: "0"
-
   generate_tag:
     stage: prepare
     script:
