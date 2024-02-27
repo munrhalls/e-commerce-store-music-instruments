@@ -9,8 +9,6 @@ services:
     image: munrhalls/sang-logium-database:${GENERATED_TAG:-local-development-version}
     volumes:
       - ./database/data/db:/data/db
-    # env_file:
-    #   - ./database/.env
     expose:
       - 27017
     networks:

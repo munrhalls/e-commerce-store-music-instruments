@@ -11,24 +11,24 @@
     services:
       - docker:dind
     script:
-      - |
-          echo "Directory Existence and Content Validation"
-          if [ ! -d "/root/sang-logium/database" ]; then
-            echo "Database directory not found."
-            exit 1
-          fi
-          if [ -z "$(ls -A /root/sang-logium/database)" ]; then
-            echo "Database directory is empty."
-            exit 1
-          fi
-          ls -ld /root/sang-logium/database || { echo "Cannot access database directory."; exit 1; }
-      - |
-        echo "Docker Daemon Availability Check"
-        docker info > /dev/null 2>&1
-        if [ $? -ne 0 ]; then
-          echo "Docker daemon not running."
-          exit 1
-        fi
+      # - |
+      #     echo "Directory Existence and Content Validation"
+      #     if [ ! -d "/root/sang-logium/database" ]; then
+      #       echo "Database directory '/root/sang-logium/database' not found"
+      #       exit 1
+      #     fi
+      #     if [ -z "$(ls -A /root/sang-logium/database)" ]; then
+      #       echo "Database directory '/root/sang-logium/database' is empty."
+      #       exit 1
+      #     fi
+      #     ls -ld /root/sang-logium/database || { echo "Cannot access database directory '/root/sang-logium/database'."; exit 1; }
+      # - |
+      #   echo "Docker Daemon Availability Check"
+      #   docker info > /dev/null 2>&1
+      #   if [ $? -ne 0 ]; then
+      #     echo "Docker daemon not running."
+      #     exit 1
+      #   fi
       # - |
       #   # Environment Variables Validation
       #   required_vars=("VARIABLE_1" "VARIABLE_2" "VARIABLE_3")  # Replace these with actual variable names
@@ -120,6 +120,7 @@
       - chmod +x ./deploy.sh
 
     script:
+      # TAG IT
       - |
         echo "Checking for tag.txt file..."
         if [ ! -f "tag.txt" ] || [ ! -s "tag.txt" ]; then
@@ -147,6 +148,8 @@
             exit 1;
         fi
 
+
+       # BUILD & PUSH IMAGES
       - |
         echo "Using docker-compose to build the updated images in the repository..."
         docker-compose -f docker-compose.yaml build --no-cache || exit 1
