@@ -8,6 +8,8 @@
   pre_flight_checks:
     stage: pre-flight-checks
     image: docker:25.0.3-dind-alpine3.19
+    services:
+      - docker:dind
     script:
       - |
           echo "Directory Existence and Content Validation"
