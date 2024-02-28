@@ -42,14 +42,14 @@
     variables:
       GIT_DEPTH: "0"
 
-    # generate_tag:
-    #   stage: prepare
-    #   script:
-    #     - chmod +x ./parseCommitToTag.sh
-    #     - ./parseCommitToTag.sh > tag.txt
-    #   artifacts:
-    #     paths:
-    #       - tag.txt
+    generate_tag:
+      stage: prepare
+      script:
+        - chmod +x ./parseCommitToTag.sh
+        - ./parseCommitToTag.sh > tag.txt
+      artifacts:
+        paths:
+          - tag.txt
 
     # test_build_server:
     #   stage: test_build
@@ -159,15 +159,13 @@
           fi
 
 
-        # BUILD & PUSH IMAGES
+        # BUILD & PUSH IMAGES TO DOCKER HUB
         - |
           echo "Using docker-compose to build the updated images in the repository..."
           docker-compose -f docker-compose.yaml build --no-cache || exit 1
 
         - |
-            echo DOCKER_HUB_USERNAME: $DOCKER_HUB_USERNAME
-            echo GENERATED_TAG: $GENERATED_TAG
-            echo "Pushing the built images with the generated tag: $GENERATED_TAG"
+            echo "DOCKER_HUB_USERNAME: $DOCKER_HUB_USERNAME. Pushing the built images with the generated tag: $GENERATED_TAG"
 
         - |
           if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then
@@ -195,6 +193,8 @@
 
         - pwd
         - ls -la
+
+        # SSH INTO DROPLET PC: PULL IMAGES FROM DOCKERHUB, RUN DOCKER-COMPOSE
         - ./deploy.sh
 
       only:
