@@ -19,8 +19,12 @@ sed -e "s/\${MONGO_INITDB_ROOT_USERNAME}/$MONGO_INITDB_ROOT_USERNAME/g" \
     -e "s/\${DATA_SERVER_PORT}/$DATA_SERVER_PORT/g" \
 
 scp /root/sang-logium/docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
-docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG || { echo \"Failed to pull frontend image\"; exit 1; } && \
-docker pull $DOCKER_HUB_USERNAME/sang-logium-server:$GENERATED_TAG || { echo \"Failed to pull server image\"; exit 1; } && \
-docker pull $DOCKER_HUB_USERNAME/sang-logium-database:$GENERATED_TAG || { echo \"Failed to pull database image\"; exit 1; } && \
-docker-compose -f /root/sang-logium/docker-compose.yaml up -d || { echo \"Failed to start services with docker-compose\"; exit 1; } \
+
+cd /root/sang-logium
+docker-compose pull && docker-compose up -d
+
+# docker pull $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG || { echo \"Failed to pull frontend image\"; exit 1; } && \
+# docker pull $DOCKER_HUB_USERNAME/sang-logium-server:$GENERATED_TAG || { echo \"Failed to pull server image\"; exit 1; } && \
+# docker pull $DOCKER_HUB_USERNAME/sang-logium-database:$GENERATED_TAG || { echo \"Failed to pull database image\"; exit 1; } && \
+# docker-compose -f /root/sang-logium/docker-compose.yaml up -d || { echo \"Failed to start services with docker-compose\"; exit 1; } \
 '"
