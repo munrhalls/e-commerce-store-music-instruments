@@ -41,14 +41,15 @@
 
     variables:
       GIT_DEPTH: "0"
-    generate_tag:
-      stage: prepare
-      script:
-        - chmod +x ./parseCommitToTag.sh
-        - ./parseCommitToTag.sh > tag.txt
-      artifacts:
-        paths:
-          - tag.txt
+
+    # generate_tag:
+    #   stage: prepare
+    #   script:
+    #     - chmod +x ./parseCommitToTag.sh
+    #     - ./parseCommitToTag.sh > tag.txt
+    #   artifacts:
+    #     paths:
+    #       - tag.txt
 
     # test_build_server:
     #   stage: test_build
@@ -88,6 +89,7 @@
 
     terraform_init:
       stage: deploy
+      image: hashicorp/terraform:latest
       script:
         - terraform init
       only:
