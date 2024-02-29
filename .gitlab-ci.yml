@@ -79,12 +79,13 @@
         - chmod 700 ~/.ssh
 
         - echo "Add droplet IP to known hosts to avoid interactive prompt"
-        - ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
+        - ssh-keyscan -v $DROPLET_IP >> ~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
         - chmod 644 ~/.ssh/known_hosts
 
       script:
-        - echo "Using docker-compose to build the updated images in the repository..."
-        - docker-compose -f docker-compose.yaml build --no-cache || exit 1
+        - |
+          echo "Using docker-compose to build the updated images in the repository..."
+          docker-compose -f docker-compose.yaml build --no-cache || exit 1
 
         - echo "Pushing the built images with the tag '${GENERATED_TAG}"
         # - docker-compose -f docker-compose.yaml push
