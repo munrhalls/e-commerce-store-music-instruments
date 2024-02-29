@@ -80,7 +80,7 @@
 
         - echo "Add droplet IP to known hosts to avoid interactive prompt"
         - ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
-        - chmod 644 ~/.ssh/known_hosts-
+        - chmod 644 ~/.ssh/known_hosts
 
       script:
         - echo "Using docker-compose to build the updated images in the repository..."
