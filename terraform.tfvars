@@ -1,1 +1,0 @@
-DROPLET_token = "dop_v1_82fae2c79d22b95b6545dfe2c56d487f30c6e56f4ea02939ecf633dc61dd556b"

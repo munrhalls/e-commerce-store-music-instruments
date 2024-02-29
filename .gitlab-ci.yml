@@ -87,14 +87,6 @@
       #     - frontend/dist/
 
 
-    terraform_init:
-      stage: deploy
-      image: hashicorp/terraform:latest
-      script:
-        - terraform init
-      only:
-        - main
-
     deploy:
       stage: deploy
       image: docker:25.0.3-dind-alpine3.19
@@ -138,26 +130,14 @@
             exit 1
           fi
 
-        - |
           echo "Reading GENERATED_TAG from tag.txt..."
-        - export GENERATED_TAG=$(terraform output -raw GENERATED_TAG) || exit 1
-
-        - |
-            if [ -z "$GENERATED_TAG" ]; then
+          export GENERATED_TAG=$(cat tag.txt)
+          if [ -z "$GENERATED_TAG" ]; then
               echo "Error: Generated tag is empty.";
               exit 1;
             else
               echo "Tag extracted: $GENERATED_TAG";
-            fi || exit 1
-            echo "Tag extracted: $GENERATED_TAG"
-
-        - |
-          echo "Checking if GENERATED_TAG satisfies the <feature>-<feature-name>-<size> format..."
-          if [ -z "$GENERATED_TAG" ]; then
-              echo "Commit violates <feature>-<feature-name>-<size> format required for proper docker image tagging";
-              exit 1;
-          fi
-
+          fi || exit 1
 
         # BUILD & PUSH IMAGES TO DOCKER HUB
         - |
