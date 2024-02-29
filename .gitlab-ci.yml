@@ -88,10 +88,10 @@
       #     - frontend/dist/
 
     generate_tag_for_deployed_images:
-      stage: deploy
+      stage: prepare
       script:
       - chmod +x ./parseCommitToTag.sh
-      - ./parseCommitToTag.sh > GENERATED_TAG
+      - GENERATED_TAG=./parseCommitToTag.sh
       - echo "GENERATED_TAG for docker images is '${GENERATED_TAG}'"
       - |
         if [ -z "$GENERATED_TAG" ]; then
