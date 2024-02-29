@@ -90,6 +90,7 @@
     generate_tag_for_deployed_images:
       stage: prepare
       script:
+      # IMPORTANT: NOT GIT TAGS. This tag is parsed commit message.
       - chmod +x ./parseCommitToTag.sh
       - GENERATED_TAG=$(./parseCommitToTag.sh)
       - echo "GENERATED_TAG for docker images is '${GENERATED_TAG}'"
