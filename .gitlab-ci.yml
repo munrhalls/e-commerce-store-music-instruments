@@ -88,16 +88,16 @@
       script:
         - |
           echo "Using docker-compose to build the updated images in the repository..."
-          docker-compose -f docker-compose.yaml build --no-cache || exit 1
+          docker compose -f docker-compose.yaml build --no-cache || exit 1
 
         - echo "Pushing the built images with the tag '${GENERATED_TAG}"
-        - docker-compose -f docker-compose.yaml push
+        - docker compose -f docker-compose.yaml push
 
         - |
           ssh root@$DROPLET_IP <<EOF
             echo "Stopping containers..."
             cd /root/sang-logium
-            docker-compose down
+            docker compose down
           EOF
 
         - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
