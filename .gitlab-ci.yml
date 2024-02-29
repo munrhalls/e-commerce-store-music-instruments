@@ -95,11 +95,6 @@
       - GENERATED_TAG=$(./parseCommitToTag.sh)
       - echo "GENERATED_TAG=$(./parseCommitToTag.sh)" >> tag.env
       - echo "GENERATED_TAG for docker images is ${GENERATED_TAG}"
-      - |
-        if [ -z "$GENERATED_TAG" ]; then
-            echo "Error: Generated tag is empty.";
-            exit 1;
-        fi
       artifacts:
         reports:
           dotenv: tag.env
@@ -111,10 +106,7 @@
         - docker:dind
       before_script:
         - |
-          if [ -z "$GENERATED_TAG" ]; then
-              echo "Error: Generated tag is empty.";
-              exit 1;
-          fi
+          if [ -z "$GENERATED_TAG" ]; then echo "Error: Generated tag is empty."; exit 1; fi
         - echo "GENERATED_TAG for docker images is '${GENERATED_TAG}'"
         - echo "DOCKER_HUB_USERNAME -> ${DOCKER_HUB_USERNAME}"
         - |

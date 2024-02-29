@@ -7,6 +7,8 @@ if [ $? -ne 0 ]; then
 fi
 
 ssh root@$DROPLET_IP << EOF
+  echo "Deploy script running..."
+  scp /root/sang-logium/docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
   export GENERATED_TAG=${GENERATED_TAG}
   export MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
   export MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
