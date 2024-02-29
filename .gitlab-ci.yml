@@ -76,7 +76,7 @@
 
         - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
         - mkdir -p ~/.ssh
-        - chmod 700 ~/.ss-
+        - chmod 700 ~/.ssh
 
         - echo "Add droplet IP to known hosts to avoid interactive prompt"
         - ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
