@@ -90,16 +90,16 @@
     generate_tag_for_deployed_images:
       stage: prepare
       script:
-      # IMPORTANT: NOT A GIT TAG, this tag is parsed commit message.
+      # IMPORTANT: Not a git tag, this tag is parsed commit message.
       - chmod +x ./parseCommitToTag.sh
+      - GENERATED_TAG=$(./parseCommitToTag.sh)
       - echo "GENERATED_TAG=$(./parseCommitToTag.sh)" >> tag.env
-      - echo "GENERATED_TAG for docker images is '${GENERATED_TAG}'"
+      - echo "GENERATED_TAG for docker images is ${GENERATED_TAG}"
       - |
         if [ -z "$GENERATED_TAG" ]; then
             echo "Error: Generated tag is empty.";
             exit 1;
         fi
-        script:
       artifacts:
         reports:
           dotenv: tag.env
