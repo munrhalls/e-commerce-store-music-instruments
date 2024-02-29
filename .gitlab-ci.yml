@@ -89,13 +89,11 @@
           chmod 644 ~/.ssh/known_hosts
 
       script:
-        - |
-          echo "Using docker-compose to build the updated images in the repository..."
-          docker-compose -f docker-compose.yaml build --no-cache || exit 1
+        - echo "Using docker-compose to build the updated images in the repository..."
+        - docker-compose -f docker-compose.yaml build --no-cache || exit 1
 
-        - |
-            echo "DOCKER_HUB_USERNAME: $DOCKER_HUB_USERNAME. Pushing the built images with the generated tag: $GENERATED_TAG"
-            docker-compose push
+        - echo "Pushing the built images with the tag '${GENERATED_TAG}"
+        - docker-compose -f docker-compose.yaml push
 
         # SSH INTO DROPLET PC: PULL IMAGES FROM DOCKERHUB, RUN DOCKER-COMPOSE
         - echo "SSH into Droplet PC, pull and build updated images using docker-compose"
