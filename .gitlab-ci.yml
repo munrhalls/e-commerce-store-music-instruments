@@ -41,12 +41,13 @@
 
     variables:
       GIT_DEPTH: "0"
+      GENERATED_TAG: ""
 
     generate_tag:
       stage: prepare
       script:
         - chmod +x ./parseCommitToTag.sh
-        - ./parseCommitToTag.sh > tag.txt
+        - ./parseCommitToTag.sh > GENERATED_TAG
       artifacts:
         paths:
           - tag.txt
@@ -94,6 +95,15 @@
         - docker:dind
 
       before_script:
+        - chmod +x ./parseCommitToTag.sh
+        - ./parseCommitToTag.sh > GENERATED_TAG
+        - echo "GENERATED_TAG for docker images is '${GENERATED_TAG}'"
+        - |
+          if [ -z "$GENERATED_TAG" ]; then
+              echo "Error: Generated tag is empty.";
+              exit 1;
+          fi
+
         - |
           echo "Installing necessary dependencies..."
           apk add --no-cache docker-compose openssh-client
@@ -122,22 +132,6 @@
         - chmod +x ./deploy.sh
 
       script:
-        # GET TAG
-        - |
-          echo "Checking for tag.txt file..."
-          if [ ! -f "tag.txt" ] || [ ! -s "tag.txt" ]; then
-            echo "Error: tag.txt file is missing or empty"
-            exit 1
-          fi
-
-          echo "Reading GENERATED_TAG from tag.txt..."
-          export GENERATED_TAG=$(cat tag.txt)
-          if [ -z "$GENERATED_TAG" ]; then
-              echo "Error: Generated tag is empty.";
-              exit 1;
-            else
-              echo "Tag extracted: $GENERATED_TAG";
-          fi || exit 1
 
         # BUILD & PUSH IMAGES TO DOCKER HUB
         - |
