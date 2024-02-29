@@ -1,6 +1,6 @@
     stages:
       # - pre-flight-checks
-      # - prepare
+      - prepare
       # - test_build
       - deploy
 
