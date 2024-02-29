@@ -74,6 +74,7 @@
         - echo "SSH INTO DROPLET"
         - eval $(ssh-agent -s)
 
+        - echo "Add droplet IP to ssh known hosts to avoid interactive prompt"
         - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
         - mkdir -p ~/.ssh
         - chmod 700 ~/.ssh
