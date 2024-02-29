@@ -96,7 +96,7 @@
         - |
           ssh root@$DROPLET_IP <<EOF
             echo "Stopping containers..."
-            cd /sang-logium
+            cd /root/sang-logium
             docker compose down
           EOF
 
@@ -111,7 +111,7 @@
             export MONGO_URI=${MONGO_URI}
             export DATA_SERVER_NODE_ENV=${DATA_SERVER_NODE_ENV}
             export DATA_SERVER_PORT=${DATA_SERVER_PORT}
-            cd /sang-logium
+            cd /root/sang-logium
             docker-compose pull && docker-compose up -d
           EOF
 
