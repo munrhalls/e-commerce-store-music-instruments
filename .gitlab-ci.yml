@@ -83,6 +83,7 @@
 
         - echo "Add droplet IP to known hosts to avoid interactive prompt"
         - |
+          ssh-keygen -R $DROPLET_IP
           ssh-keyscan -v $DROPLET_IP >> ~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
           chmod 644 ~/.ssh/known_hosts
 
