@@ -9,17 +9,15 @@
   ssh root@$46.101.117.145
   scp /root/sang-logium/docker-compose.yaml root@$46.101.117.145:/root/sang-logium/docker-compose.yaml
 
-# ssh root@$46.101.117.145 << EOF
-#   echo "Deploy script running..."
-# EOF
-
-#   export GENERATED_TAG=${GENERATED_TAG}
-#   export MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-#   export MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-#   export MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
-#   export MONGO_URI=${MONGO_URI}
-#   export DATA_SERVER_NODE_ENV=${DATA_SERVER_NODE_ENV}
-#   export DATA_SERVER_PORT=${DATA_SERVER_PORT}
-#   cd /root/sang-logium
-#   docker-compose pull
-#   docker-compose up -d
+ssh root@$DROPLET_IP <<EOF
+    echo "Deploy script running..."
+    export GENERATED_TAG=${GENERATED_TAG}
+    export MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+    export MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    export MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+    export MONGO_URI=${MONGO_URI}
+    export DATA_SERVER_NODE_ENV=${DATA_SERVER_NODE_ENV}
+    export DATA_SERVER_PORT=${DATA_SERVER_PORT}
+    cd /root/sang-logium
+    docker-compose pull && docker-compose up -d
+EOF
