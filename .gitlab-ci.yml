@@ -44,11 +44,10 @@
     generate_tag_for_deployed_images:
       stage: prepare
       script:
-      # IMPORTANT: Not a git tag, this tag is parsed commit message.
-      - chmod +x ./parseCommitToTag.sh
-      - GENERATED_TAG=$(./parseCommitToTag.sh)
-      - echo "GENERATED_TAG=$(./parseCommitToTag.sh)" >> tag.env
-      - echo "GENERATED_TAG for docker images is ${GENERATED_TAG}"
+        - chmod +x ./parseCommitToTag.sh
+        - GENERATED_TAG=$(./parseCommitToTag.sh)
+        - echo "GENERATED_TAG=$(./parseCommitToTag.sh)" >> tag.env
+        - echo "GENERATED_TAG for docker images is ${GENERATED_TAG}"
       artifacts:
         reports:
           dotenv: tag.env
@@ -63,7 +62,7 @@
           if [ -z "$GENERATED_TAG" ]; then echo "Error: Generated tag is empty."; exit 1; fi
         - echo "GENERATED_TAG for docker images is '${GENERATED_TAG}'"
 
-        - echo "Installing necessary dependencies..."
+        - echo "Installing necessary dependencies to use docker-compose and ssh..."
         - apk add --no-cache docker-compose openssh-client
         - echo "Checking if docker-compose is installed..."
         - docker-compose --version || echo "Error - docker-compose is not installed or failed to execute."
@@ -87,7 +86,7 @@
         - docker-compose -f docker-compose.yaml build --no-cache || exit 1
 
         - echo "Pushing the built images with the tag '${GENERATED_TAG}"
-        - docker-compose -f docker-compose.yaml push
+        # - docker-compose -f docker-compose.yaml push
 
         # SSH INTO DROPLET PC: PULL IMAGES FROM DOCKERHUB, RUN DOCKER-COMPOSE
         - echo "SSH into Droplet PC, pull and build updated images using docker-compose"
