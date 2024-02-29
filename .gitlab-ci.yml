@@ -173,7 +173,7 @@
         - ls -la
 
         # SSH INTO DROPLET PC: PULL IMAGES FROM DOCKERHUB, RUN DOCKER-COMPOSE
-        - chmod x+ ./docker-compose.yaml
+        - chmod +x ./docker-compose.yaml
         - ssh root@$DROPLET_IP << EOF
             echo "Deploy script running..."
             scp /root/sang-logium/docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
