@@ -91,12 +91,25 @@
         - echo "Pushing the built images with the tag '${GENERATED_TAG}"
         - docker-compose -f docker-compose.yaml push
 
-        # SSH INTO DROPLET PC: PULL IMAGES FROM DOCKERHUB, RUN DOCKER-COMPOSE
-        - echo "SSH into Droplet PC, pull and build updated images using docker-compose"
-        - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
+        # - |
+        #   ssh root@$DROPLET_IP <<EOF
+        #     echo "Stopping containers..."
+        #     cd /root/sang-logium
+        #     docker-compose down
+        #   EOF
+
+        # - echo "SSH into Droplet PC, pull and build updated images using docker-compose"
+        # - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
+
         - |
           ssh root@$DROPLET_IP <<EOF
-            echo "Deploy script running..."
+            echo "Stopping containers to ensure clean environment"
+            cd /root/sang-logium
+            docker-compose down
+            echo "Transferring docker-compose.yaml..."
+            cat > /root/sang-logium/docker-compose.yaml <<EOT
+            $(cat ./docker-compose.yaml)
+            EOT
             export GENERATED_TAG=${GENERATED_TAG}
             export MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
             export MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
@@ -104,7 +117,7 @@
             export MONGO_URI=${MONGO_URI}
             export DATA_SERVER_NODE_ENV=${DATA_SERVER_NODE_ENV}
             export DATA_SERVER_PORT=${DATA_SERVER_PORT}
-            cd /root/sang-logium
+            echo "Pulling and starting containers..."
             docker-compose pull && docker-compose up -d
           EOF
 
