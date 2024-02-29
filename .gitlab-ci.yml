@@ -100,16 +100,15 @@
             exit 1;
         fi
         script:
-        artifacts:
-          reports:
-            dotenv: tag.env
+      artifacts:
+        reports:
+          dotenv: tag.env
 
     deploy:
       stage: deploy
       image: docker:25.0.3-dind-alpine3.19
       services:
         - docker:dind
-
       before_script:
         - |
           if [ -z "$GENERATED_TAG" ]; then
@@ -144,7 +143,6 @@
 
         - chmod +x ./deployValidate.sh
         - chmod +x ./deploy.sh
-
       script:
 
         # BUILD & PUSH IMAGES TO DOCKER HUB
