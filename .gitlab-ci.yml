@@ -106,7 +106,7 @@
         - docker:dind
 
       before_script:
-        - echo "Deploying as ${GITLAB_USER_LOGIN}
+        - echo "Deploying as ${GITLAB_USER_LOGIN}"
         - echo "CI_COMMIT_TAG -> ${CI_COMMIT_TAG}"
         - echo "CI_COMMIT_MESSAGE -> ${CI_COMMIT_MESSAGE}"
         - echo "GENERATED_TAG -> ${GENERATED_TAG}"
