@@ -79,6 +79,7 @@
           echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
+          ssh-add -l
 
         - echo "Add droplet IP to known hosts to avoid interactive prompt"
         - |
@@ -94,25 +95,39 @@
         - docker compose -f docker-compose.yaml push
 
         - |
-          ssh root@$DROPLET_IP <<EOF
-            echo "Stopping containers..."
-            cd /root/sang-logium
-            docker compose down
-          EOF
+          eval $(ssh-agent -s) || exit 1
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - || exit 1
+          mkdir -p ~/.ssh || exit 1
+          chmod 700 ~/.ssh || exit 1
+          ssh-add -l || exit 1
 
         - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
 
         - |
-          ssh root@$DROPLET_IP <<EOF
-            export GENERATED_TAG=${GENERATED_TAG}
-            export MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-            export MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-            export MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
-            export MONGO_URI=${MONGO_URI}
-            export DATA_SERVER_NODE_ENV=${DATA_SERVER_NODE_ENV}
-            export DATA_SERVER_PORT=${DATA_SERVER_PORT}
-            cd /root/sang-logium
-            docker-compose pull && docker-compose up -d
+          ssh -v root@$DROPLET_IP <<'EOF'
+          set -e  # Exit immediately if a command exits with a non-zero status
+          echo "Starting deployment process..."
+
+          # Export environment variables
+          echo "Exporting environment variables..."
+          export GENERATED_TAG='${GENERATED_TAG}'
+          export MONGO_INITDB_ROOT_USERNAME='${MONGO_INITDB_ROOT_USERNAME}'
+          export MONGO_INITDB_ROOT_PASSWORD='${MONGO_INITDB_ROOT_PASSWORD}'
+          export MONGO_INITDB_DATABASE='${MONGO_INITDB_DATABASE}'
+          export MONGO_URI='${MONGO_URI}'
+          export DATA_SERVER_NODE_ENV='${DATA_SERVER_NODE_ENV}'
+          export DATA_SERVER_PORT='${DATA_SERVER_PORT}'
+
+          # Navigate to the project directory
+          echo "Navigating to the project directory..."
+          cd /root/sang-logium || exit 1  # Exit if the directory does not exist
+
+          # Pull and start containers
+          echo "Pulling and starting containers..."
+          docker-compose pull || exit 1  # Exit if docker-compose pull fails
+          docker-compose up -d || exit 1  # Exit if docker-compose up fails
+
+          echo "Deployment process completed successfully."
           EOF
 
       only:
