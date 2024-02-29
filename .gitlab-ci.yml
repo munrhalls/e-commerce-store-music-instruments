@@ -41,7 +41,6 @@
 
     variables:
       GIT_DEPTH: "0"
-      GENERATED_TAG: ""
 
     # generate_tag:
     #   stage: prepare
@@ -133,44 +132,14 @@
           ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
-        - chmod +x ./deployValidate.sh
-        - chmod +x ./deploy.sh
       script:
-
-        # BUILD & PUSH IMAGES TO DOCKER HUB
         - |
           echo "Using docker-compose to build the updated images in the repository..."
           docker-compose -f docker-compose.yaml build --no-cache || exit 1
 
         - |
             echo "DOCKER_HUB_USERNAME: $DOCKER_HUB_USERNAME. Pushing the built images with the generated tag: $GENERATED_TAG"
-
-        - |
-          if docker push $DOCKER_HUB_USERNAME/sang-logium-frontend:$GENERATED_TAG; then
-              echo "Frontend Image successfully pushed to DockerHub";
-          else
-              echo "Failed to push image to DockerHub";
-              exit 1;
-          fi
-
-        - |
-          if docker push $DOCKER_HUB_USERNAME/sang-logium-server:$GENERATED_TAG; then
-              echo "Server Image successfully pushed to DockerHub";
-          else
-              echo "Failed to push image to DockerHub";
-              exit 1;
-          fi
-
-        - |
-          if docker push $DOCKER_HUB_USERNAME/sang-logium-database:$GENERATED_TAG; then
-              echo "Database Image successfully pushed to DockerHub";
-          else
-              echo "Failed to push image to DockerHub";
-              exit 1;
-          fi
-
-        - pwd
-        - ls -la
+            docker-compose push
 
         # SSH INTO DROPLET PC: PULL IMAGES FROM DOCKERHUB, RUN DOCKER-COMPOSE
         - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
