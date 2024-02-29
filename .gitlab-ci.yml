@@ -63,29 +63,24 @@
           if [ -z "$GENERATED_TAG" ]; then echo "Error: Generated tag is empty."; exit 1; fi
         - echo "GENERATED_TAG for docker images is '${GENERATED_TAG}'"
 
-        - |
-          echo "Installing necessary dependencies..."
-          apk add --no-cache docker-compose openssh-client
-          echo "Checking if docker-compose is installed..."
-          docker-compose --version || echo "Error: docker-compose is not installed or failed to execute."
+        - echo "Installing necessary dependencies..."
+        - apk add --no-cache docker-compose openssh-client
+        - echo "Checking if docker-compose is installed..."
+        - docker-compose --version || echo "Error - docker-compose is not installed or failed to execute."
 
-        - |
-          echo "Logging into DockerHub..."
-          echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+        - echo "Logging into DockerHub..."
+        - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
 
-        - |
-          echo "SSH INTO DROPLET"
-          eval $(ssh-agent -s)
+        - echo "SSH INTO DROPLET"
+        - eval $(ssh-agent -s)
 
-        - |
-          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
+        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+        - mkdir -p ~/.ssh
+        - chmod 700 ~/.ss-
 
-        - |
-          echo "Add droplet IP to known hosts to avoid interactive prompt"
-          ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
+        - echo "Add droplet IP to known hosts to avoid interactive prompt"
+        - ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts-
 
       script:
         - echo "Using docker-compose to build the updated images in the repository..."
