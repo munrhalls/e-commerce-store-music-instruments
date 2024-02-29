@@ -91,7 +91,7 @@
       stage: prepare
       script:
       - chmod +x ./parseCommitToTag.sh
-      - GENERATED_TAG=./parseCommitToTag.sh
+      - GENERATED_TAG=$(./parseCommitToTag.sh)
       - echo "GENERATED_TAG for docker images is '${GENERATED_TAG}'"
       - |
         if [ -z "$GENERATED_TAG" ]; then
