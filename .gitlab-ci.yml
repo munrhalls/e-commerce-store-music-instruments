@@ -84,7 +84,6 @@
 
         - |
           echo "Add droplet IP to known hosts to avoid interactive prompt"
-          ping -c 3 $DROPLET_IP
           ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
