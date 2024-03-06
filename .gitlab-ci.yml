@@ -74,7 +74,7 @@
         - echo "SSH INTO DROPLET"
         - eval $(ssh-agent -s)
 
-        - echo "Add droplet IP to ssh known hosts to avoid   interactive prompt"
+        - echo "Add droplet IP to ssh known hosts to avoid interactive prompt"
         - |
           echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
           mkdir -p ~/.ssh
@@ -82,7 +82,6 @@
           ssh-add -l
 
         - echo "Add droplet IP to known hosts to avoid interactive prompt"
-        - ssh-keygen -R $DROPLET_IP || echo "ssh-keygen failed with exit code $?"
         - |
           ssh-keyscan -v $DROPLET_IP >> ~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
           chmod 644 ~/.ssh/known_hosts
