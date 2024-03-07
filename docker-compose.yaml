@@ -1,6 +1,47 @@
 version: "3.8"
 
 services:
+  nginx:
+    image: nginx:alpine3.18
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
+      - server
+      - database
+
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  frontend:
+    environment:
+      - PORT=80
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: munrhalls/sang-logium-frontend:${GENERATED_TAG:-local-development-version}
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: munrhalls/sang-logium-server:${GENERATED_TAG:-local-development-version}
+    depends_on:
+      - database
+    networks:
+      - app-network
+    restart: unless-stopped
+    environment:
+      MONGO_URI: ${MONGO_URI}
+      DATA_SERVER_NODE_ENV: ${DATA_SERVER_NODE_ENV}
+      DATA_SERVER_PORT: ${DATA_SERVER_PORT}
+
   database:
     restart: always
     build:
@@ -22,37 +63,6 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
-
-  server:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    image: munrhalls/sang-logium-server:${GENERATED_TAG:-local-development-version}
-    depends_on:
-      - database
-    # env_file:
-    #   - ./server/.env
-    networks:
-      - app-network
-    restart: unless-stopped
-    environment:
-      MONGO_URI: ${MONGO_URI}
-      DATA_SERVER_NODE_ENV: ${DATA_SERVER_NODE_ENV}
-      DATA_SERVER_PORT: ${DATA_SERVER_PORT}
-
-  frontend:
-    environment:
-      - PORT=80
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      # The image tag defaults to "local-development-version" locally, and GENERATED_TAG in CI/CD production runtime
-    image: munrhalls/sang-logium-frontend:${GENERATED_TAG:-local-development-version}
-    ports:
-      - "80:80"
-    networks:
-      - app-network
-    restart: unless-stopped
 
 networks:
   app-network:
