@@ -1,6 +1,7 @@
 import { Component, type OnInit } from '@angular/core'
-import { type Observable } from 'rxjs'
+import { type Observable, take, catchError, EMPTY } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
+import { environment } from '../environments/environment'
 
 @Component({
   selector: 'app-root',
@@ -9,20 +10,31 @@ import { HttpClient } from '@angular/common/http'
 })
 export class AppComponent implements OnInit {
   title = 'Sang Logium'
-  hello: string = ''
+  hello: string | null = null
   isMobile: boolean = false
 
   constructor(private readonly http: HttpClient) {}
 
   getHello(): Observable<any> {
-    return this.http.get('http://server:8443/hello')
+    const url = `${environment.apiBaseUrl}api/hello`
+    return this.http.get(url).pipe(
+      take(1),
+      catchError((error) => {
+        console.error('Error fetching hello data:', error)
+        return EMPTY
+      })
+    )
   }
 
   ngOnInit(): void {
-    this.getHello().subscribe((data) => {
-      console.log(data)
-      this.hello = data.message
-    })
+    if (this.hello === null) {
+      this.getHello()
+        .pipe(take(1))
+        .subscribe((data) => {
+          console.log('endpoint hello on UI: ', data)
+          this.hello = data.message
+        })
+    }
   }
 
   afterRender(): void {

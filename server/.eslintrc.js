@@ -18,5 +18,6 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest'
   },
-  rules: {}
+  rules: {},
+  ignorePatterns: ['*.txt']
 };
