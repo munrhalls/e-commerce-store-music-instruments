@@ -11,7 +11,6 @@ services:
       - frontend
       - server
       - database
-
     networks:
       - app-network
     restart: unless-stopped
@@ -37,7 +36,7 @@ services:
     image: munrhalls/sang-logium-server:${GENERATED_TAG:-local-development-version}
     volumes:
       - /server/node_modules:/app/node_modules
-      - ./server:/app
+      - ./server/src:/app/src
     depends_on:
       - database
     networks:

@@ -48,7 +48,8 @@ const configureServer = async function (): Promise<void> {
     url: '/api/hello',
     handler: async (request, reply) => {
       return {
-        message: 'Hello, World from the server!'
+        message:
+          'Hello, World from the server! If you see this text right here, it means that the server is working! Test change 3. Test change 4.'
       };
     }
   });
