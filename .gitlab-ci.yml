@@ -1,134 +1,135 @@
-    stages:
-      - prepare
-      # - test_build
-      - deploy
+stages:
+  - prepare
+  # - test_build
+  - deploy
 
-    # test_build_server:
-    #   stage: test_build
-    #   image: node:20.10.0-alpine
-    #   cache:
-    #     key: ${CI_COMMIT_REF_SLUG}-node-modules
-    #     paths:
-    #       - frontend/node_modules/
-    #   script:
-    #     - cd server
-    #     - npm ci
-    #     - npm run test
-    #     - npm run lint
+# test_build_server:
+#   stage: test_build
+#   image: node:20.10.0-alpine
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}-node-modules
+#     paths:
+#       - frontend/node_modules/
+#   script:
+#     - cd server
+#     - npm ci
+#     - npm run test
+#     - npm run lint
 
-    # test_build_frontend:
-    #   stage: test_build
-    #   image: node:20.10.0-alpine
-    #   cache:
-    #     key: ${CI_COMMIT_REF_SLUG}-node-modules
-    #     paths:
-    #       - frontend/node_modules/
-    #   script:
-    #     - cd frontend
-    #     - npm ci
-    #     - npm install --save-dev @angular/cli
-    #     - apk update && apk add chromium
-    #     - export CHROME_BIN=/usr/bin/chromium-browser
-    #     # Set CHROME_BIN to the path of the installed Chromium binary
-    #     - npx ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
-    #     - npm run lint
-    #     - npx ng build --configuration=production
+# test_build_frontend:
+#   stage: test_build
+#   image: node:20.10.0-alpine
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}-node-modules
+#     paths:
+#       - frontend/node_modules/
+#   script:
+#     - cd frontend
+#     - npm ci
+#     - npm install --save-dev @angular/cli
+#     - apk update && apk add chromium
+#     - export CHROME_BIN=/usr/bin/chromium-browser
+#     # Set CHROME_BIN to the path of the installed Chromium binary
+#     - npx ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
+#     - npm run lint
+#     - npx ng build --configuration=production
 
-      # artifacts:
-      #   paths:
-      #     - frontend/dist/
+# artifacts:
+#   paths:
+#     - frontend/dist/
 
-    variables:
-      GIT_DEPTH: "0"
-      CI_DEBUG_SERVICES: "true"
+variables:
+  GIT_DEPTH: "0"
+  CI_DEBUG_SERVICES: "true"
 
-    generate_tag_for_deployed_images:
-      stage: prepare
-      script:
-        - chmod +x ./parseCommitToTag.sh
-        - GENERATED_TAG=$(./parseCommitToTag.sh)
-        - echo "GENERATED_TAG=$(./parseCommitToTag.sh)" >> tag.env
-        - echo "GENERATED_TAG for docker images is ${GENERATED_TAG}"
-      artifacts:
-        reports:
-          dotenv: tag.env
+generate_tag_for_deployed_images:
+  stage: prepare
+  script:
+    - chmod +x ./parseCommitToTag.sh
+    - GENERATED_TAG=$(./parseCommitToTag.sh)
+    - echo "GENERATED_TAG=$(./parseCommitToTag.sh)" >> tag.env
+    - echo "GENERATED_TAG for docker images is ${GENERATED_TAG}"
+  artifacts:
+    reports:
+      dotenv: tag.env
 
-    deploy:
-      stage: deploy
-      image: docker:25.0.3-dind-alpine3.19
-      services:
-        - docker:dind
-      before_script:
-        - |
-          if [ -z "$GENERATED_TAG" ]; then echo "Error: Generated tag is empty."; exit 1; fi
-        - echo "GENERATED_TAG for docker images is '${GENERATED_TAG}'"
+deploy:
+  stage: deploy
+  variables:
+    DOCKER_HOST: unix:///var/run/docker.sock
+  image: docker:25.0.3-dind-alpine3.19
+  services:
+    - docker:dind
+  before_script:
+    - |
+      if [ -z "$GENERATED_TAG" ]; then echo "Error: Generated tag is empty."; exit 1; fi
+    - echo "GENERATED_TAG for docker images is '${GENERATED_TAG}'"
+    - echo "Installing necessary dependencies to use docker-compose and ssh..."
+    - apk add --no-cache docker-compose openssh-client
+    - echo "Checking if docker-compose is installed..."
+    - docker-compose --version || echo "Error - docker-compose is not installed or failed to execute."
 
-        - echo "Installing necessary dependencies to use docker-compose and ssh..."
-        - apk add --no-cache docker-compose openssh-client
-        - echo "Checking if docker-compose is installed..."
-        - docker-compose --version || echo "Error - docker-compose is not installed or failed to execute."
+    - echo "Logging into DockerHub..."
+    - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
 
-        - echo "Logging into DockerHub..."
-        - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+    - echo "SSH INTO DROPLET"
+    - eval $(ssh-agent -s)
 
-        - echo "SSH INTO DROPLET"
-        - eval $(ssh-agent -s)
+    - echo "Add droplet IP to ssh known hosts to avoid interactive prompt"
+    - |
+      echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+      mkdir -p ~/.ssh
+      chmod 700 ~/.ssh
+      ssh-add -l
 
-        - echo "Add droplet IP to ssh known hosts to avoid interactive prompt"
-        - |
-          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          ssh-add -l
+    - echo "Add droplet IP to known hosts to avoid interactive prompt"
+    - |
+      ssh-keyscan -v $DROPLET_IP >> ~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
+      chmod 644 ~/.ssh/known_hosts
 
-        - echo "Add droplet IP to known hosts to avoid interactive prompt"
-        - |
-          ssh-keyscan -v $DROPLET_IP >> ~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
-          chmod 644 ~/.ssh/known_hosts
+  script:
+    - |
+      echo "Using docker-compose to build the updated images in the repository..."
+      docker compose -f docker-compose.yaml build --no-cache || exit 1
 
-      script:
-        - |
-          echo "Using docker-compose to build the updated images in the repository..."
-          docker compose -f docker-compose.yaml build --no-cache || exit 1
+    - echo "Pushing the built images with the tag '${GENERATED_TAG}"
+    - docker compose -f docker-compose.yaml push
 
-        - echo "Pushing the built images with the tag '${GENERATED_TAG}"
-        - docker compose -f docker-compose.yaml push
+    - |
+      eval $(ssh-agent -s) || exit 1
+      echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - || exit 1
+      mkdir -p ~/.ssh || exit 1
+      chmod 700 ~/.ssh || exit 1
+      ssh-add -l || exit 1
 
-        - |
-          eval $(ssh-agent -s) || exit 1
-          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - || exit 1
-          mkdir -p ~/.ssh || exit 1
-          chmod 700 ~/.ssh || exit 1
-          ssh-add -l || exit 1
+    - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
 
-        - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
+    - |
+      ssh -v root@$DROPLET_IP <<'EOF'
+        set -e  # Exit immediately if a command exits with a non-zero status
+        echo "Starting deployment process..."
 
-        - |
-          ssh -v root@$DROPLET_IP <<'EOF'
-            set -e  # Exit immediately if a command exits with a non-zero status
-            echo "Starting deployment process..."
+        # Export environment variables
+        echo "Exporting environment variables..."
+        export GENERATED_TAG='${GENERATED_TAG}'
+        export MONGO_INITDB_ROOT_USERNAME='${MONGO_INITDB_ROOT_USERNAME}'
+        export MONGO_INITDB_ROOT_PASSWORD='${MONGO_INITDB_ROOT_PASSWORD}'
+        export MONGO_INITDB_DATABASE='${MONGO_INITDB_DATABASE}'
+        export MONGO_URI='${MONGO_URI}'
+        export DATA_SERVER_NODE_ENV='${DATA_SERVER_NODE_ENV}'
+        export DATA_SERVER_PORT='${DATA_SERVER_PORT}'
 
-            # Export environment variables
-            echo "Exporting environment variables..."
-            export GENERATED_TAG='${GENERATED_TAG}'
-            export MONGO_INITDB_ROOT_USERNAME='${MONGO_INITDB_ROOT_USERNAME}'
-            export MONGO_INITDB_ROOT_PASSWORD='${MONGO_INITDB_ROOT_PASSWORD}'
-            export MONGO_INITDB_DATABASE='${MONGO_INITDB_DATABASE}'
-            export MONGO_URI='${MONGO_URI}'
-            export DATA_SERVER_NODE_ENV='${DATA_SERVER_NODE_ENV}'
-            export DATA_SERVER_PORT='${DATA_SERVER_PORT}'
+        # Navigate to the project directory
+        echo "Navigating to the project directory..."
+        cd /root/sang-logium || exit 1  # Exit if the directory does not exist
 
-            # Navigate to the project directory
-            echo "Navigating to the project directory..."
-            cd /root/sang-logium || exit 1  # Exit if the directory does not exist
+        # Pull and start containers
+        echo "Pulling and starting containers..."
+        docker-compose pull || exit 1  # Exit if docker-compose pull fails
+        docker-compose up -d || exit 1  # Exit if docker-compose up fails
 
-            # Pull and start containers
-            echo "Pulling and starting containers..."
-            docker-compose pull || exit 1  # Exit if docker-compose pull fails
-            docker-compose up -d || exit 1  # Exit if docker-compose up fails
+        echo "Deployment process completed successfully."
+      EOF
 
-            echo "Deployment process completed successfully."
-          EOF
-
-      only:
-        - main
+  only:
+    - main
