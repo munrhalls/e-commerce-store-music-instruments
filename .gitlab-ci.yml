@@ -39,10 +39,14 @@ stages:
 #     - frontend/dist/
 
 variables:
-  GIT_DEPTH: "0"
   CI_DEBUG_SERVICES: "true"
 
 generate_tag_for_deployed_images:
+  only:
+    - main
+  variables:
+    GIT_DEPTH: "0"
+    GIT_STRATEGY: fetch
   stage: prepare
   script:
     - chmod +x ./parseCommitToTag.sh
