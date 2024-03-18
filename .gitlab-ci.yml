@@ -14,7 +14,7 @@ deploy:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - ssh-add -l
-    - ssh-keyscan -H $DROPLET_IP >> ~/.ssh/known_hosts
+    - ssh-keyscan -v -H $DROPLET_IP >> ~/.ssh/known_hosts
 
     - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
   script:
