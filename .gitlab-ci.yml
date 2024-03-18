@@ -61,7 +61,7 @@ deploy:
   stage: deploy
   variables:
     DOCKER_HOST: unix:///var/run/docker.sock
-  image: docker:25.0.3-dind-alpine3.19
+  image: docker:stable-alpine
   services:
     - docker:dind
   before_script:
