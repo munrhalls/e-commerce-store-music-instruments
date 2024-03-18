@@ -1,124 +1,27 @@
 stages:
-  - prepare
-  # - test_build
   - deploy
-
-# test_build_server:
-#   stage: test_build
-#   image: node:20.10.0-alpine
-#   cache:
-#     key: ${CI_COMMIT_REF_SLUG}-node-modules
-#     paths:
-#       - frontend/node_modules/
-#   script:
-#     - cd server
-#     - npm ci
-#     - npm run test
-#     - npm run lint
-
-# test_build_frontend:
-#   stage: test_build
-#   image: node:20.10.0-alpine
-#   cache:
-#     key: ${CI_COMMIT_REF_SLUG}-node-modules
-#     paths:
-#       - frontend/node_modules/
-#   script:
-#     - cd frontend
-#     - npm ci
-#     - npm install --save-dev @angular/cli
-#     - apk update && apk add chromium
-#     - export CHROME_BIN=/usr/bin/chromium-browser
-#     # Set CHROME_BIN to the path of the installed Chromium binary
-#     - npx ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
-#     - npm run lint
-#     - npx ng build --configuration=production
-
-# artifacts:
-#   paths:
-#     - frontend/dist/
 
 variables:
   CI_DEBUG_SERVICES: "true"
 
-generate_tag_for_deployed_images:
-  only:
-    - main
-  variables:
-    GIT_DEPTH: "0"
-    GIT_STRATEGY: fetch
-  stage: prepare
-  script:
-    - chmod +x ./parseCommitToTag.sh
-    - GENERATED_TAG=$(./parseCommitToTag.sh)
-    - echo "GENERATED_TAG=$(./parseCommitToTag.sh)" >> tag.env
-    - echo "GENERATED_TAG for docker images is ${GENERATED_TAG}"
-  artifacts:
-    reports:
-      dotenv: tag.env
-
 deploy:
   stage: deploy
-  image: alpine:20240315
-  services:
-    - docker:dind
-  variables:
-    DOCKER_HOST: tcp://docker:2375
+  image: alpine:latest
   before_script:
-    - apk add --no-cache docker-cli
-    - docker version
-
-    - |
-      if [ -z "$GENERATED_TAG" ]; then echo "Error: Generated tag is empty."; exit 1; fi
-    - apk add docker-compose openssh-client
-    - docker-compose --version || echo "Error - docker-compose is not installed or failed to execute."
     - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+    - apk add --no-cache docker-cli
+    - apk add --no-cache curl
+
+    - apk add --no-cache openssh-client docker-cli
     - eval $(ssh-agent -s)
-
-    - |
-      echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-      mkdir -p ~/.ssh
-      chmod 700 ~/.ssh
-      ssh-add -l
-
-    - |
-      ssh-keyscan -v $DROPLET_IP >> ~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
-      chmod 644 ~/.ssh/known_hosts
-
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-add -l
+    - ssh-keyscan -H $DROPLET_IP >> ~/.ssh/known_hosts
   script:
-    - docker compose -f docker-compose.yaml build --no-cache || exit 1
-    - docker compose -f docker-compose.yaml push
-    - |
-      eval $(ssh-agent -s) || exit 1
-      echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - || exit 1
-      mkdir -p ~/.ssh || exit 1
-      chmod 700 ~/.ssh || exit 1
-      ssh-add -l || exit 1
-
+    - docker-compose push
     - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
-
-    - |
-      ssh -v root@$DROPLET_IP <<'EOF'
-        set -e  # Exit immediately if a command exits with a non-zero status
-
-        # Export environment variables
-        export GENERATED_TAG='${GENERATED_TAG}'
-        export MONGO_INITDB_ROOT_USERNAME='${MONGO_INITDB_ROOT_USERNAME}'
-        export MONGO_INITDB_ROOT_PASSWORD='${MONGO_INITDB_ROOT_PASSWORD}'
-        export MONGO_INITDB_DATABASE='${MONGO_INITDB_DATABASE}'
-        export MONGO_URI='${MONGO_URI}'
-        export DATA_SERVER_NODE_ENV='${DATA_SERVER_NODE_ENV}'
-        export DATA_SERVER_PORT='${DATA_SERVER_PORT}'
-
-        # Navigate to the project directory
-        cd /root/sang-logium || exit 1  # Exit if the directory does not exist
-
-        # Pull and start containers
-        echo "Pulling and starting containers..."
-        docker-compose pull || exit 1  # Exit if docker-compose pull fails
-        docker-compose up -d || exit 1  # Exit if docker-compose up fails
-
-      EOF
-
+    - ssh root@$DROPLET_IP "cd /root/sang-logium && docker-compose pull && docker-compose up -d"
   only:
     - main
