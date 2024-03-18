@@ -25,7 +25,7 @@ services:
     image: munrhalls/sang-logium-frontend:${GENERATED_TAG:-local-development-version}
     volumes:
       - /frontend/node_modules:/app/node_modules
-      - ./frontend:/app
+      - ./frontend/src:/app/src
     networks:
       - app-network
     restart: unless-stopped
