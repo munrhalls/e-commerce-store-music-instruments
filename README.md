@@ -1,5 +1,5 @@
 Live: https://sang-logium.com
-
+test
 Large-scale, fullstack fictional e-commerce store application for my portfolio.
 
 - GraphQL querying for server-client request-response cycle,
