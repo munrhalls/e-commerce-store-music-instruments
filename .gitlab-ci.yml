@@ -9,6 +9,8 @@ deploy:
   image: alpine:latest
   before_script:
     - apk add --no-cache openssh-client docker-cli
+    - docker-compose push
+
     - eval $(ssh-agent -s)
 
     - |
@@ -24,7 +26,6 @@ deploy:
     - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
 
   script:
-    - docker-compose push
     - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
     - ssh root@$DROPLET_IP "cd /root/sang-logium && docker-compose pull && docker-compose up -d"
   only:
