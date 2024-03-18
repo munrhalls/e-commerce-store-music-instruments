@@ -59,8 +59,6 @@ generate_tag_for_deployed_images:
 
 deploy:
   stage: deploy
-  variables:
-    DOCKER_HOST: unix:///var/run/docker.sock
   image: docker:stable-alpine
   services:
     - docker:dind
