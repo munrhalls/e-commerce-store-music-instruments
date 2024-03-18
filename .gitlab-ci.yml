@@ -8,9 +8,9 @@ deploy:
   stage: deploy
   image: alpine:latest
   before_script:
-    - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
     - apk add --no-cache docker-cli
     - apk add --no-cache curl
+    - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
 
     - apk add --no-cache openssh-client docker-cli
     - eval $(ssh-agent -s)
