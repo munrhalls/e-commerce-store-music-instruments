@@ -6,7 +6,9 @@ variables:
 
 deploy:
   stage: deploy
-  image: alpine:latest
+  image: alpine:20240315
+  services:
+    - docker:dind
   before_script:
     - apk add --no-cache openssh-client curl docker-cli
     - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
