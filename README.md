@@ -1,5 +1,10 @@
 Live: https://sang-logium.com
-test
+
+CI/CD: Semantinc versioning x.y.z
+Major for incompatible API changes,
+Minor for adding functionality in a backwards-compatible manner, and
+Patch for backwards-compatible bug fixes.
+
 Large-scale, fullstack fictional e-commerce store application for my portfolio.
 
 - GraphQL querying for server-client request-response cycle,
