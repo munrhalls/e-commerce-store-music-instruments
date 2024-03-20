@@ -18,9 +18,9 @@ deploy:
     - chmod +x /usr/local/bin/docker-compose
     - export IMAGE_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
 
-    - eval $(ssh-agent -s)
-    # - 'ssh-add <(echo "$SSH_PRIVATE_KEY")'
-    # - 'ssh -o StrictHostKeyChecking=no user@droplet_ip "commands"'
+    - "eval $(ssh-agent -s)"
+    - 'ssh-add <(echo "$SSH_PRIVATE_KEY")'
+    - "ssh -o StrictHostKeyChecking=no root@$DROPLET_IP"
 
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
