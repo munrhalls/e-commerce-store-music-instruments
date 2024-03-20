@@ -26,7 +26,6 @@ deploy:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - ssh-add -l
-    - ssh -o StrictHostKeyChecking=no root@$DROPLET_IP
 
     - ssh_keyscan_result=$(ssh-keyscan -vvv $DROPLET_IP)
     - echo "$ssh_keyscan_result"
@@ -35,7 +34,7 @@ deploy:
 
   script:
     - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
-    - ssh root@$DROPLET_IP "sed -i '/^IMAGE_TAG=/c\\IMAGE_TAG=${IMAGE_TAG}' /root/sang-logium/.env && cd /root/sang-logium && docker-compose pull && docker-compose up -d"
+    - ssh root@$DROPLET_IP "sed -i '/^IMAGE_TAG=/c\\IMAGE_TAG=${IMAGE_TAG}' /root/sang-logium/.env && cd /root/sang-logium && docker-compose pull && docker compose build server database frontend && docker-compose up -d"
 
   only:
     - main
