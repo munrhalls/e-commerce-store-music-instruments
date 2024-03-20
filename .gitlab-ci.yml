@@ -17,15 +17,16 @@ deploy:
     - export IMAGE_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
 
     - eval $(ssh-agent -s)
+
+    - |
+      ssh-keyscan -v $DROPLET_IP >> ~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
+      chmod 644 ~/.ssh/known_hosts
+
     - |
       echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
       mkdir -p ~/.ssh
       chmod 700 ~/.ssh
       ssh-add -l
-
-    - |
-      ssh-keyscan -v $DROPLET_IP >> ~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
-      chmod 644 ~/.ssh/known_hosts
 
   script:
     - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
