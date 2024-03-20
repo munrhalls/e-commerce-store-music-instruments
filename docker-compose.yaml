@@ -21,7 +21,9 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: munrhalls/sang-logium-frontend:${IMAGE_TAG:-local-development-version}
+      args:
+        - IMAGE_TAG
+    image: munrhalls/sang-logium-frontend:${IMAGE_TAG:-local_dev}
     volumes:
       - /frontend/node_modules:/app/node_modules
       - ./frontend/src:/app/src
@@ -33,7 +35,9 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    image: munrhalls/sang-logium-server:${IMAGE_TAG:-local-development-version}
+      args:
+        - IMAGE_TAG
+    image: munrhalls/sang-logium-server:${IMAGE_TAG:-local_dev}
     volumes:
       - /server/node_modules:/app/node_modules
       - ./server/src:/app/src
@@ -52,7 +56,9 @@ services:
     build:
       context: ./database
       dockerfile: Dockerfile
-    image: munrhalls/sang-logium-database:${IMAGE_TAG:-local-development-version}
+      args:
+        - IMAGE_TAG
+    image: munrhalls/sang-logium-database:${IMAGE_TAG:-local_dev}
     # volumes:
     #   - ./database/data/db:/data/db
     expose:
