@@ -25,7 +25,6 @@ deploy:
     - chmod 700 ~/.ssh
     - ssh-add -l
 
-    - ssh-keygen -R hostname
     - ssh-keyscan -vvv $DROPLET_IP >> /root/~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
     - chmod 644 ~/.ssh/known_hosts
 
