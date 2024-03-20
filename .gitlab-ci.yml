@@ -10,7 +10,9 @@ deploy:
   services:
     - docker:dind
   before_script:
-    - apk add openssh-client docker-cli docker-compose
+    - apk add --no-cache openssh-client docker-cli docker-compose
+    - apk add --no-cache netcat-openbsd
+    - nc -zv $DROPLET_IP 22
     - docker version
     - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
     - chmod +x /usr/local/bin/docker-compose
