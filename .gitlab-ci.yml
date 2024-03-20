@@ -18,11 +18,10 @@ deploy:
 
     - eval $(ssh-agent -s)
 
-    - |
-      echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-      mkdir -p ~/.ssh
-      chmod 700 ~/.ssh
-      ssh-add -l
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-add -l
 
     - |
       ssh-keyscan -v $DROPLET_IP >> ~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
