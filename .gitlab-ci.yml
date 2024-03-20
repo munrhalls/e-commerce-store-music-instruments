@@ -10,6 +10,7 @@ deploy:
   services:
     - docker:dind
   before_script:
+    - git fetch --tags
     - apk add --no-cache openssh-client docker-cli docker-compose
     - apk add --no-cache netcat-openbsd
     - nc -zv $DROPLET_IP 22
