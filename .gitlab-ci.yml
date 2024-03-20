@@ -26,6 +26,7 @@ deploy:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - ssh-add -l
+    - ssh -o StrictHostKeyChecking=no root@$DROPLET_IP
 
     - ssh_keyscan_result=$(ssh-keyscan -vvv $DROPLET_IP)
     - echo "$ssh_keyscan_result"
