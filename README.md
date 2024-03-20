@@ -19,6 +19,8 @@ BACKEND:
 - Fastify for server (framework similar to express but much faster, more modern, with decent typescript support, simply better)
 - Node.js for server runtime (single threaded, event-loop based, faster than multi-threaded runtime's)
 
+<!-- test -->
+
 FRONTEND:
 
 - Frontend tests: Karma/Jasmine (Angular, built-in's)
