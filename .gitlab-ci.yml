@@ -25,9 +25,9 @@ deploy:
     - chmod 700 ~/.ssh
     - ssh-add -l
 
-    - |
-      ssh-keyscan -vvv $DROPLET_IP >> ~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
-      chmod 644 ~/.ssh/known_hosts
+    - ssh-keygen -R hostname
+    - ssh-keyscan -vvv $DROPLET_IP >> ~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
+    - chmod 644 ~/.ssh/known_hosts
 
   script:
     - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
