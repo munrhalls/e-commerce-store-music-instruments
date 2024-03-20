@@ -17,6 +17,7 @@ deploy:
     - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
     - chmod +x /usr/local/bin/docker-compose
     - export IMAGE_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+    - echo $IMAGE_TAG
 
     - "eval $(ssh-agent -s)"
     - 'ssh-add <(echo "$SSH_PRIVATE_KEY")'
@@ -34,7 +35,7 @@ deploy:
 
   script:
     - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
-    - ssh root@$DROPLET_IP "sed -i '/^IMAGE_TAG=/c\\IMAGE_TAG=${IMAGE_TAG}' /root/sang-logium/.env && cd /root/sang-logium && docker-compose pull && docker compose build server database frontend && docker-compose up -d"
+    - ssh root@$DROPLET_IP "sed -i '/^IMAGE_TAG=/c\\IMAGE_TAG=\${IMAGE_TAG}' /root/sang-logium/.env && cd /root/sang-logium && docker compose pull && docker compose build server database frontend && docker compose up -d"
 
   only:
     - main
