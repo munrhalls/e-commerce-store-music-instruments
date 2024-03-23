@@ -32,7 +32,7 @@ deploy:
 
   script:
     - scp ./compose-prod.yaml root@$DROPLET_IP:/root/sang-logium/compose-prod.yaml
-    - ssh root@$DROPLET_IP "sed -i 's/^IMAGE_TAG=.*/IMAGE_TAG=${IMAGE_TAG}/' /root/sang-logium/.env && cd /root/sang-logium && docker compose -f compose-prod.yaml up -d"
+    - ssh root@$DROPLET_IP "sed -i 's/^IMAGE_TAG=.*/IMAGE_TAG=${IMAGE_TAG}/' /root/sang-logium/.env && cd /root/sang-logium && docker compose down && docker rmi nginx frontend server database && docker compose -f compose-prod.yaml up -d"
 
   only:
     - main
