@@ -2,11 +2,9 @@ version: "3.8"
 
 services:
   nginx:
-    image: nginx:alpine3.18
+    image: munrhalls/sang-logium-revproxy:${IMAGE_TAG}
     ports:
       - "80:80"
-    volumes:
-      - ./default.conf:/etc/conf.d/default.conf
     depends_on:
       - frontend
       - server
