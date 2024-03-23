@@ -16,7 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private readonly http: HttpClient) {}
 
   getHello(): Observable<any> {
-    const url = 'http://nginx/api/hello'
+    const url = '/api/hello'
     return this.http.get(url).pipe(
       take(1),
       catchError((error) => {
