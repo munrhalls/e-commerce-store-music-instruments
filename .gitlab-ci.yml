@@ -11,9 +11,9 @@ deploy:
     - docker:dind
   before_script:
     - git fetch --tags
-    - apk add --no-cache openssh-client docker-cli docker-compose
+    - apk add --no-cache openssh-client docker-compose
     - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
-    - chmod +x /usr/local/bin/docker-compose
+    # - chmod +x /usr/local/bin/docker-compose
     - export IMAGE_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
     - echo $IMAGE_TAG
 
@@ -26,14 +26,13 @@ deploy:
     - chmod 700 ~/.ssh
     - ssh-add -l
 
-    - ssh_keyscan_result=$(ssh-keyscan -vvv $DROPLET_IP)
     - echo "$ssh_keyscan_result"
     - ssh-keyscan -vvv $DROPLET_IP >> ~/.ssh/known_hosts || echo "ssh-keyscan failed with exit code $?"
     - chmod 644 ~/.ssh/known_hosts
 
   script:
     - scp ./docker-compose.yaml root@$DROPLET_IP:/root/sang-logium/docker-compose.yaml
-    - ssh root@$DROPLET_IP "sed -i 's/^IMAGE_TAG=.*/IMAGE_TAG=${IMAGE_TAG}/' /root/sang-logium/.env && cd /root/sang-logium && docker compose pull && docker compose build && docker compose up -d"
+    - ssh root@$DROPLET_IP "sed -i 's/^IMAGE_TAG=.*/IMAGE_TAG=${IMAGE_TAG}/' /root/sang-logium/.env && cd /root/sang-logium && docker compose up -d --build"
 
   only:
     - main
