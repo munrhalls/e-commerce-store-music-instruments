@@ -1,0 +1,80 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx:alpine3.18
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
+      - server
+      - database
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  frontend:
+    environment:
+      - PORT=80
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - IMAGE_TAG
+    image: munrhalls/sang-logium-frontend:local_dev
+    volumes:
+      - /frontend/node_modules:/app/node_modules
+      - ./frontend/src:/app/src
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      args:
+        - IMAGE_TAG
+    image: munrhalls/sang-logium-server:local_dev
+    volumes:
+      - /server/node_modules:/app/node_modules
+      - ./server/src:/app/src
+    depends_on:
+      - database
+    networks:
+      - app-network
+    restart: unless-stopped
+    environment:
+      MONGO_URI: ${MONGO_URI}
+      DATA_SERVER_NODE_ENV: ${DATA_SERVER_NODE_ENV}
+      DATA_SERVER_PORT: ${DATA_SERVER_PORT}
+
+  database:
+    restart: always
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+      args:
+        - IMAGE_TAG
+    image: munrhalls/sang-logium-database:local_dev
+    # volumes:
+    #   - ./database/data/db:/data/db
+    expose:
+      - 27017
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10m
+      timeout: 10s
+      retries: 3
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+
+networks:
+  app-network:
+    driver: bridge
