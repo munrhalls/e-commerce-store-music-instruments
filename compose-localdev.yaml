@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   nginx:
-    image: munrhalls/sang-logium-revproxy:${IMAGE_TAG}
+    image: munrhalls/sang-logium-revproxy
     build:
       context: ./nginx
       dockerfile: Dockerfile
@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile
       args:
         - IMAGE_TAG
-    image: munrhalls/sang-logium-frontend:${IMAGE_TAG}
+    image: munrhalls/sang-logium-frontend
     volumes:
       - /frontend/node_modules:/app/node_modules
       - ./frontend/src:/app/src
@@ -38,7 +38,7 @@ services:
       dockerfile: Dockerfile
       args:
         - IMAGE_TAG
-    image: munrhalls/sang-logium-server:${IMAGE_TAG}
+    image: munrhalls/sang-logium-server
     volumes:
       - /server/node_modules:/app/node_modules
       - ./server/src:/app/src
@@ -59,7 +59,7 @@ services:
       dockerfile: Dockerfile
       args:
         - IMAGE_TAG
-    image: munrhalls/sang-logium-database:${IMAGE_TAG}
+    image: munrhalls/sang-logium-database
     # volumes:
     #   - ./database/data/db:/data/db
     expose:
