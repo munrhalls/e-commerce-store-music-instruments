@@ -5,5 +5,5 @@ echo "Pushing image with tag: $IMAGE_TAG"
 
 docker login
 docker compose -f compose-deploy.yaml down
-docker compose -f compose-deploy.yaml build --no-cache
+docker compose -f compose-deploy.yaml build
 docker compose -f compose-deploy.yaml push
