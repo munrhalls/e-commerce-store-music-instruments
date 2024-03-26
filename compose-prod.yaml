@@ -17,18 +17,12 @@ services:
     environment:
       - PORT=80
     image: munrhalls/sang-logium-frontend:${IMAGE_TAG}
-    volumes:
-      - /frontend/node_modules:/app/node_modules
-      - ./frontend/src:/app/src
     networks:
       - app-network
     restart: unless-stopped
 
   server:
     image: munrhalls/sang-logium-server:${IMAGE_TAG}
-    volumes:
-      - /server/node_modules:/app/node_modules
-      - ./server/src:/app/src
     depends_on:
       - database
     networks:

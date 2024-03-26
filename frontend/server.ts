@@ -10,6 +10,11 @@ import AppServerModule from './src/main.server'
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express()
+
+  server.get('/api/hello', (req, res, next) => {
+    next()
+  })
+
   const distFolder = join(
     process.cwd(),
     'dist/e-commerce-store-musical-instruments/browser'
@@ -22,11 +27,6 @@ export function app(): express.Express {
 
   server.set('view engine', 'html')
   server.set('views', distFolder)
-
-  server.get('/api/**', (req, res, next) => {
-    // Bypass SSR for API requests
-    next()
-  })
 
   // Serve static files from /browser
   server.get(

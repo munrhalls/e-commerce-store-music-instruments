@@ -33,13 +33,13 @@ import { MobileSearchComponent } from './core/mobile-search/mobile-search.compon
     MobileSearchComponent
   ],
   imports: [
-    AppRoutingModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    AppRoutingModule
   ],
-  providers: [provideClientHydration(), provideHttpClient(withFetch())],
+  providers: [provideHttpClient(withFetch())],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
