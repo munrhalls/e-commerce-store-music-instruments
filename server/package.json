@@ -67,6 +67,7 @@
     "fastify-cli": "^5.9.0",
     "graphql": "^16.8.1",
     "graphql-import-node": "^0.0.5",
-    "mercurius": "^13.3.3"
+    "mercurius": "^13.3.3",
+    "mongoose": "^8.2.3"
   }
 }

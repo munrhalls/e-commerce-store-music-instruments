@@ -1,13 +1,13 @@
-import 'graphql-import-node';
 import fastify, {
   type FastifyInstance,
   type FastifyPluginAsync
 } from 'fastify';
-import { printSchema } from 'graphql';
+import 'graphql-import-node';
 import mercurius from 'mercurius';
+import { printSchema } from 'graphql';
+import dotenv from 'dotenv';
 import { schema, resolvers } from './schema/schema';
 import fastifyCors, { type FastifyCorsOptions } from '@fastify/cors';
-import dotenv from 'dotenv';
 
 dotenv.config();
 const isDevelopment = process.env.NODE_ENV === 'development';
