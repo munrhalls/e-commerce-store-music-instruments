@@ -1,7 +1,7 @@
 FROM node:20.11.1-alpine3.19 as build
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN npm i
 COPY . .
 EXPOSE 80
 RUN npx ng build --configuration production

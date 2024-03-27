@@ -1,7 +1,6 @@
 import { Component, OnDestroy, type OnInit } from '@angular/core'
 import { type Observable, take, catchError, EMPTY } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
-import { environment } from 'src/environments/environment'
 
 @Component({
   selector: 'app-root',

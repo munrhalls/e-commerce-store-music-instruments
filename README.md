@@ -1,4 +1,7 @@
 Live: https://sang-logium.com
+TODO AFTER DEV:
+
+- Frontend dockerfile: npm i -> npm ci
 
 CI/CD: Semantinc versioning x.y.z
 Major for incompatible API changes,

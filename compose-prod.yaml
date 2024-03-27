@@ -17,6 +17,8 @@ services:
     environment:
       - PORT=80
     image: munrhalls/sang-logium-frontend:${IMAGE_TAG}
+    depends_on:
+      - server
     networks:
       - app-network
     restart: unless-stopped

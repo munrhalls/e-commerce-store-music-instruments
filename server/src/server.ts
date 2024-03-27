@@ -49,7 +49,7 @@ const configureServer = async function (): Promise<void> {
     handler: async (request, reply) => {
       return {
         message:
-          'Hello, World from the server! If you see this text right here, it means that the server is working! Test change 3. Test change 4.'
+          'Hello, World from the server! If you see this text right here, IT MEANS PROXY TO DATA SERVER FROM ANGULAR UI WORKS.'
       };
     }
   });

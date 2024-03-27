@@ -2,18 +2,20 @@ import 'zone.js/node'
 
 import { APP_BASE_HREF } from '@angular/common'
 import { CommonEngine } from '@angular/ssr'
-import * as express from 'express'
+import express from 'express'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import AppServerModule from './src/main.server'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express()
 
-  server.get('/api/hello', (req, res, next) => {
-    next()
-  })
+  server.use(
+    '/api',
+    createProxyMiddleware({ target: 'http://server:8443', changeOrigin: false })
+  )
 
   const distFolder = join(
     process.cwd(),
