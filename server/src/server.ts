@@ -8,6 +8,7 @@ import { printSchema } from 'graphql';
 import dotenv from 'dotenv';
 import { schema, resolvers } from './schema/schema';
 import fastifyCors, { type FastifyCorsOptions } from '@fastify/cors';
+import mongoose from 'mongoose';
 
 dotenv.config();
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -43,6 +44,19 @@ export const createServer = async function (): Promise<FastifyInstance> {
 const configureServer = async function (): Promise<void> {
   const server = await createServer();
   const port = 8443;
+
+  const uri = process.env.MONGO_URI;
+  if (uri === undefined) throw new Error('MONGO_URI is not defined');
+
+  mongoose
+    .connect(uri)
+    .then(() => {
+      console.log('MongoDB Connected');
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
   server.route({
     method: 'GET',
     url: '/api/hello',
