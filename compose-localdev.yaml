@@ -12,6 +12,7 @@ services:
       - "80:80"
     environment:
       - PORT=80
+
     volumes:
       - /frontend/node_modules:/app/node_modules
       - ./frontend/src:/app/src
@@ -35,9 +36,7 @@ services:
       - app-network
     restart: unless-stopped
     environment:
-      MONGO_URI: mongodb://${DB_USERNAME}:${DB_PASSWORD}@database:27017/${DB_NAME}
-      DATA_SERVER_NODE_ENV: ${DATA_SERVER_NODE_ENV}
-      DATA_SERVER_PORT: ${DATA_SERVER_PORT}
+      MONGO_URI: "mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@database:27017/${MONGO_INITDB_DATABASE}"
 
   database:
     restart: always
@@ -49,8 +48,8 @@ services:
     image: munrhalls/sang-logium-database
     volumes:
       - ./database/data/db:/data/db
-    expose:
-      - 27017
+    ports:
+      - "27017-27017:27017-27017"
     networks:
       - app-network
     healthcheck:
@@ -58,10 +57,12 @@ services:
       interval: 10m
       timeout: 10s
       retries: 3
+    env_file:
+      - .env
     environment:
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${DB_NAME}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
 
 networks:
   app-network:

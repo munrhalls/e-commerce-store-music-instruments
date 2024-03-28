@@ -46,6 +46,7 @@ const configureServer = async function (): Promise<void> {
   const port = 8443;
 
   const uri = process.env.MONGO_URI;
+  console.log(uri);
   if (uri === undefined) throw new Error('MONGO_URI is not defined');
 
   mongoose
@@ -57,14 +58,32 @@ const configureServer = async function (): Promise<void> {
       console.log(err);
     });
 
+  const { Schema } = mongoose;
+
+  const messageSchema = new Schema({
+    message: String
+  });
+
+  const Message = mongoose.model('Message', messageSchema);
+
+  mongoose.set('debug', function (collectionName, method, query, doc) {
+    console.log(`${collectionName}.${method}`, JSON.stringify(query), doc);
+  });
+
   server.route({
     method: 'GET',
     url: '/api/hello',
     handler: async (request, reply) => {
-      return {
-        message:
-          'Hello, World from the server! If you see this text right here, IT MEANS PROXY TO DATA SERVER FROM ANGULAR UI WORKS.'
-      };
+      try {
+        const doc = await mongoose.model('Message').findOne({});
+        console.log('All Doc:', doc);
+
+        return { message: doc.message };
+      } catch (error) {
+        console.error(error);
+        // Ideally, return a more structured error response for the client
+        return await reply.code(500).send({ message: 'Internal server error' });
+      }
     }
   });
 
