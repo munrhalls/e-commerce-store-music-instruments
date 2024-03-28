@@ -14,7 +14,7 @@ services:
       - PORT=80
     volumes:
       - /frontend/node_modules:/app/node_modules
-      - ./frontend/src:/app/src
+      # - ./frontend/src:/app/src
     networks:
       - app-network
     restart: unless-stopped

@@ -2,6 +2,8 @@ Live: https://sang-logium.com
 TODO AFTER DEV:
 
 - Frontend dockerfile: npm i -> npm ci
+- prune all docker volumes on prod droplet pc -> then leave only db volume
+- optimize https/cloudflare -> flexible mode -> full
 
 CI/CD: Semantinc versioning x.y.z
 Major for incompatible API changes,

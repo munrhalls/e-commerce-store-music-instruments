@@ -1,5 +1,4 @@
 #!/bin/bash
-# LOGIN TO DOCKER FIRST
 export IMAGE_TAG=$(git describe --tags --abbrev=0)
 echo "IMAGE_TAG=${IMAGE_TAG}" >> .env
 
@@ -16,8 +15,11 @@ scp ./compose-prod.yaml root@$DROPLET_IP:/root/sang-logium/compose-prod.yaml
 echo "Droplet PC: Pulling images with tag: $IMAGE_TAG"
 ssh root@$DROPLET_IP << 'EOF'
 export $(cat /root/sang-logium/.env | xargs)
-echo $DOCKER_ACCESS_TOKEN | docker login --username $DOCKER_HUB_USERNAME --password-stdin
+docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_ACCESS_TOKEN
 cd /root/sang-logium
+docker compose -f compose-prod.yaml down
+docker compose -f compose-prod.yaml rm -f
+docker image prune -a -f
 docker compose -f compose-prod.yaml pull
-docker compose -f compose-prod.yaml up -d
+docker compose -f compose-prod.yaml up -d --build
 EOF

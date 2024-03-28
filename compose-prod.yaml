@@ -2,14 +2,16 @@ version: "3.8"
 
 services:
   frontend:
-    environment:
-      - PORT=80
     image: munrhalls/sang-logium-frontend:${IMAGE_TAG}
+    ports:
+      - "80:80"
     depends_on:
       - server
     networks:
       - app-network
     restart: unless-stopped
+    environment:
+      - PORT=80
 
   server:
     image: munrhalls/sang-logium-server:${IMAGE_TAG}
