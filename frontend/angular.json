@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "e-commerce-store-musical-instruments": {
+    "frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -11,16 +11,25 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/e-commerce-store-musical-instruments/browser",
+            "outputPath": "dist/frontend",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.css"],
-            "scripts": []
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.min.css",
+              "src/styles.css"
+            ],
+            "scripts": [],
+            "server": "src/main.server.ts",
+            "prerender": true,
+            "ssr": {
+              "entry": "server.ts"
+            }
           },
           "configurations": {
             "production": {
@@ -32,55 +41,36 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2.75kb",
+                  "maximumWarning": "2kb",
                   "maximumError": "4kb"
                 }
               ],
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
-            },
-            "hmr": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.hmr.ts"
-                }
-              ]
+              "sourceMap": true
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "hmr": true
-          },
           "configurations": {
             "production": {
-              "buildTarget": "e-commerce-store-musical-instruments:build:production"
+              "buildTarget": "frontend:build:production"
             },
             "development": {
-              "buildTarget": "e-commerce-store-musical-instruments:build:development"
-            },
-            "hmr": {
-              "hmr": true,
-              "buildTarget": "e-commerce-store-musical-instruments:build:hmr"
+              "buildTarget": "frontend:build:development"
             }
           },
-
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "e-commerce-store-musical-instruments:build"
+            "buildTarget": "frontend:build"
           }
         },
         "test": {
@@ -92,71 +82,8 @@
             "styles": ["src/styles.css"],
             "scripts": []
           }
-        },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/e-commerce-store-musical-instruments/server",
-            "main": "server.ts",
-            "tsConfig": "tsconfig.server.json"
-          },
-          "configurations": {
-            "production": {
-              "outputHashing": "media"
-            },
-            "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "sourceMap": true,
-              "extractLicenses": false,
-              "vendorChunk": true
-            },
-            "hmr": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.hmr.ts"
-                }
-              ]
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve-ssr": {
-          "builder": "@angular-devkit/build-angular:ssr-dev-server",
-          "configurations": {
-            "development": {
-              "browserTarget": "e-commerce-store-musical-instruments:build:development",
-              "serverTarget": "e-commerce-store-musical-instruments:server:development"
-            },
-            "production": {
-              "browserTarget": "e-commerce-store-musical-instruments:build:production",
-              "serverTarget": "e-commerce-store-musical-instruments:server:production"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "prerender": {
-          "builder": "@angular-devkit/build-angular:prerender",
-          "options": {
-            "routes": ["/"]
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "e-commerce-store-musical-instruments:build:production",
-              "serverTarget": "e-commerce-store-musical-instruments:server:production"
-            },
-            "development": {
-              "browserTarget": "e-commerce-store-musical-instruments:build:development",
-              "serverTarget": "e-commerce-store-musical-instruments:server:development"
-            }
-          },
-          "defaultConfiguration": "production"
         }
       }
     }
-  },
-  "cli": {
-    "analytics": false
   }
 }

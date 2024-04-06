@@ -1,13 +1,11 @@
-FROM node:20.11.1-alpine3.19 as build
-WORKDIR /app
+FROM node:20.11.1-alpine3.19
+
+WORKDIR /
+
 COPY package*.json ./
 RUN npm i
-COPY . .
-EXPOSE 80
-RUN npx ng build --configuration production
-RUN npx ng run e-commerce-store-musical-instruments:server
+COPY ./dist /dist
 
-FROM node:20.11.1-alpine3.19
-WORKDIR /app
-COPY --from=build /app/dist/e-commerce-store-musical-instruments /app/dist/e-commerce-store-musical-instruments
-CMD ["node", "dist/e-commerce-store-musical-instruments/server/main.js"]
+EXPOSE 80
+
+CMD ["node", "dist/frontend/server/server.mjs"]

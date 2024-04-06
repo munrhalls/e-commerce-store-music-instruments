@@ -1,0 +1,9 @@
+.env
+.env.test
+/.angular
+
+/node_modules
+node_modules/
+node_modules/git ad
+
+dist/

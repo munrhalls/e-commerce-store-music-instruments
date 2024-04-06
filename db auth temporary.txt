@@ -1,3 +1,0 @@
-db.auth("munrhalls", "RwYuXmeUoXZitCMxKkDm34534zcqweqwecxvzdfqwerqwrqwfzca")
-
-mongodb://munrhalls:RwYuXmeUoXZitCMxKkDm34534zcqweqwecxvzdfqwerqwrqwfzca@database:27017/sang-logium-db

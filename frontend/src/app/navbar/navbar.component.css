@@ -1,0 +1,98 @@
+:host {
+  --primary-color: #202020;
+  --secondary-color: #e80000;
+  --text-color: #fafafa;
+  --hover-color: goldenrod;
+  --transition-duration: 0.4s;
+  background-color: var(--primary-color);
+  height: 96px;
+}
+
+/* 1 */
+header {
+  background-color: var(--primary-color);
+  height: 96px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.navbar-container,
+.navbar-row,
+.navbar-col {
+  height: 100%;
+}
+/* 2 */
+.logo-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+.logo-container img {
+  cursor: pointer;
+}
+/* 3 */
+.menu-button {
+  color: white;
+}
+/* 4 */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.search-container input {
+  width: 300px;
+  height: 40px;
+  border: none;
+  padding: 0 20px 4px 5px;
+  font-size: 1.2rem;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border-bottom: 1px solid var(--secondary-color);
+  border-radius: 0;
+}
+.search-container input:focus {
+  outline: none;
+}
+.search-container input::placeholder {
+  color: var(--text-color);
+}
+.search-container input::-webkit-input-placeholder {
+  color: var(--text-color);
+}
+.search-container input::-moz-placeholder {
+  color: var(--text-color);
+}
+.search-container input::-ms-input-placeholder {
+  color: var(--text-color);
+}
+.search-container i {
+  color: var(--text-color);
+  font-size: 1.5rem;
+  margin-left: -40px;
+}
+
+/* 5 */
+
+.desktop-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.desktop-menu li {
+  color: var(--text-color);
+  list-style-type: none;
+  margin: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.desktop-menu li:hover {
+  cursor: pointer;
+  color: var(--hover-color);
+  transition: color var(--transition-duration) ease-in-out;
+}
