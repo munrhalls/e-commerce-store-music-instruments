@@ -4,14 +4,14 @@
   --text-color: #fafafa;
   --hover-color: goldenrod;
   --transition-duration: 0.4s;
+  height: var(--navbar-height);
   background-color: var(--primary-color);
-  height: 96px;
 }
 
 /* 1 */
 header {
   background-color: var(--primary-color);
-  height: 96px;
+  height: var(--navbar-height);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -71,38 +71,6 @@ header {
 }
 
 /* 5 */
-
-.desktop-menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-/* 3 */
-.desktop-menu .menu-button {
-  color: white;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.desktop-menu li {
-  color: var(--text-color);
-  list-style-type: none;
-  margin: 0 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.desktop-menu li:hover {
-  cursor: pointer;
-  color: var(--hover-color);
-  transition: color var(--transition-duration) ease-in-out;
-}
-.desktop-menu li span {
-  white-space: nowrap;
-}
 
 @media screen and (max-width: 576px) {
 }

@@ -1,0 +1,15 @@
+:host {
+  --primary-color: #202020;
+  --secondary-color: #e80000;
+  --text-color: #fafafa;
+  --hover-color: goldenrod;
+  --transition-duration: 0.4s;
+  --navbar-height: 41px;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+app-nav-menu {
+  margin-top: auto;
+}

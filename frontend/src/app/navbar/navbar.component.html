@@ -12,31 +12,15 @@
           />
         </div>
       </div>
-      <div class="col-md-4 col-4 navbar-col">
+      <div class="col-md-9 col-lg-5 navbar-col">
         <div class="search-container">
           <input type="text" placeholder="Search for products" />
           <i class="bi bi-search"></i>
         </div>
       </div>
-      <div class="col-md-4 col-4 navbar-col">
+      <div class="d-none d-lg-block col-md-4 col-lg-4 navbar-col">
         <!-- [class.mobile-menu]="menuVal" -->
-        <ul class="desktop-menu">
-          <li class="menu-button d-block d-md-none" (click)="toggleMenu()">
-            <i class="bi bi-list"></i>
-          </li>
-          <li>
-            <i class="bi bi-person"></i>
-            <span>SIGN IN</span>
-          </li>
-          <li>
-            <i class="bi bi-heart"></i>
-            <span>FAVORITES</span>
-          </li>
-          <li>
-            <i class="bi bi-cart"></i>
-            <span>CART</span>
-          </li>
-        </ul>
+        <app-nav-menu></app-nav-menu>
       </div>
     </div>
   </div>

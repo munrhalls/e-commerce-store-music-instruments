@@ -1,0 +1,33 @@
+:host {
+  background-color: var(--primary-color);
+}
+.desktop-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.desktop-menu .menu-button {
+  color: white;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.desktop-menu li {
+  color: var(--text-color);
+  list-style-type: none;
+  margin: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.desktop-menu li:hover {
+  cursor: pointer;
+  color: var(--hover-color);
+  transition: color var(--transition-duration) ease-in-out;
+}
+.desktop-menu li span {
+  white-space: nowrap;
+}
