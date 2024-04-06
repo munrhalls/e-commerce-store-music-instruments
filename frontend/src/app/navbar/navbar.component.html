@@ -19,10 +19,11 @@
         </div>
       </div>
       <div class="col-md-4 col-4 navbar-col">
-        <div class="menu-button d-block d-md-none" (click)="toggleMenu()">
-          <i class="bi bi-list"></i>
-        </div>
-        <ul class="desktop-menu d-none d-md-flex" [class.mobile_menu]="menuVal">
+        <!-- [class.mobile-menu]="menuVal" -->
+        <ul class="desktop-menu">
+          <li class="menu-button d-block d-md-none" (click)="toggleMenu()">
+            <i class="bi bi-list"></i>
+          </li>
           <li>
             <i class="bi bi-person"></i>
             <span>SIGN IN</span>
