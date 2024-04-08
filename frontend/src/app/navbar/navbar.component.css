@@ -4,7 +4,7 @@
   --text-color: #fafafa;
   --hover-color: goldenrod;
   --transition-duration: 0.4s;
-  height: var(--navbar-height);
+
   background-color: var(--primary-color);
 }
 
@@ -15,10 +15,13 @@ header {
   display: flex;
   flex-direction: column;
 }
-.navbar-container,
+/* .navbar-container,
 .navbar-row,
 .navbar-col {
   height: 100%;
+} */
+.navbar-col {
+  height: var(--navbar-col-height);
 }
 
 .logo-container {
@@ -38,11 +41,12 @@ header {
   height: 100%;
 }
 .search-container input {
-  width: 300px;
+  width: 18rem;
   height: 40px;
   border: none;
-  padding: 0 20px 4px 5px;
-  font-size: 1.2rem;
+  padding: 0 20px 1px 5px;
+  margin-bottom: 4px;
+  font-size: 1rem;
   background-color: var(--primary-color);
   color: var(--text-color);
   border-bottom: 1px solid var(--secondary-color);
@@ -64,7 +68,7 @@ header {
   color: var(--text-color);
 }
 .search-container i {
-  color: var(--text-color);
-  font-size: 1.5rem;
+  color: var(--decoration-color);
+  font-size: 1.25rem;
   margin-left: -40px;
 }

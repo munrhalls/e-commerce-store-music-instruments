@@ -1,10 +1,11 @@
 :host {
   --primary-color: #202020;
   --secondary-color: #e80000;
+  --decoration-color: #f5cd8b;
   --text-color: #fafafa;
   --hover-color: goldenrod;
   --transition-duration: 0.4s;
-  --navbar-height: 41px;
+  --navbar-col-height: 52px;
 
   display: flex;
   flex-direction: column;

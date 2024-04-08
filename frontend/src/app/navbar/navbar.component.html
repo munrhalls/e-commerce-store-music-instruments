@@ -1,7 +1,7 @@
 <header>
   <div class="container navbar-container">
     <div class="row navbar-row">
-      <div class="col-md-3 col-3">
+      <div class="col-xs-12 col-md-3 col-3 navbar-col">
         <div class="logo-container">
           <img
             ngSrc="assets/logo.png"
@@ -12,14 +12,13 @@
           />
         </div>
       </div>
-      <div class="col-md-9 col-lg-5 navbar-col">
+      <div class="col-xs-12 col-md-9 col-lg-5 navbar-col">
         <div class="search-container">
           <input type="text" placeholder="Search for products" />
           <i class="bi bi-search"></i>
         </div>
       </div>
       <div class="d-none d-lg-block col-md-4 col-lg-4 navbar-col">
-        <!-- [class.mobile-menu]="menuVal" -->
         <app-nav-menu></app-nav-menu>
       </div>
     </div>

@@ -1,20 +1,17 @@
 :host {
+  height: var(--navbar-col-height);
   background-color: var(--primary-color);
 }
 .desktop-menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100%;
-}
-.desktop-menu .menu-button {
-  color: white;
-  height: 100%;
+  margin-bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .desktop-menu li {
+  font-size: 0.8rem;
   color: var(--text-color);
   list-style-type: none;
   margin: 0 1rem;
@@ -28,6 +25,23 @@
   color: var(--hover-color);
   transition: color var(--transition-duration) ease-in-out;
 }
+.desktop-menu li i {
+  color: var(--decoration-color);
+  font-size: 1rem;
+}
 .desktop-menu li span {
+  color: var(--secondary-color);
+
   white-space: nowrap;
+}
+
+.desktop-menu .menu-button {
+  border: 1px solid var(--decoration-color);
+  border-radius: 3px;
+  padding: 1px;
+  height: 2.5rem;
+  cursor: pointer;
+}
+.desktop-menu .menu-button i {
+  font-size: 2rem;
 }
