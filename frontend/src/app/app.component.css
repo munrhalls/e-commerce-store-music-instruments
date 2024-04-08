@@ -8,8 +8,11 @@
 
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 300vh;
 }
-app-nav-menu {
-  margin-top: auto;
+@media (min-width: 992px) {
+  .fixed-bottom {
+    position: initial !important;
+    display: none !important;
+  }
 }
