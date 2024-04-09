@@ -28,6 +28,7 @@ export class SearchComponent {
 
   handleSearch() {
     this.isOpen = true;
+    console.log(this.searchTerm);
     this.searchSubscription = this.searchService
       .searchProducts(this.searchTerm)
       .subscribe({
@@ -43,6 +44,7 @@ export class SearchComponent {
   }
 
   closeSearch() {
+    this.searchTerm = '';
     this.isOpen = false;
     this.isResults = false;
   }

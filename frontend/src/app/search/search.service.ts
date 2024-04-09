@@ -6,12 +6,14 @@ interface Product {
   name: string;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class SearchService {
   constructor(private http: HttpClient) {}
 
   searchProducts(term: string): Observable<Product> {
     const params = new HttpParams().set('name', term);
-    return this.http.get<Product>('https://api.example.com/data', { params });
+    return this.http.get<Product>('/api/hello');
   }
 }
