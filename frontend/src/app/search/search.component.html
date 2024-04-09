@@ -1,0 +1,26 @@
+<div class="search-container">
+  <input type="text" placeholder="Search for products" />
+  <i class="bi bi-search"></i>
+</div>
+
+@if (state !== 'hidden') {
+  <div class="overlay" (click)="closeSearch()"></div>
+}
+
+@if (state !== 'hidden') {
+  <div class="container">
+    <div class="row">
+      <div
+        class="col-12 col-md-9 search-results position-absolute start-50 translate-middle-x"
+      >
+        @if (state === 'loading') {
+          <div>loader...</div>
+        }
+
+        @if (state === 'results') {
+          <div>results</div>
+        }
+      </div>
+    </div>
+  </div>
+}

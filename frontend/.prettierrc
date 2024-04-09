@@ -1,4 +1,12 @@
 {
   "htmlWhitespaceSensitivity": "strict",
-  "singleQuote": true
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": ["*.html"],
+      "options": {
+        "parser": "angular"
+      }
+    }
+  ]
 }
