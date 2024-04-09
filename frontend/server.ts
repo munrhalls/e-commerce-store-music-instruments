@@ -4,23 +4,25 @@ import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
-import { IncomingMessage, request, ServerResponse } from 'http';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
+  server.use(
+    '/api',
+    createProxyMiddleware({
+      target: 'http://server:8443',
+      changeOrigin: false,
+      pathRewrite: {
+        '^/api': '/api',
+      },
+    }),
+  );
+
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
   const indexHtml = join(serverDistFolder, 'index.server.html');
-
-  server.use('/api', (req: IncomingMessage, res: ServerResponse) => {
-    const { method, url, headers } = req;
-    const apiUrl = 'http://server:8443' + url;
-    const proxyReq = request(apiUrl, { method, headers }, (proxyRes) => {
-      proxyRes.pipe(res);
-    });
-    req.pipe(proxyReq, { end: true });
-  });
 
   const commonEngine = new CommonEngine();
 

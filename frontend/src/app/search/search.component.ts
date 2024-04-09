@@ -2,9 +2,7 @@ import { Component, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchService } from './search.service';
 import { Subscription } from 'rxjs';
-
 import { HttpClient } from '@angular/common/http';
-
 import { Observable } from 'rxjs';
 
 interface Product {
@@ -25,6 +23,7 @@ export class SearchComponent {
   isResults = false;
   searchTerm = '';
   searchSubscription: Subscription | undefined;
+  mock = '';
 
   handleSearch() {
     this.isOpen = true;
@@ -34,6 +33,7 @@ export class SearchComponent {
       .subscribe({
         next: (data) => {
           console.log(data);
+          this.mock = data.message;
           this.isResults = true;
         },
         error: (error) => {

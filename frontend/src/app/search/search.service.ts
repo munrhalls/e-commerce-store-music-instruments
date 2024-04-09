@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-interface Product {
-  name: string;
+interface ServerResponse {
+  message: string;
 }
 
 @Injectable({
@@ -12,8 +12,8 @@ interface Product {
 export class SearchService {
   constructor(private http: HttpClient) {}
 
-  searchProducts(term: string): Observable<Product> {
-    const params = new HttpParams().set('name', term);
-    return this.http.get<Product>('/api/hello');
+  searchProducts(term: string): Observable<ServerResponse> {
+    // const params = new HttpParams().set('name', term);
+    return this.http.get<ServerResponse>('/api/hello');
   }
 }

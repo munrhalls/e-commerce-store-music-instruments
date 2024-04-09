@@ -72,8 +72,9 @@ const configureServer = async function (): Promise<void> {
 
   server.route({
     method: 'GET',
-    url: '/api/hello',
+    url: '/hello',
     handler: async (request, reply) => {
+      console.log('SERVER GETTING DA REQ');
       try {
         const doc = await mongoose.model('Message').findOne({});
         console.log('All Doc:', doc);

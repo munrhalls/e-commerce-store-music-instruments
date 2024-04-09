@@ -13,56 +13,56 @@ services:
     environment:
       - PORT=80
 
-    # volumes:
-    #   - /frontend/frontend/node_modules:/frontend/node_modules
-    #   - ./frontend/frontend:/frontend/src
+    volumes:
+      - /frontend/frontend/node_modules:/frontend/node_modules
+      - ./frontend/frontend:/frontend/src
     networks:
       - app-network
     restart: unless-stopped
 
-  # server:
-  #   build:
-  #     context: ./server
-  #     dockerfile: Dockerfile
-  #     args:
-  #       - IMAGE_TAG
-  #   image: munrhalls/sang-logium-server
-  #   volumes:
-  #     - /server/node_modules:/app/node_modules
-  #     - ./server/src:/app/src
-  #   depends_on:
-  #     - database
-  #   networks:
-  #     - app-network
-  #   restart: unless-stopped
-  #   environment:
-  #     MONGO_URI: "mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@database:27017/${MONGO_INITDB_DATABASE}"
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      args:
+        - IMAGE_TAG
+    image: munrhalls/sang-logium-server
+    volumes:
+      - /server/node_modules:/app/node_modules
+      - ./server/src:/app/src
+    depends_on:
+      - database
+    networks:
+      - app-network
+    restart: unless-stopped
+    environment:
+      MONGO_URI: "mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@database:27017/${MONGO_INITDB_DATABASE}"
 
-  # database:
-  #   restart: always
-  #   build:
-  #     context: ./database
-  #     dockerfile: Dockerfile
-  #     args:
-  #       - IMAGE_TAG
-  #   image: munrhalls/sang-logium-database
-  #   volumes:
-  #     - ./database/data/db:/data/db
-  #   ports:
-  #     - "27017-27017:27017-27017"
-  #   networks:
-  #     - app-network
-  #   healthcheck:
-  #     test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
-  #     interval: 10m
-  #     timeout: 10s
-  #     retries: 3
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-  #     MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-  #     MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+  database:
+    restart: always
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+      args:
+        - IMAGE_TAG
+    image: munrhalls/sang-logium-database
+    volumes:
+      - ./database/data/db:/data/db
+    ports:
+      - "27017-27017:27017-27017"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10m
+      timeout: 10s
+      retries: 3
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
 
 networks:
   app-network:
