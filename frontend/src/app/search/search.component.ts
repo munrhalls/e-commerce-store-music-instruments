@@ -1,32 +1,45 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { SearchService } from './search.service';
+import { Subscription } from 'rxjs';
+
+import { HttpClient } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+
+interface Product {
+  name: string;
+}
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
 })
+@Injectable()
 export class SearchComponent {
+  constructor(private searchService: SearchService) {}
   isOpen = false;
   isResults = false;
+  searchTerm = '';
+  searchSubscription: Subscription | undefined;
 
   handleSearch() {
     this.isOpen = true;
-    this.http.get('https://api.example.com/data').subscribe(
-      (data) => {
-        // Handle the response data
-        console.log(data);
-        this.isResults = true;
-      },
-      (error) => {
-        // Handle errors
-        console.error(error);
-        this.isResults = true;
-      },
-    );
+    this.searchSubscription = this.searchService
+      .searchProducts(this.searchTerm)
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.isResults = true;
+        },
+        error: (error) => {
+          console.error(error);
+          this.isResults = true;
+        },
+      });
   }
 
   closeSearch() {
