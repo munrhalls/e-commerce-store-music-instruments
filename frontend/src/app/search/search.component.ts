@@ -9,13 +9,15 @@ import { CommonModule } from '@angular/common';
   styleUrl: './search.component.css',
 })
 export class SearchComponent {
-  state: 'hidden' | 'loading' | 'results' = 'hidden';
+  isOpen = false;
+  isResults = false;
 
   handleSearch() {
-    this.state = 'loading';
+    this.isOpen = true;
   }
 
   closeSearch() {
-    this.state = 'hidden';
+    this.isOpen = false;
+    this.isResults = false;
   }
 }
