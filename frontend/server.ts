@@ -4,21 +4,30 @@ import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import http from 'http';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  server.use(
-    '/api',
-    createProxyMiddleware({
-      target: 'http://server:8443',
-      changeOrigin: false,
-      pathRewrite: {
-        '^/api': '/api',
-      },
-    }),
-  );
+
+  server.use('/api', (req, res) => {
+    const options = {
+      hostname: 'server',
+      port: 8443,
+      path: req.url,
+      method: req.method,
+      headers: req.headers,
+    };
+
+    const proxy = http.request(options, (targetRes) => {
+      if (targetRes.statusCode) {
+        res.writeHead(targetRes.statusCode, targetRes.headers);
+      }
+      targetRes.pipe(res, { end: true });
+    });
+
+    req.pipe(proxy, { end: true });
+  });
 
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');

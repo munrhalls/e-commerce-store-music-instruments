@@ -12,7 +12,6 @@ import mongoose from 'mongoose';
 
 dotenv.config();
 const isDevelopment = process.env.NODE_ENV === 'development';
-console.log('Is development node env: ', isDevelopment);
 
 export const createServer = async function (): Promise<FastifyInstance> {
   const server = await fastify({ logger: true });
@@ -46,7 +45,6 @@ const configureServer = async function (): Promise<void> {
   const port = 8443;
 
   const uri = process.env.MONGO_URI;
-  console.log(uri);
   if (uri === undefined) throw new Error('MONGO_URI is not defined');
 
   mongoose
@@ -82,11 +80,16 @@ const configureServer = async function (): Promise<void> {
         return { message: doc.message };
       } catch (error) {
         console.error(error);
-        // Ideally, return a more structured error response for the client
         return await reply.code(500).send({ message: 'Internal server error' });
       }
     }
   });
+
+  // server.post('/graphql', async function (req, reply) {
+  //   const query = req.body.query; // Assuming the GraphQL query is in the request body
+  //   const result = await server.graphql(query);
+  //   return result;
+  // });
 
   server.listen({ port, host: '0.0.0.0' }, err => {
     if (err !== null) {
