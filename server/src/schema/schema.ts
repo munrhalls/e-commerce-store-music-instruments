@@ -2,7 +2,17 @@ import { loadSchemaSync } from '@graphql-tools/load';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import path from 'path';
 
-const rndProds = [
+interface Product {
+  name: string;
+  price: number;
+  // other properties...
+}
+
+interface Args {
+  $searchTerm: string;
+}
+
+const rndProds: Product[] = [
   { name: 'some fucking product 1', price: 49 },
   { name: 'some fucking product 2', price: 59 },
   { name: 'some fucking product 3', price: 69 }
@@ -10,8 +20,11 @@ const rndProds = [
 
 const resolvers = {
   Query: {
-    products: () => {
-      return rndProds;
+    products: (_: any, args: Args) => {
+      const { $searchTerm } = args;
+      return rndProds.filter(product =>
+        product.name.split(' ').includes($searchTerm)
+      );
     }
   }
 };

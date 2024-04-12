@@ -9,6 +9,8 @@ import dotenv from 'dotenv';
 import { schema, resolvers } from './schema/schema';
 import fastifyCors, { type FastifyCorsOptions } from '@fastify/cors';
 import mongoose from 'mongoose';
+import { codegenMercurius, gql } from 'mercurius-codegen'
+
 
 dotenv.config();
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -32,10 +34,16 @@ export const createServer = async function (): Promise<FastifyInstance> {
       };
 
   await server.register(fastifyCors as FastifyPluginAsync, corsOptions);
+
   await server.register(mercurius, {
     schema: printSchema(schema),
     resolvers
   });
+
+
+  codegenMercurius(server, {
+    targetPath: './src/graphql/generated.ts',
+  }).catch(console.error)
 
   return server;
 };
@@ -84,12 +92,6 @@ const configureServer = async function (): Promise<void> {
       }
     }
   });
-
-  // server.post('/graphql', async function (req, reply) {
-  //   const query = req.body.query; // Assuming the GraphQL query is in the request body
-  //   const result = await server.graphql(query);
-  //   return result;
-  // });
 
   server.listen({ port, host: '0.0.0.0' }, err => {
     if (err !== null) {

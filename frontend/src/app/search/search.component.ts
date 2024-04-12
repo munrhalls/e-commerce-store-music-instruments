@@ -1,12 +1,11 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchService } from './search.service';
 import { Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 interface Product {
   name: string;
+  price: string;
 }
 
 @Component({
@@ -17,23 +16,26 @@ interface Product {
   styleUrl: './search.component.css',
 })
 @Injectable()
-export class SearchComponent {
+export class SearchComponent implements OnDestroy {
   constructor(private searchService: SearchService) {}
   isOpen = false;
   isResults = false;
   searchTerm = '';
   searchSubscription: Subscription | undefined;
-  mock = '';
+  products: Product[] = [];
+
+  ngOnDestroy() {
+    this.searchSubscription?.unsubscribe();
+  }
 
   handleSearch() {
     this.isOpen = true;
-    console.log(this.searchTerm);
+
     this.searchSubscription = this.searchService
       .searchProducts(this.searchTerm)
       .subscribe({
-        next: (data) => {
-          console.log(data);
-          this.mock = data.message;
+        next: (response: any) => {
+          this.products = response.data.products;
           this.isResults = true;
         },
         error: (error) => {

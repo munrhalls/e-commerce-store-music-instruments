@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-interface ServerResponse {
-  message: string;
+interface GQLSearchReq<TVariables> {
+  query: string;
+  variables: TVariables;
+}
+interface SearchVariables {
+  searchTerm: string;
 }
 
 @Injectable({
@@ -12,8 +15,24 @@ interface ServerResponse {
 export class SearchService {
   constructor(private http: HttpClient) {}
 
-  searchProducts(term: string): Observable<ServerResponse> {
-    // const params = new HttpParams().set('name', term);
-    return this.http.get<ServerResponse>('/api/hello');
+  searchProducts(
+    searchTerm: string,
+  ): Observable<GQLSearchReq<SearchVariables>> {
+    const requestBody = {
+      query: `query($searchTerm: String!) {
+        products(name: $searchTerm) {
+            name
+            price
+          }
+        }
+      }`,
+      variables: {
+        searchTerm,
+      },
+    };
+    return this.http.post<GQLSearchReq<SearchVariables>>(
+      '/api/graphql',
+      requestBody,
+    );
   }
 }
