@@ -4,12 +4,11 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm i
-RUN npm install -g @angular/cli @graphql-codegen/cli @graphql-codegen/typescript @graphql-codegen/typescript-operations
+RUN npm install -g @angular/cli
 
 COPY . .
 RUN ng build
-RUN npx graphql-codegen --config GQL_types.yml
 
 EXPOSE 80
 
-CMD sh -c 'npx graphql-codegen --config GQL_types.yml && node dist/frontend/server/server.mjs'
+CMD ["node", "dist/frontend/server/server.mjs"]
