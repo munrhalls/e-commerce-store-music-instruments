@@ -9,8 +9,7 @@ import dotenv from 'dotenv';
 import { schema, resolvers } from './schema/schema';
 import fastifyCors, { type FastifyCorsOptions } from '@fastify/cors';
 import mongoose from 'mongoose';
-import { codegenMercurius, gql } from 'mercurius-codegen'
-
+import { codegenMercurius } from 'mercurius-codegen';
 
 dotenv.config();
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -40,10 +39,12 @@ export const createServer = async function (): Promise<FastifyInstance> {
     resolvers
   });
 
-
   codegenMercurius(server, {
-    targetPath: './src/graphql/generated.ts',
-  }).catch(console.error)
+    targetPath: './src/graphql/generated.ts'
+  }).catch(error => {
+    console.error(error);
+    process.exit(1);
+  });
 
   return server;
 };

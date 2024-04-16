@@ -5,6 +5,25 @@ TODO AFTER DEV:
 - prune all docker volumes on prod droplet pc -> then leave only db volume
 - optimize https/cloudflare -> flexible mode -> full
 
+DEVELOPMENT CYCLE:
+
+A) DEVELOP SOME CODE LOCALLY OUTSIDE CONTAINERS
+
+- first, run the graphql server OUTSIDE of container
+- then run the frontend angular ui OUTSIDE of container
+- 1st frontend command line: "watch": "ng build --watch --configuration development"
+- 2nd frontend command line: "serve:ssr:frontend": "node dist/frontend/server/server.mjs
+- use mercurius-codegen script to get the GQL types and use type safety checks at runtime when developing frontend ui
+
+B) USE LOCAL DOCKER COMPOSE (local.yaml), TEST CHANGES IN CONTAINERS NETWORK
+
+- any type errors will stop the build
+- but you have no type checks at runtime inside containers because the code is already built & transpiled inside containers.
+
+C) USE DEPLOY SCRIPT THAT PUSHES IMAGES TO DOCKERHUB, PULLS AT PRODUCTION PC, RUN PRODUCTION COMPOSE AT PRODUCTION PC
+
+then run local docker compose, see if what you developed works in containers
+
 CI/CD: Semantinc versioning x.y.z
 Major for incompatible API changes,
 Minor for adding functionality in a backwards-compatible manner, and

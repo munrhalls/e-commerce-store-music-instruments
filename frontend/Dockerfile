@@ -9,6 +9,7 @@ RUN npm install -g @angular/cli
 COPY . .
 RUN ng build
 
+
 EXPOSE 80
 
 CMD ["node", "dist/frontend/server/server.mjs"]

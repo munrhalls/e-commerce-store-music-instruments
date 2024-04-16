@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Query } from './graphql/generated';
 interface GQLSearchReq<TVariables> {
-  query: string;
+  query: Query;
   variables: TVariables;
 }
 interface SearchVariables {
