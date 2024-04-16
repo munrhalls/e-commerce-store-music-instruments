@@ -1,33 +1,27 @@
 Live: https://sang-logium.com
 TODO AFTER DEV:
 
+- npm ci --only=production, prod dockerfiles
 - Frontend dockerfile: npm i -> npm ci
 - prune all docker volumes on prod droplet pc -> then leave only db volume
 - optimize https/cloudflare -> flexible mode -> full
 
-DEVELOPMENT CYCLE:
+UNDERSTAND OF HOW TO DEVELOP THIS APP:
 
-A) DEVELOP SOME CODE LOCALLY OUTSIDE CONTAINERS
+A) DEVELOP LOCALLY _OUTSIDE_ CONTAINERS
 
-- first, run the graphql server OUTSIDE of container
-- then run the frontend angular ui OUTSIDE of container
-- 1st frontend command line: "watch": "ng build --watch --configuration development"
-- 2nd frontend command line: "serve:ssr:frontend": "node dist/frontend/server/server.mjs
-- use mercurius-codegen script to get the GQL types and use type safety checks at runtime when developing frontend ui
+- first, run the graphql server - generating gql types via mercurious-codegen on frontend needs running gql server
+- then run the frontend angular ui npm scripts (watch & serve:ssr:frontend)
 
 B) USE LOCAL DOCKER COMPOSE (local.yaml), TEST CHANGES IN CONTAINERS NETWORK
 
-- any type errors will stop the build
-- but you have no type checks at runtime inside containers because the code is already built & transpiled inside containers.
+- any type errors (including GQL types) will stop the build
+- but you have no type checks at runtime inside containers (code's transpiled after built)
 
-C) USE DEPLOY SCRIPT THAT PUSHES IMAGES TO DOCKERHUB, PULLS AT PRODUCTION PC, RUN PRODUCTION COMPOSE AT PRODUCTION PC
+C) USE DEPLOY SCRIPT
 
-then run local docker compose, see if what you developed works in containers
-
-CI/CD: Semantinc versioning x.y.z
-Major for incompatible API changes,
-Minor for adding functionality in a backwards-compatible manner, and
-Patch for backwards-compatible bug fixes.
+- handles logins, permissions
+- pushes to dockerhub, pulls at droplet pc, runs prod compose
 
 Large-scale, fullstack fictional e-commerce store application for my portfolio.
 
