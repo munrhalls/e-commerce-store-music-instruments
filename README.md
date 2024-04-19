@@ -1,4 +1,25 @@
 Live: https://sang-logium.com
+TODO
+SERVER
+/config
+/utils
+/@types
+/schemas
+/fragments
+/operations
+/resolvers
+/data-sources
+
+FRONT UI
+/environment
+/assets
+/generated.ts (graphql types based on gql server from codegen.yml)
+/graphql
+/models (any TS types that aren't generated via gql codegen tool)
+/services (they handle all CRUD stuff, funneling data-server powering to ui)
+/components
+/pages
+
 TODO AFTER DEV:
 
 - npm ci --only=production, prod dockerfiles
