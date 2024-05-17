@@ -1,10 +1,10 @@
 version: "3.8"
 
 services:
-  frontend:
-    image: munrhalls/sang-logium-frontend
+  admin:
+    image: munrhalls/sang-logium-admin
     build:
-      context: ./frontend
+      context: ./admin
       dockerfile: Dockerfile
       args:
         - IMAGE_TAG
@@ -14,8 +14,29 @@ services:
       - NODE_ENV=development
       - PORT=80
     volumes:
-      - ./frontend/frontend/node_modules:/frontend/node_modules
-      - ./frontend/frontend:/frontend/src
+      - ./admin/admin/node_modules:/admin/node_modules
+      - ./admin/admin:/admin/src
+    depends_on:
+      - server
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  frontend:
+    image: munrhalls/sang-logium-storefront
+    build:
+      context: ./storefront
+      dockerfile: Dockerfile
+      args:
+        - IMAGE_TAG
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=development
+      - PORT=80
+    volumes:
+      - ./storefront/storefront/node_modules:/storefront/node_modules
+      - ./storefront/storefront:/storefront/src
     depends_on:
       - server
     networks:
