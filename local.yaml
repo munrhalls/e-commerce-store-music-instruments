@@ -22,26 +22,26 @@ services:
       - app-network
     restart: unless-stopped
 
-  frontend:
-    image: munrhalls/sang-logium-storefront
-    build:
-      context: ./storefront
-      dockerfile: Dockerfile
-      args:
-        - IMAGE_TAG
-    ports:
-      - "80:80"
-    environment:
-      - NODE_ENV=development
-      - PORT=80
-    volumes:
-      - ./storefront/storefront/node_modules:/storefront/node_modules
-      - ./storefront/storefront:/storefront/src
-    depends_on:
-      - server
-    networks:
-      - app-network
-    restart: unless-stopped
+  # frontend:
+  #   image: munrhalls/sang-logium-storefront
+  #   build:
+  #     context: ./storefront
+  #     dockerfile: Dockerfile
+  #     args:
+  #       - IMAGE_TAG
+  #   ports:
+  #     - "80:80"
+  #   environment:
+  #     - NODE_ENV=development
+  #     - PORT=80
+  #   volumes:
+  #     - ./storefront/storefront/node_modules:/storefront/node_modules
+  #     - ./storefront/storefront:/storefront/src
+  #   depends_on:
+  #     - server
+  #   networks:
+  #     - app-network
+  #   restart: unless-stopped
 
   server:
     build:
