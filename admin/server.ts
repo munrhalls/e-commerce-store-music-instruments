@@ -4,31 +4,10 @@ import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
-import http from 'http';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-
-  server.use('/api', (req, res) => {
-    const options = {
-      hostname: 'server',
-      port: 8443,
-      path: req.url,
-      method: req.method,
-      headers: req.headers,
-    };
-
-    const proxy = http.request(options, (targetRes) => {
-      if (targetRes.statusCode) {
-        res.writeHead(targetRes.statusCode, targetRes.headers);
-      }
-      targetRes.pipe(res, { end: true });
-    });
-
-    req.pipe(proxy, { end: true });
-  });
-
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
   const indexHtml = join(serverDistFolder, 'index.server.html');
@@ -41,12 +20,9 @@ export function app(): express.Express {
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
-  server.get(
-    '*.*',
-    express.static(browserDistFolder, {
-      maxAge: '1y',
-    }),
-  );
+  server.get('*.*', express.static(browserDistFolder, {
+    maxAge: '1y'
+  }));
 
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
