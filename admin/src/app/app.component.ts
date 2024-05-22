@@ -1,23 +1,23 @@
-import { Component, OnInit, AfterViewInit, inject } from '@angular/core';
-import { PreloaderService, SettingsService } from '@core';
-import { RouterOutlet } from '@angular/router';
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+import { Component, OnInit } from '@angular/core';
+import { AnalyticsService } from './@core/utils/analytics.service';
+import { SeoService } from './@core/utils/seo.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'ngx-app',
   template: '<router-outlet></router-outlet>',
-  standalone: true,
-  imports: [RouterOutlet],
 })
-export class AppComponent implements OnInit, AfterViewInit {
-  private readonly preloader = inject(PreloaderService);
-  private readonly settings = inject(SettingsService);
+export class AppComponent implements OnInit {
 
-  ngOnInit() {
-    this.settings.setDirection();
-    this.settings.setTheme();
+  constructor(private analytics: AnalyticsService, private seoService: SeoService) {
   }
 
-  ngAfterViewInit() {
-    this.preloader.hide();
+  ngOnInit(): void {
+    this.analytics.trackPageViews();
+    this.seoService.trackCanonicalChanges();
   }
 }
