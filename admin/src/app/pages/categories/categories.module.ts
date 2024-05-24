@@ -6,6 +6,9 @@ import {
   NbSidebarModule,
   NbLayoutModule,
   NbCardModule,
+  NbActionsModule,
+  NbListModule,
+  NbIconModule,
   NbButtonModule,
 } from "@nebular/theme";
 
@@ -16,6 +19,9 @@ import {
     RouterModule,
     NbLayoutModule,
     NbCardModule,
+    NbActionsModule,
+    NbListModule,
+    NbIconModule,
     NbSidebarModule,
     NbButtonModule,
   ],
