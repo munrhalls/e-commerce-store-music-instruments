@@ -1,12 +1,15 @@
-<nb-layout>
-  <nb-layout-column>
+<div class="row">
+  <div class="col-12">
     <nb-card>
       <nb-card-header> <h1>Manage categories</h1> </nb-card-header>
       <nb-card-body>
-        <nb-card>
-          <nb-card-body>
+        <div class="row show-grid">
+          <div class="col-12">
             <button nbButton status="success" size="giant">Add category</button>
-
+          </div>
+        </div>
+        <div class="row show-grid">
+          <div class="col-12">
             <nb-list>
               <nb-list-item *ngFor="let category of categories">
                 {{ category.name }}
@@ -27,10 +30,11 @@
                     (categoryMoved)="moveCategory($event)"
                   ></app-category-item>
                 </nb-list>
-              </nb-list-item> </nb-list
-          ></nb-card-body>
-        </nb-card>
+              </nb-list-item>
+            </nb-list>
+          </div>
+        </div>
       </nb-card-body>
     </nb-card>
-  </nb-layout-column>
-</nb-layout>
+  </div>
+</div>

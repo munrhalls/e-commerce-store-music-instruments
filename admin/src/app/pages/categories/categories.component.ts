@@ -15,6 +15,7 @@ export class CategoriesComponent {
   categories: Category[] = [
     { id: 1, name: "Electronics", children: [{ id: 11, name: "Laptops" }] },
     { id: 2, name: "Clothing" },
+    { id: 3, name: "Accessories" },
   ];
 
   addCategory() {
