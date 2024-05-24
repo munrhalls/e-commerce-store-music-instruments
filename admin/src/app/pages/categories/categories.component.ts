@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { NbIconLibraries } from "@nebular/theme";
 
 interface Category {
   id: number;
@@ -8,15 +9,20 @@ interface Category {
 
 @Component({
   selector: "ngx-categories",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: "./categories.component.html",
   styleUrls: ["./categories.component.scss"],
 })
 export class CategoriesComponent {
+  evaIcons = [];
+
   categories: Category[] = [
     { id: 1, name: "Electronics", children: [{ id: 11, name: "Laptops" }] },
     { id: 2, name: "Clothing" },
     { id: 3, name: "Accessories" },
   ];
+
+  constructor() {}
 
   addCategory() {
     console.log("adding category");
@@ -35,6 +41,4 @@ export class CategoriesComponent {
   deleteCategory() {
     console.log("del categ");
   }
-
-  constructor() {}
 }
