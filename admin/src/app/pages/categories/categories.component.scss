@@ -1,6 +1,14 @@
 @import "../../@theme/styles/themes";
 
 @include nb-install-component() {
+  nb-action[cdkDrag] {
+    cursor: move; /* Change the cursor to the "move" icon */
+
+    &:hover {
+      background-color: #f0f0f0; /* Highlight on hover */
+    }
+  }
+
   .show-grid {
     .row {
       margin: -0.5rem;

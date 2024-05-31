@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { Component } from "@angular/core";
 import { NbIconLibraries } from "@nebular/theme";
+import { CdkDragDrop } from "@angular/cdk/drag-drop";
 
 interface Category {
   id: number;
@@ -9,7 +10,6 @@ interface Category {
 
 @Component({
   selector: "ngx-categories",
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: "./categories.component.html",
   styleUrls: ["./categories.component.scss"],
 })
@@ -30,8 +30,18 @@ export class CategoriesComponent {
     this.categories.push(newCategory);
   }
 
-  moveCategory() {
-    console.log("move/nest categ");
+  dragStarted(category) {
+    // Add visual indicator to the category (e.g., change background)
+  }
+  dragEnded(category) {
+    // Remove visual indicator
+  }
+
+  drop(event: CdkDragDrop<any>) {
+    event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex;
   }
 
   editCategory() {

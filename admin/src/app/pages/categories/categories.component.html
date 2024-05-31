@@ -6,7 +6,7 @@
         <div class="row show-grid">
           <div class="col-12">
             <button nbButton status="success" size="giant">
-              <nb-icon icon="plus-circle"></nb-icon> Add category
+              <nb-icon icon="plus-circle" pack="eva"></nb-icon> Add category
             </button>
           </div>
         </div>
@@ -14,8 +14,22 @@
           <div class="col-12">
             <nb-list>
               <nb-list-item *ngFor="let category of categories">
-                {{ category.name }}
-                <nb-actions size="small" class="list-actions">
+                <div class="category-title">
+                  {{ category.name }}
+                </div>
+                <nb-actions size="small" class="category-actions">
+                  <nb-action
+                    icon="copy"
+                    pack="eva"
+                    cdkDrag
+                    (cdkDragStarted)="dragStarted(category)"
+                    (cdkDragEnded)="dragEnded(category)"
+                    [cdkDragData]="category"
+                  ></nb-action>
+                  <nb-action
+                    icon="plus-outline"
+                    (click)="addCategory(category)"
+                  ></nb-action>
                   <nb-action
                     icon="edit-2-outline"
                     (click)="editCategory(category)"

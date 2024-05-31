@@ -1,6 +1,6 @@
-@import 'bootstrap/scss/mixins/breakpoints';
-@import '@nebular/theme/styles/global/breakpoints';
-@import '../../styles/themes';
+@import "bootstrap/scss/mixins/breakpoints";
+@import "@nebular/theme/styles/global/breakpoints";
+@import "../../styles/themes";
 
 @include nb-install-component() {
   display: flex;
@@ -24,7 +24,7 @@
   }
 
   ::ng-deep nb-search button {
-    padding: 0!important;
+    padding: 0 !important;
   }
 
   .header-container {
@@ -44,27 +44,33 @@
 
     .logo {
       padding: 0 1.25rem;
-      font-size: 1.75rem;
+      font-size: 1.25rem;
       @include nb-ltr(border-left, 1px solid nb-theme(divider-color));
       @include nb-rtl(border-right, 1px solid nb-theme(divider-color));
       white-space: nowrap;
       text-decoration: none;
+      height: 1.25rem;
+      width: auto;
+
+      img {
+        height: 1.5rem;
+      }
     }
   }
+}
 
-  @include media-breakpoint-down(sm) {
-    .control-item {
-      display: none;
-    }
-    .user-action {
-      border: none;
-      padding: 0;
-    }
+@include media-breakpoint-down(sm) {
+  .control-item {
+    display: none;
   }
+  .user-action {
+    border: none;
+    padding: 0;
+  }
+}
 
-  @include media-breakpoint-down(is) {
-    nb-select {
-      display: none;
-    }
+@include media-breakpoint-down(is) {
+  nb-select {
+    display: none;
   }
 }
