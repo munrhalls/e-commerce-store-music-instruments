@@ -31,7 +31,7 @@ $nb-themes: nb-register-theme(
     background-basic-color-1: color-basic-100,
     background-basic-color-2: color-basic-200,
     background-basic-color-3: color-basic-300,
-    background-basic-color-4: color-basic-1100,
+    background-basic-color-4: color-basic-900,
     border-basic-color-1: color-basic-100,
     border-basic-color-2: color-basic-200,
     border-basic-color-3: color-basic-300,
@@ -44,8 +44,8 @@ $nb-themes: nb-register-theme(
     font-family-primary: $font-stack,
     font-family-secondary: $font-stack,
 
-    header-background-color: color-basic-1100,
-
+    header-background-color: background-basic-color-4,
+    sidebar-background-color: color-basic-500,
     menu-item-icon-margin: 0 0.5rem 0 0,
 
     layout-padding-top: 2.25rem,
