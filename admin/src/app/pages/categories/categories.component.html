@@ -19,16 +19,17 @@
                 </div>
                 <nb-actions size="small" class="category-actions">
                   <nb-action
+                    icon="plus-outline"
+                    (click)="addCategory(category)"
+                  ></nb-action>
+                  <nb-action icon="layers-outline" pack="eva"></nb-action
+                  ><nb-action
                     icon="copy"
                     pack="eva"
                     cdkDrag
                     (cdkDragStarted)="dragStarted(category)"
                     (cdkDragEnded)="dragEnded(category)"
                     [cdkDragData]="category"
-                  ></nb-action>
-                  <nb-action
-                    icon="plus-outline"
-                    (click)="addCategory(category)"
                   ></nb-action>
                   <nb-action
                     icon="edit-2-outline"

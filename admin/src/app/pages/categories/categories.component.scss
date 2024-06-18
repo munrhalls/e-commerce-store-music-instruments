@@ -21,7 +21,7 @@
       div {
         text-align: left;
         // background-color: nb-theme(background-basic-color-2);
-        padding: 0.75rem 0.25rem;
+        // padding: 0.75rem 0.25rem;
         border-radius: 0.25rem;
       }
     }
@@ -37,5 +37,11 @@
 
   .table-responsive {
     margin-top: 1rem;
+  }
+
+  .category-title {
+    width: 12rem;
+    padding: nb-theme(list-item-padding) nb-theme(list-item-padding);
+    border: 1px solid nb-theme(border-basic-color-5);
   }
 }

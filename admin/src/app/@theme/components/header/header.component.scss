@@ -13,6 +13,11 @@
     width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
   }
 
+  nb-select {
+    // replace with theme variable !!!!
+    margin-left: 2.5rem;
+  }
+
   nb-action {
     height: auto;
     display: flex;
@@ -49,11 +54,11 @@
       @include nb-rtl(border-right, 1px solid nb-theme(divider-color));
       white-space: nowrap;
       text-decoration: none;
-      height: 1.25rem;
+      // height: 1.75rem;
       width: auto;
 
       img {
-        height: 1.5rem;
+        height: 3rem;
       }
     }
   }
