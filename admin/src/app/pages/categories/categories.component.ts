@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { NbIconLibraries } from "@nebular/theme";
 import { CdkDragDrop } from "@angular/cdk/drag-drop";
 
-interface Category {
+export interface Category {
   id: number;
   name: string;
   children?: Category[];
@@ -14,41 +14,75 @@ interface Category {
   styleUrls: ["./categories.component.scss"],
 })
 export class CategoriesComponent {
-  evaIcons = [];
-
   categories: Category[] = [
-    { id: 1, name: "Electronics", children: [{ id: 11, name: "Laptops" }] },
-    { id: 2, name: "Clothing" },
-    { id: 3, name: "Accessories" },
+    {
+      id: 1,
+      name: "Category 1",
+      children: [
+        {
+          id: 2,
+          name: "Category 1.1",
+          children: [
+            { id: 6, name: "Category 1.1.1" },
+            { id: 7, name: "Category 1.1.2" },
+            { id: 8, name: "Category 1.1.3" },
+            { id: 9, name: "Category 1.1.4" },
+            { id: 10, name: "Category 1.1.5" },
+          ],
+        },
+        {
+          id: 3,
+          name: "Category 1.2",
+          children: [
+            { id: 11, name: "Category 1.2.1" },
+            { id: 12, name: "Category 1.2.2" },
+            { id: 13, name: "Category 1.2.3" },
+            { id: 14, name: "Category 1.2.4" },
+            { id: 15, name: "Category 1.2.5" },
+          ],
+        },
+        {
+          id: 3,
+          name: "Category 1.3",
+          children: [
+            {
+              id: 11,
+              name: "Category 1.3.1",
+              children: [
+                { id: 16, name: "Category 1.3.1.1" },
+                { id: 17, name: "Category 1.3.1.2" },
+                { id: 18, name: "Category 1.3.1.3" },
+                { id: 19, name: "Category 1.3.1.4" },
+                { id: 20, name: "Category 1.3.1.5" },
+              ],
+            },
+            {
+              id: 21,
+              name: "Category 1.3.2",
+              children: [
+                { id: 22, name: "Category 1.3.1.1" },
+                { id: 23, name: "Category 1.3.1.2" },
+                { id: 24, name: "Category 1.3.1.3" },
+                { id: 25, name: "Category 1.3.1.4" },
+                { id: 26, name: "Category 1.3.1.5" },
+              ],
+            },
+            { id: 27, name: "Category 1.3.3" },
+            { id: 28, name: "Category 1.3.4" },
+            { id: 29, name: "Category 1.3.5" },
+            { id: 30, name: "Category 1.3.6" },
+          ],
+        },
+      ],
+    },
+    {
+      id: 31,
+      name: "Category 2",
+    },
+    {
+      id: 32,
+      name: "Category 3",
+    },
   ];
-
   constructor() {}
-
-  addCategory() {
-    console.log("adding category");
-    const newCategory: Category = { id: 3, name: "Books" };
-    this.categories.push(newCategory);
-  }
-
-  dragStarted(category) {
-    // Add visual indicator to the category (e.g., change background)
-  }
-  dragEnded(category) {
-    // Remove visual indicator
-  }
-
-  drop(event: CdkDragDrop<any>) {
-    event.previousContainer.data,
-      event.container.data,
-      event.previousIndex,
-      event.currentIndex;
-  }
-
-  editCategory() {
-    console.log("edit categ");
-  }
-
-  deleteCategory() {
-    console.log("del categ");
-  }
 }

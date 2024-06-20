@@ -1,54 +1,22 @@
 <div class="row">
   <div class="col-12">
     <nb-card>
-      <nb-card-header> <h1>Manage categories</h1> </nb-card-header>
+      <nb-card-header>Manage categories</nb-card-header>
       <nb-card-body>
         <div class="row show-grid">
           <div class="col-12">
-            <button nbButton status="success" size="giant">
-              <nb-icon icon="plus-circle" pack="eva"></nb-icon> Add category
-            </button>
+            <nb-list>
+              <nb-list-item>
+                <button nbButton size="small">
+                  <nb-icon icon="plus-circle" pack="eva"></nb-icon> Add category
+                </button>
+              </nb-list-item>
+            </nb-list>
           </div>
         </div>
         <div class="row show-grid">
           <div class="col-12">
-            <nb-list>
-              <nb-list-item *ngFor="let category of categories">
-                <div class="category-title">
-                  {{ category.name }}
-                </div>
-                <nb-actions size="small" class="category-actions">
-                  <nb-action
-                    icon="plus-outline"
-                    (click)="addCategory(category)"
-                  ></nb-action>
-                  <nb-action icon="layers-outline" pack="eva"></nb-action
-                  ><nb-action
-                    icon="copy"
-                    pack="eva"
-                    cdkDrag
-                    (cdkDragStarted)="dragStarted(category)"
-                    (cdkDragEnded)="dragEnded(category)"
-                    [cdkDragData]="category"
-                  ></nb-action>
-                  <nb-action
-                    icon="edit-2-outline"
-                    (click)="editCategory(category)"
-                  ></nb-action>
-                  <nb-action
-                    icon="trash-2-outline"
-                    (click)="deleteCategory(category)"
-                  ></nb-action>
-                </nb-actions>
-
-                <nb-list *ngIf="category.children" class="nested-list">
-                  <app-category-item
-                    [categories]="category.children"
-                    (categoryMoved)="moveCategory($event)"
-                  ></app-category-item>
-                </nb-list>
-              </nb-list-item>
-            </nb-list>
+            <ngx-category-list [children]="categories"></ngx-category-list>
           </div>
         </div>
       </nb-card-body>

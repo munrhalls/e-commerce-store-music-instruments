@@ -11,9 +11,12 @@ import {
   NbIconModule,
   NbButtonModule,
 } from "@nebular/theme";
+import { CategoryItemComponent } from "./category-item/category-item.component";
+import { CategoryListComponent } from './category-list/category-list.component';
+import { CategoryInterfaceComponent } from './category-interface/category-interface.component';
 
 @NgModule({
-  declarations: [CategoriesComponent],
+  declarations: [CategoriesComponent, CategoryItemComponent, CategoryListComponent, CategoryInterfaceComponent],
   imports: [
     CommonModule,
     RouterModule,
