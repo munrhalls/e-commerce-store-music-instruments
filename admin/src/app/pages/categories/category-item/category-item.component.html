@@ -1,3 +1,12 @@
-<h1>{{ category.name }}</h1>
-<!-- <ngx-category-interface></ngx-category-interface> -->
+<div class="container">
+  <span>{{ category.name }}</span>
+  <nb-action icon="menu-outline"></nb-action>
+  <nb-action icon="chevron-right-outline"></nb-action>
+  <ngx-category-interface
+    [ngClass]="{
+      'interface-on': isShowInterface,
+      'interface-off': !isShowInterface
+    }"
+  ></ngx-category-interface>
+</div>
 <ngx-category-list [children]="category.children"></ngx-category-list>

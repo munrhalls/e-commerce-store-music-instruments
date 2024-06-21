@@ -9,4 +9,5 @@ import { Category } from "../categories.component";
 })
 export class CategoryItemComponent {
   @Input() category: Category = {} as Category;
+  isShowInterface = false;
 }

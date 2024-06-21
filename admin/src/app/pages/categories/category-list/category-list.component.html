@@ -1,5 +1,5 @@
-<ul *ngIf="children?.length > 0">
-  <li *ngFor="let child of children">
+<nb-list *ngIf="children?.length > 0">
+  <nb-list-item *ngFor="let child of children">
     <ngx-category-item [category]="child"></ngx-category-item>
-  </li>
-</ul>
+  </nb-list-item>
+</nb-list>

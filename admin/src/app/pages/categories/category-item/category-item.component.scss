@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+.interface-on {
+  display: initial;
+}
+.interface-off {
+  display: none;
+}
