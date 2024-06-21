@@ -8,6 +8,7 @@ import { ECommerceModule } from "./e-commerce/e-commerce.module";
 import { CategoriesModule } from "./categories/categories.module";
 import { PagesRoutingModule } from "./pages-routing.module";
 import { MiscellaneousModule } from "./miscellaneous/miscellaneous.module";
+import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { MiscellaneousModule } from "./miscellaneous/miscellaneous.module";
     CategoriesModule,
     MiscellaneousModule,
   ],
-  declarations: [PagesComponent],
+  declarations: [PagesComponent, CategoriesComponent],
 })
 export class PagesModule {}

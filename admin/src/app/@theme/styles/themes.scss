@@ -80,7 +80,7 @@ $nb-themes: nb-register-theme(
     text-control-color: color-basic-100,
     text-disabled-color: color-basic-500,
     text-hint-color: color-basic-700,
-
+    text-label-font-weight: 500,
     font-family-primary: $font-stack,
     font-family-secondary: $font-stack,
 
@@ -155,8 +155,7 @@ $nb-themes: nb-register-theme(
 
     actions-divider-style: transparent,
     actions-divider-width: 0,
-    actions-small-padding: 0.5rem,
-
+    actions-small-padding: 0,
     select-min-width: 6rem,
 
     slide-out-background: #f7f9fc,
