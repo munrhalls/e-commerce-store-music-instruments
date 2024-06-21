@@ -6,22 +6,29 @@ import {
   NbSidebarModule,
   NbLayoutModule,
   NbCardModule,
+  NbAccordionModule,
   NbActionsModule,
   NbListModule,
   NbIconModule,
   NbButtonModule,
 } from "@nebular/theme";
 import { CategoryItemComponent } from "./category-item/category-item.component";
-import { CategoryListComponent } from './category-list/category-list.component';
-import { CategoryInterfaceComponent } from './category-interface/category-interface.component';
+import { CategoryListComponent } from "./category-list/category-list.component";
+import { CategoryInterfaceComponent } from "./category-interface/category-interface.component";
 
 @NgModule({
-  declarations: [CategoriesComponent, CategoryItemComponent, CategoryListComponent, CategoryInterfaceComponent],
+  declarations: [
+    CategoriesComponent,
+    CategoryItemComponent,
+    CategoryListComponent,
+    CategoryInterfaceComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
     NbLayoutModule,
     NbCardModule,
+    NbAccordionModule,
     NbActionsModule,
     NbListModule,
     NbIconModule,

@@ -1,7 +1,10 @@
-<div class="container">
-  <span>{{ category.name }}</span>
-  <nb-action icon="menu-outline"></nb-action>
-  <nb-action icon="chevron-right-outline"></nb-action>
+<div class="category">
+  <span class="name">{{ category.name }}</span>
+  <nb-actions>
+    <nb-action icon="menu-outline"></nb-action>
+    <nb-action icon="chevron-right-outline"></nb-action>
+  </nb-actions>
+
   <ngx-category-interface
     [ngClass]="{
       'interface-on': isShowInterface,
