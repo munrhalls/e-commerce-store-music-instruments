@@ -1,5 +1,15 @@
-<span>{{ category.name }}</span>
+<span *ngIf="!isShowMenu">{{ category.name }}</span>
+<div class="menu" *ngIf="isShowMenu">
+  <nb-actions size="small">
+    <nb-action icon="plus-circle-outline"> </nb-action>
+    <nb-action icon="edit-outline"></nb-action>
+    <nb-action icon="arrow-up-outline"></nb-action>
+    <nb-action icon="arrow-down-outline"></nb-action>
+    <nb-action icon="trash-2-outline"></nb-action>
+  </nb-actions>
+</div>
+
 <nb-actions size="small">
-  <nb-action icon="menu"></nb-action>
+  <nb-action icon="menu" (click)="toggleMenu()"></nb-action>
   <nb-action icon="chevron-right"></nb-action>
 </nb-actions>

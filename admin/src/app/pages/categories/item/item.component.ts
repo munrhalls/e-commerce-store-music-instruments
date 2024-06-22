@@ -7,4 +7,9 @@ import { Component, Input } from "@angular/core";
 })
 export class ItemComponent {
   @Input() category: any = { id: 0, name: "" };
+  isShowMenu = false;
+
+  toggleMenu() {
+    this.isShowMenu = !this.isShowMenu;
+  }
 }
