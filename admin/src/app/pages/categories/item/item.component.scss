@@ -6,6 +6,7 @@
   align-items: flex-start;
 }
 .highlight {
+  border-radius: 3px;
   padding: 0.25rem;
   background-color: #e7e7e7;
   font-weight: bold;
@@ -20,15 +21,20 @@
   .menu {
     font-size: 0.75rem;
     padding: 0.5rem 0;
-    height: 3rem;
-
-    nb-action {
-      padding-left: 0.1rem;
-      padding-right: 0.1rem;
-      border-right: 1px solid #e9e9e9;
+    height: 3.75rem;
+    span {
+      font-size: 0.75rem;
     }
-    nb-action:last-child {
-      border-right: none;
+    nb-actions {
+      margin-top: 0.1rem;
+      nb-action {
+        padding-left: 0.1rem;
+        padding-right: 0.1rem;
+        border-right: 1px solid #e9e9e9;
+      }
+      nb-action:last-child {
+        border-right: none;
+      }
     }
   }
 }
