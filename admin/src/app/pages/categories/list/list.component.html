@@ -1,7 +1,7 @@
 <ng-container>
   <ul>
     <li *ngFor="let category of categories">
-      {{ category.name }}
+      <ngx-item [category]="category"></ngx-item>
 
       <ngx-list
         *ngIf="category.children && category.children.length"
