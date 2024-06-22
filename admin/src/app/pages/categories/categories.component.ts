@@ -13,6 +13,7 @@ export interface Category {
   styleUrls: ["./categories.component.scss"],
 })
 export class CategoriesComponent {
+  // comment for commit
   categories: Category[] = [
     {
       id: 1,
