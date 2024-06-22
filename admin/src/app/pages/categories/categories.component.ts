@@ -13,7 +13,6 @@ export interface Category {
   styleUrls: ["./categories.component.scss"],
 })
 export class CategoriesComponent {
-  // comment for commit
   categories: Category[] = [
     {
       id: 1,
@@ -31,7 +30,49 @@ export class CategoriesComponent {
               children: [
                 { id: 1.131, name: "Category 1.1.3.1" },
                 { id: 1.131, name: "Category 1.1.3.2" },
-                { id: 1.131, name: "Category 1.1.3.3" },
+                {
+                  id: 1.131,
+                  name: "Category 1.1.3.3",
+                  children: [
+                    { id: 1.1311, name: "Category 1.1.3.3.1" },
+                    { id: 1.1312, name: "Category 1.1.3.3.2" },
+                    {
+                      id: 1.1313,
+                      name: "Category 1.1.3.3.3",
+                      children: [
+                        { id: 1.13131, name: "Category 1.1.3.3.3.1" },
+                        { id: 1.13332, name: "Category 1.1.3.3.3.2" }, // Added
+                        {
+                          id: 1.13333,
+                          name: "Category 1.1.3.3.3.3",
+                          children: [
+                            { id: 1.133331, name: "Category 1.1.3.3.3.3.1" },
+                            { id: 1.133332, name: "Category 1.1.3.3.3.3.2" },
+                            {
+                              id: 1.133333,
+                              name: "Category 1.1.3.3.3.3.3",
+                              children: [
+                                {
+                                  id: 1.1333331,
+                                  name: "Category 1.1.3.3.3.3.3.1",
+                                },
+                                {
+                                  id: 1.1333332,
+                                  name: "Category 1.1.3.3.3.3.3.2",
+                                },
+                                {
+                                  id: 1.1333333,
+                                  name: "Category 1.1.3.3.3.3.3.3",
+                                },
+                              ],
+                            },
+                            { id: 1.1333334, name: "Category 1.1.3.3.3.3.3" },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
               ],
             },
           ],
