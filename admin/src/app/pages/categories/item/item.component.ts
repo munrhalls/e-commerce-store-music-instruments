@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, HostBinding } from "@angular/core";
 
 @Component({
   selector: "ngx-item",
@@ -8,6 +8,11 @@ import { Component, Input } from "@angular/core";
 export class ItemComponent {
   @Input() category: any = { id: 0, name: "" };
   isShowMenu = false;
+
+  @HostBinding('class.highlight')
+  get isisShowMenuClassApplied() {
+    return this.isShowMenu;
+  }
 
   toggleMenu() {
     this.isShowMenu = !this.isShowMenu;

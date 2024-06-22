@@ -5,6 +5,11 @@
   justify-content: space-between;
   align-items: flex-start;
 }
+.highlight {
+  padding: 0.25rem;
+  background-color: #e7e7e7;
+  font-weight: bold;
+}
 .category {
   display: flex;
   flex-direction: column;

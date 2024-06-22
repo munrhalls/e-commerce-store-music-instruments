@@ -1,5 +1,5 @@
 <div class="category">
-  <span>{{ category.name }}</span>
+  <span [ngClass]="{ highlight: isShowMenu }">{{ category.name }}</span>
   <div class="menu" *ngIf="isShowMenu">
     <nb-actions size="small">
       <nb-action icon="plus-circle-outline"> </nb-action>
