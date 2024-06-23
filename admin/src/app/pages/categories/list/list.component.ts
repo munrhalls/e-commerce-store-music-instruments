@@ -1,4 +1,10 @@
-import { Component, Input, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  ViewEncapsulation,
+  Input,
+  Output,
+  EventEmitter,
+} from "@angular/core";
 
 @Component({
   selector: "ngx-list",
@@ -7,5 +13,7 @@ import { Component, Input, ViewEncapsulation } from "@angular/core";
   styleUrls: ["./list.component.scss"],
 })
 export class ListComponent {
+  @Output() showForm = new EventEmitter<void>();
+
   @Input() categories = [];
 }

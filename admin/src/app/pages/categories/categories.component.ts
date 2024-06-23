@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { ListComponent } from "./list/list.component";
+// import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 export interface Category {
   id: number;
@@ -13,6 +14,12 @@ export interface Category {
   styleUrls: ["./categories.component.scss"],
 })
 export class CategoriesComponent {
+  // constructor(private fb: FormBuilder) {}
+
+  // onSubmit() {
+  //   console.log(this.myForm.value);
+  // }
+
   categories: Category[] = [
     {
       id: 1,
