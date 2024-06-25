@@ -121,10 +121,6 @@ $nb-themes: nb-register-theme(
 
 $nb-themes: nb-register-theme(
   (
-    // background-basic-color-1: color-basic-1000,
-    // background-basic-color-2: rgb(229, 233, 5),
-    // background-basic-color-3: rgb(233, 5, 5),
-    // background-basic-color-4: rgb(5, 233, 81),
     color-basic-100: white,
     color-basic-200: #eefafc,
     color-basic-300: #e8f5fa,
@@ -150,9 +146,8 @@ $nb-themes: nb-register-theme(
     card-margin-bottom: 1.875rem,
     card-header-with-select-padding-top: 0.5rem,
     card-header-with-select-padding-bottom: 0.5rem,
-
     list-item-padding: 0.5rem,
-
+    actions-icon-color: color-basic-1000,
     actions-divider-style: transparent,
     actions-divider-width: 0,
     actions-small-padding: 0,
@@ -160,7 +155,7 @@ $nb-themes: nb-register-theme(
 
     slide-out-background: #f7f9fc,
     slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
-    slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3
+    slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
   ),
   default,
   default
