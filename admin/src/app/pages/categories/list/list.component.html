@@ -1,0 +1,7 @@
+<div *ngIf="categories && categories.length > 0">
+  <ul *ngFor="let category of categories" [category]="category">
+    <li>
+      {{ category.name }} <ngx-list [categories]="category.children"></ngx-list>
+    </li>
+  </ul>
+</div>

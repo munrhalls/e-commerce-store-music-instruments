@@ -1,37 +1,11 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { ListComponent } from "./list/list.component";
+import { ItemComponent } from "./item/item.component";
 
-import {
-  NbCardModule,
-  NbListModule,
-  NbActionsModule,
-  NbDialogModule,
-  NbButtonModule,
-  NbIconModule,
-  NbInputModule,
-  NbMenuModule,
-} from "@nebular/theme";
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    NbCardModule,
-    NbListModule,
-    NbActionsModule,
-    NbButtonModule,
-    NbIconModule,
-    NbInputModule,
-    NbMenuModule,
-  ],
-  exports: [
-    NbCardModule,
-    NbListModule,
-    NbActionsModule,
-    NbDialogModule,
-    NbButtonModule,
-    NbIconModule,
-    NbInputModule,
-    NbMenuModule,
-  ],
+  declarations: [ListComponent, ItemComponent],
+  imports: [CommonModule],
+  exports: [ListComponent, ItemComponent],
 })
 export class CategoriesModule {}
