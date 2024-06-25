@@ -9,6 +9,7 @@ import {
   NbDialogModule,
   NbInputModule,
   NbButtonModule,
+  NbFormFieldModule,
 } from "@nebular/theme";
 @NgModule({
   declarations: [ListComponent, ItemComponent, MenuComponent],
@@ -18,6 +19,7 @@ import {
     NbDialogModule,
     NbInputModule,
     NbButtonModule,
+    NbFormFieldModule,
   ],
   exports: [
     ListComponent,
@@ -26,6 +28,7 @@ import {
     NbDialogModule,
     NbInputModule,
     NbButtonModule,
+    NbFormFieldModule,
   ],
 })
 export class CategoriesModule {}
