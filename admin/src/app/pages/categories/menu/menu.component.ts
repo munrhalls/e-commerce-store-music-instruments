@@ -12,7 +12,7 @@ export class MenuComponent {
 
   open(dialog: TemplateRef<any>) {
     this.dialogService.open(dialog, {
-      context: `Adding subcategory to: ${this.category.name}`,
+      context: `${this.category.name}`,
     });
   }
 }

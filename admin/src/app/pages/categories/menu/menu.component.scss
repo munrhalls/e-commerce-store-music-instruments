@@ -5,3 +5,23 @@
   align-items: center;
   margin: 2rem 0 1rem 0;
 }
+.dialog {
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  nb-card-header {
+    border: none;
+  }
+  nb-card-footer {
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button {
+      margin: 1rem;
+    }
+  }
+}
