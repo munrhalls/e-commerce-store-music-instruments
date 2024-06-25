@@ -1,1 +1,20 @@
-<p>{{ category.name }}</p>
+<div class="category-container">
+  <span>{{ category.name }}</span>
+  <div class="buttons">
+    <button nbButton (click)="toggleMenu()">
+      <nb-icon [icon]="isShowMenu ? 'close' : 'menu'"></nb-icon>
+    </button>
+    <button nbButton (click)="toggleSubcategories()">
+      <nb-icon
+        [icon]="isShowSubcategories ? 'chevron-down' : 'chevron-right'"
+      ></nb-icon>
+    </button>
+  </div>
+</div>
+`
+<ngx-menu *ngIf="isShowMenu"></ngx-menu>
+
+<ngx-list
+  [ngClass]="isShowSubcategories ? 'visible' : 'hidden'"
+  [categories]="category.children"
+></ngx-list>
