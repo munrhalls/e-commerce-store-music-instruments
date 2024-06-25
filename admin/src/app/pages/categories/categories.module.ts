@@ -4,10 +4,10 @@ import { ListComponent } from "./list/list.component";
 import { ItemComponent } from "./item/item.component";
 import { MenuComponent } from "./menu/menu.component";
 
-import { NbIconModule } from "@nebular/theme";
+import { NbIconModule, NbDialogModule } from "@nebular/theme";
 @NgModule({
   declarations: [ListComponent, ItemComponent, MenuComponent],
-  imports: [CommonModule, NbIconModule],
-  exports: [ListComponent, ItemComponent, NbIconModule],
+  imports: [CommonModule, NbIconModule, NbDialogModule],
+  exports: [ListComponent, ItemComponent, NbIconModule, NbDialogModule],
 })
 export class CategoriesModule {}
