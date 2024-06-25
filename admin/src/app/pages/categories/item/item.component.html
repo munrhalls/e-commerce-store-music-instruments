@@ -4,7 +4,11 @@
     <button nbButton (click)="toggleMenu()">
       <nb-icon [icon]="isShowMenu ? 'close' : 'menu'"></nb-icon>
     </button>
-    <button nbButton (click)="toggleSubcategories()">
+    <button
+      nbButton
+      [disabled]="(category?.children?.length ?? 0) === 0"
+      (click)="toggleSubcategories()"
+    >
       <nb-icon
         [icon]="isShowSubcategories ? 'chevron-down' : 'chevron-right'"
       ></nb-icon>
