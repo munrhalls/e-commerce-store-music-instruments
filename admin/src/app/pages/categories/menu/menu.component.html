@@ -13,21 +13,35 @@
 </button>
 
 <ng-template #dialog let-data let-ref="dialogRef">
-  <nb-card class="dialog">
-    <nb-card-header>
-      <span class="subtitle">
-        Add subcategory to <label>{{ data }}</label>
-      </span>
-    </nb-card-header>
-    <nb-card-body>
-      <input
-        nbInput
-        type="text"
-        id="name"
-        placeholder="Enter category name..."
-      />
-      <button nbButton status="danger" (click)="ref.close()">Close</button>
-      <button nbButton status="success" type="submit">Submit</button>
-    </nb-card-body>
-  </nb-card>
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit($event)">
+    <nb-card class="dialog">
+      <nb-card-header>
+        <span class="subtitle">
+          Add subcategory to <label>{{ data }}</label>
+        </span>
+      </nb-card-header>
+      <nb-card-body>
+        <label for="name">Name</label>
+        <input type="text" formControlName="name" class="form-control" />
+        <div
+          class="errors"
+          *ngIf="!formGroup.valid && (name.dirty || name.touched)"
+        >
+          <small *ngIf="name.errors?.required">Name is required</small>
+          <small *ngIf="name.errors?.maxlength">Name is too long</small>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton status="danger" (click)="ref.close()">Close</button>
+        <button
+          nbButton
+          status="success"
+          type="submit"
+          [disabled]="!formGroup.valid"
+        >
+          Submit
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
 </ng-template>

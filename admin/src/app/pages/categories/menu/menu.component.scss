@@ -12,6 +12,12 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  nb-card-body {
+    .errors {
+      color: red;
+      margin: 0.75rem 0 1rem 0;
+    }
+  }
   nb-card-header {
     border: none;
   }
@@ -20,8 +26,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    button {
-      margin: 1rem;
-    }
+    gap: 1.5rem;
   }
 }
