@@ -1,6 +1,7 @@
-import { Component, Input, TemplateRef, OnInit } from "@angular/core";
+import { Component, OnInit, Input, TemplateRef } from "@angular/core";
 import { NbDialogService } from "@nebular/theme";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { CategoriesService } from "../categories.service";
 
 @Component({
   selector: "ngx-menu",
@@ -9,9 +10,11 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 })
 export class MenuComponent implements OnInit {
   formGroup: FormGroup;
-
   @Input() category: any = { id: 0, name: "" };
-  constructor(private dialogService: NbDialogService) {}
+  constructor(
+    private dialogService: NbDialogService,
+    private categoriesService: CategoriesService,
+  ) {}
 
   open(dialog: TemplateRef<any>) {
     this.dialogService.open(dialog, {
@@ -19,6 +22,7 @@ export class MenuComponent implements OnInit {
     });
   }
   ngOnInit() {
+    console.log(this.category, " category");
     this.formGroup = new FormGroup({
       name: new FormControl("", [
         Validators.required,
@@ -29,13 +33,11 @@ export class MenuComponent implements OnInit {
   get name() {
     return this.formGroup.get("name");
   }
-
   onSubmit(e: Event) {
     e.preventDefault();
     if (this.formGroup.valid) {
-      // Process the form data
-      console.log(this.formGroup.value);
+      const newCategoryName = this.name.value;
+      this.categoriesService.addCategory(newCategoryName, this.category.id);
     }
-    // return false;
   }
 }
