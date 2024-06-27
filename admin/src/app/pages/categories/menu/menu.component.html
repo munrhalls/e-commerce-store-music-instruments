@@ -20,45 +20,14 @@
       </span>
     </nb-card-header>
     <nb-card-body>
-      <form [formGroup]="subcategoryForm" (ngSubmit)="onSubmit(ref, $event)">
-        <nb-form-field>
-          <nb-label for="name">Name</nb-label>
-
-          <input
-            nbInput
-            type="text"
-            id="name"
-            placeholder="Enter subcategory name..."
-            formControlName="name"
-            [status]="getSubcategoryControlStatus('name')"
-          />
-          <ng-container *ngIf="nameControl?.INVALID && nameControl?.touched">
-            <p
-              class="caption status-danger"
-              *ngIf="nameControl?.hasError('required')"
-            >
-              Category name is required.
-            </p>
-            <p
-              class="caption status-danger"
-              *ngIf="nameControl?.hasError('maxlength')"
-            >
-              Category name is too long.
-            </p>
-          </ng-container>
-        </nb-form-field>
-        <nb-card-footer
-          ><button nbButton status="danger" (click)="ref.close()">Close</button>
-          <button
-            nbButton
-            status="success"
-            type="submit"
-            (click)="onSubmit(ref, $event)"
-          >
-            Submit
-          </button>
-        </nb-card-footer>
-      </form>
+      <input
+        nbInput
+        type="text"
+        id="name"
+        placeholder="Enter category name..."
+      />
+      <button nbButton status="danger" (click)="ref.close()">Close</button>
+      <button nbButton status="success" type="submit">Submit</button>
     </nb-card-body>
   </nb-card>
 </ng-template>
