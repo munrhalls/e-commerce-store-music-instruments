@@ -16,7 +16,7 @@ export interface CategoryNode {
   providedIn: "root",
 })
 export class CategoriesService {
-  categoryNode: CategoryNode = {
+  categoryNode: CategoryNode | null = {
     id: "root",
     parentId: "root",
     name: "Root",
@@ -67,8 +67,11 @@ export class CategoriesService {
     return undefined;
   }
   createNode(parentId: string, newNode: CategoryNode): void {
+    if (this.categoryNode === null) {
+      this.categoryNode = newNode;
+      return this.categoryNodeSubject.next(cloneDeep(this.categoryNode));
+    }
     const parent = this.findNodeById(this.categoryNode, parentId);
-
     if (parent) {
       parent.children.push(newNode);
       this.categoryNodeSubject.next(cloneDeep(this.categoryNode));
@@ -87,13 +90,7 @@ export class CategoriesService {
   }
   deleteNode(parentId: string, childId: string): void {
     if (parentId === "root" && childId === "root") {
-      this.categoryNode = {
-        id: "root",
-        name: "",
-        parentId: "root",
-        children: [],
-      };
-      return;
+      return this.categoryNodeSubject.next(cloneDeep(this.categoryNode));
     }
     if (parentId === this.categoryNode.id) {
       this.categoryNode.children = this.categoryNode.children.filter(
