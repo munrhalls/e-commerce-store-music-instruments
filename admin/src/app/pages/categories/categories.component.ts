@@ -9,19 +9,19 @@ import { CategoryNode } from "./categories.service";
   styleUrls: ["./categories.component.scss"],
 })
 export class CategoriesComponent implements OnInit {
-  categoryNode: CategoryNode | null = null;
+  categoryNode: CategoryNode;
   private categoriesSubscription: Subscription;
   constructor(private categoriesService: CategoriesService) {}
+  ngOnInit(): void {}
+  // ngOnInit() {
+  //   this.categoriesSubscription = this.categoriesService
+  //     .getCategories()
+  //     .subscribe((categoryNode) => {
+  //       this.categoryNode = categoryNode;
+  //     });
+  // }
 
-  ngOnInit() {
-    this.categoriesSubscription = this.categoriesService
-      .getCategories()
-      .subscribe((categoryNode) => {
-        this.categoryNode = categoryNode; // Assign the root CategoryNode directly
-      });
-  }
-
-  ngOnDestroy() {
-    this.categoriesSubscription.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.categoriesSubscription.unsubscribe();
+  // }
 }

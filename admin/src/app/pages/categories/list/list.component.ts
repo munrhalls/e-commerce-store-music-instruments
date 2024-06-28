@@ -5,5 +5,5 @@ import { Component, Input } from "@angular/core";
   styleUrls: ["./list.component.scss"],
 })
 export class ListComponent {
-  @Input() categories = [];
+  // @Input() categories = [];
 }
