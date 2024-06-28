@@ -104,11 +104,6 @@ describe("CategoriesService", () => {
 
     service.deleteNode("root", initialCategoryNode.id);
 
-    expect(service.categoryNode).toEqual({
-      id: "root",
-      name: "",
-      parentId: "root",
-      children: [],
-    });
+    expect(service.categoryNode).toEqual(null);
   });
 });
