@@ -47,6 +47,19 @@ export class CategoriesService {
           },
         ],
       },
+      {
+        id: "3",
+        name: "Category 3",
+        pathIds: ["root", "3"],
+        children: [
+          {
+            id: "3.1",
+            name: "Category 3.1",
+            pathIds: ["root", "3", "1"],
+            children: [],
+          },
+        ],
+      },
     ],
   };
 }

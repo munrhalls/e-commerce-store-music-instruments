@@ -15,7 +15,7 @@ describe("CategoriesService", () => {
     expect(service).toBeDefined();
   });
 
-  it("should output each category name via recursion, in order of nesting", () => {
+  it("CategoryNode data structure - should output each category name via recursion, in order of nesting", () => {
     const categoryNode: CategoryNode = {
       id: "root",
       name: "root",
@@ -90,4 +90,6 @@ describe("CategoriesService", () => {
       "Category 3.1",
     ]);
   });
+
+  it("should find a category by pathIds", () => {});
 });
