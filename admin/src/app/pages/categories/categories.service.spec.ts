@@ -49,5 +49,23 @@ describe("CategoriesService", () => {
         },
       ],
     };
+
+    function getCategoryNameList(categoryNode: CategoryNode): string[] {
+      const names: string[] = [];
+
+      function traverse(node: CategoryNode) {
+        names.push(node.name); // Add the current node's name to the list
+        for (const child of node.children) {
+          traverse(child); // Recursively traverse child nodes
+        }
+      }
+
+      traverse(categoryNode); // Start traversal from the root node
+      return names;
+    }
+
+    // Example usage:
+    const categoryNameList = getCategoryNameList(categoryNode);
+    console.log(categoryNameList);
   });
 });
