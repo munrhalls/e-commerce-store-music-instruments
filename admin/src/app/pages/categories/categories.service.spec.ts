@@ -14,4 +14,6 @@ describe("CategoriesService", () => {
   it("should be created", () => {
     expect(service).toBeDefined();
   });
+
+  it("should output categories tree via recursive function", () => {});
 });
