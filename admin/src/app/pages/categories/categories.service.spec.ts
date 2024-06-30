@@ -15,7 +15,7 @@ describe("CategoriesService", () => {
     expect(service).toBeDefined();
   });
 
-  it("should output each category via recursion", () => {
+  it("should output each category name via recursion, in order of nesting", () => {
     const categoryNode: CategoryNode = {
       id: "root",
       name: "root",
@@ -47,6 +47,19 @@ describe("CategoriesService", () => {
             },
           ],
         },
+        {
+          id: "3",
+          name: "Category 3",
+          pathIds: ["root", "3"],
+          children: [
+            {
+              id: "3.1",
+              name: "Category 3.1",
+              pathIds: ["root", "3", "1"],
+              children: [],
+            },
+          ],
+        },
       ],
     };
 
@@ -67,5 +80,14 @@ describe("CategoriesService", () => {
     // Example usage:
     const categoryNameList = getCategoryNameList(categoryNode);
     console.log(categoryNameList);
+    expect(categoryNameList).toEqual([
+      "root",
+      "Category 1",
+      "Category 2",
+      "Category 2.1",
+      "Category 2.1.1",
+      "Category 3",
+      "Category 3.1",
+    ]);
   });
 });
