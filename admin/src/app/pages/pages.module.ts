@@ -4,11 +4,10 @@ import { NbMenuModule } from "@nebular/theme";
 import { ThemeModule } from "../@theme/theme.module";
 import { PagesComponent } from "./pages.component";
 import { DashboardModule } from "./dashboard/dashboard.module";
-import { ECommerceModule } from "./e-commerce/e-commerce.module";
 import { CategoriesModule } from "./categories/categories.module";
 import { PagesRoutingModule } from "./pages-routing.module";
 import { MiscellaneousModule } from "./miscellaneous/miscellaneous.module";
-import { CategoriesComponent } from './categories/categories.component';
+import { CategoriesComponent } from "./categories/categories.component";
 
 @NgModule({
   imports: [
@@ -16,7 +15,6 @@ import { CategoriesComponent } from './categories/categories.component';
     ThemeModule,
     NbMenuModule,
     DashboardModule,
-    ECommerceModule,
     CategoriesModule,
     MiscellaneousModule,
   ],
