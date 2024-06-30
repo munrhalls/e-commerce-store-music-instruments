@@ -62,4 +62,13 @@ export class CategoriesService {
       },
     ],
   };
+
+  findCategoryByPathIds(pathIds: string[]): CategoryNode {
+    let node = this.categoryNode;
+    console.log(this.categoryNode);
+    for (const id of pathIds) {
+      node = node.children.find((child) => child.id === id);
+    }
+    return node;
+  }
 }

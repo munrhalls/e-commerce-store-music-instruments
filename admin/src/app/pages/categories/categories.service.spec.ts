@@ -3,6 +3,52 @@ import { CategoriesService, CategoryNode } from "./categories.service";
 
 describe("CategoriesService", () => {
   let service: CategoriesService;
+  const categoryNode: CategoryNode = {
+    id: "root",
+    name: "root",
+    pathIds: ["root"],
+    children: [
+      {
+        id: "1",
+        name: "Category 1",
+        pathIds: ["root", "1"],
+        children: [],
+      },
+      {
+        id: "2",
+        name: "Category 2",
+        pathIds: ["root", "2"],
+        children: [
+          {
+            id: "2.1",
+            name: "Category 2.1",
+            pathIds: ["root", "2", "1"],
+            children: [
+              {
+                id: "2.1.1",
+                name: "Category 2.1.1",
+                pathIds: ["root", "2", "1", "1"],
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "3",
+        name: "Category 3",
+        pathIds: ["root", "3"],
+        children: [
+          {
+            id: "3.1",
+            name: "Category 3.1",
+            pathIds: ["root", "3", "1"],
+            children: [],
+          },
+        ],
+      },
+    ],
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,53 +62,6 @@ describe("CategoriesService", () => {
   });
 
   it("CategoryNode data structure - should output each category name via recursion, in order of nesting", () => {
-    const categoryNode: CategoryNode = {
-      id: "root",
-      name: "root",
-      pathIds: ["root"],
-      children: [
-        {
-          id: "1",
-          name: "Category 1",
-          pathIds: ["root", "1"],
-          children: [],
-        },
-        {
-          id: "2",
-          name: "Category 2",
-          pathIds: ["root", "2"],
-          children: [
-            {
-              id: "2.1",
-              name: "Category 2.1",
-              pathIds: ["root", "2", "1"],
-              children: [
-                {
-                  id: "2.1.1",
-                  name: "Category 2.1.1",
-                  pathIds: ["root", "2", "1", "1"],
-                  children: [],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: "3",
-          name: "Category 3",
-          pathIds: ["root", "3"],
-          children: [
-            {
-              id: "3.1",
-              name: "Category 3.1",
-              pathIds: ["root", "3", "1"],
-              children: [],
-            },
-          ],
-        },
-      ],
-    };
-
     function getCategoryNameList(categoryNode: CategoryNode): string[] {
       const names: string[] = [];
 
@@ -91,5 +90,15 @@ describe("CategoriesService", () => {
     ]);
   });
 
-  it("should find a category by pathIds", () => {});
+  it("should find a target category by pathIds", () => {
+    let pathIds = ["root", "2"];
+    let targetCategory = service.findCategoryByPathIds(pathIds);
+    expect(targetCategory.name).toEqual("Category 2");
+    pathIds = ["root", "2", "1"];
+    targetCategory = service.findCategoryByPathIds(pathIds);
+    expect(targetCategory.name).toEqual("Category 2.1");
+    pathIds = ["root", "2", "1", "1"];
+    targetCategory = service.findCategoryByPathIds(pathIds);
+    expect(targetCategory.name).toEqual("Category 2.1.1");
+  });
 });
