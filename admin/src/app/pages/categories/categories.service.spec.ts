@@ -11,6 +11,12 @@ describe("CategoriesService", () => {
   const IDcategory211 = (Math.random() / Math.random()).toString();
   const IDcategory3 = (Math.random() / Math.random()).toString();
   const IDcategory31 = (Math.random() / Math.random()).toString();
+  const IDcategory4 = (Math.random() / Math.random()).toString();
+  const IDcategory41 = (Math.random() / Math.random()).toString();
+  const IDcategory42 = (Math.random() / Math.random()).toString();
+  const IDcategory43 = (Math.random() / Math.random()).toString();
+  const IDcategory44 = (Math.random() / Math.random()).toString();
+  const IDcategory45 = (Math.random() / Math.random()).toString();
 
   beforeEach(() => {
     const categoryNode: CategoryNode = {
@@ -57,6 +63,43 @@ describe("CategoriesService", () => {
             },
           ],
         },
+        {
+          id: IDcategory4,
+          name: "Category 4",
+          pathIds: [IDcategory4],
+          children: [
+            {
+              id: IDcategory41,
+              name: "Category 4.1",
+              pathIds: [IDcategory4, IDcategory41],
+              children: [],
+            },
+            {
+              id: IDcategory42,
+              name: "Category 4.2",
+              pathIds: [IDcategory4, IDcategory42],
+              children: [],
+            },
+            {
+              id: IDcategory43,
+              name: "Category 4.3",
+              pathIds: [IDcategory4, IDcategory43],
+              children: [],
+            },
+            {
+              id: IDcategory44,
+              name: "Category 4.4",
+              pathIds: [IDcategory4, IDcategory44],
+              children: [],
+            },
+            {
+              id: IDcategory45,
+              name: "Category 4.5",
+              pathIds: [IDcategory4, IDcategory45],
+              children: [],
+            },
+          ],
+        },
       ],
     };
 
@@ -71,11 +114,11 @@ describe("CategoriesService", () => {
     service = TestBed.inject(CategoriesService);
   });
 
-  it("should be created", () => {
+  it("CategoriesService - should be created", () => {
     expect(service).toBeDefined();
   });
 
-  it("should be initialized with the correct categoryNode structure", (done) => {
+  it("CategoryNode tree data structure - should be initialized with the correct categoryNode structure", (done) => {
     service.getCategoryNode().subscribe((categoryNode) => {
       expect(categoryNode.id).toEqual(root);
       expect(categoryNode.name).toEqual("root");
@@ -100,7 +143,7 @@ describe("CategoriesService", () => {
     });
   });
 
-  it("CategoryNode data structure - should output each category name via recursion, in order of nesting", (done) => {
+  it("CategoryNode tree data structure - should output each category name via recursion, in order of nesting", (done) => {
     service.getCategoryNode().subscribe((categoryNode) => {
       function getCategoryNameList(categoryNode: CategoryNode): string[] {
         const names: string[] = [];
@@ -131,7 +174,7 @@ describe("CategoriesService", () => {
     });
   });
 
-  it("should find top-level category 2 by pathIds; matching id, pathIds and name", () => {
+  it("findCategoryByPathIds - should find top-level category 2 by pathIds; matching id, pathIds and name", () => {
     let pathIds = [IDcategory2];
     let target = service.findCategoryByPathIds(pathIds);
 
@@ -141,7 +184,7 @@ describe("CategoriesService", () => {
     expect(target.name).toEqual("Category 2");
   });
 
-  it("should find sub-category 2.1; matching id, pathIds and name", () => {
+  it("findCategoryByPathIds - should find sub-category 2.1; matching id, pathIds and name", () => {
     let pathIds = [IDcategory2, IDcategory21];
     let target = service.findCategoryByPathIds(pathIds);
 
@@ -151,7 +194,7 @@ describe("CategoriesService", () => {
     expect(target.name).toEqual("Category 2.1");
   });
 
-  it("should find sub-category 2.1.1; matching id, pathIds and name", () => {
+  it("findCategoryByPathIds - should find sub-category 2.1.1; matching id, pathIds and name", () => {
     let pathIds = [IDcategory2, IDcategory21, IDcategory211];
     let target = service.findCategoryByPathIds(pathIds);
 
@@ -161,7 +204,7 @@ describe("CategoriesService", () => {
     expect(target.name).toEqual("Category 2.1.1");
   });
 
-  it("should add a subcategory to a target top-level category", () => {
+  it("addCategoryToTarget - should add a subcategory to a target top-level category", () => {
     const pathIds = [IDcategory2];
     const name = "2.2";
     const target = service.findCategoryByPathIds(pathIds);
@@ -176,7 +219,7 @@ describe("CategoriesService", () => {
     expect(newlyAdded.name).toEqual(name);
     expect(newlyAdded.children).toEqual([]);
   });
-  it("should add a subcategory to a target sub-category", () => {
+  it("addCategoryToTarget - should add a subcategory to a target sub-category", () => {
     const pathIds = [IDcategory2, IDcategory21];
     const name = "2.1.2";
     const target = service.findCategoryByPathIds(pathIds);
@@ -191,7 +234,7 @@ describe("CategoriesService", () => {
     expect(newlyAdded.name).toEqual(name);
     expect(newlyAdded.children).toEqual([]);
   });
-  it("should add a subcategory to a target sub-sub-category", () => {
+  it("addCategoryToTarget - should add a subcategory to a target sub-sub-category", () => {
     const pathIds = [IDcategory2, IDcategory21, IDcategory211];
     const name = "2.1.2.1";
     const target = service.findCategoryByPathIds(pathIds);
@@ -207,7 +250,7 @@ describe("CategoriesService", () => {
     expect(newlyAdded.children).toEqual([]);
   });
 
-  it("should update a target top-level category and preserve deep equality of children", () => {
+  it("updateTargetName - should update a target top-level category and preserve deep equality of children", () => {
     const pathIds = [IDcategory2];
     const newName = "Category 2 Updated";
     const target = service.findCategoryByPathIds(pathIds);
@@ -235,7 +278,7 @@ describe("CategoriesService", () => {
 
     expect(testDeepEqualityOfChildren(target, targetAfterUpdate)).toBe(true);
   });
-  it("should delete a target and all its children", () => {
+  it("deleteTarget - should delete a target and all its children", () => {
     const pathIds = [IDcategory2];
     const target = service.findCategoryByPathIds(pathIds);
     const targetChildren = target.children;
@@ -256,5 +299,20 @@ describe("CategoriesService", () => {
       const deletedCategory = service.findCategoryByPathIds([pathId]);
       expect(deletedCategory).toBeUndefined();
     }
+  });
+
+  it("moveTargetDown - should move a target position down (index to the right in the children array) by one, within the same parent", () => {
+    const pathIds = [IDcategory2, IDcategory21];
+    const target = service.findCategoryByPathIds(pathIds);
+    const targetIndex = target.children.findIndex(
+      (child) => child.id === IDcategory211,
+    );
+    service.moveTargetDown(pathIds);
+    const targetIndexAfter = target.children.findIndex(
+      (child) => child.id === IDcategory211,
+    );
+    expect(target).toBeDefined();
+    expect(targetIndexAfter).toBeLessThan(target.children.length);
+    expect(targetIndexAfter).toEqual(targetIndex + 1);
   });
 });
