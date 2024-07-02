@@ -3,31 +3,39 @@ import { CategoriesService, CategoryNode } from "./categories.service";
 
 describe("CategoriesService", () => {
   let service: CategoriesService;
+  const root = (Math.random() / Math.random()).toString();
+  const IDcatgory1 = (Math.random() / Math.random()).toString();
+  const IDcatgory2 = (Math.random() / Math.random()).toString();
+  const IDcatgory21 = (Math.random() / Math.random()).toString();
+  const IDcatgory211 = (Math.random() / Math.random()).toString();
+  const IDcatgory3 = (Math.random() / Math.random()).toString();
+  const IDcatgory31 = (Math.random() / Math.random()).toString();
+
   const categoryNode: CategoryNode = {
-    id: "root",
+    id: root,
     name: "root",
-    pathIds: ["root"],
+    pathIds: [],
     children: [
       {
-        id: "1",
+        id: IDcatgory1,
         name: "Category 1",
-        pathIds: ["root", "1"],
+        pathIds: [IDcatgory1],
         children: [],
       },
       {
-        id: "2",
+        id: IDcatgory2,
         name: "Category 2",
-        pathIds: ["root", "2"],
+        pathIds: [IDcatgory2],
         children: [
           {
-            id: "2.1",
+            id: IDcatgory21,
             name: "Category 2.1",
-            pathIds: ["root", "2", "1"],
+            pathIds: [IDcatgory2, IDcatgory21],
             children: [
               {
-                id: "2.1.1",
+                id: IDcatgory211,
                 name: "Category 2.1.1",
-                pathIds: ["root", "2", "1", "1"],
+                pathIds: [IDcatgory2, IDcatgory21, IDcatgory211],
                 children: [],
               },
             ],
@@ -35,14 +43,14 @@ describe("CategoriesService", () => {
         ],
       },
       {
-        id: "3",
+        id: IDcatgory3,
         name: "Category 3",
-        pathIds: ["root", "3"],
+        pathIds: [IDcatgory3],
         children: [
           {
-            id: "3.1",
+            id: IDcatgory31,
             name: "Category 3.1",
-            pathIds: ["root", "3", "1"],
+            pathIds: [IDcatgory3, IDcatgory31],
             children: [],
           },
         ],
@@ -90,15 +98,35 @@ describe("CategoriesService", () => {
     ]);
   });
 
-  it("should find a target category by pathIds", () => {
-    let pathIds = ["root", "2"];
-    let targetCategory = service.findCategoryByPathIds(pathIds);
-    expect(targetCategory.name).toEqual("Category 2");
-    pathIds = ["root", "2", "1"];
-    targetCategory = service.findCategoryByPathIds(pathIds);
-    expect(targetCategory.name).toEqual("Category 2.1");
-    pathIds = ["root", "2", "1", "1"];
-    targetCategory = service.findCategoryByPathIds(pathIds);
-    expect(targetCategory.name).toEqual("Category 2.1.1");
+  it("should find category 2", () => {
+    let pathIds = ["2"];
+    let target = service.findCategoryByPathIds(pathIds);
+
+    expect(target).toBeDefined();
+    expect(target.name).toEqual("Category 2");
+  });
+
+  it("should find category 2.1", () => {
+    let pathIds = ["2", "2.1"];
+    let target = service.findCategoryByPathIds(pathIds);
+
+    expect(target).toBeDefined();
+    expect(target.name).toEqual("Category 2.1");
+  });
+
+  it("should find category 2.1.1", () => {
+    let pathIds = ["2", "2.1", "2.1.1"];
+    let target = service.findCategoryByPathIds(pathIds);
+
+    expect(target).toBeDefined();
+    expect(target.name).toEqual("Category 2.1.1");
+  });
+
+  it("should add a subcategory to a target category", () => {
+    let pathIds = ["2"];
+    let name = "2.2";
+    service.addSubCategory(pathIds, name);
+    let target = service.findCategoryByPathIds([...pathIds, "2.2"]);
+    expect(target.name).toEqual(name);
   });
 });
