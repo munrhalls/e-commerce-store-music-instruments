@@ -111,11 +111,13 @@ export class CategoriesService {
     };
 
     node.children.push(newNode);
+    this.saveCategoryNode(this.categoryNode);
     return newNode;
   }
   updateTargetName(pathIds: string[], name: string): void {
     const node = this.findCategoryByPathIds(pathIds);
     node.name = name;
+    this.saveCategoryNode(this.categoryNode);
   }
   deleteTarget(pathIds: string[]): void {
     const parentPathIds = pathIds.slice(0, -1);
@@ -124,6 +126,7 @@ export class CategoriesService {
       (child) => child.id === pathIds[pathIds.length - 1],
     );
     parentNode.children.splice(index, 1);
+    this.saveCategoryNode(this.categoryNode);
   }
   moveTargetDown(pathIds: string[]): void {
     const parentPathIds = pathIds.slice(0, -1);
@@ -136,6 +139,7 @@ export class CategoriesService {
       parentNode.children.splice(index, 1);
       parentNode.children.splice(index + 1, 0, target);
     }
+    this.saveCategoryNode(this.categoryNode);
   }
   moveTargetUp(pathIds: string[]): void {
     const parentPathIds = pathIds.slice(0, -1);
@@ -148,5 +152,6 @@ export class CategoriesService {
       parentNode.children.splice(index, 1);
       parentNode.children.splice(index - 1, 0, target);
     }
+    this.saveCategoryNode(this.categoryNode);
   }
 }

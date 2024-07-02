@@ -1,6 +1,6 @@
 import { TestBed } from "@angular/core/testing";
 import { CategoriesService, CategoryNode } from "./categories.service";
-
+import { first } from "rxjs/operators";
 describe("CategoriesService", () => {
   let service: CategoriesService;
   let categoryNode: CategoryNode;
@@ -131,6 +131,23 @@ describe("CategoriesService", () => {
       expect(categoryNodeSubscriptionValue).toEqual(categoryNode);
       done();
     });
+  });
+
+  it("Local Storage persistance - should reflect changes after an operation", async () => {
+    let categoryNode = await service
+      .getCategoryNode()
+      .pipe(first())
+      .toPromise();
+
+    expect(categoryNode.children.length).toEqual(4);
+
+    service.addCategoryToTarget([], "Category 5");
+    const storedCategoryNode = JSON.parse(localStorage.getItem("categoryNode"));
+    categoryNode = await service.getCategoryNode().pipe(first()).toPromise();
+
+    expect(categoryNode.children.length).toEqual(5);
+    expect(storedCategoryNode.children.length).toEqual(5);
+    expect(categoryNode.children.length).toEqual(5);
   });
 
   it("CategoryNode tree data structure - should be initialized with the correct categoryNode structure", (done) => {
