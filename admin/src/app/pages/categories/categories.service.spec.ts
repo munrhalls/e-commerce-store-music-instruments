@@ -77,7 +77,7 @@ describe("CategoriesService", () => {
 
   it("should be initialized with the correct categoryNode structure", (done) => {
     service.getCategoryNode().subscribe((categoryNode) => {
-      expect(categoryNode.id).toEqual("");
+      expect(categoryNode.id).toEqual(root);
       expect(categoryNode.name).toEqual("root");
       expect(categoryNode.children.length).toEqual(3);
 
@@ -100,33 +100,35 @@ describe("CategoriesService", () => {
     });
   });
 
-  it("CategoryNode data structure - should output each category name via recursion, in order of nesting", () => {
-    function getCategoryNameList(categoryNode: CategoryNode): string[] {
-      const names: string[] = [];
+  it("CategoryNode data structure - should output each category name via recursion, in order of nesting", (done) => {
+    service.getCategoryNode().subscribe((categoryNode) => {
+      function getCategoryNameList(categoryNode: CategoryNode): string[] {
+        const names: string[] = [];
 
-      function traverse(node: CategoryNode) {
-        names.push(node.name); // Add the current node's name to the list
-        for (const child of node.children) {
-          traverse(child); // Recursively traverse child nodes
+        function traverse(node: CategoryNode) {
+          names.push(node.name);
+          for (const child of node.children) {
+            traverse(child);
+          }
         }
+
+        traverse(categoryNode);
+        return names;
       }
 
-      traverse(categoryNode); // Start traversal from the root node
-      return names;
-    }
-
-    // Example usage:
-    const categoryNameList = getCategoryNameList(categoryNode);
-    console.log(categoryNameList);
-    expect(categoryNameList).toEqual([
-      "root",
-      "Category 1",
-      "Category 2",
-      "Category 2.1",
-      "Category 2.1.1",
-      "Category 3",
-      "Category 3.1",
-    ]);
+      const categoryNameList = getCategoryNameList(categoryNode);
+      console.log(categoryNameList);
+      expect(categoryNameList).toEqual([
+        "root",
+        "Category 1",
+        "Category 2",
+        "Category 2.1",
+        "Category 2.1.1",
+        "Category 3",
+        "Category 3.1",
+      ]);
+      done();
+    });
   });
 
   it("should find top-level category 2 by pathIds; matching id, pathIds and name", () => {
@@ -162,6 +164,21 @@ describe("CategoriesService", () => {
   it("should add a subcategory to a target top-level category", () => {
     const pathIds = [IDcategory2];
     const name = "2.2";
+    const target = service.findCategoryByPathIds(pathIds);
+    const targetChildrenLength = target.children.length;
+
+    service.addSubCategory(pathIds, name);
+    expect(target.children.length).toEqual(targetChildrenLength + 1);
+    const newlyAdded = target.children.find((child) => child.name === name);
+    expect(newlyAdded).toBeDefined();
+    expect(newlyAdded.id).toBeDefined();
+    expect(newlyAdded.pathIds).toEqual([...pathIds, newlyAdded.id]);
+    expect(newlyAdded.name).toEqual(name);
+    expect(newlyAdded.children).toEqual([]);
+  });
+  it("should add a subcategory to a target sub-category", () => {
+    const pathIds = [IDcategory2, IDcategory21];
+    const name = "2.1.2";
     const target = service.findCategoryByPathIds(pathIds);
     const targetChildrenLength = target.children.length;
 
