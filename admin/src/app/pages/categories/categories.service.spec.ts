@@ -302,17 +302,18 @@ describe("CategoriesService", () => {
   });
 
   it("moveTargetDown - should move a target position down (index to the right in the children array) by one, within the same parent", () => {
-    const pathIds = [IDcategory2, IDcategory21];
+    const pathIds = [IDcategory4, IDcategory41];
     const target = service.findCategoryByPathIds(pathIds);
-    const targetIndex = target.children.findIndex(
-      (child) => child.id === IDcategory211,
+    const parent = service.findCategoryByPathIds(pathIds.slice(0, -1));
+    const targetIndex = parent.children.findIndex(
+      (child) => child.id === IDcategory41,
     );
     service.moveTargetDown(pathIds);
-    const targetIndexAfter = target.children.findIndex(
-      (child) => child.id === IDcategory211,
+    const targetIndexAfter = parent.children.findIndex(
+      (child) => child.id === IDcategory41,
     );
     expect(target).toBeDefined();
-    expect(targetIndexAfter).toBeLessThan(target.children.length);
+    expect(targetIndexAfter).toBeLessThan(parent.children.length);
     expect(targetIndexAfter).toEqual(targetIndex + 1);
   });
 });
