@@ -167,7 +167,7 @@ describe("CategoriesService", () => {
     const target = service.findCategoryByPathIds(pathIds);
     const targetChildrenLength = target.children.length;
 
-    service.addSubCategory(pathIds, name);
+    service.addCategoryToTarget(pathIds, name);
     expect(target.children.length).toEqual(targetChildrenLength + 1);
     const newlyAdded = target.children.find((child) => child.name === name);
     expect(newlyAdded).toBeDefined();
@@ -182,7 +182,7 @@ describe("CategoriesService", () => {
     const target = service.findCategoryByPathIds(pathIds);
     const targetChildrenLength = target.children.length;
 
-    service.addSubCategory(pathIds, name);
+    service.addCategoryToTarget(pathIds, name);
     expect(target.children.length).toEqual(targetChildrenLength + 1);
     const newlyAdded = target.children.find((child) => child.name === name);
     expect(newlyAdded).toBeDefined();
@@ -190,5 +190,71 @@ describe("CategoriesService", () => {
     expect(newlyAdded.pathIds).toEqual([...pathIds, newlyAdded.id]);
     expect(newlyAdded.name).toEqual(name);
     expect(newlyAdded.children).toEqual([]);
+  });
+  it("should add a subcategory to a target sub-sub-category", () => {
+    const pathIds = [IDcategory2, IDcategory21, IDcategory211];
+    const name = "2.1.2.1";
+    const target = service.findCategoryByPathIds(pathIds);
+    const targetChildrenLength = target.children.length;
+
+    service.addCategoryToTarget(pathIds, name);
+    expect(target.children.length).toEqual(targetChildrenLength + 1);
+    const newlyAdded = target.children.find((child) => child.name === name);
+    expect(newlyAdded).toBeDefined();
+    expect(newlyAdded.id).toBeDefined();
+    expect(newlyAdded.pathIds).toEqual([...pathIds, newlyAdded.id]);
+    expect(newlyAdded.name).toEqual(name);
+    expect(newlyAdded.children).toEqual([]);
+  });
+
+  it("should update a target top-level category and preserve deep equality of children", () => {
+    const pathIds = [IDcategory2];
+    const newName = "Category 2 Updated";
+    const target = service.findCategoryByPathIds(pathIds);
+    const children = target.children;
+    expect(target.children).toEqual(children);
+    service.updateTargetName(pathIds, newName);
+    const targetAfterUpdate = service.findCategoryByPathIds(pathIds);
+    expect(target.name).toEqual(newName);
+    expect(target.children).toEqual(children);
+
+    function testDeepEqualityOfChildren(
+      node1: CategoryNode,
+      node2: CategoryNode,
+    ): boolean {
+      if (node1.children.length !== node2.children.length) {
+        return false;
+      }
+      for (let i = 0; i < node1.children.length; i++) {
+        if (!testDeepEqualityOfChildren(node1.children[i], node2.children[i])) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    expect(testDeepEqualityOfChildren(target, targetAfterUpdate)).toBe(true);
+  });
+  it("should delete a target and all its children", () => {
+    const pathIds = [IDcategory2];
+    const target = service.findCategoryByPathIds(pathIds);
+    const targetChildren = target.children;
+    const deletedPathIds: string[] = [];
+    function storeChildrenPathIds(node: CategoryNode) {
+      deletedPathIds.push(...node.pathIds);
+      for (const child of node.children) {
+        storeChildrenPathIds(child);
+      }
+    }
+    storeChildrenPathIds(target);
+
+    service.deleteTarget(pathIds);
+    const targetAfterDelete = service.findCategoryByPathIds(pathIds);
+    expect(targetAfterDelete).toBeUndefined();
+    expect(target.children).toEqual(targetChildren);
+    for (const pathId of deletedPathIds) {
+      const deletedCategory = service.findCategoryByPathIds([pathId]);
+      expect(deletedCategory).toBeUndefined();
+    }
   });
 });

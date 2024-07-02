@@ -91,7 +91,7 @@ export class CategoriesService {
     }
     return node;
   }
-  addSubCategory(pathIds: string[], name: string): CategoryNode {
+  addCategoryToTarget(pathIds: string[], name: string): CategoryNode {
     const node = this.findCategoryByPathIds(pathIds);
     const newId = (Math.random() / Math.random()).toString();
     const newNode = {
@@ -103,5 +103,17 @@ export class CategoriesService {
 
     node.children.push(newNode);
     return newNode;
+  }
+  updateTargetName(pathIds: string[], name: string): void {
+    const node = this.findCategoryByPathIds(pathIds);
+    node.name = name;
+  }
+  deleteTarget(pathIds: string[]): void {
+    const parentPathIds = pathIds.slice(0, -1);
+    const parentNode = this.findCategoryByPathIds(parentPathIds);
+    const index = parentNode.children.findIndex(
+      (child) => child.id === pathIds[pathIds.length - 1],
+    );
+    parentNode.children.splice(index, 1);
   }
 }
