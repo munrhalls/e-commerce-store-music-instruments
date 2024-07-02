@@ -77,6 +77,15 @@ export class CategoriesService {
       this.categoryNode = cloneDeep(categoryNode);
     }
   }
+  saveCategoryNode(categoryNode: CategoryNode): void {
+    localStorage.setItem("categoryNode", JSON.stringify(categoryNode));
+  }
+  loadCategoryNode(): void {
+    const storedCategoryNode = localStorage.getItem("categoryNode");
+    if (storedCategoryNode) {
+      this.categoryNode = JSON.parse(storedCategoryNode);
+    }
+  }
 
   getCategoryNode(): Observable<CategoryNode> {
     return new BehaviorSubject<CategoryNode>(

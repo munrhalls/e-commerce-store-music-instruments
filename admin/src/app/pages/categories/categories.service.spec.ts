@@ -118,6 +118,21 @@ describe("CategoriesService", () => {
     expect(service).toBeDefined();
   });
 
+  it("Local Storage persistance - should save categoryNode to localStorage, localStorage node should equal test service node", () => {
+    service.saveCategoryNode(categoryNode);
+    const storedCategoryNode = localStorage.getItem("categoryNode");
+    expect(storedCategoryNode).toEqual(JSON.stringify(categoryNode));
+  });
+
+  it("Local Storage persistence - should load categoryNode from localStorage on initialization, categoryNode should equal test service node", (done) => {
+    localStorage.setItem("categoryNode", JSON.stringify(categoryNode));
+    service.loadCategoryNode();
+    service.getCategoryNode().subscribe((categoryNodeSubscriptionValue) => {
+      expect(categoryNodeSubscriptionValue).toEqual(categoryNode);
+      done();
+    });
+  });
+
   it("CategoryNode tree data structure - should be initialized with the correct categoryNode structure", (done) => {
     service.getCategoryNode().subscribe((categoryNode) => {
       expect(categoryNode.id).toEqual(root);
