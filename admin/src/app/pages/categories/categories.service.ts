@@ -128,4 +128,16 @@ export class CategoriesService {
       parentNode.children.splice(index + 1, 0, target);
     }
   }
+  moveTargetUp(pathIds: string[]): void {
+    const parentPathIds = pathIds.slice(0, -1);
+    const parentNode = this.findCategoryByPathIds(parentPathIds);
+    const index = parentNode.children.findIndex(
+      (child) => child.id === pathIds[pathIds.length - 1],
+    );
+    if (index > 0) {
+      const target = parentNode.children[index];
+      parentNode.children.splice(index, 1);
+      parentNode.children.splice(index - 1, 0, target);
+    }
+  }
 }

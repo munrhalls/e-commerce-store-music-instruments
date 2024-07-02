@@ -19,7 +19,7 @@ describe("CategoriesService", () => {
   const IDcategory45 = (Math.random() / Math.random()).toString();
 
   beforeEach(() => {
-    const categoryNode: CategoryNode = {
+    categoryNode = {
       id: root,
       name: "root",
       pathIds: [],
@@ -122,11 +122,11 @@ describe("CategoriesService", () => {
     service.getCategoryNode().subscribe((categoryNode) => {
       expect(categoryNode.id).toEqual(root);
       expect(categoryNode.name).toEqual("root");
-      expect(categoryNode.children.length).toEqual(3);
 
       expect(categoryNode.children[0].id).toEqual(IDcategory1);
       expect(categoryNode.children[1].id).toEqual(IDcategory2);
       expect(categoryNode.children[2].id).toEqual(IDcategory3);
+      expect(categoryNode.children[3].id).toEqual(IDcategory4);
 
       const category2 = categoryNode.children[1];
       expect(category2.children[0].id).toEqual(IDcategory21);
@@ -169,6 +169,12 @@ describe("CategoriesService", () => {
         "Category 2.1.1",
         "Category 3",
         "Category 3.1",
+        "Category 4",
+        "Category 4.1",
+        "Category 4.2",
+        "Category 4.3",
+        "Category 4.4",
+        "Category 4.5",
       ]);
       done();
     });
@@ -301,6 +307,21 @@ describe("CategoriesService", () => {
     }
   });
 
+  it("moveTargetDown - should not move a target position down if it is the last child in the parent", () => {
+    const pathIds = [IDcategory4, IDcategory45];
+    const target = service.findCategoryByPathIds(pathIds);
+    const parent = service.findCategoryByPathIds(pathIds.slice(0, -1));
+    const targetIndex = parent.children.findIndex(
+      (child) => child.id === IDcategory45,
+    );
+    service.moveTargetDown(pathIds);
+    const targetIndexAfter = parent.children.findIndex(
+      (child) => child.id === IDcategory45,
+    );
+    expect(target).toBeDefined();
+    expect(targetIndexAfter).toEqual(targetIndex);
+  });
+
   it("moveTargetDown - should move a target position down (index to the right in the children array) by one, within the same parent", () => {
     const pathIds = [IDcategory4, IDcategory41];
     const target = service.findCategoryByPathIds(pathIds);
@@ -315,5 +336,35 @@ describe("CategoriesService", () => {
     expect(target).toBeDefined();
     expect(targetIndexAfter).toBeLessThan(parent.children.length);
     expect(targetIndexAfter).toEqual(targetIndex + 1);
+  });
+  it("moveTargetUp - should not move a target position up if it is the first child in the parent", () => {
+    const pathIds = [IDcategory4, IDcategory41];
+    const target = service.findCategoryByPathIds(pathIds);
+    const parent = service.findCategoryByPathIds(pathIds.slice(0, -1));
+    const targetIndex = parent.children.findIndex(
+      (child) => child.id === IDcategory41,
+    );
+    service.moveTargetUp(pathIds);
+    const targetIndexAfter = parent.children.findIndex(
+      (child) => child.id === IDcategory41,
+    );
+    expect(target).toBeDefined();
+    expect(targetIndexAfter).toEqual(targetIndex);
+  });
+  it("moveTargetUp - should move a target position up (index to the left in the children array) by one, within the same parent", () => {
+    const pathIds = [IDcategory4, IDcategory42];
+    const target = service.findCategoryByPathIds(pathIds);
+    const parent = service.findCategoryByPathIds(pathIds.slice(0, -1));
+    const targetIndex = parent.children.findIndex(
+      (child) => child.id === IDcategory42,
+    );
+
+    service.moveTargetUp(pathIds);
+    const targetIndexAfter = parent.children.findIndex(
+      (child) => child.id === IDcategory42,
+    );
+    expect(target).toBeDefined();
+    expect(targetIndexAfter).toBeGreaterThanOrEqual(0);
+    expect(targetIndexAfter).toEqual(targetIndex - 1);
   });
 });
