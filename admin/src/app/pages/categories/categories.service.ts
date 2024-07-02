@@ -1,5 +1,5 @@
 // category.service.ts
-import { Injectable } from "@angular/core";
+import { Injectable, Optional } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators"; // Import map operator
 import { cloneDeep } from "lodash";
@@ -16,59 +16,73 @@ export interface CategoryNode {
   providedIn: "root",
 })
 export class CategoriesService {
-  root = (Math.random() / Math.random()).toString();
-  IDcatgory1 = (Math.random() / Math.random()).toString();
-  IDcatgory2 = (Math.random() / Math.random()).toString();
-  IDcatgory21 = (Math.random() / Math.random()).toString();
-  IDcatgory211 = (Math.random() / Math.random()).toString();
-  IDcatgory3 = (Math.random() / Math.random()).toString();
-  IDcatgory31 = (Math.random() / Math.random()).toString();
-  categoryNode: CategoryNode = {
-    id: this.root,
-    name: "root",
-    pathIds: [],
-    children: [
-      {
-        id: this.IDcatgory1,
-        name: "Category 1",
-        pathIds: [this.IDcatgory1],
-        children: [],
-      },
-      {
-        id: this.IDcatgory2,
-        name: "Category 2",
-        pathIds: [this.IDcatgory2],
+  constructor(@Optional() private categoryNode?: CategoryNode) {
+    if (!categoryNode) {
+      const root = (Math.random() / Math.random()).toString();
+      const IDcategory1 = (Math.random() / Math.random()).toString();
+      const IDcategory2 = (Math.random() / Math.random()).toString();
+      const IDcategory21 = (Math.random() / Math.random()).toString();
+      const IDcategory211 = (Math.random() / Math.random()).toString();
+      const IDcategory3 = (Math.random() / Math.random()).toString();
+      const IDcategory31 = (Math.random() / Math.random()).toString();
+
+      categoryNode = {
+        id: root,
+        name: "root",
+        pathIds: [],
         children: [
           {
-            id: this.IDcatgory21,
-            name: "Category 2.1",
-            pathIds: [this.IDcatgory2, this.IDcatgory21],
+            id: IDcategory1,
+            name: "Category 1",
+            pathIds: [IDcategory1],
+            children: [],
+          },
+          {
+            id: IDcategory2,
+            name: "Category 2",
+            pathIds: [IDcategory2],
             children: [
               {
-                id: this.IDcatgory211,
-                name: "Category 2.1.1",
-                pathIds: [this.IDcatgory2, this.IDcatgory21, this.IDcatgory211],
+                id: IDcategory21,
+                name: "Category 2.1",
+                pathIds: [IDcategory2, IDcategory21],
+                children: [
+                  {
+                    id: IDcategory211,
+                    name: "Category 2.1.1",
+                    pathIds: [IDcategory2, IDcategory21, IDcategory211],
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: IDcategory3,
+            name: "Category 3",
+            pathIds: [IDcategory3],
+            children: [
+              {
+                id: IDcategory31,
+                name: "Category 3.1",
+                pathIds: [IDcategory3, IDcategory31],
                 children: [],
               },
             ],
           },
         ],
-      },
-      {
-        id: this.IDcatgory3,
-        name: "Category 3",
-        pathIds: [this.IDcatgory3],
-        children: [
-          {
-            id: this.IDcatgory31,
-            name: "Category 3.1",
-            pathIds: [this.IDcatgory3, this.IDcatgory31],
-            children: [],
-          },
-        ],
-      },
-    ],
-  };
+      };
+    }
+    if (categoryNode) {
+      this.categoryNode = cloneDeep(categoryNode);
+    }
+  }
+
+  getCategoryNode(): Observable<CategoryNode> {
+    return new BehaviorSubject<CategoryNode>(
+      cloneDeep(this.categoryNode),
+    ).asObservable();
+  }
 
   findCategoryByPathIds(pathIds: string[]): CategoryNode {
     let node = this.categoryNode;
@@ -77,14 +91,17 @@ export class CategoriesService {
     }
     return node;
   }
-  addSubCategory(pathIds: string[], name: string): void {
+  addSubCategory(pathIds: string[], name: string): CategoryNode {
     const node = this.findCategoryByPathIds(pathIds);
-    const newId = `${pathIds.join(".")}.${node.children.length + 1}`;
-    node.children.push({
+    const newId = (Math.random() / Math.random()).toString();
+    const newNode = {
       id: newId,
       name,
       pathIds: [...pathIds, newId],
       children: [],
-    });
+    };
+
+    node.children.push(newNode);
+    return newNode;
   }
 }
