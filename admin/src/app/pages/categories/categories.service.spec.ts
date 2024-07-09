@@ -1,119 +1,129 @@
+import { createCategoriesServiceHarness } from "./categories.service.harness";
+
 import { TestBed } from "@angular/core/testing";
 import { CategoriesService, CategoryNode } from "./categories.service";
 import { first } from "rxjs/operators";
 
 describe("CategoriesService", () => {
-  let service: CategoriesService;
-  let categoryNode: CategoryNode;
-  const root = (Math.random() / Math.random()).toString();
-  const IDcategory1 = (Math.random() / Math.random()).toString();
-  const IDcategory2 = (Math.random() / Math.random()).toString();
-  const IDcategory21 = (Math.random() / Math.random()).toString();
-  const IDcategory211 = (Math.random() / Math.random()).toString();
-  const IDcategory3 = (Math.random() / Math.random()).toString();
-  const IDcategory31 = (Math.random() / Math.random()).toString();
-  const IDcategory4 = (Math.random() / Math.random()).toString();
-  const IDcategory41 = (Math.random() / Math.random()).toString();
-  const IDcategory42 = (Math.random() / Math.random()).toString();
-  const IDcategory43 = (Math.random() / Math.random()).toString();
-  const IDcategory44 = (Math.random() / Math.random()).toString();
-  const IDcategory45 = (Math.random() / Math.random()).toString();
+  const { service, categoryNode, IDs } = createCategoriesServiceHarness();
+  const {
+    root,
+    IDcategory1,
+    IDcategory2,
+    IDcategory21,
+    IDcategory211,
+    IDcategory3,
+    IDcategory31,
+    IDcategory4,
+    IDcategory41,
+    IDcategory42,
+    IDcategory43,
+    IDcategory44,
+    IDcategory45,
+  } = IDs;
 
-  beforeEach(() => {
-    categoryNode = {
-      id: root,
-      name: "root",
-      pathIds: [],
-      children: [
-        {
-          id: IDcategory1,
-          name: "Category 1",
-          pathIds: [IDcategory1],
-          children: [],
-        },
-        {
-          id: IDcategory2,
-          name: "Category 2",
-          pathIds: [IDcategory2],
-          children: [
-            {
-              id: IDcategory21,
-              name: "Category 2.1",
-              pathIds: [IDcategory2, IDcategory21],
-              children: [
-                {
-                  id: IDcategory211,
-                  name: "Category 2.1.1",
-                  pathIds: [IDcategory2, IDcategory21, IDcategory211],
-                  children: [],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: IDcategory3,
-          name: "Category 3",
-          pathIds: [IDcategory3],
-          children: [
-            {
-              id: IDcategory31,
-              name: "Category 3.1",
-              pathIds: [IDcategory3, IDcategory31],
-              children: [],
-            },
-          ],
-        },
-        {
-          id: IDcategory4,
-          name: "Category 4",
-          pathIds: [IDcategory4],
-          children: [
-            {
-              id: IDcategory41,
-              name: "Category 4.1",
-              pathIds: [IDcategory4, IDcategory41],
-              children: [],
-            },
-            {
-              id: IDcategory42,
-              name: "Category 4.2",
-              pathIds: [IDcategory4, IDcategory42],
-              children: [],
-            },
-            {
-              id: IDcategory43,
-              name: "Category 4.3",
-              pathIds: [IDcategory4, IDcategory43],
-              children: [],
-            },
-            {
-              id: IDcategory44,
-              name: "Category 4.4",
-              pathIds: [IDcategory4, IDcategory44],
-              children: [],
-            },
-            {
-              id: IDcategory45,
-              name: "Category 4.5",
-              pathIds: [IDcategory4, IDcategory45],
-              children: [],
-            },
-          ],
-        },
-      ],
-    };
-
-    TestBed.configureTestingModule({
-      providers: [
-        {
-          provide: CategoriesService,
-          useValue: new CategoriesService(categoryNode),
-        },
-      ],
-    });
-    service = TestBed.inject(CategoriesService);
+  beforeAll(() => {
+    if (!service) {
+      console.error("CategoriesService failed to initialize");
+      throw new Error("CategoriesService not defined");
+    }
   });
+
+  // beforeEach(() => {
+  //   categoryNode = {
+  //     id: root,
+  //     name: "root",
+  //     pathIds: [],
+  //     children: [
+  //       {
+  //         id: IDcategory1,
+  //         name: "Category 1",
+  //         pathIds: [IDcategory1],
+  //         children: [],
+  //       },
+  //       {
+  //         id: IDcategory2,
+  //         name: "Category 2",
+  //         pathIds: [IDcategory2],
+  //         children: [
+  //           {
+  //             id: IDcategory21,
+  //             name: "Category 2.1",
+  //             pathIds: [IDcategory2, IDcategory21],
+  //             children: [
+  //               {
+  //                 id: IDcategory211,
+  //                 name: "Category 2.1.1",
+  //                 pathIds: [IDcategory2, IDcategory21, IDcategory211],
+  //                 children: [],
+  //               },
+  //             ],
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         id: IDcategory3,
+  //         name: "Category 3",
+  //         pathIds: [IDcategory3],
+  //         children: [
+  //           {
+  //             id: IDcategory31,
+  //             name: "Category 3.1",
+  //             pathIds: [IDcategory3, IDcategory31],
+  //             children: [],
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         id: IDcategory4,
+  //         name: "Category 4",
+  //         pathIds: [IDcategory4],
+  //         children: [
+  //           {
+  //             id: IDcategory41,
+  //             name: "Category 4.1",
+  //             pathIds: [IDcategory4, IDcategory41],
+  //             children: [],
+  //           },
+  //           {
+  //             id: IDcategory42,
+  //             name: "Category 4.2",
+  //             pathIds: [IDcategory4, IDcategory42],
+  //             children: [],
+  //           },
+  //           {
+  //             id: IDcategory43,
+  //             name: "Category 4.3",
+  //             pathIds: [IDcategory4, IDcategory43],
+  //             children: [],
+  //           },
+  //           {
+  //             id: IDcategory44,
+  //             name: "Category 4.4",
+  //             pathIds: [IDcategory4, IDcategory44],
+  //             children: [],
+  //           },
+  //           {
+  //             id: IDcategory45,
+  //             name: "Category 4.5",
+  //             pathIds: [IDcategory4, IDcategory45],
+  //             children: [],
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   };
+
+  //   TestBed.configureTestingModule({
+  //     providers: [
+  //       {
+  //         provide: CategoriesService,
+  //         useValue: new CategoriesService(categoryNode),
+  //       },
+  //     ],
+  //   });
+  //   service = TestBed.inject(CategoriesService);
+  // });
 
   it("CategoriesService - should be created", () => {
     expect(service).toBeDefined();
