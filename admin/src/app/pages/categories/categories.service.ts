@@ -5,6 +5,60 @@ import { map } from "rxjs/operators"; // Import map operator
 import { cloneDeep } from "lodash";
 // import { ObjectId } from 'bson';
 
+const root = (Math.random() / Math.random()).toString();
+const IDcategory1 = (Math.random() / Math.random()).toString();
+const IDcategory2 = (Math.random() / Math.random()).toString();
+const IDcategory21 = (Math.random() / Math.random()).toString();
+const IDcategory211 = (Math.random() / Math.random()).toString();
+const IDcategory3 = (Math.random() / Math.random()).toString();
+const IDcategory31 = (Math.random() / Math.random()).toString();
+
+const categoryNode = {
+  id: root,
+  name: "root",
+  pathIds: [],
+  children: [
+    {
+      id: IDcategory1,
+      name: "Category 1",
+      pathIds: [IDcategory1],
+      children: [],
+    },
+    {
+      id: IDcategory2,
+      name: "Category 2",
+      pathIds: [IDcategory2],
+      children: [
+        {
+          id: IDcategory21,
+          name: "Category 2.1",
+          pathIds: [IDcategory2, IDcategory21],
+          children: [
+            {
+              id: IDcategory211,
+              name: "Category 2.1.1",
+              pathIds: [IDcategory2, IDcategory21, IDcategory211],
+              children: [],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: IDcategory3,
+      name: "Category 3",
+      pathIds: [IDcategory3],
+      children: [
+        {
+          id: IDcategory31,
+          name: "Category 3.1",
+          pathIds: [IDcategory3, IDcategory31],
+          children: [],
+        },
+      ],
+    },
+  ],
+};
 export interface CategoryNode {
   id: string;
   name: string;
@@ -16,67 +70,7 @@ export interface CategoryNode {
   providedIn: "root",
 })
 export class CategoriesService {
-  constructor(@Optional() private categoryNode?: CategoryNode) {
-    if (!categoryNode) {
-      const root = (Math.random() / Math.random()).toString();
-      const IDcategory1 = (Math.random() / Math.random()).toString();
-      const IDcategory2 = (Math.random() / Math.random()).toString();
-      const IDcategory21 = (Math.random() / Math.random()).toString();
-      const IDcategory211 = (Math.random() / Math.random()).toString();
-      const IDcategory3 = (Math.random() / Math.random()).toString();
-      const IDcategory31 = (Math.random() / Math.random()).toString();
-
-      categoryNode = {
-        id: root,
-        name: "root",
-        pathIds: [],
-        children: [
-          {
-            id: IDcategory1,
-            name: "Category 1",
-            pathIds: [IDcategory1],
-            children: [],
-          },
-          {
-            id: IDcategory2,
-            name: "Category 2",
-            pathIds: [IDcategory2],
-            children: [
-              {
-                id: IDcategory21,
-                name: "Category 2.1",
-                pathIds: [IDcategory2, IDcategory21],
-                children: [
-                  {
-                    id: IDcategory211,
-                    name: "Category 2.1.1",
-                    pathIds: [IDcategory2, IDcategory21, IDcategory211],
-                    children: [],
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            id: IDcategory3,
-            name: "Category 3",
-            pathIds: [IDcategory3],
-            children: [
-              {
-                id: IDcategory31,
-                name: "Category 3.1",
-                pathIds: [IDcategory3, IDcategory31],
-                children: [],
-              },
-            ],
-          },
-        ],
-      };
-    }
-    if (categoryNode) {
-      this.categoryNode = cloneDeep(categoryNode);
-    }
-  }
+  constructor(@Optional() private categoryNode?: CategoryNode) {}
   saveCategoryNode(categoryNode: CategoryNode): void {
     localStorage.setItem("categoryNode", JSON.stringify(categoryNode));
   }

@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { ListComponent } from "./list/list.component";
-// import { ItemComponent } from "./item/item.component";
+import { ItemComponent } from "./item/item.component";
 import { MenuComponent } from "./menu/menu.component";
 
 import {
@@ -13,7 +13,7 @@ import {
   NbFormFieldModule,
 } from "@nebular/theme";
 @NgModule({
-  declarations: [ListComponent, MenuComponent],
+  declarations: [ListComponent, ItemComponent, MenuComponent],
   imports: [
     CommonModule,
     NbIconModule,

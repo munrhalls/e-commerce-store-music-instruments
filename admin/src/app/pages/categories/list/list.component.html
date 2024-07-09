@@ -1,7 +1,7 @@
-<!-- <div *ngIf="categories && categories.length > 0">
-  <ul *ngFor="let category of categories" [category]="category">
+<div *ngIf="categoryNode.children && categoryNode.children.length > 0">
+  <ul *ngFor="let child of categoryNode.children" [category]="category">
     <li>
-      <ngx-item [category]="category"> </ngx-item>
+      <ngx-item [categoryNode]="child"> </ngx-item>
     </li>
   </ul>
-</div> -->
+</div>

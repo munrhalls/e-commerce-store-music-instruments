@@ -1,13 +1,13 @@
-<!-- <div class="category-container">
+<div class="categoryNode-container">
   <div class="category-content">
-    <span>{{ category.name }}</span>
+    <span>{{ categoryNode.name }}</span>
     <div class="buttons">
       <button nbButton (click)="toggleMenu()">
         <nb-icon [icon]="isShowMenu ? 'close' : 'menu'"></nb-icon>
       </button>
       <button
         nbButton
-        [disabled]="(category?.children?.length ?? 0) === 0"
+        [disabled]="(categoryNode?.children?.length ?? 0) === 0"
         (click)="toggleSubcategories()"
       >
         <nb-icon
@@ -17,10 +17,10 @@
     </div>
   </div>
 
-  <ngx-menu *ngIf="isShowMenu" [category]="category"></ngx-menu>
+  <ngx-menu *ngIf="isShowMenu" [categoryNode]="categoryNode"></ngx-menu>
 </div>
 
 <ngx-list
   [ngClass]="isShowSubcategories ? 'visible' : 'hidden'"
-  [categories]="category.children"
-></ngx-list> -->
+  [categoryNode]="categoryNode.children"
+></ngx-list>

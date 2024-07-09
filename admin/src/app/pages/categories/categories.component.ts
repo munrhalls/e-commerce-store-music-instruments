@@ -8,20 +8,19 @@ import { CategoryNode } from "./categories.service";
   templateUrl: "./categories.component.html",
   styleUrls: ["./categories.component.scss"],
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, OnDestroy {
   categoryNode: CategoryNode;
   private categoriesSubscription: Subscription;
   constructor(private categoriesService: CategoriesService) {}
-  ngOnInit(): void {}
-  // ngOnInit() {
-  //   this.categoriesSubscription = this.categoriesService
-  //     .getCategories()
-  //     .subscribe((categoryNode) => {
-  //       this.categoryNode = categoryNode;
-  //     });
-  // }
+  ngOnInit() {
+    this.categoriesSubscription = this.categoriesService
+      .getCategoryNode()
+      .subscribe((categoryNode) => {
+        this.categoryNode = categoryNode;
+      });
+  }
 
-  // ngOnDestroy() {
-  //   this.categoriesSubscription.unsubscribe();
-  // }
+  ngOnDestroy() {
+    this.categoriesSubscription.unsubscribe();
+  }
 }
