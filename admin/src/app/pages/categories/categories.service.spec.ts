@@ -1,6 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 import { CategoriesService, CategoryNode } from "./categories.service";
 import { first } from "rxjs/operators";
+
 describe("CategoriesService", () => {
   let service: CategoriesService;
   let categoryNode: CategoryNode;
