@@ -1,10 +1,10 @@
 // category.service.ts
-import { Injectable, Optional } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators"; // Import map operator
 import { cloneDeep } from "lodash";
 // import { ObjectId } from 'bson';
-
 const root = (Math.random() / Math.random()).toString();
 const IDcategory1 = (Math.random() / Math.random()).toString();
 const IDcategory2 = (Math.random() / Math.random()).toString();
@@ -69,8 +69,14 @@ export interface CategoryNode {
 @Injectable({
   providedIn: "root",
 })
-export class CategoriesService {
-  constructor(@Optional() private categoryNode?: CategoryNode) {}
+export class CategoriesService implements OnInit {
+  private categoryNode: CategoryNode = categoryNode;
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.loadCategoryNode();
+  }
+
   saveCategoryNode(categoryNode: CategoryNode): void {
     localStorage.setItem("categoryNode", JSON.stringify(categoryNode));
   }
@@ -78,6 +84,11 @@ export class CategoriesService {
     const storedCategoryNode = localStorage.getItem("categoryNode");
     if (storedCategoryNode) {
       this.categoryNode = JSON.parse(storedCategoryNode);
+    } else {
+      this.http.get<CategoryNode>("/api/categories").subscribe((node) => {
+        this.categoryNode = node;
+        localStorage.setItem("categoryNode", JSON.stringify(node));
+      });
     }
   }
 

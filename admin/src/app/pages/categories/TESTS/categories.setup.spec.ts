@@ -5,14 +5,15 @@ import {
   HttpTestingController,
 } from "@angular/common/http/testing";
 
-export const setupTestBed = function (categoryNode: CategoryNode) {
+export const setupTestBed = function () {
+  let service: CategoriesService;
+  let httpMock: HttpTestingController;
+
   TestBed.configureTestingModule({
-    providers: [
-      {
-        provide: CategoriesService,
-        useFactory: () => new CategoriesService(categoryNode),
-      },
-    ],
+    imports: [HttpClientTestingModule],
+    providers: [CategoriesService],
   });
-  return TestBed.inject(CategoriesService);
+  service = TestBed.inject(CategoriesService);
+  httpMock = TestBed.inject(HttpTestingController);
+  return { service, httpMock };
 };
