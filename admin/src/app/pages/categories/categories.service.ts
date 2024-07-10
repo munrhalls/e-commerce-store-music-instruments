@@ -2,63 +2,8 @@
 import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
-import { map } from "rxjs/operators"; // Import map operator
 import { cloneDeep } from "lodash";
-// import { ObjectId } from 'bson';
-const root = (Math.random() / Math.random()).toString();
-const IDcategory1 = (Math.random() / Math.random()).toString();
-const IDcategory2 = (Math.random() / Math.random()).toString();
-const IDcategory21 = (Math.random() / Math.random()).toString();
-const IDcategory211 = (Math.random() / Math.random()).toString();
-const IDcategory3 = (Math.random() / Math.random()).toString();
-const IDcategory31 = (Math.random() / Math.random()).toString();
-
-const categoryNode = {
-  id: root,
-  name: "root",
-  pathIds: [],
-  children: [
-    {
-      id: IDcategory1,
-      name: "Category 1",
-      pathIds: [IDcategory1],
-      children: [],
-    },
-    {
-      id: IDcategory2,
-      name: "Category 2",
-      pathIds: [IDcategory2],
-      children: [
-        {
-          id: IDcategory21,
-          name: "Category 2.1",
-          pathIds: [IDcategory2, IDcategory21],
-          children: [
-            {
-              id: IDcategory211,
-              name: "Category 2.1.1",
-              pathIds: [IDcategory2, IDcategory21, IDcategory211],
-              children: [],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: IDcategory3,
-      name: "Category 3",
-      pathIds: [IDcategory3],
-      children: [
-        {
-          id: IDcategory31,
-          name: "Category 3.1",
-          pathIds: [IDcategory3, IDcategory31],
-          children: [],
-        },
-      ],
-    },
-  ],
-};
+import { categoryNode as mockCategoryNode } from "./TESTS/categories.mock.spec";
 export interface CategoryNode {
   id: string;
   name: string;
@@ -70,7 +15,7 @@ export interface CategoryNode {
   providedIn: "root",
 })
 export class CategoriesService implements OnInit {
-  private categoryNode: CategoryNode = categoryNode;
+  private categoryNode: CategoryNode = mockCategoryNode;
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -85,6 +30,8 @@ export class CategoriesService implements OnInit {
     if (storedCategoryNode) {
       this.categoryNode = JSON.parse(storedCategoryNode);
     } else {
+      console.log("fetching categories");
+      debugger;
       this.http.get<CategoryNode>("/api/categories").subscribe((node) => {
         this.categoryNode = node;
         localStorage.setItem("categoryNode", JSON.stringify(node));

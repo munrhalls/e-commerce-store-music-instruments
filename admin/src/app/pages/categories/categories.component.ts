@@ -16,6 +16,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     this.categoriesSubscription = this.categoriesService
       .getCategoryNode()
       .subscribe((categoryNode) => {
+        console.log(categoryNode, " @CategoriesComponent");
         this.categoryNode = categoryNode;
       });
   }
