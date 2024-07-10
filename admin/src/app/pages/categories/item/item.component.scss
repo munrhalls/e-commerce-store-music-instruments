@@ -1,24 +1,33 @@
-.category-container {
-  width: 100%;
-  padding: 1rem 1rem 1rem 0;
-  border-bottom: 1px solid #000;
-
-  .category-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-  }
+:host {
+  background-color: #ffffff;
+}
+.category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
 }
 
 .visible {
   display: block;
-  visibility: visible;
-  position: static;
+  // visibility: visible;
+  // position: static;
 }
 
 .hidden {
   display: none;
-  visibility: hidden;
-  position: absolute;
+  // visibility: hidden;
+  // position: absolute;
+}
+
+button {
+  all: unset;
+}
+
+nb-card {
+  margin: 0;
+  padding-left: 1rem;
+  nb-card-body {
+    padding: 1rem;
+  }
 }

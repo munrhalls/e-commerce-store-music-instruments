@@ -1,24 +1,22 @@
-<div class="categoryNode-container">
-  <div class="category-content">
-    <span>{{ categoryNode.name }}</span>
-    <div class="buttons">
-      <button nbButton (click)="toggleMenu()">
-        <nb-icon [icon]="isShowMenu ? 'close' : 'menu'"></nb-icon>
-      </button>
-      <button
-        nbButton
-        [disabled]="(categoryNode?.children?.length ?? 0) === 0"
-        (click)="toggleSubcategories()"
-      >
-        <nb-icon
-          [icon]="isShowSubcategories ? 'chevron-down' : 'chevron-right'"
-        ></nb-icon>
-      </button>
-    </div>
+<div class="category">
+  <span>{{ categoryNode.name }}</span>
+  <div class="buttons">
+    <button (click)="toggleMenu()">
+      <nb-icon size="tiny" [icon]="isShowMenu ? 'close' : 'menu'"></nb-icon>
+    </button>
+    <button
+      [disabled]="(categoryNode?.children?.length ?? 0) === 0"
+      (click)="toggleSubcategories()"
+    >
+      <nb-icon
+        size="tiny"
+        [icon]="isShowSubcategories ? 'chevron-down' : 'chevron-right'"
+      ></nb-icon>
+    </button>
   </div>
-
-  <ngx-menu *ngIf="isShowMenu" [categoryNode]="categoryNode"></ngx-menu>
 </div>
+
+<ngx-menu *ngIf="isShowMenu" [categoryNode]="categoryNode"></ngx-menu>
 
 <ngx-list
   [ngClass]="isShowSubcategories ? 'visible' : 'hidden'"

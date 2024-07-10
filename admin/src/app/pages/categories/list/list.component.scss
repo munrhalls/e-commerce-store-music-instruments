@@ -1,10 +1,22 @@
-nb-card {
-  margin-top: 1rem;
+// ul {
+//   list-style: none;
+//   li {
+//     padding-left: 1rem;
+//     list-style: none;
+//   }
+// }
+
+ul,
+li {
+  all: unset;
 }
+
 ul {
-  list-style: none;
-  li {
-    padding-left: 1rem;
-    list-style: none;
-  }
+  display: block;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+li {
+  display: block;
+  padding-left: 0.75rem;
 }

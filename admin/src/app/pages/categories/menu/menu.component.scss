@@ -1,9 +1,9 @@
 :host {
-  max-width: 12rem;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 2rem 0 1rem 0;
+  // max-width: 100%;
+  // display: flex;
+  // justify-content: space-around;
+  // align-items: center;
+  // margin: 2rem 0 1rem 0;
 }
 .dialog {
   padding: 2rem;
@@ -28,4 +28,8 @@
     align-items: center;
     gap: 1.5rem;
   }
+}
+
+button {
+  all: unset;
 }
