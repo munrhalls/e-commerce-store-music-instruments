@@ -1,37 +1,45 @@
 import { setupTestBed } from "./categories.setup.spec";
+import { categoryNode as mockCategoryNode, IDs } from "./categories.mock.spec";
+import { expectCategoryNode } from "./categories.setup.spec";
+import { HttpTestingController } from "@angular/common/http/testing";
 import { CategoriesService, CategoryNode } from "../categories.service";
 import { first } from "rxjs/operators";
-import { categoryNode, IDs } from "./categories.mock.spec";
 
 describe("CategoriesService", () => {
   let service: CategoriesService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
-    service = setupTestBed(categoryNode);
+    ({ service, httpMock } = setupTestBed());
+    service.ngOnInit();
+  });
+  afterEach(() => {
+    httpMock.verify();
   });
 
-  it("CategoriesService - should be created", () => {
+  it("should fetch categories on init", () => {
     expect(service).toBeDefined();
+    expectCategoryNode(service, httpMock, mockCategoryNode);
   });
 
   describe("Local Storage persistance", () => {
     it("Local Storage persistance - should save categoryNode to localStorage, localStorage node should equal test service node", () => {
-      service.saveCategoryNode(categoryNode);
+      service.saveCategoryNode(mockCategoryNode);
       const storedCategoryNode = localStorage.getItem("categoryNode");
-      expect(storedCategoryNode).toEqual(JSON.stringify(categoryNode));
+      expect(storedCategoryNode).toEqual(JSON.stringify(mockCategoryNode));
     });
 
     it("Local Storage persistence - should load categoryNode from localStorage on initialization, categoryNode should equal test service node", (done) => {
-      localStorage.setItem("categoryNode", JSON.stringify(categoryNode));
+      localStorage.setItem("categoryNode", JSON.stringify(mockCategoryNode));
       service.loadCategoryNode();
       service.getCategoryNode().subscribe((categoryNodeSubscriptionValue) => {
-        expect(categoryNodeSubscriptionValue).toEqual(categoryNode);
+        expect(categoryNodeSubscriptionValue).toEqual(mockCategoryNode);
         done();
       });
     });
 
     it("Local Storage persistance - should reflect changes after an operation", async () => {
-      let categoryNode = await service
+      let categoryNode: CategoryNode = await service
         .getCategoryNode()
         .pipe(first())
         .toPromise();
