@@ -1,7 +1,11 @@
-<div *ngIf="categoryNode.children && categoryNode.children.length > 0">
-  <ul *ngFor="let child of categoryNode.children">
-    <li>
-      <ngx-item [categoryNode]="child"></ngx-item>
-    </li>
-  </ul>
-</div>
+<nb-card>
+  <nb-card-body
+    ><div *ngIf="categoryNode.children && categoryNode.children.length > 0">
+      <ul *ngFor="let child of categoryNode.children">
+        <li>
+          <ngx-item [categoryNode]="child"></ngx-item>
+        </li>
+      </ul>
+    </div>
+  </nb-card-body>
+</nb-card>

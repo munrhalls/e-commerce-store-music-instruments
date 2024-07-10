@@ -6,6 +6,7 @@ import { ItemComponent } from "./item/item.component";
 import { MenuComponent } from "./menu/menu.component";
 
 import {
+  NbCardModule,
   NbIconModule,
   NbDialogModule,
   NbInputModule,
@@ -16,6 +17,7 @@ import {
   declarations: [ListComponent, ItemComponent, MenuComponent],
   imports: [
     CommonModule,
+    NbCardModule,
     NbIconModule,
     NbDialogModule,
     NbInputModule,
@@ -25,7 +27,7 @@ import {
   ],
   exports: [
     ListComponent,
-
+    NbCardModule,
     NbIconModule,
     NbDialogModule,
     NbInputModule,
