@@ -12,11 +12,13 @@
 }
 
 .visible {
+  display: block;
   visibility: visible;
   position: static;
 }
 
 .hidden {
+  display: none;
   visibility: hidden;
   position: absolute;
 }
