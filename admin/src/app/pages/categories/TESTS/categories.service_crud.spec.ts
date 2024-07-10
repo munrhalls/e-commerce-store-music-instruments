@@ -1,17 +1,24 @@
 import { setupTestBed } from "./categories.setup.spec";
+import { categoryNode as mockCategoryNode, IDs } from "./categories.mock.spec";
+import { expectCategoryNode } from "./categories.setup.spec";
+import { HttpTestingController } from "@angular/common/http/testing";
 import { CategoriesService, CategoryNode } from "../categories.service";
-import { first } from "rxjs/operators";
-import { categoryNode, IDs } from "./categories.mock.spec";
 
 describe("CategoriesService", () => {
   let service: CategoriesService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
-    service = setupTestBed(categoryNode);
+    ({ service, httpMock } = setupTestBed());
+    service.ngOnInit();
+  });
+  afterEach(() => {
+    httpMock.verify();
   });
 
-  it("CategoriesService - should be created", () => {
+  it("should fetch categories on init", () => {
     expect(service).toBeDefined();
+    expectCategoryNode(service, httpMock, mockCategoryNode);
   });
 
   describe("Categories CRUD, MOVE UP, MOVE DOWN", () => {

@@ -1,8 +1,7 @@
 import { setupTestBed } from "./categories.setup.spec";
-import { CategoryNode } from "../categories.service";
 import { categoryNode as mockCategoryNode } from "./categories.mock.spec";
 import { HttpTestingController } from "@angular/common/http/testing";
-
+import { expectCategoryNode } from "./categories.setup.spec";
 describe("CategoriesService", () => {
   let service;
   let httpMock: HttpTestingController;
@@ -16,13 +15,6 @@ describe("CategoriesService", () => {
   });
 
   it("should fetch categories on init", () => {
-    const req = httpMock.expectOne("/api/categories");
-    expect(req.request.method).toBe("GET");
-    req.flush(mockCategoryNode);
-
-    service.getCategoryNode().subscribe((node) => {
-      expect(node).toEqual(mockCategoryNode);
-      console.log(node);
-    });
+    expectCategoryNode(service, httpMock, mockCategoryNode);
   });
 });

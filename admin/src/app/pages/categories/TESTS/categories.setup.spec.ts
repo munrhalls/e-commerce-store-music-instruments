@@ -17,3 +17,18 @@ export const setupTestBed = function () {
   httpMock = TestBed.inject(HttpTestingController);
   return { service, httpMock };
 };
+
+export const expectCategoryNode = function (
+  service: CategoriesService,
+  httpMock: HttpTestingController,
+  expectedNode: CategoryNode,
+) {
+  const req = httpMock.expectOne("/api/categories");
+  expect(req.request.method).toBe("GET");
+  req.flush(expectedNode);
+
+  service.getCategoryNode().subscribe((node) => {
+    expect(node).toEqual(expectedNode);
+    console.log(node);
+  });
+};
