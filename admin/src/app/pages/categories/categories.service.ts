@@ -132,20 +132,20 @@ export class CategoriesService {
       const target = parentNode.children[index];
       parentNode.children.splice(index, 1);
       parentNode.children.splice(index + 1, 0, target);
+      this.saveCategoryNode(this.categoryNode);
     }
-    this.saveCategoryNode(this.categoryNode);
   }
   moveTargetUp(pathIds: string[]): void {
     const parentPathIds = pathIds.slice(0, -1);
     const parentNode = this.findCategoryByPathIds(parentPathIds);
-    const index = parentNode.children.findIndex(
+    const targetIndex = parentNode.children.findIndex(
       (child) => child.id === pathIds[pathIds.length - 1],
     );
-    if (index > 0) {
-      const target = parentNode.children[index];
-      parentNode.children.splice(index, 1);
-      parentNode.children.splice(index - 1, 0, target);
+    if (targetIndex > 0) {
+      const target = parentNode.children[targetIndex];
+      parentNode.children.splice(targetIndex, 1);
+      parentNode.children.splice(targetIndex - 1, 0, target);
+      this.saveCategoryNode(this.categoryNode);
     }
-    this.saveCategoryNode(this.categoryNode);
   }
 }
