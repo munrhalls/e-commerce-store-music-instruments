@@ -6,13 +6,13 @@
     <nb-icon icon="edit-outline"></nb-icon>
   </button>
   <button>
-    <nb-icon icon="trash-outline"></nb-icon>
+    <nb-icon (click)="delete()" icon="trash-outline"></nb-icon>
   </button>
   <button>
-    <nb-icon icon="arrow-downward-outline"></nb-icon>
+    <nb-icon (click)="moveDown()" icon="arrow-downward-outline"></nb-icon>
   </button>
   <button>
-    <nb-icon icon="arrow-upward-outline"></nb-icon>
+    <nb-icon (click)="moveUp()" icon="arrow-upward-outline"></nb-icon>
   </button>
 </div>
 

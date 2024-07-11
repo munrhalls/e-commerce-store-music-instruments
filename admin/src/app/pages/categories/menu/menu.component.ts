@@ -18,4 +18,13 @@ export class MenuComponent {
   toggleEditForm() {
     this.isEditFormOpen = !this.isEditFormOpen;
   }
+  delete() {
+    this.categoriesService.deleteTarget(this.categoryNode.pathIds);
+  }
+  moveDown() {
+    this.categoriesService.moveTargetDown(this.categoryNode.pathIds);
+  }
+  moveUp() {
+    this.categoriesService.moveTargetUp(this.categoryNode.pathIds);
+  }
 }
