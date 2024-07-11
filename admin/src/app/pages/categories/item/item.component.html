@@ -1,5 +1,5 @@
-<div class="category" [ngClass]="isShowSubcategories ? 'unfolded' : 'folded'">
-  <span [style.paddingLeft.rem]="nestingLevel * 0.75">{{
+<div class="category" [ngClass]="isShowSubcategories ? 'unfolded' : ''">
+  <span [style.paddingLeft.rem]="(nestingLevel + 1) * 0.75">{{
     categoryNode.name
   }}</span>
   <div class="buttons">
@@ -21,6 +21,6 @@
 <ngx-menu *ngIf="isShowMenu" [categoryNode]="categoryNode"></ngx-menu>
 
 <ngx-list
-  [ngClass]="isShowSubcategories ? 'visible unfolded' : 'hidden'"
+  [ngClass]="isShowSubcategories ? 'visible' : 'hidden'"
   [categoryNode]="categoryNode"
 ></ngx-list>

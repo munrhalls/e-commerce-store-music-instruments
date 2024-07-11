@@ -3,19 +3,24 @@
 }
 .category {
   background-color: #d0d0d0;
+}
+
+.category.unfolded {
+  text-decoration: underline;
+  background-color: #b0b0b0;
+}
+
+ngx-list .category:not(.unfolded) {
+  background-color: #ffffff;
+}
+
+.category {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: bold;
-}
-.unfolded {
-  counter-reset: level;
-}
-
-.unfolded .unfolded {
-  counter-increment: level;
-  padding-left: calc(20px * counter(level));
 }
 
 .visible {
@@ -32,13 +37,4 @@
 
 button {
   all: unset;
-}
-
-ngx-list {
-  &.unfolded {
-    .category {
-      // padding-left: 1em;
-      background-color: #ffffff;
-    }
-  }
 }
