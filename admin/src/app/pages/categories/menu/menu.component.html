@@ -2,7 +2,7 @@
   <button (click)="toggleAddForm()">
     <nb-icon icon="plus-outline"></nb-icon>
   </button>
-  <button>
+  <button (click)="toggleEditForm()">
     <nb-icon icon="edit-outline"></nb-icon>
   </button>
   <button>
@@ -32,6 +32,36 @@
   </div>
   <div class="buttons">
     <button nbButton size="small" status="danger" (click)="toggleAddForm()">
+      Close
+    </button>
+    <button
+      nbButton
+      size="small"
+      status="success"
+      type="submit"
+      [disabled]="!formGroup.valid"
+    >
+      Submit
+    </button>
+  </div>
+</form>
+
+<form
+  [ngClass]="{ visible: isEditFormOpen }"
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit($event)"
+>
+  <span class="title"> Edit category </span>
+  <div class="form-field">
+    <input type="text" [value]="category.name" formControlName="name" />
+  </div>
+
+  <div class="errors" *ngIf="!formGroup.valid && (name.dirty || name.touched)">
+    <small *ngIf="name.errors?.required">Name is required</small>
+    <small *ngIf="name.errors?.maxlength">Name is too long</small>
+  </div>
+  <div class="buttons">
+    <button nbButton size="small" status="danger" (click)="toggleEditForm()">
       Close
     </button>
     <button

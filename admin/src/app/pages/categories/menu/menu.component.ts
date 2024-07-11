@@ -11,11 +11,17 @@ export class MenuComponent {
   formGroup: FormGroup;
   @Input() category: any = { id: 0, name: "" };
   isAddFormOpen = false;
+  isEditFormOpen = false;
 
   constructor(private categoriesService: CategoriesService) {}
 
   toggleAddForm() {
     this.isAddFormOpen = !this.isAddFormOpen;
+    this.isEditFormOpen = false;
+  }
+  toggleEditForm() {
+    this.isEditFormOpen = !this.isEditFormOpen;
+    this.isAddFormOpen = false;
   }
   ngOnInit() {
     console.log(this.category, " category");
