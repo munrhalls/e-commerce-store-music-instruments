@@ -35,61 +35,66 @@
   }
 }
 
-form {
+ngx-add-category,
+ngx-edit-category {
   display: none;
-
-  flex-direction: column;
-  // flex-basis: max-content;
-  max-width: 21rem;
-  width: 100%;
-
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-bottom: 0.75rem;
-  padding-top: 1rem;
-  margin-top: 0.25rem;
-  margin-bottom: 1.25rem;
-  background-color: #ffffff;
-  border: 1px solid #ffffff;
-  border-radius: 3px;
-
-  .title {
-    font-size: 1rem;
-    span {
-      text-transform: initial;
-    }
-  }
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    margin-top: 0.75rem;
-    label {
-      font-size: 0.75rem;
-      max-width: 80%;
-      margin-bottom: 0.25rem;
-    }
-    input {
-      max-width: 80%;
-      padding: 0.75rem;
-      border: 1px solid #000;
-      border-radius: 3px;
-    }
-  }
-  .errors {
-    color: red;
-  }
-  .buttons {
-    margin-top: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    button:last-child {
-      margin-left: 0.5rem;
-    }
-  }
 }
 .visible {
   display: flex;
 }
+
+// form {
+//   display: none;
+
+//   flex-direction: column;
+//   // flex-basis: max-content;
+//   max-width: 21rem;
+//   width: 100%;
+
+//   padding-left: 1rem;
+//   padding-right: 1rem;
+//   padding-bottom: 0.75rem;
+//   padding-top: 1rem;
+//   margin-top: 0.25rem;
+//   margin-bottom: 1.25rem;
+//   background-color: #ffffff;
+//   border: 1px solid #ffffff;
+//   border-radius: 3px;
+
+//   .title {
+//     font-size: 1rem;
+//     span {
+//       text-transform: initial;
+//     }
+//   }
+//   .form-field {
+//     display: flex;
+//     flex-direction: column;
+//     margin-top: 0.75rem;
+//     label {
+//       font-size: 0.75rem;
+//       max-width: 80%;
+//       margin-bottom: 0.25rem;
+//     }
+//     input {
+//       max-width: 80%;
+//       padding: 0.75rem;
+//       border: 1px solid #000;
+//       border-radius: 3px;
+//     }
+//   }
+//   .errors {
+//     color: red;
+//   }
+//   .buttons {
+//     margin-top: 1rem;
+//     padding-top: 0.5rem;
+//     padding-bottom: 0.5rem;
+//     display: flex;
+//     justify-content: flex-start;
+//     align-items: center;
+//     button:last-child {
+//       margin-left: 0.5rem;
+//     }
+//   }
+// }

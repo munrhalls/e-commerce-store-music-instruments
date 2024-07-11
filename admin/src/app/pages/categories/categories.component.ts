@@ -14,7 +14,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   constructor(private categoriesService: CategoriesService) {}
   ngOnInit() {
     this.categoriesSubscription = this.categoriesService
-      .getCategoryNode()
+      .getCategoryNode$()
       .subscribe((categoryNode) => {
         console.log(categoryNode, " @CategoriesComponent");
         this.categoryNode = categoryNode;

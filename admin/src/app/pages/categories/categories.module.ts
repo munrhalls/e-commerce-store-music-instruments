@@ -4,6 +4,8 @@ import { CommonModule } from "@angular/common";
 import { ListComponent } from "./list/list.component";
 import { ItemComponent } from "./item/item.component";
 import { MenuComponent } from "./menu/menu.component";
+import { AddCategoryComponent } from "./add-category/add-category.component";
+import { EditCategoryComponent } from "./edit-category/edit-category.component";
 
 import {
   NbCardModule,
@@ -14,7 +16,13 @@ import {
   NbFormFieldModule,
 } from "@nebular/theme";
 @NgModule({
-  declarations: [ListComponent, ItemComponent, MenuComponent],
+  declarations: [
+    ListComponent,
+    ItemComponent,
+    MenuComponent,
+    AddCategoryComponent,
+    EditCategoryComponent,
+  ],
   imports: [
     CommonModule,
     NbCardModule,

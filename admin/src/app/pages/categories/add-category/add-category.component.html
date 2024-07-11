@@ -1,0 +1,34 @@
+<form [formGroup]="addFormGroup" (ngSubmit)="onAddSubmit($event)">
+  <span class="title"> Add subcategory </span>
+  <div class="form-field">
+    <input type="text" placeholder="Name..." formControlName="name" />
+  </div>
+
+  <div
+    class="errors"
+    *ngIf="!addFormGroup.valid && (addName.dirty || addName.touched)"
+  >
+    <small *ngIf="addName.errors?.required">Name is required</small>
+    <small *ngIf="addName.errors?.maxlength">Name is too long</small>
+  </div>
+  <div class="buttons">
+    <button
+      nbButton
+      type="button"
+      size="small"
+      status="danger"
+      (click)="emitClose()"
+    >
+      Close
+    </button>
+    <button
+      nbButton
+      type="submit"
+      size="small"
+      status="success"
+      [disabled]="!addFormGroup.valid"
+    >
+      Submit
+    </button>
+  </div>
+</form>

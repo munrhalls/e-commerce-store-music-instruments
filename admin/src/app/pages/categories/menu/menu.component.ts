@@ -1,5 +1,4 @@
-import { Component, Input, TemplateRef } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Component, Input } from "@angular/core";
 import { CategoriesService } from "../categories.service";
 
 @Component({
@@ -8,43 +7,15 @@ import { CategoriesService } from "../categories.service";
   styleUrls: ["./menu.component.scss"],
 })
 export class MenuComponent {
-  formGroup: FormGroup;
-  @Input() category: any = { id: 0, name: "" };
+  constructor(private categoriesService: CategoriesService) {}
+  @Input() categoryNode: any = { id: 0, name: "" };
   isAddFormOpen = false;
   isEditFormOpen = false;
 
-  constructor(private categoriesService: CategoriesService) {}
-
   toggleAddForm() {
     this.isAddFormOpen = !this.isAddFormOpen;
-    this.isEditFormOpen = false;
   }
   toggleEditForm() {
     this.isEditFormOpen = !this.isEditFormOpen;
-    this.isAddFormOpen = false;
-  }
-  ngOnInit() {
-    console.log(this.category, " category");
-    this.isAddFormOpen = false;
-
-    this.formGroup = new FormGroup({
-      name: new FormControl("", [
-        Validators.required,
-        Validators.maxLength(30),
-      ]),
-    });
-  }
-  get name() {
-    return this.formGroup.get("name");
-  }
-  onSubmit(e: Event) {
-    e.preventDefault();
-    if (this.formGroup.valid) {
-      const newCategoryName = this.name.value;
-      this.categoriesService.addCategoryToTarget(
-        this.category.pathIds,
-        newCategoryName,
-      );
-    }
   }
 }

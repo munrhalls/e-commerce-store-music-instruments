@@ -16,6 +16,11 @@ export interface CategoryNode {
 })
 export class CategoriesService implements OnInit {
   private categoryNode: CategoryNode = mockCategoryNode;
+  private categoryNodeSubject = new BehaviorSubject<CategoryNode>(
+    this.categoryNode,
+  );
+  categoryNode$ = this.categoryNodeSubject.asObservable();
+
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -39,10 +44,8 @@ export class CategoriesService implements OnInit {
     }
   }
 
-  getCategoryNode(): Observable<CategoryNode> {
-    return new BehaviorSubject<CategoryNode>(
-      cloneDeep(this.categoryNode),
-    ).asObservable();
+  getCategoryNode$(): Observable<CategoryNode> {
+    return this.categoryNodeSubject.asObservable();
   }
 
   findCategoryByPathIds(pathIds: string[]): CategoryNode {
@@ -61,9 +64,9 @@ export class CategoriesService implements OnInit {
       pathIds: [...pathIds, newId],
       children: [],
     };
+    node.children = [newNode, ...node.children];
+    // this.saveCategoryNode(this.categoryNode);
 
-    node.children.push(newNode);
-    this.saveCategoryNode(this.categoryNode);
     return newNode;
   }
   updateTargetName(pathIds: string[], name: string): void {
