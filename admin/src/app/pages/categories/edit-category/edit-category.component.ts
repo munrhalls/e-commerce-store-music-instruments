@@ -1,33 +1,29 @@
-import { Component, Input, TemplateRef } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { CategoriesService } from "../categories.service";
+
 @Component({
   selector: "ngx-edit-category",
   templateUrl: "./edit-category.component.html",
   styleUrls: ["./edit-category.component.scss"],
 })
 export class EditCategoryComponent {
-  editFormGroup: FormGroup;
-  @Input() categoryNode: any = { id: 0, name: "" };
-  isEditFormOpen = false;
   constructor(private categoriesService: CategoriesService) {}
+  @Input() categoryNode: any = { id: 0, name: "" };
+  @Output() closed = new EventEmitter<void>();
+  editFormGroup: FormGroup;
 
-  toggleEditForm() {
-    this.isEditFormOpen = !this.isEditFormOpen;
+  emitClose() {
+    this.closed.emit();
   }
-  ngOnInit() {
-    this.isEditFormOpen = false;
 
+  ngOnInit() {
     this.editFormGroup = new FormGroup({
-      name: new FormControl("", [
+      name: new FormControl(this.categoryNode?.name || "", [
         Validators.required,
         Validators.maxLength(30),
       ]),
     });
-  }
-
-  ngAfterViewInit() {
-    this.editFormGroup.get("name")?.setValue(this.categoryNode?.name || "");
   }
 
   get editName() {
@@ -44,5 +40,6 @@ export class EditCategoryComponent {
         newCategoryName,
       );
     }
+    this.emitClose();
   }
 }

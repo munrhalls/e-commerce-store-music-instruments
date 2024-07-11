@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  TemplateRef,
-} from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { CategoriesService } from "../categories.service";
 @Component({
@@ -42,5 +36,6 @@ export class AddCategoryComponent {
       );
       console.log(this.categoryNode.children);
     }
+    this.emitClose();
   }
 }

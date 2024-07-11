@@ -1,8 +1,4 @@
-<form
-  [ngClass]="{ visible: isEditFormOpen }"
-  [formGroup]="editFormGroup"
-  (ngSubmit)="onEditSubmit($event)"
->
+<form [formGroup]="editFormGroup" (ngSubmit)="onEditSubmit($event)">
   <span class="title"> Edit category </span>
   <div class="form-field">
     <input type="text" [value]="categoryNode.name" formControlName="name" />
@@ -16,14 +12,20 @@
     <small *ngIf="editName.errors?.maxlength">Name is too long</small>
   </div>
   <div class="buttons">
-    <button nbButton size="small" status="danger" (click)="toggleEditForm()">
+    <button
+      nbButton
+      type="button"
+      size="small"
+      status="danger"
+      (click)="emitClose()"
+    >
       Close
     </button>
     <button
       nbButton
+      type="submit"
       size="small"
       status="success"
-      type="submit"
       [disabled]="!editFormGroup.valid"
     >
       Submit

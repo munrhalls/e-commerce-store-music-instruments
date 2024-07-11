@@ -23,8 +23,9 @@
 >
 </ngx-add-category>
 
-<!-- <ngx-edit-category
+<ngx-edit-category
   [categoryNode]="categoryNode"
   [ngClass]="{ visible: isEditFormOpen }"
+  (closed)="isEditFormOpen = false"
 >
-</ngx-edit-category> -->
+</ngx-edit-category>
