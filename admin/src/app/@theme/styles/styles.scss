@@ -1,8 +1,3 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap");
 
 // themes - our custom or/and out of the box themes
@@ -34,4 +29,9 @@
   @include ngx-pace-theme();
 
   @include nb-overrides();
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }

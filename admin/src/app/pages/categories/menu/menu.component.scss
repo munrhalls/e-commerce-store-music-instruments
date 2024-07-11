@@ -1,22 +1,26 @@
 :host {
-  background-color: #3f3f3f;
+  background-color: #6d6d6d;
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  min-height: 2.25rem;
+  min-height: 3.5rem;
+  padding-right: 3rem;
 
   border-top: 1px solid gray;
-  padding-right: 3rem;
 }
 
 .menu {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  min-height: 3.5rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   button {
     all: unset;
-    display: inline-block;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     padding-right: 0.75rem;
     cursor: pointer;
   }
