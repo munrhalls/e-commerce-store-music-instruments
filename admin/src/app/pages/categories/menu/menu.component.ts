@@ -19,6 +19,8 @@ export class MenuComponent {
   }
   ngOnInit() {
     console.log(this.category, " category");
+    this.isAddFormOpen = false;
+
     this.formGroup = new FormGroup({
       name: new FormControl("", [
         Validators.required,
