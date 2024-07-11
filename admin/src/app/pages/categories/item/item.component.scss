@@ -3,6 +3,7 @@
 }
 .category {
   background-color: #d0d0d0;
+  padding-right: 0.25rem;
 }
 .category.unfolded {
   text-decoration: underline;
@@ -26,6 +27,18 @@ ngx-list {
 .visible {
   display: block;
 }
+ngx-menu {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 1.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-top: 1px solid gray;
+}
 button {
   all: unset;
+  display: inline-block;
+  padding-right: 0.25rem;
+  cursor: pointer;
 }
