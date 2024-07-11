@@ -18,9 +18,13 @@
   </div>
 </div>
 
-<ngx-menu *ngIf="isShowMenu" [categoryNode]="categoryNode"></ngx-menu>
+<ngx-menu
+  *ngIf="isShowMenu"
+  [categoryNode]="categoryNode"
+  [style.paddingLeft.rem]="(nestingLevel + 1) * 0.75"
+></ngx-menu>
 
 <ngx-list
-  [ngClass]="isShowSubcategories ? 'visible' : 'hidden'"
+  [ngClass]="{ visible: isShowSubcategories }"
   [categoryNode]="categoryNode"
 ></ngx-list>
