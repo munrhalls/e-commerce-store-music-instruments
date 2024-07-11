@@ -1,49 +1,53 @@
-<button (click)="open(dialog)">
-  <nb-icon icon="plus-outline"></nb-icon>
-</button>
-<button>
-  <nb-icon icon="edit-outline"></nb-icon>
-</button>
-<button>
-  <nb-icon icon="trash-outline"></nb-icon>
-</button>
-<button>
-  <nb-icon icon="arrow-downward-outline"></nb-icon>
-</button>
-<button>
-  <nb-icon icon="arrow-upward-outline"></nb-icon>
-</button>
+<div class="menu">
+  <button (click)="toggleAddForm()">
+    <nb-icon icon="plus-outline"></nb-icon>
+  </button>
+  <button>
+    <nb-icon icon="edit-outline"></nb-icon>
+  </button>
+  <button>
+    <nb-icon icon="trash-outline"></nb-icon>
+  </button>
+  <button>
+    <nb-icon icon="arrow-downward-outline"></nb-icon>
+  </button>
+  <button>
+    <nb-icon icon="arrow-upward-outline"></nb-icon>
+  </button>
+</div>
 
-<ng-template #dialog let-data let-ref="dialogRef">
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit($event)">
-    <nb-card class="dialog">
-      <nb-card-header>
-        <span class="subtitle">
-          Add subcategory to <label>{{ data }}</label>
-        </span>
-      </nb-card-header>
-      <nb-card-body>
-        <label for="name">Name</label>
-        <input type="text" formControlName="name" class="form-control" />
-        <div
-          class="errors"
-          *ngIf="!formGroup.valid && (name.dirty || name.touched)"
-        >
-          <small *ngIf="name.errors?.required">Name is required</small>
-          <small *ngIf="name.errors?.maxlength">Name is too long</small>
-        </div>
-      </nb-card-body>
-      <nb-card-footer>
-        <button status="danger" (click)="ref.close()">Close</button>
-        <button
-          nbButton
-          status="success"
-          type="submit"
-          [disabled]="!formGroup.valid"
-        >
-          Submit
-        </button>
-      </nb-card-footer>
-    </nb-card>
-  </form>
-</ng-template>
+<form
+  [ngClass]="{ visible: isAddFormOpen }"
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit($event)"
+>
+  <nb-card class="dialog">
+    <nb-card-header>
+      <span class="subtitle">
+        Add subcategory to <label>{{ this.category.name }}</label>
+      </span>
+    </nb-card-header>
+    <nb-card-body>
+      <label for="name">Name</label>
+      <input type="text" formControlName="name" class="form-control" />
+      <div
+        class="errors"
+        *ngIf="!formGroup.valid && (name.dirty || name.touched)"
+      >
+        <small *ngIf="name.errors?.required">Name is required</small>
+        <small *ngIf="name.errors?.maxlength">Name is too long</small>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button status="danger" (click)="toggleAddForm()">Close</button>
+      <button
+        nbButton
+        status="success"
+        type="submit"
+        [disabled]="!formGroup.valid"
+      >
+        Submit
+      </button>
+    </nb-card-footer>
+  </nb-card>
+</form>

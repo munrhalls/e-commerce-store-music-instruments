@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, TemplateRef } from "@angular/core";
-import { NbDialogService } from "@nebular/theme";
+import { Component, Input, TemplateRef } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { CategoriesService } from "../categories.service";
 
@@ -11,14 +10,12 @@ import { CategoriesService } from "../categories.service";
 export class MenuComponent {
   formGroup: FormGroup;
   @Input() category: any = { id: 0, name: "" };
-  constructor(
-    private dialogService: NbDialogService,
-    private categoriesService: CategoriesService,
-  ) {}
-  open(dialog: TemplateRef<any>) {
-    this.dialogService.open(dialog, {
-      context: `${this.category.name}`,
-    });
+  isAddFormOpen = false;
+
+  constructor(private categoriesService: CategoriesService) {}
+
+  toggleAddForm() {
+    this.isAddFormOpen = !this.isAddFormOpen;
   }
   ngOnInit() {
     console.log(this.category, " category");
