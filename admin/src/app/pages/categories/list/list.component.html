@@ -1,7 +1,10 @@
 <div *ngIf="categoryNode.children && categoryNode.children.length > 0">
   <ul>
     <li *ngFor="let child of categoryNode.children">
-      <ngx-item [categoryNode]="child"></ngx-item>
+      <ngx-item
+        [nestingLevel]="categoryNode.pathIds.length"
+        [categoryNode]="child"
+      ></ngx-item>
     </li>
   </ul>
 </div>

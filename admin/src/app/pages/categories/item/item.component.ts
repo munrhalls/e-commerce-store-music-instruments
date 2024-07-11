@@ -7,6 +7,8 @@ import { CategoryNode } from "../categories.service";
 })
 export class ItemComponent {
   @Input() categoryNode: CategoryNode;
+  @Input() nestingLevel: number = 0;
+
   isShowMenu = false;
   isShowSubcategories = false;
   toggleMenu() {

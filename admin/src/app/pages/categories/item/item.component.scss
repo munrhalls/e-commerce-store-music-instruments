@@ -1,11 +1,21 @@
 :host {
-  background-color: #ffffff;
+  display: block;
 }
 .category {
+  background-color: #d0d0d0;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
+}
+.unfolded {
+  counter-reset: level;
+}
+
+.unfolded .unfolded {
+  counter-increment: level;
+  padding-left: calc(20px * counter(level));
 }
 
 .visible {
@@ -22,4 +32,13 @@
 
 button {
   all: unset;
+}
+
+ngx-list {
+  &.unfolded {
+    .category {
+      // padding-left: 1em;
+      background-color: #ffffff;
+    }
+  }
 }

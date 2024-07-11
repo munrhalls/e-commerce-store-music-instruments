@@ -1,16 +1,7 @@
-// ul {
-//   list-style: none;
-//   li {
-//     padding-left: 1rem;
-//     list-style: none;
-//   }
-// }
-
 ul,
 li {
   all: unset;
 }
-
 ul {
   display: block;
   margin-top: 0.25rem;
@@ -18,5 +9,8 @@ ul {
 }
 li {
   display: block;
-  padding-left: 0.75rem;
+  border-bottom: 1px solid #000;
+}
+li:last-child {
+  border-bottom: none;
 }
