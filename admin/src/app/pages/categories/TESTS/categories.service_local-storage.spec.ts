@@ -32,7 +32,7 @@ describe("CategoriesService", () => {
     it("Local Storage persistence - should load categoryNode from localStorage on initialization, categoryNode should equal test service node", (done) => {
       localStorage.setItem("categoryNode", JSON.stringify(mockCategoryNode));
       service.loadCategoryNode();
-      service.getCategoryNode().subscribe((categoryNodeSubscriptionValue) => {
+      service.getCategoryNode$().subscribe((categoryNodeSubscriptionValue) => {
         expect(categoryNodeSubscriptionValue).toEqual(mockCategoryNode);
         done();
       });
@@ -40,7 +40,7 @@ describe("CategoriesService", () => {
 
     it("Local Storage persistance - should reflect changes after an operation", async () => {
       let categoryNode: CategoryNode = await service
-        .getCategoryNode()
+        .getCategoryNode$()
         .pipe(first())
         .toPromise();
 
@@ -50,7 +50,7 @@ describe("CategoriesService", () => {
       const storedCategoryNode = JSON.parse(
         localStorage.getItem("categoryNode"),
       );
-      categoryNode = await service.getCategoryNode().pipe(first()).toPromise();
+      categoryNode = await service.getCategoryNode$().pipe(first()).toPromise();
 
       expect(categoryNode.children.length).toEqual(5);
       expect(storedCategoryNode.children.length).toEqual(5);
