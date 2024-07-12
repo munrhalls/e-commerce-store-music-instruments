@@ -9,6 +9,7 @@ export class MenuComponent {
   constructor(private categoriesService: CategoriesService) {}
   @Input() categoryNode: any = { id: 0, name: "" };
   @Output() toggleAllSubcategories = new EventEmitter<void>();
+  @Output() aboutToBeDeleted = new EventEmitter<void>();
   isAddFormOpen = false;
   isEditFormOpen = false;
   isShowConfirmDelete = false;
@@ -20,19 +21,21 @@ export class MenuComponent {
     this.isEditFormOpen = !this.isEditFormOpen;
   }
   delete() {
-    // show confirm box
-    // unfold all subs
-    // mark all subs - toDel class
     if (this.categoryNode.children.length === 0) {
       this.categoriesService.deleteTarget(this.categoryNode.pathIds);
     } else {
       this.isShowConfirmDelete = true;
       this.toggleAllSubcategories.emit();
+      // this.aboutToBeDeleted.emit();
     }
   }
   confirmDelete() {
     this.isShowConfirmDelete = false;
     this.categoriesService.deleteTarget(this.categoryNode.pathIds);
+  }
+  closeConfirmDelete() {
+    this.isShowConfirmDelete = false;
+    this.toggleAllSubcategories.emit();
   }
   moveDown() {
     this.categoriesService.moveTargetDown(this.categoryNode.pathIds);

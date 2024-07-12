@@ -12,6 +12,7 @@ export class ItemComponent {
   isShowMenu = false;
   isShowSubcategories = false;
   isShowAllSubcategories = false;
+  isAboutToBeDeleted = false;
 
   toggleMenu() {
     this.isShowMenu = !this.isShowMenu;
@@ -21,5 +22,8 @@ export class ItemComponent {
   }
   toggleAllSubcategories() {
     this.isShowAllSubcategories = !this.isShowAllSubcategories;
+  }
+  toggleAboutToBeDeleted() {
+    // this.isAboutToBeDeleted = !this.isAboutToBeDeleted;
   }
 }
