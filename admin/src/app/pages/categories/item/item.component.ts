@@ -8,7 +8,6 @@ import { CategoryNode } from "../categories.service";
 export class ItemComponent {
   @Input() categoryNode: CategoryNode;
   @Input() nestingLevel: number = 0;
-  // input allunfolded
 
   isShowMenu = false;
   isShowSubcategories = false;
@@ -23,6 +22,4 @@ export class ItemComponent {
   toggleAllSubcategories() {
     this.isShowAllSubcategories = !this.isShowAllSubcategories;
   }
-  // unfoldAllSubs
-  // foldAllSubs
 }

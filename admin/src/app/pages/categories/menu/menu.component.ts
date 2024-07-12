@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { CategoriesService } from "../categories.service";
 @Component({
   selector: "ngx-menu",
@@ -8,8 +8,10 @@ import { CategoriesService } from "../categories.service";
 export class MenuComponent {
   constructor(private categoriesService: CategoriesService) {}
   @Input() categoryNode: any = { id: 0, name: "" };
+  @Output() toggleAllSubcategories = new EventEmitter<void>();
   isAddFormOpen = false;
   isEditFormOpen = false;
+  isShowConfirmDelete = false;
 
   toggleAddForm() {
     this.isAddFormOpen = !this.isAddFormOpen;
@@ -18,6 +20,18 @@ export class MenuComponent {
     this.isEditFormOpen = !this.isEditFormOpen;
   }
   delete() {
+    // show confirm box
+    // unfold all subs
+    // mark all subs - toDel class
+    if (this.categoryNode.children.length === 0) {
+      this.categoriesService.deleteTarget(this.categoryNode.pathIds);
+    } else {
+      this.isShowConfirmDelete = true;
+      this.toggleAllSubcategories.emit();
+    }
+  }
+  confirmDelete() {
+    this.isShowConfirmDelete = false;
     this.categoriesService.deleteTarget(this.categoryNode.pathIds);
   }
   moveDown() {

@@ -30,10 +30,10 @@
 <ngx-menu
   *ngIf="isShowMenu"
   [categoryNode]="categoryNode"
+  (toggleAllSubcategories)="toggleAllSubcategories($event)"
   [style.paddingLeft.rem]="(nestingLevel + 1) * 0.75"
 ></ngx-menu>
 
-// list input - allUnfolded
 <ngx-list
   [ngClass]="{ visible: isShowSubcategories }"
   [ngClass]="{ 'visible-all': isShowAllSubcategories }"

@@ -7,7 +7,6 @@
   </button>
   <button>
     <nb-icon (click)="delete()" icon="trash-outline"></nb-icon>
-    // 1 START: GO TO delete()
   </button>
   <button>
     <nb-icon (click)="moveDown()" icon="arrow-downward-outline"></nb-icon>
@@ -30,3 +29,22 @@
   (closed)="isEditFormOpen = false"
 >
 </ngx-edit-category>
+
+<div class="confirm-delete" [ngClass]="{ visible: isShowConfirmDelete }">
+  <span class="title"
+    >This action will delete <i>all</i> sub-categories. Proceed?</span
+  >
+  <div class="buttons">
+    <button nbButton status="danger" size="small" (click)="confirmDelete()">
+      Delete
+    </button>
+    <button
+      nbButton
+      status="basic"
+      size="small"
+      (click)="isShowConfirmDelete = false"
+    >
+      Go back
+    </button>
+  </div>
+</div>
