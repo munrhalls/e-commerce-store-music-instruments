@@ -36,7 +36,6 @@ export class CategoriesService implements OnInit {
       this.categoryNode = JSON.parse(storedCategoryNode);
     } else {
       console.log("fetching categories");
-      debugger;
       this.http.get<CategoryNode>("/api/categories").subscribe((node) => {
         this.categoryNode = node;
         localStorage.setItem("categoryNode", JSON.stringify(node));
