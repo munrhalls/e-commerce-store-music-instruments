@@ -1,6 +1,5 @@
 import { Component, Input } from "@angular/core";
 import { CategoriesService } from "../categories.service";
-
 @Component({
   selector: "ngx-menu",
   templateUrl: "./menu.component.html",

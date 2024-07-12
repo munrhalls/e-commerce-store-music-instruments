@@ -8,13 +8,21 @@ import { CategoryNode } from "../categories.service";
 export class ItemComponent {
   @Input() categoryNode: CategoryNode;
   @Input() nestingLevel: number = 0;
+  // input allunfolded
 
   isShowMenu = false;
   isShowSubcategories = false;
+  isShowAllSubcategories = false;
+
   toggleMenu() {
     this.isShowMenu = !this.isShowMenu;
   }
   toggleSubcategories() {
     this.isShowSubcategories = !this.isShowSubcategories;
   }
+  toggleAllSubcategories() {
+    this.isShowAllSubcategories = !this.isShowAllSubcategories;
+  }
+  // unfoldAllSubs
+  // foldAllSubs
 }

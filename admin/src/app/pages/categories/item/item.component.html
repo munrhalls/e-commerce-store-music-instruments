@@ -15,6 +15,15 @@
         [icon]="isShowSubcategories ? 'chevron-up' : 'chevron-down-outline'"
       ></nb-icon>
     </button>
+    <button
+      [disabled]="(categoryNode?.children?.length ?? 0) === 0"
+      (click)="toggleAllSubcategories()"
+    >
+      <nb-icon
+        size="tiny"
+        [icon]="isShowAllSubcategories ? 'collapse-outline' : 'expand-outline'"
+      ></nb-icon>
+    </button>
   </div>
 </div>
 
@@ -24,7 +33,9 @@
   [style.paddingLeft.rem]="(nestingLevel + 1) * 0.75"
 ></ngx-menu>
 
+// list input - allUnfolded
 <ngx-list
   [ngClass]="{ visible: isShowSubcategories }"
+  [ngClass]="{ 'visible-all': isShowAllSubcategories }"
   [categoryNode]="categoryNode"
 ></ngx-list>

@@ -27,6 +27,12 @@ ngx-list {
 .visible {
   display: block;
 }
+
+.visible-all,
+.visible-all ngx-list {
+  display: block;
+}
+
 ngx-menu {
   // display: flex;
   // justify-content: flex-start;
