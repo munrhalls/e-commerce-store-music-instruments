@@ -14,8 +14,15 @@
   <button>
     <nb-icon (click)="moveUp()" icon="arrow-upward-outline"></nb-icon>
   </button>
+  <div
+    *ngIf="isAnimationCategoryAdded"
+    class="animation-category-added"
+    [@animationCategoryAdded]="isAnimationCategoryAdded"
+    (@animationCategoryAdded.done)="animationCategoryAddedDone()"
+  >
+    <span> Subcategory added </span>
+  </div>
 </div>
-
 <ngx-add-category
   *ngIf="isAddFormOpen"
   [categoryNode]="categoryNode"

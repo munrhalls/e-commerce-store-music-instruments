@@ -1,9 +1,22 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { CategoriesService, CategoryNode } from "../categories.service";
+import { trigger, transition, style, animate } from "@angular/animations";
+
 @Component({
   selector: "ngx-menu",
   templateUrl: "./menu.component.html",
   styleUrls: ["./menu.component.scss"],
+  animations: [
+    trigger("animationCategoryAdded", [
+      transition(":enter", [
+        style({ opacity: 0 }),
+        animate("1500ms ease-in-out", style({ opacity: 1 })),
+      ]),
+      transition(":leave", [
+        animate("500ms ease-in-out", style({ opacity: 0 })),
+      ]),
+    ]),
+  ],
 })
 export class MenuComponent {
   constructor(private categoriesService: CategoriesService) {}
@@ -20,6 +33,7 @@ export class MenuComponent {
   isAddFormOpen = false;
   isEditFormOpen = false;
   isShowConfirmDelete = false;
+  isAnimationCategoryAdded = false;
 
   toggleAddForm() {
     this.isAddFormOpen = !this.isAddFormOpen;
@@ -29,7 +43,13 @@ export class MenuComponent {
   }
   handleCategoryAdded() {
     this.isAddFormOpen = false;
+    ``;
+    console.log("isAnimationCategoryAdded ", "TRUE");
+    this.isAnimationCategoryAdded = true;
     this.categoryAdded.emit();
+  }
+  animationCategoryAddedDone() {
+    this.isAnimationCategoryAdded = false;
   }
   toggleEditForm() {
     this.isEditFormOpen = !this.isEditFormOpen;

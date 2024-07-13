@@ -62,6 +62,22 @@
     width: 3rem;
   }
 }
+
+// ANIMATIONS
+.animation-category-added {
+  color: #ffffff;
+  opacity: 0.75;
+  width: 100%;
+  text-align: right;
+  padding-right: 3.5rem;
+}
+.animation-category-added.animation-category-added-enter {
+  opacity: 1;
+}
+.animation-category-added.animation-category-added-leave {
+  opacity: 0;
+}
+
 // --breakpoint-sm: 576px;
 @media (min-width: 576px) {
   .buttons {
