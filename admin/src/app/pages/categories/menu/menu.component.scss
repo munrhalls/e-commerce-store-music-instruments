@@ -1,10 +1,6 @@
-:root {
-  --menu-min-height: 3.5rem;
-  --menu-padding-right: 3rem;
-}
-
 :host {
-  background-color: #6d6d6d;
+  --menu-min-height: 3.5rem;
+  --menu-padding-right: 1rem;
 
   display: flex;
   flex-direction: column;
@@ -12,15 +8,20 @@
   justify-content: center;
   min-height: var(--menu-min-height);
   padding-right: var(--menu-padding-right);
-
+  background-color: #6d6d6d;
   border-top: 1px solid gray;
 }
 
-.menu {
-  min-height: 3.5rem;
+.menu,
+.confirm-delete {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  min-height: var(--menu-min-height);
+  width: 100%;
+}
+
+.menu {
+  justify-content: flex-start;
   button {
     all: unset;
     display: flex;
@@ -45,7 +46,6 @@
   justify-content: space-between;
   align-items: center;
   min-height: var(--menu-min-height);
-
   width: 100%;
   .title {
     color: #ffffff;
