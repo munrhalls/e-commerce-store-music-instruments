@@ -48,7 +48,7 @@
   width: 100%;
   .title {
     color: #ffffff;
-    padding-right: 0.5rem;
+    padding-right: 1rem;
   }
 }
 .buttons {
@@ -57,7 +57,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   button {
     width: 3rem;
   }
@@ -65,11 +66,23 @@
 
 // ANIMATIONS
 .animation-category-added {
-  color: #ffffff;
+  color: rgb(0, 214, 143);
+  font-weight: normal;
   opacity: 0.75;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   text-align: right;
-  padding-right: 3.5rem;
+  padding-right: 0.5rem;
+  span {
+    margin-right: 0.25rem;
+  }
+  nb-icon {
+    font-size: 2rem;
+    color: rgb(0, 214, 143);
+    border: none;
+  }
 }
 .animation-category-added.animation-category-added-enter {
   opacity: 1;
@@ -84,5 +97,15 @@
     flex-direction: row;
     flex-wrap: nowrap;
     margin-bottom: 0;
+  }
+  .animation-category-added {
+    color: #ffffff;
+    opacity: 0.75;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    text-align: right;
+    padding-right: 3.5rem;
   }
 }
