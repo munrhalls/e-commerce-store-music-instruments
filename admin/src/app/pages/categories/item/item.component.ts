@@ -23,4 +23,13 @@ export class ItemComponent {
   toggleAllSubcategories() {
     this.isShowAllSubcategories = !this.isShowAllSubcategories;
   }
+  getPaddingLeft() {
+    return (this.nestingLevel + 1) * 0.75;
+  }
+  getMenuIcon() {
+    return this.isShowMenu ? "close" : "menu";
+  }
+  getSubcategoriesIcon() {
+    return this.isShowSubcategories ? "chevron-up" : "chevron-down-outline";
+  }
 }

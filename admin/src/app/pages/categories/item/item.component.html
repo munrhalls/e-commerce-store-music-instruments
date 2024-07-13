@@ -1,19 +1,16 @@
 <div class="category" [ngClass]="isShowSubcategories ? 'unfolded' : ''">
-  <span [style.paddingLeft.rem]="(nestingLevel + 1) * 0.75">{{
+  <span [style.paddingLeft.rem]="getPaddingLeft()">{{
     categoryNode.name
   }}</span>
   <div class="buttons">
     <button (click)="toggleMenu()">
-      <nb-icon size="tiny" [icon]="isShowMenu ? 'close' : 'menu'"></nb-icon>
+      <nb-icon size="tiny" [icon]="getMenuIcon()"></nb-icon>
     </button>
     <button
-      [disabled]="categoryNode.children.length === 0"
+      [disabled]="!categoryNode.children.length"
       (click)="toggleSubcategories()"
     >
-      <nb-icon
-        size="tiny"
-        [icon]="isShowSubcategories ? 'chevron-up' : 'chevron-down-outline'"
-      ></nb-icon>
+      <nb-icon size="tiny" [icon]="getSubcategoriesIcon()"></nb-icon>
     </button>
   </div>
 </div>
