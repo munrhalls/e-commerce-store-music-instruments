@@ -12,7 +12,7 @@ export class ItemComponent {
 
   isShowMenu = false;
   isShowSubcategories = false;
-  isShowAllSubcategories = false;
+  isConfirmDelete = false;
 
   toggleMenu() {
     this.isShowMenu = !this.isShowMenu;
@@ -21,7 +21,7 @@ export class ItemComponent {
     this.isShowSubcategories = !this.isShowSubcategories;
   }
   toggleAllSubcategories() {
-    this.isShowAllSubcategories = !this.isShowAllSubcategories;
+    this.isConfirmDelete = !this.isConfirmDelete;
   }
   getPaddingLeft() {
     return (this.nestingLevel + 1) * 0.75;
