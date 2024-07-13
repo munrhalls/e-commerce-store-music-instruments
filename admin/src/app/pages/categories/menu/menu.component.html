@@ -17,20 +17,20 @@
 </div>
 
 <ngx-add-category
+  *ngIf="isAddFormOpen"
   [categoryNode]="categoryNode"
-  [ngClass]="{ visible: isAddFormOpen }"
   (closed)="isAddFormOpen = false"
 >
 </ngx-add-category>
 
 <ngx-edit-category
+  *ngIf="isEditFormOpen"
   [categoryNode]="categoryNode"
-  [ngClass]="{ visible: isEditFormOpen }"
   (closed)="isEditFormOpen = false"
 >
 </ngx-edit-category>
 
-<div class="confirm-delete" [ngClass]="{ visible: isShowConfirmDelete }">
+<div class="confirm-delete" *ngIf="isShowConfirmDelete">
   <span class="title"
     >This action will delete <i>all</i> sub-categories. Proceed?</span
   >

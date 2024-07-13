@@ -20,7 +20,7 @@ export class ItemComponent {
   toggleSubcategories() {
     this.isShowSubcategories = !this.isShowSubcategories;
   }
-  toggleAllSubcategories() {
+  toggleIsConfirmDelete() {
     this.isConfirmDelete = !this.isConfirmDelete;
   }
   getPaddingLeft() {

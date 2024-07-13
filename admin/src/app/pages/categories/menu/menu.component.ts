@@ -8,7 +8,7 @@ import { CategoriesService } from "../categories.service";
 export class MenuComponent {
   constructor(private categoriesService: CategoriesService) {}
   @Input() categoryNode: any = { id: 0, name: "" };
-  @Output() toggleAllSubcategories = new EventEmitter<void>();
+  @Output() toggleIsConfirmDelete = new EventEmitter<void>();
   @Output() aboutToBeDeleted = new EventEmitter<void>();
   isAddFormOpen = false;
   isEditFormOpen = false;
@@ -25,8 +25,7 @@ export class MenuComponent {
       this.categoriesService.deleteTarget(this.categoryNode.pathIds);
     } else {
       this.isShowConfirmDelete = true;
-      this.toggleAllSubcategories.emit();
-      // this.aboutToBeDeleted.emit();
+      this.toggleIsConfirmDelete.emit();
     }
   }
   confirmDelete() {
@@ -35,7 +34,7 @@ export class MenuComponent {
   }
   closeConfirmDelete() {
     this.isShowConfirmDelete = false;
-    this.toggleAllSubcategories.emit();
+    this.toggleIsConfirmDelete.emit();
   }
   moveDown() {
     this.categoriesService.moveTargetDown(this.categoryNode.pathIds);
