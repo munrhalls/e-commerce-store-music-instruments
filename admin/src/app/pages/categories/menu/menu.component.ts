@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { CategoriesService } from "../categories.service";
+import { CategoriesService, CategoryNode } from "../categories.service";
 @Component({
   selector: "ngx-menu",
   templateUrl: "./menu.component.html",
@@ -7,9 +7,14 @@ import { CategoriesService } from "../categories.service";
 })
 export class MenuComponent {
   constructor(private categoriesService: CategoriesService) {}
-  @Input() categoryNode: any = { id: 0, name: "" };
+
+  @Input() categoryNode: CategoryNode = {
+    id: "",
+    name: "",
+    pathIds: [],
+    children: [],
+  };
   @Output() toggleIsConfirmDelete = new EventEmitter<void>();
-  @Output() aboutToBeDeleted = new EventEmitter<void>();
   isAddFormOpen = false;
   isEditFormOpen = false;
   isShowConfirmDelete = false;
@@ -20,7 +25,7 @@ export class MenuComponent {
   toggleEditForm() {
     this.isEditFormOpen = !this.isEditFormOpen;
   }
-  delete() {
+  handleDelete() {
     if (this.categoryNode.children.length === 0) {
       this.categoriesService.deleteTarget(this.categoryNode.pathIds);
     } else {
