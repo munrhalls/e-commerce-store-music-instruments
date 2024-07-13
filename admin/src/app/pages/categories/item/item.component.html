@@ -26,7 +26,9 @@
 ></ngx-menu>
 
 <ngx-list
-  [ngClass]="{ visible: isShowSubcategories }"
-  [ngClass]="{ 'visible-all': isShowAllSubcategories }"
+  [ngClass]="{
+    visible: isShowSubcategories,
+    'visible-all': isShowAllSubcategories
+  }"
   [categoryNode]="categoryNode"
 ></ngx-list>
