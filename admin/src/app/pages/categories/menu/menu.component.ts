@@ -15,12 +15,21 @@ export class MenuComponent {
     children: [],
   };
   @Output() toggleIsConfirmDelete = new EventEmitter<void>();
+  @Output() categoryAdded = new EventEmitter<void>();
+
   isAddFormOpen = false;
   isEditFormOpen = false;
   isShowConfirmDelete = false;
 
   toggleAddForm() {
     this.isAddFormOpen = !this.isAddFormOpen;
+  }
+  handleCloseAddForm() {
+    this.isAddFormOpen = false;
+  }
+  handleCategoryAdded() {
+    this.isAddFormOpen = false;
+    this.categoryAdded.emit();
   }
   toggleEditForm() {
     this.isEditFormOpen = !this.isEditFormOpen;

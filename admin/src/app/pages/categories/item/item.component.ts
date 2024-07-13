@@ -20,6 +20,9 @@ export class ItemComponent {
   toggleSubcategories() {
     this.isShowSubcategories = !this.isShowSubcategories;
   }
+  handleCategoryAdded() {
+    this.isShowSubcategories = true;
+  }
   toggleIsConfirmDelete() {
     this.isConfirmDelete = !this.isConfirmDelete;
   }

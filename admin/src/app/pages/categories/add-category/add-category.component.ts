@@ -12,6 +12,7 @@ export class AddCategoryComponent {
   @Input() categoryNode: any = { id: 0, name: "" };
   @Output() closed = new EventEmitter<void>();
   addFormGroup: FormGroup;
+  @Output() categoryAdded = new EventEmitter<void>();
 
   emitClose() {
     this.closed.emit();
@@ -37,6 +38,7 @@ export class AddCategoryComponent {
       );
       console.log(this.categoryNode.children);
     }
+    this.categoryAdded.emit();
     this.emitClose();
   }
 }

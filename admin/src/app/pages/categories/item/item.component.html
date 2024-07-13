@@ -18,6 +18,7 @@
 <ngx-menu
   *ngIf="isShowMenu"
   [categoryNode]="categoryNode"
+  (categoryAdded)="handleCategoryAdded($event)"
   (toggleIsConfirmDelete)="toggleIsConfirmDelete($event)"
   [style.paddingLeft.rem]="(nestingLevel + 1) * 0.75"
 ></ngx-menu>

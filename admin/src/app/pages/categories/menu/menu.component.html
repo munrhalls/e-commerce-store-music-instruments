@@ -19,7 +19,8 @@
 <ngx-add-category
   *ngIf="isAddFormOpen"
   [categoryNode]="categoryNode"
-  (closed)="isAddFormOpen = false"
+  (closed)="handleCloseAddForm()"
+  (categoryAdded)="handleCategoryAdded($event)"
 >
 </ngx-add-category>
 

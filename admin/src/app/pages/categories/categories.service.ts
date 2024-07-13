@@ -63,7 +63,7 @@ export class CategoriesService implements OnInit {
       pathIds: [...pathIds, newId],
       children: [],
     };
-    node.children = [newNode, ...node.children];
+    node.children = [...node.children, newNode];
     this.saveCategoryNode(this.categoryNode);
 
     return newNode;
