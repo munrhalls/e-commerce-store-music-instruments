@@ -7,21 +7,12 @@
       <nb-icon size="tiny" [icon]="isShowMenu ? 'close' : 'menu'"></nb-icon>
     </button>
     <button
-      [disabled]="(categoryNode?.children?.length ?? 0) === 0"
+      [disabled]="categoryNode.children.length === 0"
       (click)="toggleSubcategories()"
     >
       <nb-icon
         size="tiny"
         [icon]="isShowSubcategories ? 'chevron-up' : 'chevron-down-outline'"
-      ></nb-icon>
-    </button>
-    <button
-      [disabled]="(categoryNode?.children?.length ?? 0) === 0"
-      (click)="toggleAllSubcategories()"
-    >
-      <nb-icon
-        size="tiny"
-        [icon]="isShowAllSubcategories ? 'collapse-outline' : 'expand-outline'"
       ></nb-icon>
     </button>
   </div>
@@ -31,7 +22,6 @@
   *ngIf="isShowMenu"
   [categoryNode]="categoryNode"
   (toggleAllSubcategories)="toggleAllSubcategories($event)"
-  (aboutToBeDeleted)="toggleAboutToBeDeleted($event)"
   [style.paddingLeft.rem]="(nestingLevel + 1) * 0.75"
 ></ngx-menu>
 

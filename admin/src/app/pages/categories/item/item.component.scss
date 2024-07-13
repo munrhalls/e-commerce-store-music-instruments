@@ -13,6 +13,7 @@ ngx-list .category:not(.unfolded) {
   background-color: #ffffff;
 }
 .category {
+  position: relative;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 
@@ -27,29 +28,35 @@ ngx-list {
 .visible {
   display: block;
 }
-
 .visible-all,
 .visible-all ngx-list {
   display: block;
 }
 
-// .visible-all.aboutToBeDeleted,
-// .visible-all.aboutToBeDeleted ngx-list {
-//   background-color: red;
-// }
-
-ngx-menu {
-  // display: flex;
-  // justify-content: flex-start;
-  // align-items: center;
-  // min-height: 2.25rem;
-  // padding-top: 0.5rem;
-  // padding-bottom: 0.5rem;
-  // border-top: 1px solid gray;
+.visible-all .category {
+  color: #000000;
+  text-decoration: line-through;
 }
+.visible-all .category::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 0, 0, 0.25);
+  z-index: 1;
+  pointer-events: none;
+}
+
 button {
   all: unset;
   display: inline-block;
   padding-right: 0.25rem;
   cursor: pointer;
+}
+button[disabled] {
+  opacity: 0.5;
+  color: gray;
+  cursor: initial;
 }
