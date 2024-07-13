@@ -9,6 +9,7 @@ import { CategoriesService } from "../categories.service";
 })
 export class EditCategoryComponent {
   constructor(private categoriesService: CategoriesService) {}
+
   @Input() categoryNode: any = { id: 0, name: "" };
   @Output() closed = new EventEmitter<void>();
   editFormGroup: FormGroup;
