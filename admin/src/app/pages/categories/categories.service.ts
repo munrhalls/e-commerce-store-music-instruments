@@ -15,16 +15,24 @@ export interface CategoryNode {
   providedIn: "root",
 })
 export class CategoriesService implements OnInit {
+  constructor(private http: HttpClient) {}
   private categoryNode: CategoryNode = mockCategoryNode;
   private categoryNodeSubject = new BehaviorSubject<CategoryNode>(
     this.categoryNode,
   );
   categoryNode$ = this.categoryNodeSubject.asObservable();
-
-  constructor(private http: HttpClient) {}
+  private menuOpenedIdSubject = new BehaviorSubject<string | null>(null);
+  menuOpenedId$ = this.menuOpenedIdSubject.asObservable();
 
   ngOnInit(): void {
     this.loadCategoryNode();
+  }
+
+  setMenuOpenedId(menuId: string) {
+    this.menuOpenedIdSubject.next(menuId);
+  }
+  closeMenu() {
+    this.menuOpenedIdSubject.next(null);
   }
 
   saveCategoryNode(categoryNode: CategoryNode): void {

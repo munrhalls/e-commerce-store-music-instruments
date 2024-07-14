@@ -1,21 +1,43 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { CategoryNode } from "../categories.service";
+import { CategoriesService } from "../categories.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "ngx-item",
   templateUrl: "./item.component.html",
   styleUrls: ["./item.component.scss"],
 })
-export class ItemComponent {
+export class ItemComponent implements OnInit, OnDestroy {
+  constructor(private categoriesService: CategoriesService) {}
   @Input() categoryNode: CategoryNode;
   @Input() nestingLevel: number = 0;
 
-  isShowMenu = false;
   isShowSubcategories = false;
   isConfirmDelete = false;
+  isMenuOpen = false;
+  menuOpenedId: string = "";
+  subscription: Subscription | null = null;
 
+  ngOnInit(): void {
+    this.subscription = this.categoriesService.menuOpenedId$.subscribe((id) => {
+      this.menuOpenedId = id;
+    });
+  }
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+  get isShowMenu() {
+    return this.menuOpenedId === this.categoryNode.id;
+  }
   toggleMenu() {
-    this.isShowMenu = !this.isShowMenu;
+    this.isShowMenu ? this.closeMenu() : this.openMenu();
+  }
+  openMenu() {
+    this.categoriesService.setMenuOpenedId(this.categoryNode.id);
+  }
+  closeMenu() {
+    this.categoriesService.setMenuOpenedId(null);
   }
   toggleSubcategories() {
     this.isShowSubcategories = !this.isShowSubcategories;
