@@ -1,5 +1,4 @@
-// src/app/@store/categories/categories.reducer.ts
-import { createFeature, createReducer, on } from "@ngrx/store";
+import { createReducer, on } from "@ngrx/store";
 import * as CategoriesActions from "./categories.actions";
 
 export interface CategoriesState {
@@ -17,8 +16,3 @@ export const categoriesReducer = createReducer(
     menuOpenId: menuId,
   })),
 );
-
-export const categoriesFeature = createFeature({
-  name: "categories",
-  reducer: categoriesReducer,
-});

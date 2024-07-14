@@ -1,32 +1,18 @@
-<div class="category" [ngClass]="isShowSubcategories ? 'unfolded' : ''">
-  <span [style.paddingLeft.rem]="getPaddingLeft()">{{
-    categoryNode.name
-  }}</span>
+<div class="category">
+  <span>{{ categoryNode.name }}</span>
   <div class="buttons">
-    <button (click)="toggleMenu()">
-      <nb-icon size="tiny" [icon]="getMenuIcon()"></nb-icon>
+    <button>
+      <nb-icon size="tiny" [icon]="'menu'"></nb-icon>
     </button>
-    <button
-      [disabled]="!categoryNode.children.length"
-      (click)="toggleSubcategories()"
-    >
-      <nb-icon size="tiny" [icon]="getSubcategoriesIcon()"></nb-icon>
+    <button [disabled]="!categoryNode.children.length">
+      <nb-icon size="tiny" [icon]="'chevron-down'"></nb-icon>
     </button>
   </div>
 </div>
 
 <ngx-menu
-  *ngIf="(menuOpenId$ | async) === categoryNode.id"
   [categoryNode]="categoryNode"
-  (categoryAdded)="handleCategoryAdded($event)"
-  (toggleIsConfirmDelete)="toggleIsConfirmDelete($event)"
   [style.paddingLeft.rem]="(nestingLevel + 1) * 0.75"
 ></ngx-menu>
 
-<ngx-list
-  [ngClass]="{
-    visible: isShowSubcategories,
-    'confirm-delete': isConfirmDelete
-  }"
-  [categoryNode]="categoryNode"
-></ngx-list>
+<ngx-list [categoryNode]="categoryNode"></ngx-list>

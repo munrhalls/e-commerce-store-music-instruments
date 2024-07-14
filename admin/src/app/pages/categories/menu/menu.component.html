@@ -1,54 +1,47 @@
-<div class="menu" *ngIf="!isShowConfirmDelete">
-  <button (click)="toggleAddForm()">
+<div class="menu">
+  <button>
     <nb-icon icon="plus-outline"></nb-icon>
   </button>
-  <button (click)="toggleEditForm()">
+  <button>
     <nb-icon icon="edit-outline"></nb-icon>
   </button>
   <button>
-    <nb-icon (click)="handleDelete()" icon="trash-outline"></nb-icon>
+    <nb-icon icon="trash-outline"></nb-icon>
   </button>
   <button>
-    <nb-icon (click)="moveDown()" icon="arrow-downward-outline"></nb-icon>
+    <nb-icon icon="arrow-downward-outline"></nb-icon>
   </button>
   <button>
-    <nb-icon (click)="moveUp()" icon="arrow-upward-outline"></nb-icon>
+    <nb-icon icon="arrow-upward-outline"></nb-icon>
   </button>
-  <div
-    *ngIf="isAnimationCategoryAdded"
-    class="animation-category-added"
-    [@animationCategoryAdded]="isAnimationCategoryAdded"
-    (@animationCategoryAdded.done)="animationCategoryAddedDone()"
-  >
+  <!-- [@animationCategoryAdded]="isAnimationCategoryAdded"
+    (@animationCategoryAdded.done)="animationCategoryAddedDone()" -->
+  <div class="animation-category-added">
     <span> Added </span>
     <nb-icon size="large" icon="checkmark-circle-2"></nb-icon>
   </div>
 </div>
-<ngx-add-category
+<!-- <ngx-add-category
   *ngIf="isAddFormOpen"
   [categoryNode]="categoryNode"
   (closed)="handleCloseAddForm()"
   (categoryAdded)="handleCategoryAdded($event)"
 >
-</ngx-add-category>
-
+</ngx-add-category> -->
+<!--
 <ngx-edit-category
   *ngIf="isEditFormOpen"
   [categoryNode]="categoryNode"
   (closed)="isEditFormOpen = false"
 >
-</ngx-edit-category>
+</ngx-edit-category> -->
 
-<div class="confirm-delete" *ngIf="isShowConfirmDelete">
+<div class="confirm-delete">
   <span class="title"
     >This action will delete <i>all</i> sub-categories. Proceed?</span
   >
   <div class="buttons">
-    <button nbButton status="danger" size="small" (click)="confirmDelete()">
-      Delete
-    </button>
-    <button nbButton status="basic" size="small" (click)="closeConfirmDelete()">
-      Go back
-    </button>
+    <button nbButton status="danger" size="small">Delete</button>
+    <button nbButton status="basic" size="small">Go back</button>
   </div>
 </div>

@@ -1,5 +1,5 @@
-import { StoreModule } from "@ngrx/store";
-import * as fromCategories from "../../@store/categories/categories.reducer";
+// import { StoreModule } from "@ngrx/store";
+// import * as fromCategories from "../../@store/categories/categories.reducer";
 import { AsyncPipe } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -27,7 +27,7 @@ import {
     EditCategoryComponent,
   ],
   imports: [
-    StoreModule.forFeature(fromCategories.categoriesFeature),
+    // StoreModule.forFeature(fromCategories.categoriesFeature),
     CommonModule,
     NbCardModule,
     NbIconModule,
