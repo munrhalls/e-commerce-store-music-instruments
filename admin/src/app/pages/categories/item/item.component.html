@@ -16,7 +16,7 @@
 </div>
 
 <ngx-menu
-  *ngIf="isShowMenu"
+  *ngIf="(menuOpenId$ | async) === categoryNode.id"
   [categoryNode]="categoryNode"
   (categoryAdded)="handleCategoryAdded($event)"
   (toggleIsConfirmDelete)="toggleIsConfirmDelete($event)"

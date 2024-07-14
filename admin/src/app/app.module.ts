@@ -3,6 +3,9 @@
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
+import { StoreModule } from "@ngrx/store";
+import { categoriesReducer } from "./@store/categories/categories.reducer";
+
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
@@ -25,6 +28,9 @@ import {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    StoreModule.forRoot({
+      categories: categoriesReducer,
+    }),
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

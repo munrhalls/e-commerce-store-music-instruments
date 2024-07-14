@@ -1,3 +1,6 @@
+import { StoreModule } from "@ngrx/store";
+import * as fromCategories from "../../@store/categories/categories.reducer";
+import { AsyncPipe } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
@@ -24,6 +27,7 @@ import {
     EditCategoryComponent,
   ],
   imports: [
+    StoreModule.forFeature(fromCategories.categoriesFeature),
     CommonModule,
     NbCardModule,
     NbIconModule,
@@ -43,5 +47,6 @@ import {
     NbFormFieldModule,
     ReactiveFormsModule,
   ],
+  providers: [AsyncPipe],
 })
 export class CategoriesModule {}
