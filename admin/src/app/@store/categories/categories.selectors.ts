@@ -8,3 +8,8 @@ export const selectMenuOpenId = createSelector(
   selectCategoriesState,
   (state: fromCategories.CategoriesState) => state.menuOpenId,
 );
+
+export const selectCategories = createSelector(
+  selectCategoriesState,
+  (state) => state.categories,
+);
