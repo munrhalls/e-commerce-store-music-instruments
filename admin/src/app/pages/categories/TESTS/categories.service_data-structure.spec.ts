@@ -1,5 +1,8 @@
 import { setupTestBed } from "./categories.setup.spec";
-import { categoryNode as mockCategoryNode, IDs } from "./categories.mock.spec";
+import {
+  categoryNode as mockCategoryNode,
+  IDs,
+} from "./categories.mock-data.spec";
 import { expectCategoryNode } from "./categories.setup.spec";
 import { HttpTestingController } from "@angular/common/http/testing";
 import { CategoriesService, CategoryNode } from "../categories.service";

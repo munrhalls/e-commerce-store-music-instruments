@@ -9,7 +9,7 @@ export const selectMenuOpenId = createSelector(
   (state: fromCategories.CategoriesState) => state.menuOpenId,
 );
 
-export const selectCategories = createSelector(
+export const selectCategoryNode = createSelector(
   selectCategoriesState,
-  (state) => state.categories,
+  (state: fromCategories.CategoriesState) => state.categoryNode,
 );

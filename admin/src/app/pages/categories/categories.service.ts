@@ -3,7 +3,7 @@ import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { cloneDeep } from "lodash";
-import { categoryNode as mockCategoryNode } from "./tests/categories.mock.spec";
+import { categoryNode as mockCategoryNode } from "./tests/categories.mock-data.spec";
 export interface CategoryNode {
   id: string;
   name: string;
