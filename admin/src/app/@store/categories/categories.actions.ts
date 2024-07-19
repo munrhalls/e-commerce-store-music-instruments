@@ -6,6 +6,15 @@ export const setMenuOpenId = createAction(
   props<{ menuId: string | null }>(),
 );
 
+export const loadCategoryNodeFromLocalStorage = createAction(
+  "[loadCategoryNodeFromLocalStorage] Load Categories From Local Storage",
+);
+
+export const saveCategoryNodeToLocalStorage = createAction(
+  "[saveCategoryNodeToLocalStorage] Save Categories To Local Storage",
+  props<{ categoryNode: CategoryNode }>(),
+);
+
 export const loadCategoryNode = createAction(
   "[loadCategoryNode] Load Categories",
 );

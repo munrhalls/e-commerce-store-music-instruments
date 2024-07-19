@@ -25,7 +25,7 @@ describe("CategoriesService", () => {
 
   describe("Data Structure - easy to navigate whole, easy to find a node", () => {
     it("Data structure is a nested tree", (done) => {
-      service.getCategoryNode$().subscribe((categoryNode) => {
+      service.getCategoryNode().subscribe((categoryNode) => {
         expect(categoryNode.id).toEqual(IDs.root);
         expect(categoryNode.name).toEqual("root");
         expect(categoryNode.children[0].id).toEqual(IDs.IDcategory1);
@@ -48,7 +48,7 @@ describe("CategoriesService", () => {
     });
 
     it("Data Structure: recursion should output each category name in order", (done) => {
-      service.getCategoryNode$().subscribe({
+      service.getCategoryNode().subscribe({
         next: (categoryNode: CategoryNode) => {
           const names: string[] = [];
           let counter = 0;

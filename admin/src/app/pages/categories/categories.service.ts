@@ -14,47 +14,17 @@ export interface CategoryNode {
 @Injectable({
   providedIn: "root",
 })
-export class CategoriesService implements OnInit {
+export class CategoriesService {
   constructor(private http: HttpClient) {}
-  private categoryNode: CategoryNode = mockCategoryNode;
-  private categoryNodeSubject = new BehaviorSubject<CategoryNode>(
-    this.categoryNode,
-  );
-  categoryNode$ = this.categoryNodeSubject.asObservable();
-  private menuOpenedIdSubject = new BehaviorSubject<string | null>(null);
-  menuOpenedId$ = this.menuOpenedIdSubject.asObservable();
+  private categoryNode: CategoryNode | null = mockCategoryNode;
 
-  ngOnInit(): void {
-    this.loadCategoryNode();
+  initializeCategoryNode() {}
+  fetchCategoryNode(): Promise<CategoryNode[]> {
+    return this.http.get<CategoryNode[]>("/api/categories").toPromise();
   }
-
-  setMenuOpenedId(menuId: string) {
-    this.menuOpenedIdSubject.next(menuId);
+  getCategoryNode() {
+    return cloneDeep(this.categoryNode);
   }
-  closeMenu() {
-    this.menuOpenedIdSubject.next(null);
-  }
-
-  saveCategoryNode(categoryNode: CategoryNode): void {
-    localStorage.setItem("categoryNode", JSON.stringify(categoryNode));
-  }
-  loadCategoryNode(): void {
-    const storedCategoryNode = localStorage.getItem("categoryNode");
-    if (storedCategoryNode) {
-      this.categoryNode = JSON.parse(storedCategoryNode);
-    } else {
-      console.log("fetching categories");
-      this.http.get<CategoryNode>("/api/categories").subscribe((node) => {
-        this.categoryNode = node;
-        localStorage.setItem("categoryNode", JSON.stringify(node));
-      });
-    }
-  }
-
-  getCategoryNode$(): Observable<CategoryNode> {
-    return this.categoryNodeSubject.asObservable();
-  }
-
   findCategoryByPathIds(pathIds: string[]): CategoryNode {
     let node = this.categoryNode;
     for (const id of pathIds) {
@@ -72,14 +42,13 @@ export class CategoriesService implements OnInit {
       children: [],
     };
     node.children = [...node.children, newNode];
-    this.saveCategoryNode(this.categoryNode);
+    const clone = cloneDeep(this.categoryNode);
 
-    return newNode;
+    return cloneDeep(newNode);
   }
   updateTargetName(pathIds: string[], name: string): void {
     const node = this.findCategoryByPathIds(pathIds);
     node.name = name;
-    this.saveCategoryNode(this.categoryNode);
   }
   deleteTarget(pathIds: string[]): void {
     const parentPathIds = pathIds.slice(0, -1);
@@ -88,7 +57,6 @@ export class CategoriesService implements OnInit {
       (child) => child.id === pathIds[pathIds.length - 1],
     );
     parentNode.children.splice(index, 1);
-    this.saveCategoryNode(this.categoryNode);
   }
   moveTargetDown(pathIds: string[]): void {
     const parentPathIds = pathIds.slice(0, -1);
@@ -100,7 +68,6 @@ export class CategoriesService implements OnInit {
       const target = parentNode.children[index];
       parentNode.children.splice(index, 1);
       parentNode.children.splice(index + 1, 0, target);
-      this.saveCategoryNode(this.categoryNode);
     }
   }
   moveTargetUp(pathIds: string[]): void {
@@ -113,7 +80,6 @@ export class CategoriesService implements OnInit {
       const target = parentNode.children[targetIndex];
       parentNode.children.splice(targetIndex, 1);
       parentNode.children.splice(targetIndex - 1, 0, target);
-      this.saveCategoryNode(this.categoryNode);
     }
   }
 }

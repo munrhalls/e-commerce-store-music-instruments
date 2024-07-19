@@ -27,7 +27,7 @@ export const expectCategoryNode = function (
   expect(req.request.method).toBe("GET");
   req.flush(expectedNode);
 
-  service.getCategoryNode$().subscribe((node) => {
+  service.getCategoryNode().subscribe((node) => {
     expect(node).toEqual(expectedNode);
     console.log(node);
   });

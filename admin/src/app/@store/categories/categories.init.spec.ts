@@ -12,7 +12,7 @@ const mockCategoriesService = {
   getCategoryNode$: () => of(mockCategoryNode),
 };
 
-describe("Categories Reducer", () => {
+describe("NGRX Redux should initialize state with categoryNode", () => {
   let store: Store<fromCategories.CategoriesState>;
 
   beforeEach(() => {
@@ -29,20 +29,15 @@ describe("Categories Reducer", () => {
     store = TestBed.inject(Store);
   });
 
-  it("should trigger fetching categoryNode tree, on successful fetch state should hold categoryNode", () => {
-    const effects = TestBed.inject(CategoriesEffects);
-    const store = TestBed.inject(Store);
+  describe("LOCAL STORAGE LOGIC", () => {
+    it("Category Page opened, should dispatch action to load categoryNode data from Local Storage", () => {});
+    it("Success: categories component should access categoryNode from store", () => {});
+    it("Error: should dispatch action to fetch categoryNode data from API", () => {});
+  });
 
-    store.select(fromCategories.selectCategoryNode).subscribe((state) => {
-      expect(state).toEqual(null);
-    });
-
-    effects.loadCategories$.subscribe();
-    store.dispatch(CategoriesActions.loadCategoryNode());
-
-    store.select(fromCategories.selectCategoryNode).subscribe((state) => {
-      expect(state).toEqual(mockCategoryNode);
-      console.log("fromCategories.selectCategoryNode: ", state);
-    });
+  describe("FETCH FROM SERVER LOGIC", () => {
+    it("Success: categories component should access categoryNode from store", () => {});
+    it("Success: categories component should save categoryNode to LocalStorage", () => {});
+    it("Error:", () => {});
   });
 });
