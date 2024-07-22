@@ -3,12 +3,14 @@
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
+import { ErrorHandler, NgModule } from "@angular/core";
+import { ErrorHandlerModule } from "./@core/error-handler/error-handler.module";
+import { GlobalErrorHandler } from "./@core/error-handler/global-error-handler";
 import { StoreModule } from "@ngrx/store";
-import { categoriesReducer } from "./state/categories/categories.reducer";
+// import { categoriesReducer } from "./state/categories/categories.reducer";
 
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { CoreModule } from "./@core/core.module";
@@ -28,9 +30,10 @@ import {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    ErrorHandlerModule,
     StoreModule.forRoot(
       {
-        categories: categoriesReducer,
+        // categories: categoriesReducer,
       },
       {
         runtimeChecks: {
@@ -60,6 +63,7 @@ import {
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
   ],
+  providers: [{ provide: ErrorHandler, useClass: GlobalErrorHandler }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

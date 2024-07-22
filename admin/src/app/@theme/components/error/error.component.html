@@ -1,1 +1,14 @@
-<h1>error</h1>
+<nb-card *ngIf="error" status="danger" class="error-card">
+  <nb-card-header>
+    {{ error.code || "Error" }}
+  </nb-card-header>
+  <nb-card-body>
+    {{ error.message }}
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton status="danger" (click)="dismissError()">Dismiss</button>
+    <button nbButton status="info" (click)="showErrorToast()">
+      Show Toast
+    </button>
+  </nb-card-footer>
+</nb-card>
