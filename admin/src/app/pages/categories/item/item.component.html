@@ -1,18 +1,18 @@
 <div class="category">
-  <span>{{ categoryNode.name }}</span>
+  <span>{{ CategoryTree.name }}</span>
   <div class="buttons">
     <button>
       <nb-icon size="tiny" [icon]="'menu'"></nb-icon>
     </button>
-    <button [disabled]="!categoryNode.children.length">
+    <button [disabled]="!CategoryTree.children.length">
       <nb-icon size="tiny" [icon]="'chevron-down'"></nb-icon>
     </button>
   </div>
 </div>
 
 <ngx-menu
-  [categoryNode]="categoryNode"
+  [CategoryTree]="CategoryTree"
   [style.paddingLeft.rem]="(nestingLevel + 1) * 0.75"
 ></ngx-menu>
 
-<ngx-list [categoryNode]="categoryNode"></ngx-list>
+<ngx-list [CategoryTree]="CategoryTree"></ngx-list>

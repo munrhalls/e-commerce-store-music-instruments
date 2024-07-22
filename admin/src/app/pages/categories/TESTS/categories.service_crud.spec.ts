@@ -1,11 +1,11 @@
 import { setupTestBed } from "./categories.setup.spec";
 import {
-  categoryNode as mockCategoryNode,
+  CategoryTree as mockCategoryTree,
   IDs,
 } from "./categories.mock-data.spec";
-import { expectCategoryNode } from "./categories.setup.spec";
+import { expectCategoryTree } from "./categories.setup.spec";
 import { HttpTestingController } from "@angular/common/http/testing";
-import { CategoriesService, CategoryNode } from "../categories.service";
+import { CategoriesService, CategoryTree } from "../categories.service";
 
 describe("CategoriesService", () => {
   let service: CategoriesService;
@@ -21,7 +21,7 @@ describe("CategoriesService", () => {
 
   it("should fetch categories on init", () => {
     expect(service).toBeDefined();
-    expectCategoryNode(service, httpMock, mockCategoryNode);
+    expectCategoryTree(service, httpMock, mockCategoryTree);
   });
 
   describe("Categories CRUD, MOVE UP, MOVE DOWN", () => {
@@ -83,8 +83,8 @@ describe("CategoriesService", () => {
       expect(target.children).toEqual(children);
 
       function testDeepEqualityOfChildren(
-        node1: CategoryNode,
-        node2: CategoryNode,
+        node1: CategoryTree,
+        node2: CategoryTree,
       ): boolean {
         if (node1.children.length !== node2.children.length) {
           return false;
@@ -106,7 +106,7 @@ describe("CategoriesService", () => {
       const target = service.findCategoryByPathIds(pathIds);
       const targetChildren = target.children;
       const deletedPathIds: string[] = [];
-      function storeChildrenPathIds(node: CategoryNode) {
+      function storeChildrenPathIds(node: CategoryTree) {
         deletedPathIds.push(...node.pathIds);
         for (const child of node.children) {
           storeChildrenPathIds(child);

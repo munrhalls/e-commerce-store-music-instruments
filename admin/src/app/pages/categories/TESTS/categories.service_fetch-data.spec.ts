@@ -1,7 +1,7 @@
 import { setupTestBed } from "./categories.setup.spec";
-import { categoryNode as mockCategoryNode } from "./categories.mock-data.spec";
+import { CategoryTree as mockCategoryTree } from "./categories.mock-data.spec";
 import { HttpTestingController } from "@angular/common/http/testing";
-import { expectCategoryNode } from "./categories.setup.spec";
+import { expectCategoryTree } from "./categories.setup.spec";
 describe("CategoriesService", () => {
   let service;
   let httpMock: HttpTestingController;
@@ -15,6 +15,6 @@ describe("CategoriesService", () => {
   });
 
   it("should fetch categories on init", () => {
-    expectCategoryNode(service, httpMock, mockCategoryNode);
+    expectCategoryTree(service, httpMock, mockCategoryTree);
   });
 });

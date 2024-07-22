@@ -1,5 +1,5 @@
 import { TestBed } from "@angular/core/testing";
-import { CategoriesService, CategoryNode } from "../categories.service";
+import { CategoriesService, CategoryTree } from "../categories.service";
 import {
   HttpClientTestingModule,
   HttpTestingController,
@@ -18,16 +18,16 @@ export const setupTestBed = function () {
   return { service, httpMock };
 };
 
-export const expectCategoryNode = function (
+export const expectCategoryTree = function (
   service: CategoriesService,
   httpMock: HttpTestingController,
-  expectedNode: CategoryNode,
+  expectedNode: CategoryTree,
 ) {
   const req = httpMock.expectOne("/api/categories");
   expect(req.request.method).toBe("GET");
   req.flush(expectedNode);
 
-  service.getCategoryNode().subscribe((node) => {
+  service.getCategoryTree().subscribe((node) => {
     expect(node).toEqual(expectedNode);
     console.log(node);
   });

@@ -9,7 +9,7 @@ import { CategoriesService } from "../categories.service";
 export class AddCategoryComponent {
   constructor(private categoriesService: CategoriesService) {}
 
-  @Input() categoryNode: any = { id: 0, name: "" };
+  @Input() CategoryTree: any = { id: 0, name: "" };
   @Output() closed = new EventEmitter<void>();
   addFormGroup: FormGroup;
   @Output() categoryAdded = new EventEmitter<void>();
@@ -33,10 +33,10 @@ export class AddCategoryComponent {
     if (this.addFormGroup.valid) {
       const newCategoryName = this.addName.value;
       this.categoriesService.addCategoryToTarget(
-        this.categoryNode.pathIds,
+        this.CategoryTree.pathIds,
         newCategoryName,
       );
-      console.log(this.categoryNode.children);
+      console.log(this.CategoryTree.children);
     }
     this.categoryAdded.emit();
     this.emitClose();

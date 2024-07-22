@@ -10,7 +10,7 @@ import { CategoriesService } from "../categories.service";
 export class EditCategoryComponent {
   constructor(private categoriesService: CategoriesService) {}
 
-  @Input() categoryNode: any = { id: 0, name: "" };
+  @Input() CategoryTree: any = { id: 0, name: "" };
   @Output() closed = new EventEmitter<void>();
   editFormGroup: FormGroup;
 
@@ -20,7 +20,7 @@ export class EditCategoryComponent {
 
   ngOnInit() {
     this.editFormGroup = new FormGroup({
-      name: new FormControl(this.categoryNode?.name || "", [
+      name: new FormControl(this.CategoryTree?.name || "", [
         Validators.required,
         Validators.maxLength(30),
       ]),
@@ -37,7 +37,7 @@ export class EditCategoryComponent {
       const newCategoryName = this.editName.value;
 
       this.categoriesService.updateTargetName(
-        this.categoryNode.pathIds,
+        this.CategoryTree.pathIds,
         newCategoryName,
       );
     }

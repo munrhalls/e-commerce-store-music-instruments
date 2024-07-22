@@ -7,7 +7,7 @@ const tree = {
   children: [],
 };
 
-const createTree = function (tree, breadth = 0, depth = 0) {
+export const createTree = function (tree, breadth = 0, depth = 0) {
   for (let i = 0; i < breadth; i++) {
     let name = tree.name ? `${tree.name}.${i}` : i + 1;
 
@@ -26,6 +26,6 @@ const createTree = function (tree, breadth = 0, depth = 0) {
   return tree;
 };
 
-createTree(tree, 2, 4);
+createTree(tree, 4, 4);
 
 console.dir(tree, { depth: null });

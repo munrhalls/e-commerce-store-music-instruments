@@ -1,11 +1,11 @@
 import { setupTestBed } from "./categories.setup.spec";
 import {
-  categoryNode as mockCategoryNode,
+  CategoryTree as mockCategoryTree,
   IDs,
 } from "./categories.mock-data.spec";
-import { expectCategoryNode } from "./categories.setup.spec";
+import { expectCategoryTree } from "./categories.setup.spec";
 import { HttpTestingController } from "@angular/common/http/testing";
-import { CategoriesService, CategoryNode } from "../categories.service";
+import { CategoriesService, CategoryTree } from "../categories.service";
 describe("CategoriesService", () => {
   let service: CategoriesService;
   let httpMock: HttpTestingController;
@@ -20,23 +20,23 @@ describe("CategoriesService", () => {
 
   it("should fetch categories on init", () => {
     expect(service).toBeDefined();
-    expectCategoryNode(service, httpMock, mockCategoryNode);
+    expectCategoryTree(service, httpMock, mockCategoryTree);
   });
 
   describe("Data Structure - easy to navigate whole, easy to find a node", () => {
     it("Data structure is a nested tree", (done) => {
-      service.getCategoryNode().subscribe((categoryNode) => {
-        expect(categoryNode.id).toEqual(IDs.root);
-        expect(categoryNode.name).toEqual("root");
-        expect(categoryNode.children[0].id).toEqual(IDs.IDcategory1);
-        expect(categoryNode.children[1].id).toEqual(IDs.IDcategory2);
-        expect(categoryNode.children[2].id).toEqual(IDs.IDcategory3);
-        expect(categoryNode.children[3].id).toEqual(IDs.IDcategory4);
+      service.getCategoryTree().subscribe((CategoryTree) => {
+        expect(CategoryTree.id).toEqual(IDs.root);
+        expect(CategoryTree.name).toEqual("root");
+        expect(CategoryTree.children[0].id).toEqual(IDs.IDcategory1);
+        expect(CategoryTree.children[1].id).toEqual(IDs.IDcategory2);
+        expect(CategoryTree.children[2].id).toEqual(IDs.IDcategory3);
+        expect(CategoryTree.children[3].id).toEqual(IDs.IDcategory4);
 
-        const category2 = categoryNode.children[1];
+        const category2 = CategoryTree.children[1];
         expect(category2.children[0].id).toEqual(IDs.IDcategory21);
         expect(category2.children[0].children[0].id).toEqual(IDs.IDcategory211);
-        expect(categoryNode.children[1].pathIds).toEqual([IDs.IDcategory2]);
+        expect(CategoryTree.children[1].pathIds).toEqual([IDs.IDcategory2]);
         expect(category2.children[0].children[0].pathIds).toEqual([
           IDs.IDcategory2,
           IDs.IDcategory21,
@@ -48,11 +48,11 @@ describe("CategoriesService", () => {
     });
 
     it("Data Structure: recursion should output each category name in order", (done) => {
-      service.getCategoryNode().subscribe({
-        next: (categoryNode: CategoryNode) => {
+      service.getCategoryTree().subscribe({
+        next: (CategoryTree: CategoryTree) => {
           const names: string[] = [];
           let counter = 0;
-          function recursive(node: CategoryNode, counter) {
+          function recursive(node: CategoryTree, counter) {
             if (counter > 1500) {
               return;
             }
@@ -62,7 +62,7 @@ describe("CategoriesService", () => {
             }
             counter++;
           }
-          recursive(categoryNode, counter);
+          recursive(CategoryTree, counter);
           console.log(names);
           expect(names.length).toBeGreaterThan(50);
 

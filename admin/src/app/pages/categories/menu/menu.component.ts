@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { CategoriesService, CategoryNode } from "../categories.service";
+import { CategoriesService, CategoryTree } from "../categories.service";
 import { trigger, transition, style, animate } from "@angular/animations";
 
 @Component({
@@ -21,7 +21,7 @@ import { trigger, transition, style, animate } from "@angular/animations";
 export class MenuComponent {
   constructor(private categoriesService: CategoriesService) {}
 
-  @Input() categoryNode: CategoryNode = {
+  @Input() CategoryTree: CategoryTree = {
     id: "",
     name: "",
     pathIds: [],

@@ -4,7 +4,7 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 import { StoreModule } from "@ngrx/store";
-import { categoriesReducer } from "./@store/categories/categories.reducer";
+import { categoriesReducer } from "./state/categories/categories.reducer";
 
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -28,9 +28,21 @@ import {
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    StoreModule.forRoot({
-      categories: categoriesReducer,
-    }),
+    StoreModule.forRoot(
+      {
+        categories: categoriesReducer,
+      },
+      {
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true,
+          strictStateSerializability: true,
+          strictActionSerializability: true,
+          strictActionWithinNgZone: true,
+          strictActionTypeUniqueness: true,
+        },
+      },
+    ),
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

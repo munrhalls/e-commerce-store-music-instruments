@@ -1,0 +1,10 @@
+@import "~@nebular/theme/styles/theming";
+@import "~@nebular/theme/styles/themes/default";
+
+@include nb-install-component() {
+  .error-card {
+    nb-card-header {
+      font-weight: bold;
+    }
+  }
+}

@@ -3,36 +3,31 @@ import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { cloneDeep } from "lodash";
-import { categoryNode as mockCategoryNode } from "./tests/categories.mock-data.spec";
-export interface CategoryNode {
-  id: string;
-  name: string;
-  pathIds: string[];
-  children: CategoryNode[];
-}
+import { CategoryTree as mockCategoryTree } from "./tests/categories.mock-data.spec";
+import { CategoryTree } from "./categories.model";
 
 @Injectable({
   providedIn: "root",
 })
 export class CategoriesService {
   constructor(private http: HttpClient) {}
-  private categoryNode: CategoryNode | null = mockCategoryNode;
+  private CategoryTree: CategoryTree | null = mockCategoryTree;
 
-  initializeCategoryNode() {}
-  fetchCategoryNode(): Promise<CategoryNode[]> {
-    return this.http.get<CategoryNode[]>("/api/categories").toPromise();
+  initializeCategoryTree() {}
+  fetchCategoryTree(): Promise<CategoryTree[]> {
+    return this.http.get<CategoryTree[]>("/api/categories").toPromise();
   }
-  getCategoryNode() {
-    return cloneDeep(this.categoryNode);
+  getCategoryTree() {
+    return cloneDeep(this.CategoryTree);
   }
-  findCategoryByPathIds(pathIds: string[]): CategoryNode {
-    let node = this.categoryNode;
+  findCategoryByPathIds(pathIds: string[]): CategoryTree {
+    let node = this.CategoryTree;
     for (const id of pathIds) {
       node = node.children.find((child) => child.id === id);
     }
     return node;
   }
-  addCategoryToTarget(pathIds: string[], name: string): CategoryNode {
+  addCategoryToTarget(pathIds: string[], name: string): CategoryTree {
     const node = this.findCategoryByPathIds(pathIds);
     const newId = (Math.random() / Math.random()).toString();
     const newNode = {
@@ -42,7 +37,7 @@ export class CategoriesService {
       children: [],
     };
     node.children = [...node.children, newNode];
-    const clone = cloneDeep(this.categoryNode);
+    const clone = cloneDeep(this.CategoryTree);
 
     return cloneDeep(newNode);
   }

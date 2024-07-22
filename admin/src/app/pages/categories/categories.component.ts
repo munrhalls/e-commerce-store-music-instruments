@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CategoriesService } from "./categories.service";
 import { Subscription } from "rxjs";
-import { CategoryNode } from "./categories.service";
+import { CategoryTree } from "./categories.service";
 
 @Component({
   selector: "ngx-categories",
@@ -9,15 +9,15 @@ import { CategoryNode } from "./categories.service";
   styleUrls: ["./categories.component.scss"],
 })
 export class CategoriesComponent implements OnInit, OnDestroy {
-  categoryNode: CategoryNode;
+  CategoryTree: CategoryTree;
   private categoriesSubscription: Subscription;
   constructor(private categoriesService: CategoriesService) {}
   ngOnInit() {
     this.categoriesSubscription = this.categoriesService
-      .getCategoryNode()
-      .subscribe((categoryNode) => {
-        console.log(categoryNode, " @CategoriesComponent");
-        this.categoryNode = categoryNode;
+      .getCategoryTree()
+      .subscribe((CategoryTree) => {
+        console.log(CategoryTree, " @CategoriesComponent");
+        this.CategoryTree = CategoryTree;
       });
   }
 
