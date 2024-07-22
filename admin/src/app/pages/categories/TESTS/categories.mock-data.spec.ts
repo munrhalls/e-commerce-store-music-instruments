@@ -1,11 +1,11 @@
 import { createTree } from "./generateMock";
-import { CategoryTree } from "../categories.service";
+import { CategoryTree } from "../categories.model";
 import { root } from "rxjs/internal-compatibility";
 
-export const CategoryTree: CategoryTree = createTree(
+export const categoryTree: CategoryTree = createTree(
   { name: "", pathIds: [], children: [] },
   4,
   4,
 );
 
-console.dir(CategoryTree, { depth: null });
+console.dir(categoryTree, { depth: null });

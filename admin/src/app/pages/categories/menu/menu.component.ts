@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { CategoriesService, CategoryTree } from "../categories.service";
+import { CategoriesService } from "../categories.service";
 import { trigger, transition, style, animate } from "@angular/animations";
-
+import { CategoryTree } from "../categories.model";
 @Component({
   selector: "ngx-menu",
   templateUrl: "./menu.component.html",
@@ -21,7 +21,7 @@ import { trigger, transition, style, animate } from "@angular/animations";
 export class MenuComponent {
   constructor(private categoriesService: CategoriesService) {}
 
-  @Input() CategoryTree: CategoryTree = {
+  @Input() categoryTree: CategoryTree = {
     id: "",
     name: "",
     pathIds: [],

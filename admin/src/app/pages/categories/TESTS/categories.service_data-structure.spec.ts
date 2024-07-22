@@ -28,15 +28,15 @@ describe("CategoriesService", () => {
       service.getCategoryTree().subscribe((CategoryTree) => {
         expect(CategoryTree.id).toEqual(IDs.root);
         expect(CategoryTree.name).toEqual("root");
-        expect(CategoryTree.children[0].id).toEqual(IDs.IDcategory1);
-        expect(CategoryTree.children[1].id).toEqual(IDs.IDcategory2);
-        expect(CategoryTree.children[2].id).toEqual(IDs.IDcategory3);
-        expect(CategoryTree.children[3].id).toEqual(IDs.IDcategory4);
+        expect(categoryTree.children[0].id).toEqual(IDs.IDcategory1);
+        expect(categoryTree.children[1].id).toEqual(IDs.IDcategory2);
+        expect(categoryTree.children[2].id).toEqual(IDs.IDcategory3);
+        expect(categoryTree.children[3].id).toEqual(IDs.IDcategory4);
 
-        const category2 = CategoryTree.children[1];
+        const category2 = categoryTree.children[1];
         expect(category2.children[0].id).toEqual(IDs.IDcategory21);
         expect(category2.children[0].children[0].id).toEqual(IDs.IDcategory211);
-        expect(CategoryTree.children[1].pathIds).toEqual([IDs.IDcategory2]);
+        expect(categoryTree.children[1].pathIds).toEqual([IDs.IDcategory2]);
         expect(category2.children[0].children[0].pathIds).toEqual([
           IDs.IDcategory2,
           IDs.IDcategory21,
@@ -49,7 +49,7 @@ describe("CategoriesService", () => {
 
     it("Data Structure: recursion should output each category name in order", (done) => {
       service.getCategoryTree().subscribe({
-        next: (CategoryTree: CategoryTree) => {
+        next: (categoryTree: CategoryTree) => {
           const names: string[] = [];
           let counter = 0;
           function recursive(node: CategoryTree, counter) {

@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { CategoryTree } from "../categories.service";
+import { CategoryTree } from "../categories.model";
 import { CategoriesService } from "../categories.service";
 import { Subscription } from "rxjs";
 import { Store } from "@ngrx/store";
@@ -13,6 +13,6 @@ import { take } from "rxjs/operators";
 })
 export class ItemComponent {
   constructor(private categoriesService: CategoriesService) {}
-  @Input() CategoryTree: CategoryTree;
+  @Input() categoryTree: CategoryTree;
   @Input() nestingLevel: number = 0;
 }

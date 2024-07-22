@@ -3,7 +3,7 @@ import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { cloneDeep } from "lodash";
-import { CategoryTree as mockCategoryTree } from "./tests/categories.mock-data.spec";
+import { categoryTree as mockCategoryTree } from "./tests/categories.mock-data.spec";
 import { CategoryTree } from "./categories.model";
 
 @Injectable({
@@ -11,17 +11,17 @@ import { CategoryTree } from "./categories.model";
 })
 export class CategoriesService {
   constructor(private http: HttpClient) {}
-  private CategoryTree: CategoryTree | null = mockCategoryTree;
+  private categoryTree: CategoryTree | null = mockCategoryTree;
 
   initializeCategoryTree() {}
   fetchCategoryTree(): Promise<CategoryTree[]> {
     return this.http.get<CategoryTree[]>("/api/categories").toPromise();
   }
   getCategoryTree() {
-    return cloneDeep(this.CategoryTree);
+    return cloneDeep(this.categoryTree);
   }
   findCategoryByPathIds(pathIds: string[]): CategoryTree {
-    let node = this.CategoryTree;
+    let node = this.categoryTree;
     for (const id of pathIds) {
       node = node.children.find((child) => child.id === id);
     }
@@ -37,7 +37,7 @@ export class CategoriesService {
       children: [],
     };
     node.children = [...node.children, newNode];
-    const clone = cloneDeep(this.CategoryTree);
+    const clone = cloneDeep(this.categoryTree);
 
     return cloneDeep(newNode);
   }

@@ -105,7 +105,7 @@ import { CategoryTree } from "../categories.service";
 //   IDcategory92: getRandomID(),
 // };
 
-// export let CategoryTree: CategoryTree = {
+// export let categoryTree: CategoryTree = {
 //   id: IDs.root,
 //   name: "root",
 //   pathIds: [],

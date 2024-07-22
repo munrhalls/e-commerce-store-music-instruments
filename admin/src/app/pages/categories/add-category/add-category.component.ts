@@ -6,10 +6,11 @@ import { CategoriesService } from "../categories.service";
   templateUrl: "./add-category.component.html",
   styleUrls: ["./add-category.component.scss"],
 })
+// import {CategoryTree} from "../categories.model";
 export class AddCategoryComponent {
   constructor(private categoriesService: CategoriesService) {}
 
-  @Input() CategoryTree: any = { id: 0, name: "" };
+  @Input() categoryTree: any = { id: 0, name: "" };
   @Output() closed = new EventEmitter<void>();
   addFormGroup: FormGroup;
   @Output() categoryAdded = new EventEmitter<void>();
@@ -33,10 +34,10 @@ export class AddCategoryComponent {
     if (this.addFormGroup.valid) {
       const newCategoryName = this.addName.value;
       this.categoriesService.addCategoryToTarget(
-        this.CategoryTree.pathIds,
+        this.categoryTree.pathIds,
         newCategoryName,
       );
-      console.log(this.CategoryTree.children);
+      console.log(this.categoryTree.children);
     }
     this.categoryAdded.emit();
     this.emitClose();

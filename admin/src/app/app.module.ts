@@ -7,7 +7,7 @@ import { ErrorHandler, NgModule } from "@angular/core";
 import { ErrorHandlerModule } from "./@core/error-handler/error-handler.module";
 import { GlobalErrorHandler } from "./@core/error-handler/global-error-handler";
 import { StoreModule } from "@ngrx/store";
-// import { categoriesReducer } from "./state/categories/categories.reducer";
+import { categoriesReducer } from "./state/categories/categories.reducer";
 
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -33,7 +33,7 @@ import {
     ErrorHandlerModule,
     StoreModule.forRoot(
       {
-        // categories: categoriesReducer,
+        categories: categoriesReducer,
       },
       {
         runtimeChecks: {
