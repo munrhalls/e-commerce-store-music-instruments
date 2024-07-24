@@ -28,4 +28,4 @@ export const createTree = function (tree, breadth = 0, depth = 0) {
 
 createTree(tree, 4, 4);
 
-console.dir(tree, { depth: null });
+// console.dir(tree, { depth: null });

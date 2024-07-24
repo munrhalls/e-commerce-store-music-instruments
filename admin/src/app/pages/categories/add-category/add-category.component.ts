@@ -37,7 +37,6 @@ export class AddCategoryComponent {
         this.categoryTree.pathIds,
         newCategoryName,
       );
-      console.log(this.categoryTree.children);
     }
     this.categoryAdded.emit();
     this.emitClose();

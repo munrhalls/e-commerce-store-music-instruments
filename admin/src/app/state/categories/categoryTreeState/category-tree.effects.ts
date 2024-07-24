@@ -12,27 +12,21 @@ export class CategoryTreeEffects {
     private categoriesService: CategoriesService,
   ) {}
 
-  loadCategories$ = createEffect(() =>
+  loadCategoriesFromLocalStorage$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(categoryTreeActions["Category Tree Load Initiated"]),
-      exhaustMap(() =>
-        this.categoriesService.getCategoryTree().pipe(
-          map((categoryTree) =>
-            categoryTreeActions["Category Tree Loaded Success"]({
-              categoryTree,
+      ofType(categoryTreeActions.loadingFromLocalStorage),
+      exhaustMap(() => {
+        const categoryTree = null;
+        if (categoryTree) {
+          return of(
+            categoryTreeActions.loadingFromLocalStorageSuccess({
+              categoryTree: JSON.parse(categoryTree),
             }),
-          ),
-          catchError((error) => {
-            if (error.status === 404) {
-              return of(categoryTreeActions["Category Tree Not Found"]());
-            } else {
-              return of(
-                categoryTreeActions["Category Tree Load Failed"]({ error }),
-              );
-            }
-          }),
-        ),
-      ),
+          );
+        } else {
+          return of(categoryTreeActions.loadingFromLocalStorageFailure());
+        }
+      }),
     ),
   );
 }

@@ -63,7 +63,6 @@ describe("CategoriesService", () => {
             counter++;
           }
           recursive(CategoryTree, counter);
-          console.log(names);
           expect(names.length).toBeGreaterThan(50);
 
           done();

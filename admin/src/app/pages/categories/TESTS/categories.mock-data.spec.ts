@@ -7,5 +7,3 @@ export const categoryTree: CategoryTree = createTree(
   4,
   4,
 );
-
-console.dir(categoryTree, { depth: null });

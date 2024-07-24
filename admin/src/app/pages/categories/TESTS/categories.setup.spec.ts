@@ -1,5 +1,5 @@
 import { TestBed } from "@angular/core/testing";
-import { CategoriesService, CategoryTree } from "../categories.service";
+import { CategoriesService } from "../categories.service";
 import {
   HttpClientTestingModule,
   HttpTestingController,
@@ -29,6 +29,5 @@ export const expectCategoryTree = function (
 
   service.getCategoryTree().subscribe((node) => {
     expect(node).toEqual(expectedNode);
-    console.log(node);
   });
 };
