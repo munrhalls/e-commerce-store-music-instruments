@@ -4,10 +4,10 @@ import { CategoryTree } from "../../../pages/categories/categories.model";
 export const categoryTreeActions = createActionGroup({
   source: "Category Tree",
   events: {
-    "Loading From Local Storage": emptyProps(),
-    "Loading From Local Storage Success": props<{
+    "Loading From LS": emptyProps(),
+    "Loading From LS Success": props<{
       categoryTree: CategoryTree;
     }>(),
-    "Loading From Local Storage Failure": emptyProps(),
+    "Loading From LS Failure": emptyProps(),
   },
 });

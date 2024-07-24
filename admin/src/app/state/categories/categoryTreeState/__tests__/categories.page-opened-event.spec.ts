@@ -12,6 +12,8 @@ import { Actions, ofType } from "@ngrx/effects";
 import { exhaustMap, concatMap, take } from "rxjs/operators";
 import { fakeAsync, tick, flush } from "@angular/core/testing";
 import { CategoryTree } from "../../../../pages/categories/categories.model";
+import { selectCategoryTree } from "../../categories.selector";
+import { categoriesReducer } from "../../categories.reducer";
 
 const mockCategoriesService = {
   getCategoryTree: jest.fn(() =>
@@ -26,16 +28,6 @@ const mockCategoryTree: CategoryTree = {
   children: [],
 };
 
-const localStorageServiceMock = {
-  loadCategoryTree: jest.fn().mockReturnValue({
-    /* ...mock data */
-  }), // Added mock data
-};
-TestBed.overrideProvider(localStorageServiceMock, {
-  // Changed here
-  useValue: localStorageServiceMock,
-});
-
 let store: Store;
 let categoryTreeEffects: CategoryTreeEffects;
 let actions$: Actions;
@@ -43,7 +35,9 @@ let actions$: Actions;
 beforeEach(() => {
   TestBed.configureTestingModule({
     imports: [
-      StoreModule.forRoot({ categoryTree: categoryTreeReducer }),
+      StoreModule.forRoot({
+        categories: categoriesReducer,
+      }),
       EffectsModule.forRoot(CategoryTreeEffects),
     ],
     providers: [
@@ -53,20 +47,96 @@ beforeEach(() => {
       },
     ],
   });
+
   store = TestBed.inject(Store);
   actions$ = TestBed.inject(Actions);
   categoryTreeEffects = TestBed.inject(CategoryTreeEffects);
 });
 
-describe("Categories Page Opened Event is handled properly", () => {
-  it("dispatching loadingFromLocalStorage action, should cause effect to return new action that confirms success or failure", fakeAsync(() => {
-    // ARRANGE
-    let newAction;
-    const action = categoryTreeActions.loadingFromLocalStorage;
-    const actionFailure = categoryTreeActions.loadingFromLocalStorageFailure;
-    const actionSuccess = categoryTreeActions.loadingFromLocalStorageSuccess;
+describe("Attempting to load category tree from local is handled properly", () => {
+  it("Store can dispatch new load from local storage action", () => {
+    expect(categoryTreeActions.loadingFromLs).toBeDefined();
+  });
 
-    actions$.pipe(ofType(actionFailure)).subscribe((action$) => {
+  it("If loading from local storage succeeded, effect should dispatch new success action with categoryTree props", fakeAsync(() => {
+    // ARRANGE
+    Object.defineProperty(window, "localStorage", {
+      value: {
+        getItem: jest.fn().mockImplementation((key) => {
+          if (key === "categoryTree") {
+            return JSON.stringify(mockCategoryTree);
+          }
+        }),
+      },
+      writable: true,
+    });
+
+    let newAction;
+    const loadFromLSAction = categoryTreeActions.loadingFromLs;
+    const expectedSuccessAction = categoryTreeActions.loadingFromLsSuccess;
+
+    actions$
+      .pipe(ofType(expectedSuccessAction))
+      .subscribe((action$) => (newAction = action$));
+
+    // ACT
+    tick();
+    store.dispatch(loadFromLSAction());
+    tick();
+
+    // ASSERT
+    expect(newAction).toBeDefined();
+    expect(newAction).toEqual(
+      expectedSuccessAction({ categoryTree: mockCategoryTree }),
+    );
+
+    flush();
+  }));
+
+  it("Successful load from local storage should result in new store state that contains loaded categoryTree", fakeAsync(() => {
+    Object.defineProperty(window, "localStorage", {
+      value: {
+        getItem: jest.fn().mockImplementation((key) => {
+          if (key === "categoryTree") {
+            return JSON.stringify(mockCategoryTree);
+          }
+        }),
+      },
+      writable: true,
+    });
+
+    let categoryTree$: CategoryTree = null;
+
+    expect(categoryTree$).toBeNull();
+
+    store.select(selectCategoryTree).subscribe((categoryTree) => {
+      console.dir(categoryTree);
+      expect(mockCategoryTree).toEqual({ categoryTree });
+      categoryTree$ = categoryTree;
+    });
+
+    store.dispatch(categoryTreeActions.loadingFromLs());
+    tick();
+
+    expect(categoryTree$).toBeDefined();
+    expect(categoryTree$).toEqual(mockCategoryTree);
+  }));
+  it("if loading from local storage failed, effect should dispatch failure action", fakeAsync(() => {
+    // ARRANGE
+    Object.defineProperty(window, "localStorage", {
+      value: {
+        getItem: jest.fn().mockImplementation((key) => {
+          return undefined;
+        }),
+      },
+      writable: true,
+    });
+
+    let newAction;
+    const action = categoryTreeActions.loadingFromLs;
+    const expectedFailureAction = categoryTreeActions.loadingFromLsFailure;
+
+    actions$.pipe(ofType(expectedFailureAction)).subscribe((action$) => {
       newAction = action$;
     });
 
@@ -75,10 +145,21 @@ describe("Categories Page Opened Event is handled properly", () => {
     store.dispatch(action());
 
     // ASSERT
-    expect(newAction).toEqual(
-      actionFailure() || actionSuccess({ categoryTree: mockCategoryTree }),
-    );
+    //should fail
+    expect(newAction).toEqual(expectedFailureAction());
 
     flush();
   }));
+});
+
+describe("If local storage is empty, attempting to load category tree from API should be handled properly", () => {
+  // Failure to load from local storage, should dispatch new call to API action
+  // If loading from API succeeded, effect should dispatch new API load success action
+  // Successful load from API, should result in new state that contains API loaded categoryTree
+  // Successful load from API, should also result in saving the API loaded category tree to local storage
+});
+
+describe("If loading from API fails, error state should be handled properly", () => {
+  // If loading from API failed, effect should dispatch new API load failure action
+  // On API load failure, state should initialize empty category tree
 });

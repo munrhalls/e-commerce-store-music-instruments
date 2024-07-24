@@ -1,5 +1,5 @@
-import { createFeatureSelector } from "@ngrx/store";
-import { CategoryTree } from "../../../pages/categories/categories.model";
+// import { createSelector, createFeatureSelector } from "@ngrx/store";
+// import { CategoryTree } from "../../../pages/categories/categories.model";
 
-export const selectCategoryTreeState =
-  createFeatureSelector<CategoryTree>("categoryTree");
+// export const selectCategoryTree =
+//   createFeatureSelector<CategoryTree>("categoryTree");

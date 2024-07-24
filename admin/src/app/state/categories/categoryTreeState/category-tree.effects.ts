@@ -14,17 +14,17 @@ export class CategoryTreeEffects {
 
   loadCategoriesFromLocalStorage$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(categoryTreeActions.loadingFromLocalStorage),
+      ofType(categoryTreeActions.loadingFromLs),
       exhaustMap(() => {
-        const categoryTree = null;
+        const categoryTree = localStorage.getItem("categoryTree");
         if (categoryTree) {
           return of(
-            categoryTreeActions.loadingFromLocalStorageSuccess({
+            categoryTreeActions.loadingFromLsSuccess({
               categoryTree: JSON.parse(categoryTree),
             }),
           );
         } else {
-          return of(categoryTreeActions.loadingFromLocalStorageFailure());
+          return of(categoryTreeActions.loadingFromLsFailure());
         }
       }),
     ),
