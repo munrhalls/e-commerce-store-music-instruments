@@ -110,7 +110,7 @@ describe("Attempting to load category tree from local is handled properly", () =
     expect(categoryTree$).toBeNull();
 
     store.select(selectCategoryTree).subscribe((categoryTree) => {
-      console.dir(categoryTree);
+      console.dir(categoryTree, mockCategoryTree);
       expect(mockCategoryTree).toEqual({ categoryTree });
       categoryTree$ = categoryTree;
     });

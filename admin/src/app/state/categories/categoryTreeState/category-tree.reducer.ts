@@ -21,8 +21,8 @@ export const categoryTreeReducer = createReducer(
     ...state,
     categoryTree,
   })),
-  // on(categoryTreeActions.loadingFromLSFailure, (state) => ({
-  //   ...state,
-  //   categoryTree: null,
-  // })),
+  on(categoryTreeActions.loadingFromLsFailure, (state) => ({
+    ...state,
+    categoryTree: null,
+  })),
 );
