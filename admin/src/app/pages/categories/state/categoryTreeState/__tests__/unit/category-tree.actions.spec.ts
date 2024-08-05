@@ -5,7 +5,18 @@ import { ServerConnectionError } from "../../../../../../@core/error-handler/err
 
 describe("Category tree actions", () => {
   it("should contain page opened action", () => {
-    expect(categoryTreeActions.pageOpened()).toBeDefined();
+    expect(categoryTreeActions.pageOpened).toBeDefined();
+  });
+  it("page opened should have timestamp payload", () => {
+    const time = new Date();
+    const expectedAction = {
+      type: "[Category Tree] Page Opened",
+      timeStamp: time,
+    };
+
+    expect(categoryTreeActions.pageOpened({ timeStamp: time })).toEqual(
+      expectedAction,
+    );
   });
   it("should contain api load category tree action", () => {
     expect(categoryTreeActions.apiLoad()).toBeDefined();

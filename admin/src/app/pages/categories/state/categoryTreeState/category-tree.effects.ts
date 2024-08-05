@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { map, exhaustMap, catchError } from "rxjs/operators";
-import { CategoriesService } from "../../../pages/categories/categories.service";
-import { categoryTreeActions } from "./category-tree.actions";
+import { CategoriesService } from "../../../categories/categories.service";
+import * as categoryTreeActions from "./category-tree.actions";
+import { ErrorModel } from "../../../../@core/error-handler/error.model";
 
 @Injectable()
 export class CategoryTreeEffects {
@@ -12,21 +13,19 @@ export class CategoryTreeEffects {
     private categoriesService: CategoriesService,
   ) {}
 
-  loadingFromLsEffect$ = createEffect(() =>
+  apiLoadCategoryTree$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(categoryTreeActions.loadingFromLs),
-      exhaustMap(() => {
-        const categoryTree = localStorage.getItem("categoryTree");
-        if (categoryTree) {
-          return of(
-            categoryTreeActions.loadingFromLsSuccess({
-              categoryTree: JSON.parse(categoryTree),
-            }),
-          );
-        } else {
-          return of(categoryTreeActions.loadingFromLsFailure());
-        }
-      }),
+      ofType("[Category Tree] API Load"),
+      exhaustMap(() =>
+        this.categoriesService.fetchCategoryTree().pipe(
+          map((categoryTree) =>
+            categoryTreeActions.apiLoadSuccess({ categoryTree }),
+          ),
+          catchError((error) =>
+            of(categoryTreeActions.apiLoadError({ error })),
+          ),
+        ),
+      ),
     ),
   );
 }
