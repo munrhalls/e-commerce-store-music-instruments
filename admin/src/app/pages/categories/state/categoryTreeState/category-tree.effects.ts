@@ -22,18 +22,9 @@ export class CategoryTreeEffects {
           map((categoryTree) =>
             categoryTreeActions.apiLoadSuccess({ categoryTree }),
           ),
-          catchError((error: any) => {
-            if (error instanceof HttpErrorResponse && error.status === 0) {
-              const serverConnectionError = new ServerConnectionError();
-              return of(
-                categoryTreeActions.apiLoadError({
-                  error: serverConnectionError,
-                }),
-              );
-            } else {
-              return of(categoryTreeActions.apiLoadError({ error }));
-            }
-          }),
+          catchError((error) =>
+            of(categoryTreeActions.apiLoadError({ error })),
+          ),
         ),
       ),
     ),

@@ -1,13 +1,13 @@
 // category.service.ts
 import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, Observable, of } from "rxjs";
+import { BehaviorSubject, Observable, of, throwError } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 import { cloneDeep } from "lodash";
 import { categoryTree as mockCategoryTree } from "./tests/unit/categories.mock-data.spec";
 import { CategoryTree } from "./categories.model";
 import { ServerConnectionError } from "./../../@core/error-handler/errors/serverConnectionError";
-
+import { HttpErrorResponse } from "@angular/common/http";
 @Injectable({
   providedIn: "root",
 })
@@ -19,9 +19,12 @@ export class CategoriesService {
 
   fetchCategoryTree(): Observable<CategoryTree> {
     return this.http.get<CategoryTree>("/api/categories").pipe(
-      catchError((error) => {
-        throw new ServerConnectionError();
-        throw error;
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 0) {
+          return throwError(() => new ServerConnectionError());
+        } else {
+          return throwError(() => error);
+        }
       }),
     );
   }
