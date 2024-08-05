@@ -5,7 +5,7 @@ import {
 } from "./categories.mock-data.spec";
 import { expectCategoryTree } from "./categories.setup.spec";
 import { HttpTestingController } from "@angular/common/http/testing";
-import { CategoriesService, CategoryTree } from "../categories.service";
+import { CategoriesService, CategoryTree } from "../../categories.service";
 
 describe("CategoriesService", () => {
   let service: CategoriesService;

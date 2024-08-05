@@ -1,4 +1,4 @@
-import { CategoryTree } from "../categories.service";
+import { CategoryTree } from "../../categories.service";
 
 // import { root } from "rxjs/internal-compatibility";
 // import { CategoryTree } from "../categories.service";

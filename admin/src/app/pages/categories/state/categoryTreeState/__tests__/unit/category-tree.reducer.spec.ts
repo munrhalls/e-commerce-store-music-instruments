@@ -1,5 +1,5 @@
-import { categoryTreeActions } from "../category-tree.actions";
-import { categoryTreeReducer } from "../category-tree.reducer";
+import { categoryTreeActions } from "../../category-tree.actions";
+import { categoryTreeReducer } from "../../category-tree.reducer";
 
 describe("Should handle actions properly", () => {
   it("Should handle loadingFromLs action", () => {

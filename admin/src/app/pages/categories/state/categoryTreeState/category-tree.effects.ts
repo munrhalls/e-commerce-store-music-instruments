@@ -12,7 +12,7 @@ export class CategoryTreeEffects {
     private categoriesService: CategoriesService,
   ) {}
 
-  loadCategoriesFromLocalStorage$ = createEffect(() =>
+  loadingFromLsEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(categoryTreeActions.loadingFromLs),
       exhaustMap(() => {

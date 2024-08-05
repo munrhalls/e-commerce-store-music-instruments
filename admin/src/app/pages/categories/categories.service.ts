@@ -3,7 +3,7 @@ import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { cloneDeep } from "lodash";
-import { categoryTree as mockCategoryTree } from "./tests/categories.mock-data.spec";
+import { categoryTree as mockCategoryTree } from "./tests/unit/categories.mock-data.spec";
 import { CategoryTree } from "./categories.model";
 
 @Injectable({
