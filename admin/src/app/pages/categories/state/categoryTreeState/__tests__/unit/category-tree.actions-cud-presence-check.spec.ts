@@ -14,13 +14,13 @@ describe("Category tree CUD actions should exist: CREATE (3), UPDATE (9), DELETE
   });
 
   it("add new category action should exist", () => {
-    expect(categoryTreeActions.apiCreateNewCategory).toBeDefined();
+    expect(categoryTreeActions.apiAddCategoryToTarget).toBeDefined();
   });
   it("create new category success action should exist", () => {
-    expect(categoryTreeActions.apiCreateNewCategorySuccess).toBeDefined();
+    expect(categoryTreeActions.apiAddCategoryToTargetSuccess).toBeDefined();
   });
   it("create new category error action should exist", () => {
-    expect(categoryTreeActions.apiCreateNewCategoryError).toBeDefined();
+    expect(categoryTreeActions.apiAddCategoryToTargetError).toBeDefined();
   });
 
   it("update category name action should exist", () => {

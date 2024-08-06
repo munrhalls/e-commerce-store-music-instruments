@@ -31,17 +31,19 @@ export class CategoriesService {
   getCategoryTree() {
     return cloneDeep(this.categoryTree);
   }
-  findCategoryByPathIds(node: CategoryTree): CategoryTree {
-    for (const id of node.pathIds) {
+  findCategoryByPathIds(pathIds: [string]): CategoryTree {
+    let node = this.categoryTree;
+    for (const id of pathIds) {
       node = node.children.find((child) => child.id === id);
     }
     return node;
   }
-  addCategoryToTarget(target: CategoryTree): CategoryTree {
+  addCategoryToTarget(targetId: string, ): CategoryTree {
+    const target = this.findCategoryByPathIds(targetPathIds);
     const newId = (Math.random() / Math.random()).toString();
     const newCategory = {
       id: newId,
-      name,
+      name: ,
       pathIds: [...target.pathIds, newId],
       children: [],
     };

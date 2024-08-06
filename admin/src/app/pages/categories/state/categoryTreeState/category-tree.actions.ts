@@ -16,8 +16,8 @@ export const apiLoadError = createAction(
 
 // createCategory
 
-export const apiCreateNewCategory = createAction(
-  "[Category Tree] API Create New Category",
+export const apiAddCategoryToTarget = createAction(
+  "[Category Tree] API Add Category To Target",
   props<{
     addingNewCategory: {
       targetId: string;
@@ -26,13 +26,13 @@ export const apiCreateNewCategory = createAction(
   }>(),
 );
 
-export const apiCreateNewCategorySuccess = createAction(
-  "[Category Tree] API Create New Success Category",
+export const apiAddCategoryToTargetSuccess = createAction(
+  "[Category Tree] API Add Category To Target Success",
   props<{ categoryTree: CategoryTree }>(),
 );
 
-export const apiCreateNewCategoryError = createAction(
-  "[Category Tree] API Create New Category Error",
+export const apiAddCategoryToTargetError = createAction(
+  "[Category Tree] API Add Category To Target Error",
   props<{ error: ErrorModel }>(),
 );
 

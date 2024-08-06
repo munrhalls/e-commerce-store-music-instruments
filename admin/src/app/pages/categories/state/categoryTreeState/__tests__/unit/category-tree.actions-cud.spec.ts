@@ -18,12 +18,12 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
     };
 
     const expectedAction = {
-      type: "[Category Tree] API Create New Category",
+      type: "[Category Tree] API Add Category To Target",
       addingNewCategory,
     };
 
     expect(
-      categoryTreeActions.apiCreateNewCategory({ addingNewCategory }),
+      categoryTreeActions.apiAddCategoryToTarget({ addingNewCategory }),
     ).toEqual(expectedAction);
   });
 
@@ -36,23 +36,23 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
     };
 
     const expectedAction = {
-      type: "[Category Tree] API Create New Success Category",
+      type: "[Category Tree] API Add Category To Target Success",
       categoryTree: categoryTree,
     };
 
     expect(
-      categoryTreeActions.apiCreateNewCategorySuccess({ categoryTree }),
+      categoryTreeActions.apiAddCategoryToTargetSuccess({ categoryTree }),
     ).toEqual(expectedAction);
   });
 
   it("create new category error action should contain global format error payload", () => {
     const error: ErrorModel = new ServerConnectionError();
     const expectedAction = {
-      type: "[Category Tree] API Create New Category Error",
+      type: "[Category Tree] API Add Category To Target Error",
       error: error,
     };
 
-    expect(categoryTreeActions.apiCreateNewCategoryError({ error })).toEqual(
+    expect(categoryTreeActions.apiAddCategoryToTargetError({ error })).toEqual(
       expectedAction,
     );
   });
