@@ -31,26 +31,24 @@ export class CategoriesService {
   getCategoryTree() {
     return cloneDeep(this.categoryTree);
   }
-  findCategoryByPathIds(pathIds: string[]): CategoryTree {
-    let node = this.categoryTree;
-    for (const id of pathIds) {
+  findCategoryByPathIds(node: CategoryTree): CategoryTree {
+    for (const id of node.pathIds) {
       node = node.children.find((child) => child.id === id);
     }
     return node;
   }
-  addCategoryToTarget(pathIds: string[], name: string): CategoryTree {
-    const node = this.findCategoryByPathIds(pathIds);
+  addCategoryToTarget(target: CategoryTree): CategoryTree {
     const newId = (Math.random() / Math.random()).toString();
-    const newNode = {
+    const newCategory = {
       id: newId,
       name,
-      pathIds: [...pathIds, newId],
+      pathIds: [...target.pathIds, newId],
       children: [],
     };
-    node.children = [...node.children, newNode];
+    target.children = [...target.children, newCategory];
     const clone = cloneDeep(this.categoryTree);
 
-    return cloneDeep(newNode);
+    return cloneDeep(this.categoryTree);
   }
   updateTargetName(pathIds: string[], name: string): void {
     const node = this.findCategoryByPathIds(pathIds);

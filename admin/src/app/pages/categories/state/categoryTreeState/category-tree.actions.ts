@@ -18,7 +18,12 @@ export const apiLoadError = createAction(
 
 export const apiCreateNewCategory = createAction(
   "[Category Tree] API Create New Category",
-  props<{ newCategory: CategoryTree }>(),
+  props<{
+    addingNewCategory: {
+      targetId: string;
+      newCategory: CategoryTree;
+    };
+  }>(),
 );
 
 export const apiCreateNewCategorySuccess = createAction(
