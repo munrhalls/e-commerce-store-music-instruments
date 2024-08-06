@@ -1,58 +1,26 @@
-import { categoryTreeActions } from "../../category-tree.actions";
-import { categoryTreeReducer } from "../../category-tree.reducer";
+import { selectCategoryTree } from "../../category-tree.selectors";
 
-describe("Should handle actions properly", () => {
-  it("Should handle loadingFromLs action", () => {
-    // ARRANGE
+describe("Category tree selectors", () => {
+  it("should return category tree data", () => {
     const state = {
-      categoryTree: null,
-    };
-    const action = categoryTreeActions.loadingFromLs();
-
-    // ACT
-    const result = categoryTreeReducer(state, action);
-
-    // ASSERT
-    expect(result.categoryTree).toBeNull();
-  });
-
-  it("Should handle loadingFromLsSuccess action", () => {
-    // ARRANGE
-    const state = {
-      categoryTree: null,
-    };
-    const categoryTree = {
-      id: "1",
-      name: "Category 1",
-      children: [],
-      pathIds: ["1"],
-    };
-    const action = categoryTreeActions.loadingFromLsSuccess({ categoryTree });
-
-    // ACT
-    const result = categoryTreeReducer(state, action);
-
-    // ASSERT
-    expect(result.categoryTree).toEqual(categoryTree);
-  });
-
-  it("Should handle loadingFromLsFailure action", () => {
-    // ARRANGE
-    const state = {
-      categoryTree: {
-        id: "1",
-        name: "Category 1",
-        children: [],
-        pathIds: ["1"],
+      categories: {
+        categoryTree: {
+          data: {
+            id: "1",
+            name: "Root",
+            pathIds: [],
+            children: [],
+          },
+          isLoading: false,
+          error: null,
+        },
       },
     };
-
-    const action = categoryTreeActions.loadingFromLsFailure();
-
-    // ACT
-    const result = categoryTreeReducer(state, action);
-
-    // ASSERT
-    expect(result.categoryTree).toBeNull();
+    expect(selectCategoryTree(state)).toEqual({
+      id: "1",
+      name: "Root",
+      pathIds: [],
+      children: [],
+    });
   });
 });

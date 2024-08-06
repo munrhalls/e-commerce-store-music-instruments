@@ -1,28 +1,48 @@
 import { createReducer, on } from "@ngrx/store";
-import { CategoryTree } from "../../../pages/categories/categories.model";
-import { categoryTreeActions } from "./category-tree.actions";
+import { CategoryTree } from "../../../categories/categories.model";
+import * as categoryTreeActions from "./category-tree.actions";
 export const categoryTreeStateFeatureKey = "categoryTreeState";
+import { ErrorModel } from "../../../../@core/error-handler/error.model";
 
 export interface State {
-  categoryTree: CategoryTree | null;
+  categoryTree: {
+    data: null | CategoryTree;
+    isLoading: boolean;
+    error: null | ErrorModel;
+  };
 }
 
 export const initialState: State = {
-  categoryTree: null,
+  categoryTree: {
+    data: null,
+    isLoading: false,
+    error: null,
+  },
 };
 
 export const categoryTreeReducer = createReducer(
   initialState,
-  on(categoryTreeActions.loadingFromLs, (state) => ({
+  on(categoryTreeActions.apiLoad, (state) => ({
     ...state,
-    categoryTree: null,
+    categoryTree: {
+      ...state.categoryTree,
+      isLoading: true,
+    },
   })),
-  on(categoryTreeActions.loadingFromLsSuccess, (state, { categoryTree }) => ({
+  on(categoryTreeActions.apiLoadSuccess, (state, payload) => ({
     ...state,
-    categoryTree,
+    categoryTree: {
+      ...state.categoryTree,
+      data: payload.categoryTree,
+      isLoading: false,
+    },
   })),
-  on(categoryTreeActions.loadingFromLsFailure, (state) => ({
+  on(categoryTreeActions.apiLoadError, (state, payload) => ({
     ...state,
-    categoryTree: null,
+    categoryTree: {
+      ...state.categoryTree,
+      isLoading: false,
+      error: payload.error,
+    },
   })),
 );

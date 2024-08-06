@@ -1,17 +1,18 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
-import { CategoryTree } from "../../pages/categories/categories.model";
+import { CategoryTree } from "../../categories/categories.model";
 import { UiState } from "./uiState/ui-state.model";
-import { AppState } from "./../index";
+import { AppState } from "./../../../state/index";
+import { ErrorModel } from "../../../@core/error-handler/error.model";
+
 export const featureKey = "categories";
 
 export interface CategoriesState {
-  categoryTree: CategoryTree;
+  categoryTree: {
+    data: CategoryTree | null;
+    isLoading: boolean;
+    error: null | ErrorModel;
+  };
   uiState: UiState;
 }
 
-export const selectCategories = (state: AppState) => state.categories;
-
-export const selectCategoryTree = createSelector(
-  selectCategories,
-  (state: CategoriesState) => state.categoryTree,
-);
+export const selectCategories = createFeatureSelector("categories");

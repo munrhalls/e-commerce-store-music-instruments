@@ -1,12 +1,12 @@
 import { provideMockActions } from "@ngrx/effects/testing";
 import { TestBed } from "@angular/core/testing";
 import { Subject, of, throwError } from "rxjs";
-import { CategoryTreeEffects } from "./../../category-tree.effects";
-import { CategoriesService } from "./../../../../categories.service";
+import { CategoryTreeEffects } from "../../category-tree.effects";
+import { CategoriesService } from "../../../../categories.service";
 import { fakeAsync, tick } from "@angular/core/testing";
 import { Action } from "@ngrx/store";
 // import { ErrorModel } from "../../../../../../@core/error-handler/error.model";
-import { ServerConnectionError } from "./../../../../../../@core/error-handler/errors/serverConnectionError";
+import { ServerConnectionError } from "../../../../../../@core/error-handler/errors/serverConnectionError";
 
 describe("CategoryTreeEffects", () => {
   let actions$ = new Subject<Action>();
