@@ -40,7 +40,12 @@ export const apiAddCategoryToTargetError = createAction(
 
 export const apiUpdateCategoryName = createAction(
   "[Category Tree] API Update Name",
-  props<{ updatedCategory: CategoryTree }>(),
+  props<{
+    updatingTargetName: {
+      targetId: string;
+      name: string;
+    };
+  }>(),
 );
 
 export const apiUpdateCategoryNameSuccess = createAction(
@@ -57,7 +62,7 @@ export const apiUpdateCategoryNameError = createAction(
 
 export const apiMoveDown = createAction(
   "[Category Tree] API Update Move Down",
-  props<{ moveDownTargetCategory: CategoryTree }>(),
+  props<{ moveDownTargetPathIds: string[] }>(),
 );
 
 export const apiMoveDownSuccess = createAction(
@@ -74,7 +79,7 @@ export const apiMoveDownError = createAction(
 
 export const apiMoveUp = createAction(
   "[Category Tree] API Update Move Up",
-  props<{ moveUpTargetCategory: CategoryTree }>(),
+  props<{ moveUpTargetPathIds: string[] }>(),
 );
 
 export const apiMoveUpSuccess = createAction(

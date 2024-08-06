@@ -66,15 +66,21 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
       children: [],
     };
 
+    const updatingTargetName = {
+      targetId: "2",
+      name: "UPDATED NAME",
+    };
+
     const expectedAction = {
       type: "[Category Tree] API Update Name",
-      updatedCategory: updatedCategory,
+      updatingTargetName: updatingTargetName,
     };
 
     expect(
-      categoryTreeActions.apiUpdateCategoryName({ updatedCategory }),
+      categoryTreeActions.apiUpdateCategoryName({ updatingTargetName }),
     ).toEqual(expectedAction);
   });
+
   it("update category name success action should contain ENTIRE updated categories object", () => {
     const categoryTree: CategoryTree = {
       id: "1",
@@ -108,17 +114,19 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
   it("update category move down action should contain moved target category payload", () => {
     const moveDownTargetCategory: CategoryTree = {
       id: "1",
-      name: "Root",
-      pathIds: [],
+      name: "Category 1",
+      pathIds: ["1"],
       children: [],
     };
 
+    const moveDownTargetPathIds = moveDownTargetCategory.pathIds;
+
     const expectedAction = {
       type: "[Category Tree] API Update Move Down",
-      moveDownTargetCategory: moveDownTargetCategory,
+      moveDownTargetPathIds: moveDownTargetCategory.pathIds,
     };
 
-    expect(categoryTreeActions.apiMoveDown({ moveDownTargetCategory })).toEqual(
+    expect(categoryTreeActions.apiMoveDown({ moveDownTargetPathIds })).toEqual(
       expectedAction,
     );
   });
@@ -162,12 +170,14 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
       children: [],
     };
 
+    const moveUpTargetPathIds = moveUpTargetCategory.pathIds;
+
     const expectedAction = {
       type: "[Category Tree] API Update Move Up",
-      moveUpTargetCategory: moveUpTargetCategory,
+      moveUpTargetPathIds: moveUpTargetPathIds,
     };
 
-    expect(categoryTreeActions.apiMoveUp({ moveUpTargetCategory })).toEqual(
+    expect(categoryTreeActions.apiMoveUp({ moveUpTargetPathIds })).toEqual(
       expectedAction,
     );
   });

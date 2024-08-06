@@ -70,7 +70,7 @@ describe("CategoryTreeEffects", () => {
     actions$.next({ type: "[Category Tree] API Load" });
     expect(called).toBe(true);
   });
-  it("should dispatch the API Load Success action with the category tree payload if service api returned 200", () => {
+  it("should dispatch the API Load Success action with the category tree payload if service api request succeeded", () => {
     let testedResultAction = null;
     const expectedResultAction = {
       categoryTree: {

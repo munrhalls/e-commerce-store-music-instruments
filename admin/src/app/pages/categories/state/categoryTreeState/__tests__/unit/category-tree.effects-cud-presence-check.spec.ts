@@ -1,29 +1,27 @@
 import { provideMockActions } from "@ngrx/effects/testing";
 import { TestBed } from "@angular/core/testing";
-import { Subject, of, throwError } from "rxjs";
+import { Subject, of } from "rxjs";
 import { CategoryTreeEffects } from "../../category-tree.effects";
 import { CategoriesService } from "../../../../categories.service";
-import { fakeAsync, tick } from "@angular/core/testing";
 import { Action } from "@ngrx/store";
-// import { ErrorModel } from "../../../../../../@core/error-handler/error.model";
-import { ServerConnectionError } from "../../../../../../@core/error-handler/errors/serverConnectionError";
 
 describe("All effects needed for CREATE, READ, UPDATE, MOVE DOWN, MOVE UP, DELETE, should exist (6)", () => {
   let categoryTreeEffects: CategoryTreeEffects;
-  let mockCategoriesService;
+  let actions$: Subject<Action>;
+  let mockCategoriesService: jest.Mocked<CategoriesService>;
 
   beforeEach(() => {
-    mockCategoriesService = {
-      fetchCategoryTree: jest.fn(),
-    };
+    actions$ = new Subject<Action>();
+    mockCategoriesService = {} as unknown as jest.Mocked<CategoriesService>;
 
     TestBed.configureTestingModule({
       providers: [
         CategoryTreeEffects,
-        provideMockActions(() => new Subject<Action>()),
+        provideMockActions(() => actions$),
         { provide: CategoriesService, useValue: mockCategoriesService },
       ],
     });
+
     categoryTreeEffects = TestBed.inject(CategoryTreeEffects);
   });
 
@@ -31,10 +29,10 @@ describe("All effects needed for CREATE, READ, UPDATE, MOVE DOWN, MOVE UP, DELET
     expect(categoryTreeEffects.apiLoadCategoryTree$).toBeDefined();
   });
   it("api create new category effect should exist", () => {
-    expect(categoryTreeEffects.apiCreateNewCategory$).toBeDefined();
+    expect(categoryTreeEffects.apiAddCategoryToTarget$).toBeDefined();
   });
   it("api update category name effect should exist", () => {
-    expect(categoryTreeEffects.apiUpdateCategoryName$).toBeDefined();
+    expect(categoryTreeEffects.apiUpdateTargetName$).toBeDefined();
   });
   it("api move down effect should exist", () => {
     expect(categoryTreeEffects.apiMoveDown$).toBeDefined();
