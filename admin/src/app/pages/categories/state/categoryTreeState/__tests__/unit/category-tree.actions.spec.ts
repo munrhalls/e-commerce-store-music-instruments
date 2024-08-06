@@ -3,13 +3,7 @@ import { CategoryTree } from "../../../../categories.model";
 import { ErrorModel } from "../../../../../../@core/error-handler/error.model";
 import { ServerConnectionError } from "../../../../../../@core/error-handler/errors/serverConnectionError";
 
-describe("Category tree actions", () => {
-  it("should contain api load category tree action", () => {
-    expect(categoryTreeActions.apiLoad()).toBeDefined();
-  });
-  it("should contain api load success action", () => {
-    expect(categoryTreeActions.apiLoadSuccess).toBeDefined();
-  });
+describe("Category tree actions should take proper payloads", () => {
   it("api load success action should take category tree payload", () => {
     const categoryTree: CategoryTree = {
       id: "1",
@@ -26,9 +20,7 @@ describe("Category tree actions", () => {
       expectedAction,
     );
   });
-  it("Should contain api load error action", () => {
-    expect(categoryTreeActions.apiLoadError).toBeDefined();
-  });
+
   it("api load error action should contain error payload with global error type", () => {
     const error = new ServerConnectionError();
     const expectedAction = {

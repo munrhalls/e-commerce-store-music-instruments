@@ -1,6 +1,18 @@
 import * as categoryTreeActions from "../../category-tree.actions";
-
+import { CategoryTree } from "../../../../categories.model";
+import { ErrorModel } from "../../../../../../@core/error-handler/error.model";
+import { ServerConnectionError } from "../../../../../../@core/error-handler/errors/serverConnectionError";
 describe("Category tree CUD actions should exist: CREATE (3), UPDATE (9), DELETE(3)", () => {
+  it("should contain api load category tree action", () => {
+    expect(categoryTreeActions.apiLoad()).toBeDefined();
+  });
+  it("should contain api load success action", () => {
+    expect(categoryTreeActions.apiLoadSuccess).toBeDefined();
+  });
+  it("should contain api load error action", () => {
+    expect(categoryTreeActions.apiLoadError).toBeDefined();
+  });
+
   it("add new category action should exist", () => {
     expect(categoryTreeActions.apiCreateNewCategory).toBeDefined();
   });

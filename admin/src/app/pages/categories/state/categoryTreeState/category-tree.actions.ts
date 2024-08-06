@@ -17,17 +17,17 @@ export const apiLoadError = createAction(
 // createCategory
 
 export const apiCreateNewCategory = createAction(
-  "[Category Tree] API Create New",
-  props<{ categoryTree: CategoryTree }>(),
+  "[Category Tree] API Create New Category",
+  props<{ newCategory: CategoryTree }>(),
 );
 
 export const apiCreateNewCategorySuccess = createAction(
-  "[Category Tree] API Create New Success",
+  "[Category Tree] API Create New Success Category",
   props<{ categoryTree: CategoryTree }>(),
 );
 
 export const apiCreateNewCategoryError = createAction(
-  "[Category Tree] API Create New Error",
+  "[Category Tree] API Create New Category Error",
   props<{ error: ErrorModel }>(),
 );
 
@@ -35,7 +35,7 @@ export const apiCreateNewCategoryError = createAction(
 
 export const apiUpdateCategoryName = createAction(
   "[Category Tree] API Update Name",
-  props<{ categoryTree: CategoryTree }>(),
+  props<{ updatedCategory: CategoryTree }>(),
 );
 
 export const apiUpdateCategoryNameSuccess = createAction(
@@ -52,7 +52,7 @@ export const apiUpdateCategoryNameError = createAction(
 
 export const apiMoveDown = createAction(
   "[Category Tree] API Update Move Down",
-  props<{ categoryTree: CategoryTree }>(),
+  props<{ moveDownTargetCategory: CategoryTree }>(),
 );
 
 export const apiMoveDownSuccess = createAction(
@@ -69,7 +69,7 @@ export const apiMoveDownError = createAction(
 
 export const apiMoveUp = createAction(
   "[Category Tree] API Update Move Up",
-  props<{ categoryTree: CategoryTree }>(),
+  props<{ moveUpTargetCategory: CategoryTree }>(),
 );
 
 export const apiMoveUpSuccess = createAction(
@@ -86,7 +86,7 @@ export const apiMoveUpError = createAction(
 
 export const apiDeleteCategory = createAction(
   "[Category Tree] API Update Delete",
-  props<{ categoryTree: CategoryTree }>(),
+  props<{ toDeleteTargetCategory: CategoryTree }>(),
 );
 
 export const apiDeleteCategorySuccess = createAction(
