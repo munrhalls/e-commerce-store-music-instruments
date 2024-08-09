@@ -1,29 +1,15 @@
-import { provideMockActions } from "@ngrx/effects/testing";
-import { TestBed } from "@angular/core/testing";
-import { Subject, of } from "rxjs";
+import { Subject } from "rxjs";
 import { CategoryTreeEffects } from "../../category-tree.effects";
-import { CategoriesService } from "../../../../categories.service";
 import { Action } from "@ngrx/store";
 
 describe("All effects needed for CREATE, READ, UPDATE, MOVE DOWN, MOVE UP, DELETE, should exist (6)", () => {
-  let categoryTreeEffects: CategoryTreeEffects;
-  let actions$: Subject<Action>;
-  let mockCategoriesService: jest.Mocked<CategoriesService>;
+  let actions$: Subject<Action> = new Subject<Action>();
+  let mockCategoriesService = null;
 
-  beforeEach(() => {
-    actions$ = new Subject<Action>();
-    mockCategoriesService = {} as unknown as jest.Mocked<CategoriesService>;
-
-    TestBed.configureTestingModule({
-      providers: [
-        CategoryTreeEffects,
-        provideMockActions(() => actions$),
-        { provide: CategoriesService, useValue: mockCategoriesService },
-      ],
-    });
-
-    categoryTreeEffects = TestBed.inject(CategoryTreeEffects);
-  });
+  const categoryTreeEffects = new CategoryTreeEffects(
+    actions$,
+    mockCategoriesService,
+  );
 
   it("api load category tree effect should exist", () => {
     expect(categoryTreeEffects.apiLoadCategoryTree$).toBeDefined();

@@ -56,6 +56,41 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
       expectedAction,
     );
   });
+  // read category tree
+  it("load category tree action should not contain payload", () => {
+    const expectedAction = {
+      type: "[Category Tree] API Load",
+    };
+
+    expect(categoryTreeActions.apiLoad()).toEqual(expectedAction);
+  });
+  it("load category tree success action should contain ENTIRE categoryTree object", () => {
+    const categoryTree: CategoryTree = {
+      id: "1",
+      name: "Root",
+      pathIds: [],
+      children: [],
+    };
+
+    const expectedAction = {
+      type: "[Category Tree] API Load Success",
+      categoryTree: categoryTree,
+    };
+
+    expect(categoryTreeActions.apiLoadSuccess({ categoryTree })).toEqual(
+      expectedAction,
+    );
+  });
+
+  it("load category tree error action should contain global format error payload", () => {
+    const error: ErrorModel = new ServerConnectionError();
+    const expectedAction = {
+      type: "[Category Tree] API Load Error",
+      error: error,
+    };
+
+    expect(categoryTreeActions.apiLoadError({ error })).toEqual(expectedAction);
+  });
 
   // update category name
   it("update category name action should contain updated category payload", () => {

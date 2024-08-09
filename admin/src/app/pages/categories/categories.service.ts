@@ -9,8 +9,12 @@ import { CategoryTree } from "./categories.model";
 import { ServerConnectionError } from "./../../@core/error-handler/errors/serverConnectionError";
 import { HttpErrorResponse } from "@angular/common/http";
 
+interface addingCategoryToTarget {
+  targetPathIds: string[];
+  newCategory: CategoryTree;
+}
 interface updatingTargetName {
-  pathIds: string[];
+  targetPathIds: string[];
   name: string;
 }
 
@@ -28,23 +32,25 @@ export class CategoriesService {
       catchError((error: HttpErrorResponse) => {
         if (error.status === 0) {
           return throwError(() => new ServerConnectionError());
-        } else {
-          return throwError(() => error);
         }
+        return throwError(() => error);
       }),
     );
   }
   getCategoryTree() {
     return cloneDeep(this.categoryTree);
   }
-  findCategoryByPathIds(pathIds: [string]): CategoryTree {
+  findCategoryByPathIds(targetPathIds: string[]): CategoryTree {
     let node = this.categoryTree;
-    for (const id of pathIds) {
+    for (const id of targetPathIds) {
       node = node.children.find((child) => child.id === id);
     }
     return node;
   }
-  addCategoryToTarget(targetId: string): CategoryTree {
+  addCategoryToTarget({
+    targetPathIds,
+    newCategory,
+  }: addingCategoryToTarget): CategoryTree {
     // const target = this.findCategoryByPathIds(targetPathIds);
     // const newId = (Math.random() / Math.random()).toString();
     // const newCategory = {
@@ -58,12 +64,12 @@ export class CategoriesService {
 
     return cloneDeep(this.categoryTree);
   }
-  updateTargetName({ pathIds, name }: updatingTargetName): CategoryTree {
+  updateTargetName({ targetPathIds, name }: updatingTargetName): CategoryTree {
     // const node = this.findCategoryByPathIds(pathIds);
     // node.name = name;
     return cloneDeep(this.categoryTree);
   }
-  moveTargetDown(pathIds: string[]): CategoryTree {
+  moveTargetDown(targetPathIds: string[]): CategoryTree {
     // const parentPathIds = pathIds.slice(0, -1);
     // const parentNode = this.findCategoryByPathIds(parentPathIds);
     // const index = parentNode.children.findIndex(
@@ -76,7 +82,7 @@ export class CategoriesService {
     // }
     return cloneDeep(this.categoryTree);
   }
-  moveTargetUp(pathIds: string[]): CategoryTree {
+  moveTargetUp(targetPathIds: string[]): CategoryTree {
     // const parentPathIds = pathIds.slice(0, -1);
     // const parentNode = this.findCategoryByPathIds(parentPathIds);
     // const targetIndex = parentNode.children.findIndex(
@@ -89,7 +95,7 @@ export class CategoriesService {
     // }
     return cloneDeep(this.categoryTree);
   }
-  deleteTarget(pathIds: string[]): CategoryTree {
+  deleteTarget(targetPathIds: string[]): CategoryTree {
     // const parentPathIds = pathIds.slice(0, -1);
     // const parentNode = this.findCategoryByPathIds(parentPathIds);
     // const index = parentNode.children.findIndex(

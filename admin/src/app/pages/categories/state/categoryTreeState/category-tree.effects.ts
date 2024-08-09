@@ -23,7 +23,11 @@ export class CategoryTreeEffects {
             categoryTreeActions.apiLoadSuccess({ categoryTree }),
           ),
           catchError((error) =>
-            of(categoryTreeActions.apiLoadError({ error })),
+            of(
+              categoryTreeActions.apiLoadError({
+                error: new ServerConnectionError(),
+              }),
+            ),
           ),
         ),
       ),

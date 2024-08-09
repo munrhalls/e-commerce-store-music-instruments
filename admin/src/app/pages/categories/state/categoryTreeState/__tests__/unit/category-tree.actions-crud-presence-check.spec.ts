@@ -3,16 +3,7 @@ import { CategoryTree } from "../../../../categories.model";
 import { ErrorModel } from "../../../../../../@core/error-handler/error.model";
 import { ServerConnectionError } from "../../../../../../@core/error-handler/errors/serverConnectionError";
 describe("Category tree CUD actions should exist: CREATE (3), UPDATE (9), DELETE(3)", () => {
-  it("should contain api load category tree action", () => {
-    expect(categoryTreeActions.apiLoad()).toBeDefined();
-  });
-  it("should contain api load success action", () => {
-    expect(categoryTreeActions.apiLoadSuccess).toBeDefined();
-  });
-  it("should contain api load error action", () => {
-    expect(categoryTreeActions.apiLoadError).toBeDefined();
-  });
-
+  // create
   it("add new category action should exist", () => {
     expect(categoryTreeActions.apiAddCategoryToTarget).toBeDefined();
   });
@@ -23,6 +14,18 @@ describe("Category tree CUD actions should exist: CREATE (3), UPDATE (9), DELETE
     expect(categoryTreeActions.apiAddCategoryToTargetError).toBeDefined();
   });
 
+  // read
+  it("should contain api load category tree action", () => {
+    expect(categoryTreeActions.apiLoad()).toBeDefined();
+  });
+  it("should contain api load success action", () => {
+    expect(categoryTreeActions.apiLoadSuccess).toBeDefined();
+  });
+  it("should contain api load error action", () => {
+    expect(categoryTreeActions.apiLoadError).toBeDefined();
+  });
+
+  // update
   it("update category name action should exist", () => {
     expect(categoryTreeActions.apiUpdateCategoryName).toBeDefined();
   });
@@ -51,6 +54,7 @@ describe("Category tree CUD actions should exist: CREATE (3), UPDATE (9), DELETE
     expect(categoryTreeActions.apiMoveUpError).toBeDefined();
   });
 
+  // delete
   it("delete category action should exist", () => {
     expect(categoryTreeActions.apiDeleteCategory).toBeDefined();
   });
