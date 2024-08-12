@@ -13,7 +13,7 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
     };
 
     const addingNewCategory = {
-      targetId: "1",
+      targetPathIds: ["1"],
       newCategory: newCategory,
     };
 
@@ -22,9 +22,9 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
       addingNewCategory,
     };
 
-    expect(
-      categoryTreeActions.apiAddCategoryToTarget({ addingNewCategory }),
-    ).toEqual(expectedAction);
+    expect(categoryTreeActions.apiAdd(addingNewCategory)).toEqual(
+      expectedAction,
+    );
   });
 
   it("create new category success action should contain ENTIRE categoryTree object", () => {
@@ -40,9 +40,9 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
       categoryTree: categoryTree,
     };
 
-    expect(
-      categoryTreeActions.apiAddCategoryToTargetSuccess({ categoryTree }),
-    ).toEqual(expectedAction);
+    expect(categoryTreeActions.apiAddSuccess({ categoryTree })).toEqual(
+      expectedAction,
+    );
   });
 
   it("create new category error action should contain global format error payload", () => {
@@ -52,9 +52,7 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
       error: error,
     };
 
-    expect(categoryTreeActions.apiAddCategoryToTargetError({ error })).toEqual(
-      expectedAction,
-    );
+    expect(categoryTreeActions.apiAddError({ error })).toEqual(expectedAction);
   });
   // read category tree
   it("load category tree action should not contain payload", () => {
@@ -248,7 +246,7 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
   });
 
   it("delete category action should contain to-delete target category payload", () => {
-    const toDeleteTargetCategory: CategoryTree = {
+    const todeleteCategoryCategory: CategoryTree = {
       id: "1",
       name: "Root",
       pathIds: [],
@@ -257,11 +255,11 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
 
     const expectedAction = {
       type: "[Category Tree] API Update Delete",
-      toDeleteTargetCategory: toDeleteTargetCategory,
+      todeleteCategoryCategory: todeleteCategoryCategory,
     };
 
     expect(
-      categoryTreeActions.apiDeleteCategory({ toDeleteTargetCategory }),
+      categoryTreeActions.apiDeleteCategory({ todeleteCategoryCategory }),
     ).toEqual(expectedAction);
   });
   it("delete category success action should contain ENTIRE updated categories object", () => {

@@ -12,13 +12,13 @@ describe("All effects needed for CREATE, READ, UPDATE, MOVE DOWN, MOVE UP, DELET
   );
 
   it("api load category tree effect should exist", () => {
-    expect(categoryTreeEffects.apiLoadCategoryTree$).toBeDefined();
+    expect(categoryTreeEffects.apiLoad$).toBeDefined();
   });
   it("api create new category effect should exist", () => {
-    expect(categoryTreeEffects.apiAddCategoryToTarget$).toBeDefined();
+    expect(categoryTreeEffects.apiAdd$).toBeDefined();
   });
   it("api update category name effect should exist", () => {
-    expect(categoryTreeEffects.apiUpdateTargetName$).toBeDefined();
+    expect(categoryTreeEffects.apiUpdateName$).toBeDefined();
   });
   it("api move down effect should exist", () => {
     expect(categoryTreeEffects.apiMoveDown$).toBeDefined();
@@ -27,6 +27,6 @@ describe("All effects needed for CREATE, READ, UPDATE, MOVE DOWN, MOVE UP, DELET
     expect(categoryTreeEffects.apiMoveUp$).toBeDefined();
   });
   it("api delete category effect should exist", () => {
-    expect(categoryTreeEffects.apiDeleteCategory$).toBeDefined();
+    expect(categoryTreeEffects.apiDelete$).toBeDefined();
   });
 });

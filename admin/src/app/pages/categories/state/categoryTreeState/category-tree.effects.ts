@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { of } from "rxjs";
+import { of, throwError } from "rxjs";
 import { map, exhaustMap, catchError } from "rxjs/operators";
 import { CategoriesService } from "../../../categories/categories.service";
+import { CategoryTree } from "../../../categories/categories.model";
 import * as categoryTreeActions from "./category-tree.actions";
 import { ErrorModel } from "../../../../@core/error-handler/error.model";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ServerConnectionError } from "../../../../@core/error-handler/errors/serverConnectionError";
+import { Observable } from "rxjs";
 @Injectable()
 export class CategoryTreeEffects {
   constructor(
@@ -14,11 +16,33 @@ export class CategoryTreeEffects {
     private categoriesService: CategoriesService,
   ) {}
 
-  apiLoadCategoryTree$ = createEffect(() =>
+  apiAdd$ = createEffect(() =>
     this.actions$.pipe(
-      ofType("[Category Tree] API Load"),
-      exhaustMap(() =>
-        this.categoriesService.fetchCategoryTree().pipe(
+      ofType(categoryTreeActions.apiAdd),
+      exhaustMap((action) => {
+        return this.categoriesService
+          .addCategoryToTarget(action.targetPathIds, action.newCategory)
+          .pipe(
+            map((categoryTree) =>
+              categoryTreeActions.apiAddSuccess({ categoryTree }),
+            ),
+            catchError((error) =>
+              of(
+                categoryTreeActions.apiAddError({
+                  error: new ServerConnectionError(),
+                }),
+              ),
+            ),
+          );
+      }),
+    ),
+  );
+
+  apiLoad$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(categoryTreeActions.apiLoad),
+      exhaustMap(() => {
+        return this.categoriesService.fetchCategoryTree().pipe(
           map((categoryTree) =>
             categoryTreeActions.apiLoadSuccess({ categoryTree }),
           ),
@@ -29,53 +53,47 @@ export class CategoryTreeEffects {
               }),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     ),
   );
 
-  apiAddCategoryToTarget$ = createEffect(() =>
+  apiUpdateName$ = createEffect(() =>
     this.actions$.pipe(
-      ofType("[Category Tree] API Create New Category"),
-      exhaustMap((action) =>
-        of(this.categoriesService.addCategoryToTarget(action)).pipe(
-          map((categoryTree) =>
-            categoryTreeActions.apiAddCategoryToTargetSuccess({ categoryTree }),
-          ),
-          catchError((error) =>
-            of(categoryTreeActions.apiAddCategoryToTargetError({ error })),
-          ),
-        ),
-      ),
-    ),
-  );
-
-  apiUpdateTargetName$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType("[Category Tree] API Update Target Name"),
-      exhaustMap((action) =>
-        of(this.categoriesService.updateTargetName(action)).pipe(
-          map((categoryTree) =>
-            categoryTreeActions.apiUpdateCategoryNameSuccess({ categoryTree }),
-          ),
-          catchError((error) =>
-            of(categoryTreeActions.apiUpdateCategoryNameError({ error })),
-          ),
-        ),
-      ),
+      ofType(categoryTreeActions.apiUpdateName),
+      exhaustMap((action) => {
+        return this.categoriesService
+          .updateName(action.targetPathIds, action.name)
+          .pipe(
+            map((categoryTree) =>
+              categoryTreeActions.apiUpdateNameSuccess({ categoryTree }),
+            ),
+            catchError((error) =>
+              of(
+                categoryTreeActions.apiUpdateNameError({
+                  error: new ServerConnectionError(),
+                }),
+              ),
+            ),
+          );
+      }),
     ),
   );
 
   apiMoveDown$ = createEffect(() =>
     this.actions$.pipe(
-      ofType("[Category Tree] API Move Down"),
+      ofType(categoryTreeActions.apiMoveDown),
       exhaustMap((action) =>
-        of(this.categoriesService.moveTargetDown(action)).pipe(
+        this.categoriesService.moveCategoryDown(action.targetPathIds).pipe(
           map((categoryTree) =>
             categoryTreeActions.apiMoveDownSuccess({ categoryTree }),
           ),
           catchError((error) =>
-            of(categoryTreeActions.apiMoveDownError({ error })),
+            of(
+              categoryTreeActions.apiMoveDownError({
+                error: new ServerConnectionError(),
+              }),
+            ),
           ),
         ),
       ),
@@ -84,30 +102,38 @@ export class CategoryTreeEffects {
 
   apiMoveUp$ = createEffect(() =>
     this.actions$.pipe(
-      ofType("[Category Tree] API Move Up"),
+      ofType(categoryTreeActions.apiMoveUp),
       exhaustMap((action) =>
-        of(this.categoriesService.moveTargetUp(action)).pipe(
+        this.categoriesService.moveCategoryUp(action.targetPathIds).pipe(
           map((categoryTree) =>
             categoryTreeActions.apiMoveUpSuccess({ categoryTree }),
           ),
           catchError((error) =>
-            of(categoryTreeActions.apiMoveUpError({ error })),
+            of(
+              categoryTreeActions.apiMoveUpError({
+                error: new ServerConnectionError(),
+              }),
+            ),
           ),
         ),
       ),
     ),
   );
 
-  apiDeleteCategory$ = createEffect(() =>
+  apiDelete$ = createEffect(() =>
     this.actions$.pipe(
-      ofType("[Category Tree] API Delete Category"),
+      ofType(categoryTreeActions.apiDelete),
       exhaustMap((action) =>
-        of(this.categoriesService.deleteTarget(action)).pipe(
+        this.categoriesService.deleteCategory(action.targetPathIds).pipe(
           map((categoryTree) =>
-            categoryTreeActions.apiDeleteCategorySuccess({ categoryTree }),
+            categoryTreeActions.apiDeleteSuccess({ categoryTree }),
           ),
           catchError((error) =>
-            of(categoryTreeActions.apiDeleteCategoryError({ error })),
+            of(
+              categoryTreeActions.apiDeleteError({
+                error: new ServerConnectionError(),
+              }),
+            ),
           ),
         ),
       ),

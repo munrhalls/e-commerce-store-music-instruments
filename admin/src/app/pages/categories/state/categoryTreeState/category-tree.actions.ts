@@ -2,6 +2,26 @@ import { createAction, props } from "@ngrx/store";
 import { CategoryTree } from "../../categories.model";
 import { ErrorModel } from "../../../../@core/error-handler/error.model";
 
+// CREATE
+export const apiAdd = createAction(
+  "[Category Tree] API Add Category To Target",
+  props<{
+    targetPathIds: string[];
+    newCategory: CategoryTree;
+  }>(),
+);
+
+export const apiAddSuccess = createAction(
+  "[Category Tree] API Add Category To Target Success",
+  props<{ categoryTree: CategoryTree }>(),
+);
+
+export const apiAddError = createAction(
+  "[Category Tree] API Add Category To Target Error",
+  props<{ error: ErrorModel }>(),
+);
+
+// READ
 export const apiLoad = createAction("[Category Tree] API Load");
 
 export const apiLoadSuccess = createAction(
@@ -14,55 +34,31 @@ export const apiLoadError = createAction(
   props<{ error: ErrorModel }>(),
 );
 
-// createCategory
+// UPDATE NAME
 
-export const apiAddCategoryToTarget = createAction(
-  "[Category Tree] API Add Category To Target",
-  props<{
-    addingNewCategory: {
-      targetId: string;
-      newCategory: CategoryTree;
-    };
-  }>(),
-);
-
-export const apiAddCategoryToTargetSuccess = createAction(
-  "[Category Tree] API Add Category To Target Success",
-  props<{ categoryTree: CategoryTree }>(),
-);
-
-export const apiAddCategoryToTargetError = createAction(
-  "[Category Tree] API Add Category To Target Error",
-  props<{ error: ErrorModel }>(),
-);
-
-// updateCategoryName
-
-export const apiUpdateCategoryName = createAction(
+export const apiUpdateName = createAction(
   "[Category Tree] API Update Name",
   props<{
-    updatingTargetName: {
-      targetId: string;
-      name: string;
-    };
+    targetPathIds: string[];
+    name: string;
   }>(),
 );
 
-export const apiUpdateCategoryNameSuccess = createAction(
+export const apiUpdateNameSuccess = createAction(
   "[Category Tree] API Update Name Success",
   props<{ categoryTree: CategoryTree }>(),
 );
 
-export const apiUpdateCategoryNameError = createAction(
+export const apiUpdateNameError = createAction(
   "[Category Tree] API Update Name Error",
   props<{ error: ErrorModel }>(),
 );
 
-// updateCategoryMoveDown
+// UPDATE MOVE DOWN
 
 export const apiMoveDown = createAction(
   "[Category Tree] API Update Move Down",
-  props<{ moveDownTargetPathIds: string[] }>(),
+  props<{ targetPathIds: string[] }>(),
 );
 
 export const apiMoveDownSuccess = createAction(
@@ -75,11 +71,11 @@ export const apiMoveDownError = createAction(
   props<{ error: ErrorModel }>(),
 );
 
-// updateCategoryMoveUp
+// UPDATE MOVE UP
 
 export const apiMoveUp = createAction(
   "[Category Tree] API Update Move Up",
-  props<{ moveUpTargetPathIds: string[] }>(),
+  props<{ targetPathIds: string[] }>(),
 );
 
 export const apiMoveUpSuccess = createAction(
@@ -92,19 +88,18 @@ export const apiMoveUpError = createAction(
   props<{ error: ErrorModel }>(),
 );
 
-// updateCategoryDelete
-
-export const apiDeleteCategory = createAction(
+// DELETE
+export const apiDelete = createAction(
   "[Category Tree] API Update Delete",
-  props<{ toDeleteTargetCategory: CategoryTree }>(),
+  props<{ targetPathIds: string[] }>(),
 );
 
-export const apiDeleteCategorySuccess = createAction(
+export const apiDeleteSuccess = createAction(
   "[Category Tree] API Update Delete Success",
   props<{ categoryTree: CategoryTree }>(),
 );
 
-export const apiDeleteCategoryError = createAction(
+export const apiDeleteError = createAction(
   "[Category Tree] API Update Delete Error",
   props<{ error: ErrorModel }>(),
 );

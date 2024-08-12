@@ -9,15 +9,6 @@ import { CategoryTree } from "./categories.model";
 import { ServerConnectionError } from "./../../@core/error-handler/errors/serverConnectionError";
 import { HttpErrorResponse } from "@angular/common/http";
 
-interface addingCategoryToTarget {
-  targetPathIds: string[];
-  newCategory: CategoryTree;
-}
-interface updatingTargetName {
-  targetPathIds: string[];
-  name: string;
-}
-
 @Injectable({
   providedIn: "root",
 })
@@ -25,32 +16,30 @@ export class CategoriesService {
   constructor(private http: HttpClient) {}
   private categoryTree: CategoryTree | null = mockCategoryTree;
 
-  initializeCategoryTree() {}
-
   fetchCategoryTree(): Observable<CategoryTree> {
     return this.http.get<CategoryTree>("/api/categories").pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 0) {
           return throwError(() => new ServerConnectionError());
         }
-        return throwError(() => error);
+        return throwError(() => new ServerConnectionError());
       }),
     );
   }
   getCategoryTree() {
-    return cloneDeep(this.categoryTree);
+    return of(cloneDeep(this.categoryTree));
   }
-  findCategoryByPathIds(targetPathIds: string[]): CategoryTree {
+  findCategoryByPathIds(targetPathIds: string[]): Observable<CategoryTree> {
     let node = this.categoryTree;
     for (const id of targetPathIds) {
       node = node.children.find((child) => child.id === id);
     }
-    return node;
+    return of(node);
   }
-  addCategoryToTarget({
-    targetPathIds,
-    newCategory,
-  }: addingCategoryToTarget): CategoryTree {
+  addCategoryToTarget(
+    targetPathIds: string[],
+    newCategory: CategoryTree,
+  ): Observable<CategoryTree> {
     // const target = this.findCategoryByPathIds(targetPathIds);
     // const newId = (Math.random() / Math.random()).toString();
     // const newCategory = {
@@ -62,14 +51,14 @@ export class CategoriesService {
     // target.children = [...target.children, newCategory];
     // const clone = cloneDeep(this.categoryTree);
 
-    return cloneDeep(this.categoryTree);
+    return of(cloneDeep(this.categoryTree));
   }
-  updateTargetName({ targetPathIds, name }: updatingTargetName): CategoryTree {
+  updateName(targetPathIds: string[], name: string): Observable<CategoryTree> {
     // const node = this.findCategoryByPathIds(pathIds);
     // node.name = name;
-    return cloneDeep(this.categoryTree);
+    return of(cloneDeep(this.categoryTree));
   }
-  moveTargetDown(targetPathIds: string[]): CategoryTree {
+  moveCategoryDown(targetPathIds: string[]): Observable<CategoryTree> {
     // const parentPathIds = pathIds.slice(0, -1);
     // const parentNode = this.findCategoryByPathIds(parentPathIds);
     // const index = parentNode.children.findIndex(
@@ -80,9 +69,9 @@ export class CategoriesService {
     //   parentNode.children.splice(index, 1);
     //   parentNode.children.splice(index + 1, 0, target);
     // }
-    return cloneDeep(this.categoryTree);
+    return of(cloneDeep(this.categoryTree));
   }
-  moveTargetUp(targetPathIds: string[]): CategoryTree {
+  moveCategoryUp(targetPathIds: string[]): Observable<CategoryTree> {
     // const parentPathIds = pathIds.slice(0, -1);
     // const parentNode = this.findCategoryByPathIds(parentPathIds);
     // const targetIndex = parentNode.children.findIndex(
@@ -93,15 +82,16 @@ export class CategoriesService {
     //   parentNode.children.splice(targetIndex, 1);
     //   parentNode.children.splice(targetIndex - 1, 0, target);
     // }
-    return cloneDeep(this.categoryTree);
+    return of(cloneDeep(this.categoryTree));
   }
-  deleteTarget(targetPathIds: string[]): CategoryTree {
+  deleteCategory(targetPathIds: string[]): Observable<CategoryTree> {
     // const parentPathIds = pathIds.slice(0, -1);
     // const parentNode = this.findCategoryByPathIds(parentPathIds);
     // const index = parentNode.children.findIndex(
     //   (child) => child.id === pathIds[pathIds.length - 1],
     // );
     // parentNode.children.splice(index, 1);
-    return cloneDeep(this.categoryTree);
+
+    return of(cloneDeep(this.categoryTree));
   }
 }

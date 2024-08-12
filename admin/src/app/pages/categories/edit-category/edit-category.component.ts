@@ -36,7 +36,7 @@ export class EditCategoryComponent {
     if (this.editFormGroup.valid) {
       const newCategoryName = this.editName.value;
 
-      this.categoriesService.updateTargetName(
+      this.categoriesService.updateName(
         this.categoryTree.pathIds,
         newCategoryName,
       );

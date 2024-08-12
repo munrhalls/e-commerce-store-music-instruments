@@ -5,13 +5,13 @@ import { ServerConnectionError } from "../../../../../../@core/error-handler/err
 describe("Category tree CUD actions should exist: CREATE (3), UPDATE (9), DELETE(3)", () => {
   // create
   it("add new category action should exist", () => {
-    expect(categoryTreeActions.apiAddCategoryToTarget).toBeDefined();
+    expect(categoryTreeActions.apiAdd).toBeDefined();
   });
   it("create new category success action should exist", () => {
-    expect(categoryTreeActions.apiAddCategoryToTargetSuccess).toBeDefined();
+    expect(categoryTreeActions.apiAddSuccess).toBeDefined();
   });
   it("create new category error action should exist", () => {
-    expect(categoryTreeActions.apiAddCategoryToTargetError).toBeDefined();
+    expect(categoryTreeActions.apiAddError).toBeDefined();
   });
 
   // read
