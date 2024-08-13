@@ -38,7 +38,7 @@ describe("CREATE", () => {
       );
 
       const mockCategoriesService = {
-        addCategoryToTarget: jest.fn(() => of(mockAfterAdd)),
+        addCategory: jest.fn(() => of(mockAfterAdd)),
       } as unknown as CategoriesService;
       const effects = new CategoryTreeEffects(actions, mockCategoriesService);
       const expected = categoryTreeActions.apiAddSuccess({
@@ -66,7 +66,7 @@ describe("CREATE", () => {
       );
 
       const mockCategoriesService = {
-        addCategoryToTarget: jest.fn(() => {
+        addCategory: jest.fn(() => {
           return throwError(() => new ServerConnectionError());
         }),
       } as unknown as CategoriesService;

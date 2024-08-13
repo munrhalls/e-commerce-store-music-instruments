@@ -25,13 +25,13 @@ describe("CategoriesService", () => {
   });
 
   describe("Categories CRUD, MOVE UP, MOVE DOWN", () => {
-    it("addCategoryToTarget - should add a subcategory to a target top-level category", () => {
+    it("addCategory - should add a subcategory to a target top-level category", () => {
       const pathIds = [IDs.IDcategory2];
       const name = "2.2";
       const target = service.findCategoryByPathIds(pathIds);
       const targetChildrenLength = target.children.length;
 
-      service.addCategoryToTarget(pathIds, name);
+      service.addCategory(pathIds, name);
       expect(target.children.length).toEqual(targetChildrenLength + 1);
       const newlyAdded = target.children.find((child) => child.name === name);
       expect(newlyAdded).toBeDefined();
@@ -40,13 +40,13 @@ describe("CategoriesService", () => {
       expect(newlyAdded.name).toEqual(name);
       expect(newlyAdded.children).toEqual([]);
     });
-    it("addCategoryToTarget - should add a subcategory to a target sub-category", () => {
+    it("addCategory - should add a subcategory to a target sub-category", () => {
       const pathIds = [IDs.IDcategory2, IDs.IDcategory21];
       const name = "2.1.2";
       const target = service.findCategoryByPathIds(pathIds);
       const targetChildrenLength = target.children.length;
 
-      service.addCategoryToTarget(pathIds, name);
+      service.addCategory(pathIds, name);
       expect(target.children.length).toEqual(targetChildrenLength + 1);
       const newlyAdded = target.children.find((child) => child.name === name);
       expect(newlyAdded).toBeDefined();
@@ -55,13 +55,13 @@ describe("CategoriesService", () => {
       expect(newlyAdded.name).toEqual(name);
       expect(newlyAdded.children).toEqual([]);
     });
-    it("addCategoryToTarget - should add a subcategory to a target sub-sub-category", () => {
+    it("addCategory - should add a subcategory to a target sub-sub-category", () => {
       const pathIds = [IDs.IDcategory2, IDs.IDcategory21, IDs.IDcategory211];
       const name = "2.1.2.1";
       const target = service.findCategoryByPathIds(pathIds);
       const targetChildrenLength = target.children.length;
 
-      service.addCategoryToTarget(pathIds, name);
+      service.addCategory(pathIds, name);
       expect(target.children.length).toEqual(targetChildrenLength + 1);
       const newlyAdded = target.children.find((child) => child.name === name);
       expect(newlyAdded).toBeDefined();

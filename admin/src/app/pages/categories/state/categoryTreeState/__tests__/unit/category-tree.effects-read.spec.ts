@@ -58,7 +58,7 @@ describe("READ", () => {
       );
 
       const mockCategoriesService = {
-        addCategoryToTarget: jest.fn(() => {
+        addCategory: jest.fn(() => {
           return throwError(() => new ServerConnectionError());
         }),
       } as unknown as CategoriesService;

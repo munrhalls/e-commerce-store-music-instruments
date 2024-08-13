@@ -100,7 +100,7 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
     };
 
     const updatingTargetName = {
-      targetId: "2",
+      targetPathIds: ["2"],
       name: "UPDATED NAME",
     };
 
@@ -109,9 +109,9 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
       updatingTargetName: updatingTargetName,
     };
 
-    expect(
-      categoryTreeActions.apiUpdateCategoryName({ updatingTargetName }),
-    ).toEqual(expectedAction);
+    expect(categoryTreeActions.apiUpdateName(updatingTargetName)).toEqual(
+      expectedAction,
+    );
   });
 
   it("update category name success action should contain ENTIRE updated categories object", () => {
@@ -127,9 +127,9 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
       categoryTree: categoryTree,
     };
 
-    expect(
-      categoryTreeActions.apiUpdateCategoryNameSuccess({ categoryTree }),
-    ).toEqual(expectedAction);
+    expect(categoryTreeActions.apiUpdateNameSuccess({ categoryTree })).toEqual(
+      expectedAction,
+    );
   });
   it("update category name error action should contain global format error payload", () => {
     const error: ErrorModel = new ServerConnectionError();
@@ -138,7 +138,7 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
       error: error,
     };
 
-    expect(categoryTreeActions.apiUpdateCategoryNameError({ error })).toEqual(
+    expect(categoryTreeActions.apiUpdateNameError({ error })).toEqual(
       expectedAction,
     );
   });
@@ -152,14 +152,14 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
       children: [],
     };
 
-    const moveDownTargetPathIds = moveDownTargetCategory.pathIds;
+    const targetPathIds = moveDownTargetCategory.pathIds;
 
     const expectedAction = {
       type: "[Category Tree] API Update Move Down",
-      moveDownTargetPathIds: moveDownTargetCategory.pathIds,
+      targetPathIds: moveDownTargetCategory.pathIds,
     };
 
-    expect(categoryTreeActions.apiMoveDown({ moveDownTargetPathIds })).toEqual(
+    expect(categoryTreeActions.apiMoveDown({ targetPathIds })).toEqual(
       expectedAction,
     );
   });
@@ -203,14 +203,14 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
       children: [],
     };
 
-    const moveUpTargetPathIds = moveUpTargetCategory.pathIds;
+    const targetPathIds = moveUpTargetCategory.pathIds;
 
     const expectedAction = {
       type: "[Category Tree] API Update Move Up",
-      moveUpTargetPathIds: moveUpTargetPathIds,
+      targetPathIds: targetPathIds,
     };
 
-    expect(categoryTreeActions.apiMoveUp({ moveUpTargetPathIds })).toEqual(
+    expect(categoryTreeActions.apiMoveUp({ targetPathIds })).toEqual(
       expectedAction,
     );
   });
@@ -246,20 +246,20 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
   });
 
   it("delete category action should contain to-delete target category payload", () => {
-    const todeleteCategoryCategory: CategoryTree = {
+    const category: CategoryTree = {
       id: "1",
       name: "Root",
-      pathIds: [],
+      pathIds: ["1"],
       children: [],
     };
 
     const expectedAction = {
       type: "[Category Tree] API Update Delete",
-      todeleteCategoryCategory: todeleteCategoryCategory,
+      targetPathIds: ["1"],
     };
 
     expect(
-      categoryTreeActions.apiDeleteCategory({ todeleteCategoryCategory }),
+      categoryTreeActions.apiDelete({ targetPathIds: category.pathIds }),
     ).toEqual(expectedAction);
   });
   it("delete category success action should contain ENTIRE updated categories object", () => {
@@ -276,7 +276,7 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
     };
 
     expect(
-      categoryTreeActions.apiDeleteCategorySuccess({
+      categoryTreeActions.apiDeleteSuccess({
         categoryTree: updatedCategoryTree,
       }),
     ).toEqual(expectedAction);
@@ -289,7 +289,7 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
       error: error,
     };
 
-    expect(categoryTreeActions.apiDeleteCategoryError({ error })).toEqual(
+    expect(categoryTreeActions.apiDeleteError({ error })).toEqual(
       expectedAction,
     );
   });

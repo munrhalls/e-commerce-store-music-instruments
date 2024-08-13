@@ -33,7 +33,7 @@ export class AddCategoryComponent {
     e.preventDefault();
     if (this.addFormGroup.valid) {
       const newCategoryName = this.addName.value;
-      this.categoriesService.addCategoryToTarget(
+      this.categoriesService.addCategory(
         this.categoryTree.pathIds,
         newCategoryName,
       );

@@ -21,7 +21,7 @@ export class CategoryTreeEffects {
       ofType(categoryTreeActions.apiAdd),
       exhaustMap((action) => {
         return this.categoriesService
-          .addCategoryToTarget(action.targetPathIds, action.newCategory)
+          .addCategory(action.targetPathIds, action.newCategory)
           .pipe(
             map((categoryTree) =>
               categoryTreeActions.apiAddSuccess({ categoryTree }),

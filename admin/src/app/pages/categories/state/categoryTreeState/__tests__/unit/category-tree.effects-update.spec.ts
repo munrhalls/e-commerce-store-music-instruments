@@ -19,13 +19,13 @@ describe("UPDATE NAME", () => {
     testScheduler.run(({ hot, expectObservable }) => {
       const mockAfterUpdate = {
         id: "mock",
-        name: "UPDATED NAME UPDATED NAME UPDATED NAME",
+        name: "updated name",
         pathIds: ["mock"],
         children: [],
       };
       const apiPayload = {
         targetPathIds: ["mock"],
-        name: "UPDATED NAME UPDATED NAME UPDATED NAME",
+        name: "updated name",
       };
       const actions = new Actions(
         hot("-a", {
@@ -51,7 +51,7 @@ describe("UPDATE NAME", () => {
     testScheduler.run(({ hot, expectObservable }) => {
       const apiPayload = {
         targetPathIds: ["mock"],
-        name: "UPDATED NAME UPDATED NAME UPDATED NAME",
+        name: "updated name",
       };
       const actions = new Actions(
         hot("-a", {

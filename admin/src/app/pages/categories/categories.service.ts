@@ -36,7 +36,7 @@ export class CategoriesService {
     }
     return of(node);
   }
-  addCategoryToTarget(
+  addCategory(
     targetPathIds: string[],
     newCategory: CategoryTree,
   ): Observable<CategoryTree> {
