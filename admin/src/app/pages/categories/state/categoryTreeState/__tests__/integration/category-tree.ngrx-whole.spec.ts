@@ -12,6 +12,8 @@ import {
   initialState,
 } from "../../category-tree.reducer";
 
+import { categoriesReducer } from "../../../categories.reducer";
+
 import { Store, StoreModule } from "@ngrx/store";
 
 import { fakeAsync, tick, TestBed, flush } from "@angular/core/testing";
@@ -30,7 +32,9 @@ describe("CREATE: dispatch ACTION to SELECTOR expected state change", () => {
   const setupTestBed = () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot({
+          categories: categoriesReducer,
+        }),
         StoreModule.forFeature("categoryTree", categoryTreeReducer),
         EffectsModule.forRoot([CategoryTreeEffects]),
       ],
@@ -49,14 +53,14 @@ describe("CREATE: dispatch ACTION to SELECTOR expected state change", () => {
 
   it("success path: action -> effect returns success action -> selector reflects state update ", (done) => {
     // ARRANGE (DATA)
-    const initialTree = {
+
+    const newCategory = {
       id: "mock",
       name: "mock category",
       pathIds: ["mock"],
       children: [],
     };
-
-    const newCategory = {
+    const apiResponseEntireTreeObj = {
       id: "mock",
       name: "mock category",
       pathIds: ["mock"],
@@ -73,14 +77,14 @@ describe("CREATE: dispatch ACTION to SELECTOR expected state change", () => {
     });
     const expectedResultState: State = {
       categoryTree: {
-        data: newCategory,
+        data: apiResponseEntireTreeObj,
         isLoading: false,
         error: null,
       },
     };
 
     mockCategoriesService = {
-      addCategory: jest.fn(() => of(newCategory)),
+      addCategory: jest.fn(() => of(apiResponseEntireTreeObj)),
     } as unknown as CategoriesService;
 
     setupTestBed();
@@ -89,7 +93,14 @@ describe("CREATE: dispatch ACTION to SELECTOR expected state change", () => {
     effects.apiAdd$.subscribe((result) => {
       expect(result).toEqual(expectedResultAction);
       done();
-      expect(selectCategoryTree.projector(initialState)).toEqual(newCategory);
+
+      store
+        .select(selectCategoryTree)
+        .pipe(take(1))
+        .subscribe((state) => {
+          expect(state).toEqual(expectedResultState);
+          done();
+        });
     });
 
     // ACT

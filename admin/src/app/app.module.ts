@@ -8,8 +8,8 @@ import { ErrorHandlerModule } from "./@core/error-handler/error-handler.module";
 import { GlobalErrorHandler } from "./@core/error-handler/global-error-handler";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
-import { CategoryTreeEffects } from "./state/categories/categoryTreeState/category-tree.effects";
-import { categoriesReducer } from "./state/categories/categories.reducer";
+import { CategoryTreeEffects } from "./pages/categories/state/categoryTreeState/category-tree.effects";
+import { categoriesReducer } from "./pages/categories/state/categories.reducer";
 
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";

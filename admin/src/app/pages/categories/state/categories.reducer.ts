@@ -1,7 +1,7 @@
 import { combineReducers, createFeatureSelector } from "@ngrx/store";
 import { uiStateReducer } from "./uiState/ui-state.reducer";
 import { categoryTreeReducer } from "./categoryTreeState/category-tree.reducer";
-import { CategoryTree } from "../../pages/categories/categories.model";
+import { CategoryTree } from "../categories.model";
 import { UiState } from "./uiState/ui-state.model";
 export const categoriesFeatureKey = "categories";
 
