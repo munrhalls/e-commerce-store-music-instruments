@@ -294,15 +294,3 @@ describe("Category tree CUD actions should take proper payloads: CREATE (3), UPD
     );
   });
 });
-
-// TEST ROI VALUE:
-// +1 SAVED MINUTES OR HOURS - CAUGHT TYPO! "[Category Tree] API Create New" -> "[Category Tree] API Create New Category" - that could take H O U R S if it was later, mixed up with all else
-// +2 SAVED MINUTES OR HOURS - CAUGHT TYPO!! - type: "[Category Tree] API Create New !!!Error Category",
-// +3 SAVED (potentially a lot) of TIME ON SOME NICE CONCEPTUAL STRUCTURE CHECKS - I could have missed some of the actions, but I've covered all of them and I made sure it makes sense as a whole
-// +1 SAVED TIME LATER ON - I've written the tests in a way that they will be easy to maintain and understand in the future
-
-// PROOF THESE UNIT TESTS ROI IS SUCH THAT IT SAVES TIME:
-// API Categories Service needed to receive specific info for CRUD, e.g. for create - target id and new added category object. I'd be sending entire huge categoryTree every time if payload included target category. Instead, looking at tests, quickly realized:
-// - I DON'T NEED TO NORMALIZE AND FLATTEN THE ENTIRE TREE JUST FOR THAT
-// - I CAN SIMPLY CHANGE ACTION PAYLOAD
-// - DID THAT, QUICKLY TESTED - WORKS, SOLVED...MINUTES INSTEAD OF HOURS
