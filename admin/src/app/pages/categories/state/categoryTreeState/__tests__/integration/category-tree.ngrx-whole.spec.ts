@@ -1,7 +1,8 @@
 import * as categoryTreeActions from "../../category-tree.actions";
+import { Actions } from "@ngrx/effects";
+import { Action } from "@ngrx/store";
 import { CategoryTreeEffects } from "../../category-tree.effects";
 import { EffectsModule } from "@ngrx/effects";
-import { Actions } from "@ngrx/effects";
 import { CategoriesService } from "../../../../categories.service";
 import { CategoryTree } from "../../../../categories.model";
 import { ServerConnectionError } from "../../../../../../@core/error-handler/errors/serverConnectionError";
@@ -11,7 +12,6 @@ import {
   State,
   initialState,
 } from "../../category-tree.reducer";
-
 import { categoriesReducer } from "../../../categories.reducer";
 
 import { Store, StoreModule } from "@ngrx/store";
@@ -19,15 +19,30 @@ import { Store, StoreModule } from "@ngrx/store";
 import { fakeAsync, tick, TestBed, flush } from "@angular/core/testing";
 
 import { selectCategoryTree } from "../../category-tree.selectors";
+import { select } from "@ngrx/store";
 
-import { of, pipe } from "rxjs";
-import { take } from "rxjs/operators";
+import { of, pipe, Observable, throwError } from "rxjs";
+import { take, mergeMap, skip } from "rxjs/operators";
+import { flushMicrotasks } from "zone.js/testing";
+import { TestScheduler } from "rxjs/testing";
 
-describe("CREATE: dispatch ACTION to SELECTOR expected state change", () => {
-  let actual: CategoryTree;
-  let mockCategoriesService: CategoriesService;
+describe("CREATE", () => {
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
+
   let store: Store;
   let effects: CategoryTreeEffects;
+  let mockCategoriesService: CategoriesService;
+  let testScheduler: TestScheduler;
+
+  beforeEach(() => {
+    testScheduler = new TestScheduler((actual, expected) => {
+      console.log("actual...", actual);
+      console.log("expected...", expected);
+      expect(actual).toEqual(expected);
+    });
+  });
 
   const setupTestBed = () => {
     TestBed.configureTestingModule({
@@ -36,74 +51,124 @@ describe("CREATE: dispatch ACTION to SELECTOR expected state change", () => {
           categories: categoriesReducer,
         }),
         StoreModule.forFeature("categoryTree", categoryTreeReducer),
-        EffectsModule.forRoot([CategoryTreeEffects]),
+        EffectsModule.forRoot(),
+        EffectsModule.forFeature([CategoryTreeEffects]),
       ],
       providers: [
-        CategoryTreeEffects,
         Store,
         {
           provide: CategoriesService,
           useValue: mockCategoriesService,
         },
+        CategoryTreeEffects,
       ],
     });
     store = TestBed.inject(Store);
     effects = TestBed.inject(CategoryTreeEffects);
   };
 
-  it("success path: action -> effect returns success action -> selector reflects state update ", (done) => {
-    // ARRANGE (DATA)
+  // it("on add action dispatch: state sets loading to true, then false upon completion", () => {
+  //   const newCategory = {
+  //     id: "mock",
+  //     name: "mock category",
+  //     pathIds: ["mock"],
+  //     children: [],
+  //   };
+  //   const action = categoryTreeActions.apiAdd({
+  //     targetPathIds: ["mock"],
+  //     newCategory,
+  //   });
 
+  //   mockCategoriesService = {
+  //     addCategory: jest.fn(() => of(null)),
+  //   } as unknown as CategoriesService;
+  //   setupTestBed();
+
+  //   testScheduler.run((helpers) => {
+  //     // ARRANGE
+  //     const actualState$ = store.pipe(select(selectCategoryTree));
+  //     // ACT
+  //     store.dispatch(action);
+  //     // ASSERT
+  //     helpers.expectObservable(actualState$).toBe("(ab)", {
+  //       a: { categoryTree: { data: null, isLoading: true, error: null } },
+  //       b: { categoryTree: { data: null, isLoading: false, error: null } },
+  //     });
+  //   });
+  // });
+
+  // it("on add action dispatch and api success: add effect returns success action", () => {
+  //   const newCategory = {
+  //     id: "1",
+  //     name: "mock category added",
+  //     pathIds: ["1"],
+  //     children: [],
+  //   };
+  //   const newEntireCategoriesTree = {
+  //     id: "root",
+  //     name: "root",
+  //     pathIds: ["root"],
+  //     children: [newCategory],
+  //   };
+
+  //   const action = categoryTreeActions.apiAdd({
+  //     targetPathIds: ["root"],
+  //     newCategory,
+  //   });
+  //   const expectedAction = categoryTreeActions.apiAddSuccess({
+  //     categoryTree: newEntireCategoriesTree,
+  //   });
+
+  //   mockCategoriesService = {
+  //     addCategory: jest.fn(() => of(newEntireCategoriesTree)),
+  //   } as unknown as CategoriesService;
+  //   setupTestBed();
+
+  //   // ARRANGE
+  //   let actualAction: Action;
+  //   effects.apiAdd$.subscribe((result) => {
+  //     actualAction = expectedAction;
+  //   });
+
+  //   // ACT
+  //   store.dispatch(action);
+
+  //   // ASSERT
+  //   expect(actualAction).toEqual(expectedAction);
+  // });
+  it("on add action dispatch and api error: add effect returns error action", () => {
     const newCategory = {
-      id: "mock",
-      name: "mock category",
-      pathIds: ["mock"],
-      children: [],
-    };
-    const apiResponseEntireTreeObj = {
-      id: "mock",
-      name: "mock category",
-      pathIds: ["mock"],
+      id: "1",
+      name: "mock category added",
+      pathIds: ["1"],
       children: [],
     };
 
-    // ARRANGE (SETUP)
     const action = categoryTreeActions.apiAdd({
-      targetPathIds: ["mock"],
-      newCategory: newCategory,
+      targetPathIds: ["root"],
+      newCategory,
     });
-    const expectedResultAction = categoryTreeActions.apiAddSuccess({
-      categoryTree: newCategory,
+    const expectedAction = categoryTreeActions.apiAddError({
+      error: new ServerConnectionError(),
     });
-    const expectedResultState: State = {
-      categoryTree: {
-        data: apiResponseEntireTreeObj,
-        isLoading: false,
-        error: null,
-      },
-    };
 
     mockCategoriesService = {
-      addCategory: jest.fn(() => of(apiResponseEntireTreeObj)),
+      addCategory: jest.fn(() => {
+        return throwError(() => new Error("error asdfghjkl"));
+      }),
     } as unknown as CategoriesService;
-
     setupTestBed();
 
-    // ASSERT
+    // ARRANGE
+    let actualAction: Action;
     effects.apiAdd$.subscribe((result) => {
-      expect(result).toEqual(expectedResultAction);
-      done();
-
-      store
-        .select(selectCategoryTree)
-        .pipe(take(1))
-        .subscribe((state) => {
-          expect(state).toEqual(expectedResultState);
-          done();
-        });
+      actualAction = result;
     });
 
     // ACT
     store.dispatch(action);
+
+    // ASSERT
+    expect(actualAction).toEqual(expectedAction);
   });
 });

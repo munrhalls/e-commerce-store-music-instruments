@@ -50,8 +50,11 @@ export class CategoriesService {
     // };
     // target.children = [...target.children, newCategory];
     // const clone = cloneDeep(this.categoryTree);
-
-    return of(cloneDeep(this.categoryTree));
+    try {
+      return of(cloneDeep(this.categoryTree));
+    } catch {
+      return throwError(() => new ServerConnectionError());
+    }
   }
   updateName(targetPathIds: string[], name: string): Observable<CategoryTree> {
     // const node = this.findCategoryByPathIds(pathIds);

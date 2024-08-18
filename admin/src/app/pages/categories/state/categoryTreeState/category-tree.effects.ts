@@ -16,27 +16,28 @@ export class CategoryTreeEffects {
     private categoriesService: CategoriesService,
   ) {}
 
-  apiAdd$ = createEffect(() =>
-    this.actions$.pipe(
+  apiAdd$ = createEffect(() => {
+    return this.actions$.pipe(
       ofType(categoryTreeActions.apiAdd),
       exhaustMap((action) => {
         return this.categoriesService
           .addCategory(action.targetPathIds, action.newCategory)
           .pipe(
-            map((categoryTree) =>
-              categoryTreeActions.apiAddSuccess({ categoryTree }),
-            ),
-            catchError((error) =>
-              of(
+            map((categoryTree) => {
+              return categoryTreeActions.apiAddSuccess({ categoryTree });
+            }),
+            catchError((error) => {
+              console.log("WTF what the fuck!@!!!!!!!!");
+              return of(
                 categoryTreeActions.apiAddError({
                   error: new ServerConnectionError(),
                 }),
-              ),
-            ),
+              );
+            }),
           );
       }),
-    ),
-  );
+    );
+  });
 
   apiLoad$ = createEffect(() =>
     this.actions$.pipe(
@@ -46,13 +47,13 @@ export class CategoryTreeEffects {
           map((categoryTree) =>
             categoryTreeActions.apiLoadSuccess({ categoryTree }),
           ),
-          catchError((error) =>
-            of(
-              categoryTreeActions.apiLoadError({
-                error: new ServerConnectionError(),
-              }),
-            ),
-          ),
+          // catchError((error) =>
+          //   of(
+          //     categoryTreeActions.apiLoadError({
+          //       error: new ServerConnectionError(),
+          //     }),
+          //   ),
+          // ),
         );
       }),
     ),

@@ -5,5 +5,5 @@ import { CategoriesState } from "./../categories.selector";
 
 export const selectCategoryTree = createSelector(
   selectCategories,
-  (state: CategoriesState) => state.categoryTree.data,
+  (state: CategoriesState) => state.categoryTree,
 );
