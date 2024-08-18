@@ -57,6 +57,7 @@
     "leaflet": "1.2.0",
     "nebular-icons": "1.1.0",
     "ng2-completer": "^9.0.1",
+    "ngrx-store-localstorage": "^15.0.0",
     "ngx-admin": "file:",
     "normalize.css": "6.0.0",
     "pace-js": "1.0.2",

@@ -6,7 +6,14 @@
 import { ErrorHandler, NgModule } from "@angular/core";
 import { ErrorHandlerModule } from "./@core/error-handler/error-handler.module";
 import { GlobalErrorHandler } from "./@core/error-handler/global-error-handler";
-import { StoreModule } from "@ngrx/store";
+import { localStorageSync } from "ngrx-store-localstorage";
+
+import {
+  StoreModule,
+  ActionReducerMap,
+  ActionReducer,
+  MetaReducer,
+} from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { CategoryTreeEffects } from "./pages/categories/state/categoryTreeState/category-tree.effects";
 import { categoriesReducer } from "./pages/categories/state/categories.reducer";
@@ -29,6 +36,19 @@ import {
   NbWindowModule,
 } from "@nebular/theme";
 
+export function localStorageSyncReducer(
+  reducer: ActionReducer<any>,
+): ActionReducer<any> {
+  return localStorageSync({
+    keys: ["categories"],
+    rehydrate: true,
+  })(reducer);
+}
+
+export const metaReducers: Array<MetaReducer<any, any>> = [
+  localStorageSyncReducer,
+];
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -38,6 +58,7 @@ import {
         categories: categoriesReducer,
       },
       {
+        metaReducers,
         runtimeChecks: {
           strictStateImmutability: true,
           strictActionImmutability: true,

@@ -27,7 +27,6 @@ export class CategoryTreeEffects {
               return categoryTreeActions.apiAddSuccess({ categoryTree });
             }),
             catchError((error) => {
-              console.log("WTF what the fuck!@!!!!!!!!");
               return of(
                 categoryTreeActions.apiAddError({
                   error: new ServerConnectionError(),
