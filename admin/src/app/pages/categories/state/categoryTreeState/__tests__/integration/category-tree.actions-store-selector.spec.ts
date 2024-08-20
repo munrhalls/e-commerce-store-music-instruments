@@ -57,7 +57,7 @@ describe("CREATE", () => {
       addCategory: jest.fn(() => of(apiSuccessRes)),
     } as unknown as CategoriesService;
 
-    setupTestBed(mockCategoriesService, {
+    setupTestBed(mockCategoriesService, "noLocalStorageSync", {
       data: initialData,
       isLoading: false,
       error: null,
@@ -117,7 +117,7 @@ describe("CREATE", () => {
       addCategory: jest.fn(() => throwError(() => new Error("API error"))),
     } as unknown as CategoriesService;
 
-    setupTestBed(mockCategoriesService, {
+    setupTestBed(mockCategoriesService, "noLocalStorageSync", {
       data: initialData,
       isLoading: false,
       error: null,

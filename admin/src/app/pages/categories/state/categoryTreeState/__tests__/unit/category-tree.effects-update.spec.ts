@@ -4,6 +4,7 @@ import { Actions } from "@ngrx/effects";
 import { CategoryTreeEffects } from "../../category-tree.effects";
 import { CategoriesService } from "../../../../categories.service";
 import * as categoryTreeActions from "../../category-tree.actions";
+import { CategoryTree } from "../../../../categories.model";
 
 let testScheduler: TestScheduler;
 let apiSuccessRes: CategoryTree;

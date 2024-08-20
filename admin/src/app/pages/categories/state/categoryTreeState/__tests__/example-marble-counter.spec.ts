@@ -18,6 +18,3 @@ describe("It should properly update the counter", () => {
     });
   });
 });
-describe("Logger", () => {
-  test.todo("to do later");
-});

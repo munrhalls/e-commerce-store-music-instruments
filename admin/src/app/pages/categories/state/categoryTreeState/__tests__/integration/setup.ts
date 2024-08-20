@@ -21,8 +21,8 @@ export let effects: CategoryTreeEffects;
 
 export const setupTestBed = (
   mockCategoriesService,
+  applyMetaReducers?: "withLocalStorageSync" | "noLocalStorageSync",
   testInitialState?: CategoryTreeState,
-  applyMetaReducers?: Boolean,
 ) => {
   TestBed.configureTestingModule({
     imports: [
@@ -37,7 +37,8 @@ export const setupTestBed = (
               uiState: uiInitialState,
             },
           },
-          metaReducers: applyMetaReducers ? metaReducers : [],
+          metaReducers:
+            applyMetaReducers === "withLocalStorageSync" ? metaReducers : [],
         },
       ),
       StoreModule.forFeature("categoryTree", categoryTreeReducer),
@@ -56,3 +57,5 @@ export const setupTestBed = (
   store = TestBed.inject(Store);
   effects = TestBed.inject(CategoryTreeEffects);
 };
+
+expect("jest ignore non spec file").toEqual("jest ignore non spec file");

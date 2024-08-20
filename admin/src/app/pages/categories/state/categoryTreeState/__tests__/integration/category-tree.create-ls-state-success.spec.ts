@@ -59,15 +59,11 @@ describe("CREATE", () => {
       addCategory: jest.fn(() => of(apiSuccessRes)),
     } as unknown as CategoriesService;
 
-    setupTestBed(
-      mockCategoriesService,
-      {
-        data: initialData,
-        isLoading: false,
-        error: null,
-      },
-      true,
-    );
+    setupTestBed(mockCategoriesService, "withLocalStorageSync", {
+      data: initialData,
+      isLoading: false,
+      error: null,
+    });
 
     // act
     testScheduler.run((helpers) => {

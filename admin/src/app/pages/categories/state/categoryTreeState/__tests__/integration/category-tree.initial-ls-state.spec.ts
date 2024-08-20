@@ -56,7 +56,7 @@ describe("STATE FROM LS", () => {
 
   it("Local storage state should equal state", () => {
     // arrange
-    setupTestBed(mockCategoriesService);
+    setupTestBed(mockCategoriesService, "withLocalStorageSync");
 
     // act
     testScheduler.run((helpers) => {
@@ -86,7 +86,7 @@ describe("STATE FROM LS", () => {
 
   it("If tree data is null, LS should have null tree data field", () => {
     // arrange
-    setupTestBed(mockCategoriesService);
+    setupTestBed(mockCategoriesService, "withLocalStorageSync");
 
     // act
     const state$ = store.pipe(select(selectCategoryTreeState));
@@ -99,7 +99,7 @@ describe("STATE FROM LS", () => {
 
   it("If tree data is null, LS should remain exact state match", () => {
     //assert
-    setupTestBed(mockCategoriesService);
+    setupTestBed(mockCategoriesService, "withLocalStorageSync");
 
     //act
     testScheduler.run((helpers) => {
