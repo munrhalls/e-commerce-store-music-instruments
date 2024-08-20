@@ -2,13 +2,10 @@ import * as categoryTreeActions from "../../category-tree.actions";
 import { Action } from "@ngrx/store";
 import { CategoriesService } from "../../../../categories.service";
 import { ServerConnectionError } from "../../../../../../@core/error-handler/errors/serverConnectionError";
-
 import { selectCategoryTreeState } from "../../category-tree.selectors";
 import { select } from "@ngrx/store";
-
 import { store, effects } from "./setup";
 import { setupTestBed } from "./setup";
-
 import { of, throwError } from "rxjs";
 import { TestScheduler } from "rxjs/testing";
 import { TestBed } from "@angular/core/testing";
@@ -22,8 +19,6 @@ afterEach(() => {
 
 beforeEach(() => {
   testScheduler = new TestScheduler((actual, expected) => {
-    console.log("actual...", actual);
-    console.log("expected...", expected);
     expect(actual).toEqual(expected);
   });
 });
