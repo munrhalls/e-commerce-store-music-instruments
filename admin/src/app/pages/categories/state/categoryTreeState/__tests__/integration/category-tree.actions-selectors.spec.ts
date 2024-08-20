@@ -112,7 +112,7 @@ describe("CREATE: API EFFECT'S RETURN ACTION", () => {
       newCategory,
     });
     const expectedAction = categoryTreeActions.apiAddError({
-      error: new ServerConnectionError(),
+      error: "API error",
     });
 
     mockCategoriesService = {
@@ -213,7 +213,7 @@ describe("CREATE: STATE CATEGORY TREE DATA UPDATE", () => {
           categoryTree: {
             data: null,
             isLoading: false,
-            error: new ServerConnectionError(),
+            error: "API error",
           },
         },
       });

@@ -47,42 +47,64 @@ beforeEach(() => {
   };
 });
 
-describe("LS-STORE SYNC: INITIAL STATE", () => {
+describe("STATE FROM LS", () => {
   mockCategoriesService = {} as unknown as CategoriesService;
 
-  it("LS state copy should contain categoryTreeState", () => {
+  it("Local storage state should equal state", () => {
+    // arrange
     setupTestBed(mockCategoriesService);
 
+    // act
     testScheduler.run((helpers) => {
-      // ARRANGE
       const state$ = store.pipe(select(selectCategoryTreeState));
-      // ACT
       const LS = localStorage.getItem("categories");
-      // ASSERT
-      expect(LS).not.toBeNull();
-
       const parsedLS = JSON.parse(LS);
+
+      // assert
       helpers.expectObservable(state$).toBe("a", {
         a: parsedLS.categoryTreeState,
       });
     });
   });
 
-  it("LS copy of tree data should be exact match to state", () => {
+  it("LS tree data should be exact match to state data", () => {
+    // arrange
     setupTestBed(mockCategoriesService, initialTreeState);
 
-    testScheduler.run((helpers) => {
-      // ARRANGE
-      const state$ = store.pipe(select(selectCategoryTreeState));
+    // act
+    const state$ = store.pipe(select(selectCategoryTreeState));
+    const LS = localStorage.getItem("categories");
+    const parsedLS = JSON.parse(LS);
 
-      // ACT
+    // assert
+    expect(parsedLS.categoryTreeState.data).toEqual(initialTreeState.data);
+  });
+
+  it("If tree data is null, LS should have null tree data field", () => {
+    // arrange
+    setupTestBed(mockCategoriesService);
+
+    // act
+    const state$ = store.pipe(select(selectCategoryTreeState));
+    const LS = localStorage.getItem("categories");
+    const parsedLS = JSON.parse(LS);
+
+    // assert
+    expect(parsedLS.categoryTreeState.data).toEqual(null);
+  });
+
+  it("If tree data is null, LS should remain exact state match", () => {
+    //assert
+    setupTestBed(mockCategoriesService);
+
+    //act
+    testScheduler.run((helpers) => {
+      const state$ = store.pipe(select(selectCategoryTreeState));
       const LS = localStorage.getItem("categories");
       const parsedLS = JSON.parse(LS);
 
-      // ASSERT
-
-      expect(parsedLS.categoryTreeState.data).toEqual(initialTreeState.data);
-
+      //assert
+      expect(parsedLS.categoryTreeState.data).toEqual(null);
       helpers.expectObservable(state$).toBe("a", {
         a: parsedLS.categoryTreeState,
       });
