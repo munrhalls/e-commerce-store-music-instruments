@@ -1,61 +1,84 @@
-import { categoryTreeReducer, State } from "../../category-tree.reducer";
+import {
+  categoryTreeReducer,
+  CategoryTreeState,
+} from "../../category-tree.reducer";
 import * as categoryTreeActions from "../../category-tree.actions";
-import { ServerConnectionError } from "../../../../../../@core/error-handler/errors/serverConnectionError";
-describe("READ", () => {
-  it("on read action, should set isLoading to true", () => {
-    const action = categoryTreeActions.apiLoad();
-    const initialState: State = {
-      categoryTree: { data: null, isLoading: false, error: null },
-    };
-    const state: State = categoryTreeReducer(initialState, action);
-    const expectedState = {
-      categoryTree: { data: null, isLoading: true, error: null },
-    };
+import { CategoryTree } from "../../../../categories.model";
 
-    expect(state).toEqual(expectedState);
-  });
-  it("on read success action, should set isLoading to false and set categoryTree data", () => {
-    const action = categoryTreeActions.apiLoadSuccess({
-      categoryTree: {
-        id: "1",
-        name: "newCategory",
-        pathIds: ["1"],
-        children: [],
-      },
-    });
-    const initialState: State = {
-      categoryTree: { data: null, isLoading: true, error: null },
-    };
-    const state: State = categoryTreeReducer(initialState, action);
-    const expectedState = {
-      categoryTree: {
-        data: {
-          id: "1",
-          name: "newCategory",
-          pathIds: ["1"],
+describe("READ", () => {
+  let initialState: CategoryTreeState;
+  let apiSuccessResMock: CategoryTree;
+  let apiErrorResMock: string;
+  let state: CategoryTreeState | undefined;
+  let expectedState: CategoryTreeState;
+
+  beforeEach(() => {
+    state = undefined;
+    apiSuccessResMock = {
+      id: "root",
+      name: "root",
+      pathIds: ["root"],
+      children: [
+        {
+          id: "mock",
+          name: "mock",
+          pathIds: ["root", "mock"],
           children: [],
         },
-        isLoading: false,
-        error: null,
-      },
+      ],
+    };
+    apiErrorResMock = "API error";
+  });
+  it("on api load action, should set isLoading to true", () => {
+    const action = categoryTreeActions.apiLoad();
+
+    initialState = {
+      data: null,
+      isLoading: false,
+      error: null,
+    };
+
+    state = categoryTreeReducer(initialState, action);
+    const expectedState = {
+      data: null,
+      isLoading: true,
+      error: null,
     };
 
     expect(state).toEqual(expectedState);
   });
-  it("on read error action, should set isLoading to false and set error", () => {
-    const action = categoryTreeActions.apiLoadError({
-      error: new ServerConnectionError(),
+
+  it("on api load success action, should set isLoading to false and set categoryTree data", () => {
+    const action = categoryTreeActions.apiLoadSuccess({
+      categoryTree: apiSuccessResMock,
     });
-    const initialState: State = {
-      categoryTree: { data: null, isLoading: true, error: null },
-    };
-    const state: State = categoryTreeReducer(initialState, action);
+
+    initialState = { data: null, isLoading: true, error: null };
+    state = categoryTreeReducer(initialState, action);
+
     const expectedState = {
-      categoryTree: {
-        data: null,
-        isLoading: false,
-        error: new ServerConnectionError(),
-      },
+      data: apiSuccessResMock,
+      isLoading: false,
+      error: null,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
+  it("on api load error action, should set isLoading to false and set error", () => {
+    const action = categoryTreeActions.apiLoadError({
+      error: "API error",
+    });
+    initialState = {
+      data: null,
+      isLoading: true,
+      error: null,
+    };
+
+    state = categoryTreeReducer(initialState, action);
+    expectedState = {
+      data: null,
+      isLoading: false,
+      error: "API error",
     };
 
     expect(state).toEqual(expectedState);

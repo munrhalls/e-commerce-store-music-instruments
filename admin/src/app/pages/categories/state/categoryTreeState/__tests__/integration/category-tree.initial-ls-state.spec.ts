@@ -24,6 +24,10 @@ afterEach(() => {
 
 beforeEach(() => {
   localStorage.clear();
+  mockCategoriesService;
+  testScheduler;
+  initialTreeState;
+
   testScheduler = new TestScheduler((actual, expected) => {
     expect(actual).toEqual(expected);
   });

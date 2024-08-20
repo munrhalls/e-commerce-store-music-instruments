@@ -25,14 +25,12 @@ afterEach(() => {
 
 describe("CREATE", () => {
   beforeEach(() => {
-    localStorage.clear();
-
     testScheduler = new TestScheduler((actual, expected) => {
       expect(actual).toEqual(expected);
     });
   });
 
-  it("on success add, LS state should exactly shadow state transitions", () => {
+  it("on add with api success response, state transitions 'initial -> loading -> api response' with expected marble", () => {
     // arrange
     const initialData = {
       id: "root",
@@ -41,29 +39,36 @@ describe("CREATE", () => {
       children: [],
     };
 
+    const apiSuccessRes = {
+      id: "root",
+      name: "root",
+      pathIds: ["root"],
+      children: [
+        {
+          id: "mock",
+          name: "mock",
+          pathIds: ["mock"],
+          children: [],
+        },
+      ],
+    };
+
     mockCategoriesService = {
-      addCategory: jest.fn(() => throwError("API error")),
+      addCategory: jest.fn(() => of(apiSuccessRes)),
     } as unknown as CategoriesService;
 
-    setupTestBed(
-      mockCategoriesService,
-      {
-        data: initialData,
-        isLoading: false,
-        error: null,
-      },
-      true,
-    );
+    setupTestBed(mockCategoriesService, {
+      data: initialData,
+      isLoading: false,
+      error: null,
+    });
 
     // act
     testScheduler.run((helpers) => {
       const state$ = store.pipe(select(selectCategoryTreeState));
-      const LS$ = new ReplaySubject<CategoriesState>();
-
+      const replayState$ = new ReplaySubject<CategoryTreeState>();
       state$.subscribe((state) => {
-        const LS = localStorage.getItem("categories");
-        const LSparsed = JSON.parse(LS);
-        LS$.next(LSparsed.categoryTreeState);
+        replayState$.next(state);
       });
 
       store.dispatch(
@@ -77,8 +82,69 @@ describe("CREATE", () => {
           },
         }),
       );
+
       // assert
-      helpers.expectObservable(LS$).toBe("(abc)", {
+      helpers.expectObservable(replayState$).toBe("(abc)", {
+        a: {
+          data: initialData,
+          isLoading: false,
+          error: null,
+        },
+        b: {
+          data: initialData,
+          isLoading: true,
+          error: null,
+        },
+        c: {
+          data: apiSuccessRes,
+          isLoading: false,
+          error: null,
+        },
+      });
+    });
+  });
+
+  it("on add with api error response, state transitions 'initial -> loading -> api response' with expected marble", () => {
+    // arrange
+    const initialData = {
+      id: "root",
+      name: "root",
+      pathIds: ["root"],
+      children: [],
+    };
+
+    mockCategoriesService = {
+      addCategory: jest.fn(() => throwError(() => new Error("API error"))),
+    } as unknown as CategoriesService;
+
+    setupTestBed(mockCategoriesService, {
+      data: initialData,
+      isLoading: false,
+      error: null,
+    });
+
+    // act
+    testScheduler.run((helpers) => {
+      const state$ = store.pipe(select(selectCategoryTreeState));
+      const replayState$ = new ReplaySubject<CategoryTreeState>();
+      state$.subscribe((state) => {
+        replayState$.next(state);
+      });
+
+      store.dispatch(
+        categoryTreeActions.apiAdd({
+          targetPathIds: ["root"],
+          newCategory: {
+            id: "mock",
+            name: "mock",
+            pathIds: ["mock"],
+            children: [],
+          },
+        }),
+      );
+
+      // assert
+      helpers.expectObservable(replayState$).toBe("(abc)", {
         a: {
           data: initialData,
           isLoading: false,

@@ -1,23 +1,26 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { EditCategoryComponent } from './edit-category.component';
+import { EditCategoryComponent } from "./edit-category.component";
 
-describe('EditCategoryComponent', () => {
+describe("EditCategoryComponent", () => {
   let component: EditCategoryComponent;
   let fixture: ComponentFixture<EditCategoryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditCategoryComponent ]
-    })
-    .compileComponents();
+      declarations: [EditCategoryComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EditCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
+});
+
+describe("Logger", () => {
+  test.todo("please pass");
 });

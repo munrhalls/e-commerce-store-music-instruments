@@ -52,7 +52,7 @@ describe("DELETE", () => {
       const effects = new CategoryTreeEffects(actions, mockCategoriesService);
 
       const expected = categoryTreeActions.apiDeleteError({
-        error: new ServerConnectionError(),
+        error: "API error",
       });
       expectObservable(effects.apiDelete$).toBe("-a", { a: expected });
     });

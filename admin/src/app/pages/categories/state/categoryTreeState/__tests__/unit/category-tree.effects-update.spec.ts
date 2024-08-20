@@ -4,9 +4,9 @@ import { Actions } from "@ngrx/effects";
 import { CategoryTreeEffects } from "../../category-tree.effects";
 import { CategoriesService } from "../../../../categories.service";
 import * as categoryTreeActions from "../../category-tree.actions";
-import { ServerConnectionError } from "../../../../../../@core/error-handler/errors/serverConnectionError";
 
 let testScheduler: TestScheduler;
+let apiSuccessRes: CategoryTree;
 
 beforeEach(() => {
   testScheduler = new TestScheduler((actual, expected) => {
@@ -64,13 +64,13 @@ describe("UPDATE NAME", () => {
 
       const mockCategoriesService = {
         updateName: jest.fn(() => {
-          return throwError(() => new ServerConnectionError());
+          return throwError(() => new Error("API error"));
         }),
       } as unknown as CategoriesService;
       const effects = new CategoryTreeEffects(actions, mockCategoriesService);
 
       const expected = categoryTreeActions.apiUpdateNameError({
-        error: new ServerConnectionError(),
+        error: "API error",
       });
       expectObservable(effects.apiUpdateName$).toBe("-a", { a: expected });
     });
@@ -123,13 +123,13 @@ describe("UPDATE MOVE DOWN", () => {
 
       const mockCategoriesService = {
         moveCategoryDown: jest.fn(() => {
-          return throwError(() => new ServerConnectionError());
+          return throwError(() => new Error("API error"));
         }),
       } as unknown as CategoriesService;
       const effects = new CategoryTreeEffects(actions, mockCategoriesService);
 
       const expected = categoryTreeActions.apiMoveDownError({
-        error: new ServerConnectionError(),
+        error: "API error",
       });
       expectObservable(effects.apiMoveDown$).toBe("-a", { a: expected });
     });
@@ -182,13 +182,13 @@ describe("UPDATE MOVE UP", () => {
 
       const mockCategoriesService = {
         moveCategoryUp: jest.fn(() => {
-          return throwError(() => new ServerConnectionError());
+          return throwError(() => new Error("API error"));
         }),
       } as unknown as CategoriesService;
       const effects = new CategoryTreeEffects(actions, mockCategoriesService);
 
       const expected = categoryTreeActions.apiMoveUpError({
-        error: new ServerConnectionError(),
+        error: "API error",
       });
       expectObservable(effects.apiMoveUp$).toBe("-a", { a: expected });
     });

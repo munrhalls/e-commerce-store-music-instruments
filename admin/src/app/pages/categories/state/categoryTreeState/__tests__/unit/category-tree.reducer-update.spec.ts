@@ -56,7 +56,7 @@ describe("UPDATE NAME", () => {
   });
   it("on update name error action, should set isLoading to false and set error", () => {
     const action = categoryTreeActions.apiUpdateNameError({
-      error: new ServerConnectionError(),
+      error: "API error",
     });
     const initialState: State = {
       categoryTree: { data: null, isLoading: true, error: null },
@@ -66,7 +66,7 @@ describe("UPDATE NAME", () => {
       categoryTree: {
         data: null,
         isLoading: false,
-        error: new ServerConnectionError(),
+        error: "API error",
       },
     };
 
@@ -128,7 +128,7 @@ describe("UPDATE MOVE DOWN", () => {
   });
   it("on update move down error action, should set isLoading to false and set error", () => {
     const action = categoryTreeActions.apiMoveDownError({
-      error: new ServerConnectionError(),
+      error: "API error",
     });
     const initialState: State = {
       categoryTree: { data: null, isLoading: true, error: null },
@@ -138,7 +138,7 @@ describe("UPDATE MOVE DOWN", () => {
       categoryTree: {
         data: null,
         isLoading: false,
-        error: new ServerConnectionError(),
+        error: "API error",
       },
     };
 
@@ -200,7 +200,7 @@ describe("UPDATE MOVE UP", () => {
   });
   it("on update move up error action, should set isLoading to false and set error", () => {
     const action = categoryTreeActions.apiMoveUpError({
-      error: new ServerConnectionError(),
+      error: "API error",
     });
     const initialState: State = {
       categoryTree: { data: null, isLoading: true, error: null },
@@ -210,7 +210,7 @@ describe("UPDATE MOVE UP", () => {
       categoryTree: {
         data: null,
         isLoading: false,
-        error: new ServerConnectionError(),
+        error: "API error",
       },
     };
 

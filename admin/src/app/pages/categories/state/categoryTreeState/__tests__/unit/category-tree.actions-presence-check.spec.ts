@@ -27,13 +27,13 @@ describe("Category tree CUD actions should exist: CREATE (3), UPDATE (9), DELETE
 
   // update
   it("update category name action should exist", () => {
-    expect(categoryTreeActions.apiUpdateCategoryName).toBeDefined();
+    expect(categoryTreeActions.apiUpdateName).toBeDefined();
   });
   it("update category name success action should exist", () => {
-    expect(categoryTreeActions.apiUpdateCategoryNameSuccess).toBeDefined();
+    expect(categoryTreeActions.apiUpdateNameSuccess).toBeDefined();
   });
   it("update category name error action should exist", () => {
-    expect(categoryTreeActions.apiUpdateCategoryNameError).toBeDefined();
+    expect(categoryTreeActions.apiUpdateNameError).toBeDefined();
   });
   it("update category move down action should exist", () => {
     expect(categoryTreeActions.apiMoveDown).toBeDefined();
@@ -56,12 +56,12 @@ describe("Category tree CUD actions should exist: CREATE (3), UPDATE (9), DELETE
 
   // delete
   it("delete category action should exist", () => {
-    expect(categoryTreeActions.apiDeleteCategory).toBeDefined();
+    expect(categoryTreeActions.apiDelete).toBeDefined();
   });
   it("delete category success action should exist", () => {
-    expect(categoryTreeActions.apiDeleteCategorySuccess).toBeDefined;
+    expect(categoryTreeActions.apiDeleteSuccess).toBeDefined;
   });
   it("delete category error action should exist", () => {
-    expect(categoryTreeActions.apiDeleteCategoryError).toBeDefined();
+    expect(categoryTreeActions.apiDeleteError).toBeDefined();
   });
 });

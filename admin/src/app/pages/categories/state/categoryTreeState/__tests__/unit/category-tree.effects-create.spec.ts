@@ -72,7 +72,7 @@ describe("CREATE", () => {
       } as unknown as CategoriesService;
       const effects = new CategoryTreeEffects(actions, mockCategoriesService);
       const expected = categoryTreeActions.apiAddError({
-        error: new ServerConnectionError(),
+        error: "API error",
       });
 
       expectObservable(effects.apiAdd$).toBe("-a", { a: expected });

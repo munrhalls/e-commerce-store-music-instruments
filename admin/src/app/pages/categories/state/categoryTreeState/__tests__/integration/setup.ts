@@ -22,6 +22,7 @@ export let effects: CategoryTreeEffects;
 export const setupTestBed = (
   mockCategoriesService,
   testInitialState?: CategoryTreeState,
+  applyMetaReducers?: Boolean,
 ) => {
   TestBed.configureTestingModule({
     imports: [
@@ -36,7 +37,7 @@ export const setupTestBed = (
               uiState: uiInitialState,
             },
           },
-          metaReducers,
+          metaReducers: applyMetaReducers ? metaReducers : [],
         },
       ),
       StoreModule.forFeature("categoryTree", categoryTreeReducer),

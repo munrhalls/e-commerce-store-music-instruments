@@ -59,11 +59,15 @@ describe("CREATE", () => {
       addCategory: jest.fn(() => of(apiSuccessRes)),
     } as unknown as CategoriesService;
 
-    setupTestBed(mockCategoriesService, {
-      data: initialData,
-      isLoading: false,
-      error: null,
-    });
+    setupTestBed(
+      mockCategoriesService,
+      {
+        data: initialData,
+        isLoading: false,
+        error: null,
+      },
+      true,
+    );
 
     // act
     testScheduler.run((helpers) => {

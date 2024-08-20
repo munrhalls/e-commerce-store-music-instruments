@@ -1,4 +1,7 @@
-import { categoryTreeReducer, State } from "../../category-tree.reducer";
+import {
+  categoryTreeReducer,
+  CategoryTreeState,
+} from "../../category-tree.reducer";
 import * as categoryTreeActions from "../../category-tree.actions";
 import { ServerConnectionError } from "../../../../../../@core/error-handler/errors/serverConnectionError";
 describe("DELETE", () => {
@@ -6,30 +9,26 @@ describe("DELETE", () => {
     const action = categoryTreeActions.apiDelete({
       targetPathIds: ["1"],
     });
-    const initialState: State = {
-      categoryTree: {
-        data: {
-          id: "1",
-          name: "newCategory",
-          pathIds: ["1"],
-          children: [],
-        },
-        isLoading: false,
-        error: null,
+    const initialState: CategoryTreeState = {
+      data: {
+        id: "1",
+        name: "newCategory",
+        pathIds: ["1"],
+        children: [],
       },
+      isLoading: false,
+      error: null,
     };
-    const state: State = categoryTreeReducer(initialState, action);
+    const state: CategoryTreeState = categoryTreeReducer(initialState, action);
     const expectedState = {
-      categoryTree: {
-        data: {
-          id: "1",
-          name: "newCategory",
-          pathIds: ["1"],
-          children: [],
-        },
-        isLoading: true,
-        error: null,
+      data: {
+        id: "1",
+        name: "newCategory",
+        pathIds: ["1"],
+        children: [],
       },
+      isLoading: true,
+      error: null,
     };
 
     expect(state).toEqual(expectedState);
@@ -38,57 +37,49 @@ describe("DELETE", () => {
     const action = categoryTreeActions.apiDeleteSuccess({
       categoryTree: null,
     });
-    const initialState: State = {
-      categoryTree: {
-        data: {
-          id: "1",
-          name: "entire state obj",
-          pathIds: ["1"],
-          children: [],
-        },
-        isLoading: true,
-        error: null,
+    const initialState: CategoryTreeState = {
+      data: {
+        id: "1",
+        name: "entire state obj",
+        pathIds: ["1"],
+        children: [],
       },
+      isLoading: true,
+      error: null,
     };
-    const state: State = categoryTreeReducer(initialState, action);
+    const state: CategoryTreeState = categoryTreeReducer(initialState, action);
     const expectedState = {
-      categoryTree: {
-        data: null,
-        isLoading: false,
-        error: null,
-      },
+      data: null,
+      isLoading: false,
+      error: null,
     };
 
     expect(state).toEqual(expectedState);
   });
   it("on delete error action, should set isLoading to false and set error", () => {
     const action = categoryTreeActions.apiDeleteError({
-      error: new ServerConnectionError(),
+      error: "API error",
     });
-    const initialState: State = {
-      categoryTree: {
-        data: {
-          id: "1",
-          name: "entire state obj",
-          pathIds: ["1"],
-          children: [],
-        },
-        isLoading: true,
-        error: null,
+    const initialState: CategoryTreeState = {
+      data: {
+        id: "1",
+        name: "entire state obj",
+        pathIds: ["1"],
+        children: [],
       },
+      isLoading: true,
+      error: null,
     };
-    const state: State = categoryTreeReducer(initialState, action);
+    const state: CategoryTreeState = categoryTreeReducer(initialState, action);
     const expectedState = {
-      categoryTree: {
-        data: {
-          id: "1",
-          name: "entire state obj",
-          pathIds: ["1"],
-          children: [],
-        },
-        isLoading: false,
-        error: new ServerConnectionError(),
+      data: {
+        id: "1",
+        name: "entire state obj",
+        pathIds: ["1"],
+        children: [],
       },
+      isLoading: false,
+      error: "API error",
     };
 
     expect(state).toEqual(expectedState);
