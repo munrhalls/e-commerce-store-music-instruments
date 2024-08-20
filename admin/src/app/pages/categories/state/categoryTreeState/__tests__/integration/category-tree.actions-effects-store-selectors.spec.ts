@@ -3,7 +3,7 @@ import { Action } from "@ngrx/store";
 import { CategoriesService } from "../../../../categories.service";
 import { ServerConnectionError } from "../../../../../../@core/error-handler/errors/serverConnectionError";
 
-import { selectCategoryTree } from "../../category-tree.selectors";
+import { selectCategoryTreeState } from "../../category-tree.selectors";
 import { select } from "@ngrx/store";
 
 import { store, effects } from "./setup";
@@ -48,7 +48,7 @@ describe("CREATE: LOADING", () => {
 
     testScheduler.run((helpers) => {
       // ARRANGE
-      const actualState$ = store.pipe(select(selectCategoryTree));
+      const actualState$ = store.pipe(select(selectCategoryTreeState));
       // ACT
       store.dispatch(action);
       // ASSERT
@@ -160,7 +160,7 @@ describe("CREATE: STATE CATEGORY TREE DATA UPDATE", () => {
     } as unknown as CategoriesService;
     setupTestBed(mockCategoriesService);
     // ARRANGE
-    const actualState$ = store.pipe(select(selectCategoryTree));
+    const actualState$ = store.pipe(select(selectCategoryTreeState));
 
     testScheduler.run((helpers) => {
       // ACT
@@ -200,7 +200,7 @@ describe("CREATE: STATE CATEGORY TREE DATA UPDATE", () => {
     } as unknown as CategoriesService;
     setupTestBed(mockCategoriesService);
     // ARRANGE
-    const actualState$ = store.pipe(select(selectCategoryTree));
+    const actualState$ = store.pipe(select(selectCategoryTreeState));
 
     testScheduler.run((helpers) => {
       // ACT

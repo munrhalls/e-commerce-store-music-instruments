@@ -2,16 +2,12 @@ import * as categoryTreeActions from "../../category-tree.actions";
 import { Action } from "@ngrx/store";
 import { CategoriesService } from "../../../../categories.service";
 import { ServerConnectionError } from "../../../../../../@core/error-handler/errors/serverConnectionError";
-
-import { selectCategoryTree } from "../../category-tree.selectors";
+import { selectCategoryTreeState } from "../../category-tree.selectors";
 import { select } from "@ngrx/store";
-
 import { store, effects } from "./setup";
 import { selectCategories } from "../../../categories.selector";
 import { CategoryTreeState } from "../../category-tree.reducer";
-
 import { setupTestBed } from "./setup";
-
 import { of, ReplaySubject, throwError } from "rxjs";
 import { TestScheduler } from "rxjs/testing";
 import { TestBed } from "@angular/core/testing";
@@ -27,13 +23,10 @@ afterEach(() => {
 
 beforeEach(() => {
   localStorage.clear();
-  if (localStorage.getItem("categories") !== null) {
+  if (localStorage.getItem("categories") !== null)
     throwError("Tests cannot run. Local storage not cleared.");
-  }
 
   testScheduler = new TestScheduler((actual, expected) => {
-    // console.log("actual...", actual);
-    // console.log("expected...", expected);
     expect(actual).toEqual(expected);
   });
 });
@@ -64,7 +57,7 @@ describe("LS-STORE SYNC: INITIAL STATE", () => {
 
     testScheduler.run((helpers) => {
       // ARRANGE
-      const actualState$ = store.pipe(select(selectCategoryTree));
+      const actualState$ = store.pipe(select(selectCategoryTreeState));
 
       // ACT
       const localStorageState = localStorage.getItem("categories");
@@ -103,7 +96,7 @@ describe("LS-STORE SYNC: CREATE", () => {
     testScheduler.run((helpers) => {
       const LSTreeState$ = new ReplaySubject<CategoryTreeState>();
 
-      const actualTreeState$ = store.pipe(select(selectCategoryTree));
+      const actualTreeState$ = store.pipe(select(selectCategoryTreeState));
       actualTreeState$.subscribe((state) => {
         const localStorageState = JSON.parse(
           localStorage.getItem("categories"),
@@ -169,7 +162,7 @@ describe("LS-STORE SYNC: CREATE", () => {
   //   //     testScheduler.run((helpers) => {
   //   //       const LSTreeState$ = new ReplaySubject<CategoryTreeState>();
 
-  //   //       const actualTreeState$ = store.pipe(select(selectCategoryTree));
+  //   //       const actualTreeState$ = store.pipe(select(selectCategoryTreeState));
 
   //   //       actualTreeState$.subscribe((state) => {
   //   //         const localStorageState = JSON.parse(
@@ -230,7 +223,7 @@ describe("LS-STORE SYNC: CREATE", () => {
 //   //     testScheduler.run((helpers) => {
 //   //       const LSTreeState$ = new ReplaySubject<CategoryTreeState>();
 
-//   //       const actualTreeState$ = store.pipe(select(selectCategoryTree));
+//   //       const actualTreeState$ = store.pipe(select(selectCategoryTreeState));
 //   //       actualTreeState$.subscribe((state) => {
 //   //         const localStorageState = JSON.parse(
 //   //           localStorage.getItem("categories"),
@@ -282,7 +275,7 @@ describe("LS-STORE SYNC: CREATE", () => {
 //   //     testScheduler.run((helpers) => {
 //   //       const LSTreeState$ = new ReplaySubject<CategoryTreeState>();
 
-//   //       const actualTreeState$ = store.pipe(select(selectCategoryTree));
+//   //       const actualTreeState$ = store.pipe(select(selectCategoryTreeState));
 
 //   //       actualTreeState$.subscribe((state) => {
 //   //         const localStorageState = JSON.parse(
@@ -372,7 +365,7 @@ describe("LS-STORE SYNC: CREATE", () => {
 //   //     // ARRANGE
 //   //     testScheduler.run((helpers) => {
 //   //         const LSTreeState$ = new ReplaySubject<CategoryTreeState>();
-//   //         const actualTreeState$ = store.pipe(select(selectCategoryTree));
+//   //         const actualTreeState$ = store.pipe(select(selectCategoryTreeState));
 //   //         let counter = 0;
 //   //         actualTreeState$.subscribe((state) => {
 //   //           if (counter === 0) {

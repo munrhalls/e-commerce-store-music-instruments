@@ -1,4 +1,4 @@
-import { selectCategoryTree } from "../../category-tree.selectors";
+import { selectCategoryTreeState } from "../../category-tree.selectors";
 
 describe("Category tree selectors", () => {
   it("should return category tree data", () => {
@@ -16,7 +16,7 @@ describe("Category tree selectors", () => {
         },
       },
     };
-    expect(selectCategoryTree(state)).toEqual({
+    expect(selectCategoryTreeState(state)).toEqual({
       id: "1",
       name: "Root",
       pathIds: [],

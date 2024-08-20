@@ -1,11 +1,8 @@
 import { CategoriesState } from "../../../categories.reducer";
 import * as categoryTreeActions from "../../category-tree.actions";
-import { Actions } from "@ngrx/effects";
-import { Action } from "@ngrx/store";
 import { CategoryTreeEffects } from "../../category-tree.effects";
 import { EffectsModule } from "@ngrx/effects";
 import { CategoriesService } from "../../../../categories.service";
-import { CategoryTree } from "../../../../categories.model";
 import {
   categoryTreeReducer,
   CategoryTreeState,
@@ -13,14 +10,9 @@ import {
 } from "../../category-tree.reducer";
 import { categoriesReducer } from "../../../categories.reducer";
 import { Store, StoreModule } from "@ngrx/store";
-import { selectCategoryTree } from "../../category-tree.selectors";
-import { select } from "@ngrx/store";
 import { metaReducers } from "../../../../../../app.module";
 
-import { fakeAsync, tick, TestBed, flush } from "@angular/core/testing";
-import { of, pipe, Observable, throwError } from "rxjs";
-import { take, mergeMap, skip } from "rxjs/operators";
-import { flushMicrotasks } from "zone.js/testing";
+import { TestBed } from "@angular/core/testing";
 import { TestScheduler } from "rxjs/testing";
 import { initialState as uiInitialState } from "./../../../uiState/ui-state.reducer";
 
