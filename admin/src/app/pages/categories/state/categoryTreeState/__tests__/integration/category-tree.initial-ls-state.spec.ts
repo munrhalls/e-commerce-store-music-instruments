@@ -73,7 +73,11 @@ describe("STATE FROM LS", () => {
 
   it("LS tree data should be exact match to state data", () => {
     // arrange
-    setupTestBed(mockCategoriesService, initialTreeState);
+    setupTestBed(
+      mockCategoriesService,
+      "withLocalStorageSync",
+      initialTreeState,
+    );
 
     // act
     const state$ = store.pipe(select(selectCategoryTreeState));

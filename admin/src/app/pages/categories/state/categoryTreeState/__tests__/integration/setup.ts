@@ -58,4 +58,8 @@ export const setupTestBed = (
   effects = TestBed.inject(CategoryTreeEffects);
 };
 
-expect("jest ignore non spec file").toEqual("jest ignore non spec file");
+describe("SETUP", () => {
+  it("should setup TestBed", () => {
+    expect(true).toEqual(true);
+  });
+});
