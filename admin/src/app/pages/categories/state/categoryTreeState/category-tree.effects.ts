@@ -8,6 +8,7 @@ import * as categoryTreeActions from "./category-tree.actions";
 import { ErrorModel } from "../../../../@core/error-handler/error.model";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ServerConnectionError } from "../../../../@core/error-handler/errors/serverConnectionError";
+
 import { Observable } from "rxjs";
 @Injectable()
 export class CategoryTreeEffects {
@@ -26,10 +27,10 @@ export class CategoryTreeEffects {
             map((categoryTree) => {
               return categoryTreeActions.apiAddSuccess({ categoryTree });
             }),
-            catchError((error) => {
+            catchError((error: Error) => {
               return of(
                 categoryTreeActions.apiAddError({
-                  error: new ServerConnectionError(),
+                  error: "API error",
                 }),
               );
             }),
@@ -46,13 +47,13 @@ export class CategoryTreeEffects {
           map((categoryTree) =>
             categoryTreeActions.apiLoadSuccess({ categoryTree }),
           ),
-          // catchError((error) =>
-          //   of(
-          //     categoryTreeActions.apiLoadError({
-          //       error: new ServerConnectionError(),
-          //     }),
-          //   ),
-          // ),
+          catchError((error: Error) => {
+            return of(
+              categoryTreeActions.apiLoadError({
+                error: "API error",
+              }),
+            );
+          }),
         );
       }),
     ),
@@ -68,10 +69,10 @@ export class CategoryTreeEffects {
             map((categoryTree) =>
               categoryTreeActions.apiUpdateNameSuccess({ categoryTree }),
             ),
-            catchError((error) =>
+            catchError((error: Error) =>
               of(
                 categoryTreeActions.apiUpdateNameError({
-                  error: new ServerConnectionError(),
+                  error: "API error",
                 }),
               ),
             ),
@@ -91,7 +92,7 @@ export class CategoryTreeEffects {
           catchError((error) =>
             of(
               categoryTreeActions.apiMoveDownError({
-                error: new ServerConnectionError(),
+                error: "API error",
               }),
             ),
           ),
@@ -111,7 +112,7 @@ export class CategoryTreeEffects {
           catchError((error) =>
             of(
               categoryTreeActions.apiMoveUpError({
-                error: new ServerConnectionError(),
+                error: "API error",
               }),
             ),
           ),
@@ -131,7 +132,7 @@ export class CategoryTreeEffects {
           catchError((error) =>
             of(
               categoryTreeActions.apiDeleteError({
-                error: new ServerConnectionError(),
+                error: "API error",
               }),
             ),
           ),

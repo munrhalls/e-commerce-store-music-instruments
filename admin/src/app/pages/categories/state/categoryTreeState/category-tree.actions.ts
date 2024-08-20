@@ -18,7 +18,7 @@ export const apiAddSuccess = createAction(
 
 export const apiAddError = createAction(
   "[Category Tree] API Add Category To Target Error",
-  props<{ error: ErrorModel }>(),
+  props<{ error: string }>(),
 );
 
 // READ
@@ -31,7 +31,7 @@ export const apiLoadSuccess = createAction(
 
 export const apiLoadError = createAction(
   "[Category Tree] API Load Error",
-  props<{ error: ErrorModel }>(),
+  props<{ error: string }>(),
 );
 
 // UPDATE NAME
@@ -51,7 +51,7 @@ export const apiUpdateNameSuccess = createAction(
 
 export const apiUpdateNameError = createAction(
   "[Category Tree] API Update Name Error",
-  props<{ error: ErrorModel }>(),
+  props<{ error: string }>(),
 );
 
 // UPDATE MOVE DOWN
@@ -68,7 +68,7 @@ export const apiMoveDownSuccess = createAction(
 
 export const apiMoveDownError = createAction(
   "[Category Tree] API Update Move Down Error",
-  props<{ error: ErrorModel }>(),
+  props<{ error: string }>(),
 );
 
 // UPDATE MOVE UP
@@ -85,7 +85,7 @@ export const apiMoveUpSuccess = createAction(
 
 export const apiMoveUpError = createAction(
   "[Category Tree] API Update Move Up Error",
-  props<{ error: ErrorModel }>(),
+  props<{ error: string }>(),
 );
 
 // DELETE
@@ -101,5 +101,5 @@ export const apiDeleteSuccess = createAction(
 
 export const apiDeleteError = createAction(
   "[Category Tree] API Update Delete Error",
-  props<{ error: ErrorModel }>(),
+  props<{ error: string }>(),
 );

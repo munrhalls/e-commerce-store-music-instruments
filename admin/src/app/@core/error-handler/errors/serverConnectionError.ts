@@ -12,6 +12,6 @@ export class ServerConnectionError extends CustomError {
   }
 
   serializeErrors() {
-    return [{ code: this.code, message: this.message }];
+    return { code: this.code, message: this.message };
   }
 }
