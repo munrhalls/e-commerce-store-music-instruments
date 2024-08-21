@@ -23,6 +23,18 @@ describe("INPUT ACTIONS -> OUTPUT SELECTOR STATE PROPER", () => {
     });
   });
 
+  it("selector -> mobileUiState", () => {
+    setupTestBed();
+
+    testScheduler.run(({ expectObservable }) => {
+      const state$ = store.select(selectMobileUiState);
+
+      expectObservable(state$).toBe("a", {
+        a: initialState,
+      });
+    });
+  });
+
   it("action: allItemsUnfoldedToggle -> mobileUiState.itemsUnfolded update: allItemsUnfoldedToggle: false -> allItemsUnfoldedToggle: true", () => {
     setupTestBed();
 
