@@ -7,7 +7,7 @@ import {
   categoryTreeReducer,
   CategoryTreeState,
   initialState as defaultInitialState,
-} from "../../category-tree.reducer";
+} from "../../../categoryTreeState/category-tree.reducer";
 import { categoriesReducer } from "../../../categories.reducer";
 import { Store, StoreModule } from "@ngrx/store";
 import { metaReducers } from "../../../../../../app.module";
