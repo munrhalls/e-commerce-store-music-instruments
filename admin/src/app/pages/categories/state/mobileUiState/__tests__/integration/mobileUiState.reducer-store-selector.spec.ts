@@ -18,26 +18,24 @@ describe("INPUT ACTIONS -> OUTPUT SELECTOR STATE PROPER", () => {
 
   beforeEach(() => {
     localStorage.clear();
-
     testScheduler = new TestScheduler((actual, expected) => {
       expect(actual).toEqual(expected);
     });
   });
 
   it("action: allItemsUnfoldedToggle -> mobileUiState.itemsUnfolded update: allItemsUnfoldedToggle: false -> allItemsUnfoldedToggle: true", () => {
-    setupTestBed("withLocalStorageSync");
+    setupTestBed();
 
     testScheduler.run(({ expectObservable }) => {
       const state$ = store.select(selectMobileUiState);
-      const LS$ = new ReplaySubject();
-      state$.subscribe(() => {
-        const LSstate = JSON.parse(localStorage.getItem("mobileUiState"));
-        LS$.next(LSstate);
+      const stateReplay$ = new ReplaySubject();
+      state$.subscribe((state) => {
+        stateReplay$.next(state);
       });
 
       store.dispatch(mobileUiStateActions.allItemsUnfoldedToggle());
 
-      expectObservable(LS$).toBe("(ab)", {
+      expectObservable(stateReplay$).toBe("(ab)", {
         a: {
           itemsUnfolded: {
             all: false,
@@ -65,19 +63,18 @@ describe("INPUT ACTIONS -> OUTPUT SELECTOR STATE PROPER", () => {
   });
 
   it("action: itemUnfolded -> mobileUiState.itemsUnfolded update: list: [] -> list: [id]", () => {
-    setupTestBed("withLocalStorageSync");
+    setupTestBed();
 
     testScheduler.run(({ expectObservable }) => {
       const state$ = store.select(selectMobileUiState);
-      const LS$ = new ReplaySubject();
-      state$.subscribe(() => {
-        const LSstate = JSON.parse(localStorage.getItem("mobileUiState"));
-        LS$.next(LSstate);
+      const stateReplay$ = new ReplaySubject();
+      state$.subscribe((state) => {
+        stateReplay$.next(state);
       });
 
       store.dispatch(mobileUiStateActions.itemUnfolded({ id: "id" }));
 
-      expectObservable(LS$).toBe("(ab)", {
+      expectObservable(stateReplay$).toBe("(ab)", {
         a: {
           itemsUnfolded: {
             all: false,
@@ -106,19 +103,18 @@ describe("INPUT ACTIONS -> OUTPUT SELECTOR STATE PROPER", () => {
 
   it("action: itemFolded -> mobileUiState.itemsUnfolded update: list: [id] -> list: []", () => {
     testScheduler.run(({ expectObservable }) => {
-      setupTestBed("withLocalStorageSync");
+      setupTestBed();
 
       const state$ = store.select(selectMobileUiState);
-      const LS$ = new ReplaySubject();
-      state$.subscribe(() => {
-        const LSstate = JSON.parse(localStorage.getItem("mobileUiState"));
-        LS$.next(LSstate);
+      const stateReplay$ = new ReplaySubject();
+      state$.subscribe((state) => {
+        stateReplay$.next(state);
       });
 
       store.dispatch(mobileUiStateActions.itemUnfolded({ id: "1" }));
       store.dispatch(mobileUiStateActions.itemFolded({ id: "1" }));
 
-      expectObservable(LS$).toBe("(abc)", {
+      expectObservable(stateReplay$).toBe("(abc)", {
         a: {
           itemsUnfolded: {
             all: false,

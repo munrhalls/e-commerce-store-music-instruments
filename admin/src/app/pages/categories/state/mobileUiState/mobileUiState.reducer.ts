@@ -50,7 +50,7 @@ export const mobileUiStateReducer = createReducer(
     ...state,
     itemsUnfolded: {
       ...state.itemsUnfolded,
-      list: state.itemsUnfolded.list.filter((item) => item !== id),
+      list: [...state.itemsUnfolded.list.filter((elId) => elId !== id)],
     },
   })),
   // MENU
