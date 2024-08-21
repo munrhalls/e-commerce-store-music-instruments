@@ -1,12 +1,12 @@
 import { combineReducers, createFeatureSelector } from "@ngrx/store";
-import { mobileUiStateReducer } from "./mobileUiState/ui-state.reducer";
+import { mobileUiStateReducer } from "./mobileUiState/mobileUiState.reducer";
 import { categoryTreeReducer } from "./categoryTreeState/category-tree.reducer";
 import { CategoryTree } from "../categories.model";
-import { mobileUiState } from "./mobileUiState/ui-state.model";
+import { MobileUiState } from "./mobileUiState/mobileUiState.reducer";
 import { CategoryTreeState } from "./categoryTreeState/category-tree.reducer";
 
 export interface CategoriesState {
-  mobileUiState: mobileUiState;
+  mobileUiState: MobileUiState;
   categoryTreeState: CategoryTreeState;
 }
 

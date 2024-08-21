@@ -44,3 +44,22 @@ export const editFormOpened = createAction(
 );
 
 export const editFormClosed = createAction("[mobileUi] edit form closed");
+
+export const deleteFormOpened = createAction(
+  "[mobileUi] delete confirmation opened",
+);
+
+export const deleteFormClosed = createAction(
+  "[mobileUi] delete confirmation closed",
+);
+
+export const deleteConfirmationIdSet = createAction(
+  "[mobileUi] delete confirmation id set",
+  props<{
+    id: string;
+  }>(),
+);
+
+export const deleteConfirmationIdSetToNull = createAction(
+  "[mobileUi] delete confirmation id set to null",
+);
