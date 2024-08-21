@@ -3,6 +3,8 @@ import * as mobileUiActions from "./mobileUiState.actions";
 
 export const uiStateFeatureKey = "mobileUiState";
 
+type FormState = string | null;
+
 export interface MobileUiState {
   itemsUnfolded: {
     all: boolean;
@@ -10,7 +12,7 @@ export interface MobileUiState {
   };
   menuOpened: {
     id: string | null;
-    form: "add" | "edit" | "delete" | null;
+    form: FormState;
     deleteConfirmationId: string | null;
   };
 }
@@ -68,11 +70,11 @@ export const mobileUiStateReducer = createReducer(
       deleteConfirmationId: null,
     },
   })),
-  on(mobileUiActions.addFormOpened, (state, { form }) => ({
+  on(mobileUiActions.addFormOpened, (state) => ({
     ...state,
     menuOpened: {
       ...state.menuOpened,
-      form,
+      form: "add",
     },
   })),
   on(mobileUiActions.addFormClosed, (state) => ({
@@ -82,11 +84,11 @@ export const mobileUiStateReducer = createReducer(
       form: null,
     },
   })),
-  on(mobileUiActions.editFormOpened, (state, { form }) => ({
+  on(mobileUiActions.editFormOpened, (state) => ({
     ...state,
     menuOpened: {
       ...state.menuOpened,
-      form,
+      form: "edit",
     },
   })),
   on(mobileUiActions.editFormClosed, (state) => ({
@@ -99,8 +101,9 @@ export const mobileUiStateReducer = createReducer(
   on(mobileUiActions.deleteFormOpened, (state) => ({
     ...state,
     menuOpened: {
-      ...state.menuOpened,
+      id: state.menuOpened.id,
       form: "delete",
+      deleteConfirmationId: state.menuOpened.id,
     },
   })),
   on(mobileUiActions.deleteFormClosed, (state) => ({
@@ -108,19 +111,6 @@ export const mobileUiStateReducer = createReducer(
     menuOpened: {
       ...state.menuOpened,
       form: null,
-    },
-  })),
-  on(mobileUiActions.deleteConfirmationIdSet, (state, { id }) => ({
-    ...state,
-    menuOpened: {
-      ...state.menuOpened,
-      deleteConfirmationId: id,
-    },
-  })),
-  on(mobileUiActions.deleteConfirmationIdSetToNull, (state) => ({
-    ...state,
-    menuOpened: {
-      ...state.menuOpened,
       deleteConfirmationId: null,
     },
   })),
