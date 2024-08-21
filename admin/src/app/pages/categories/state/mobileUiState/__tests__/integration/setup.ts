@@ -1,28 +1,14 @@
-import { CategoriesState } from "../../../categories.reducer";
-import * as categoryTreeActions from "../../category-tree.actions";
-import { CategoryTreeEffects } from "../../category-tree.effects";
-import { EffectsModule } from "@ngrx/effects";
-import { CategoriesService } from "../../../../categories.service";
-import {
-  categoryTreeReducer,
-  CategoryTreeState,
-  initialState as defaultInitialState,
-} from "../../../categoryTreeState/category-tree.reducer";
-import { categoriesReducer } from "../../../categories.reducer";
 import { Store, StoreModule } from "@ngrx/store";
 import { metaReducers } from "../../../../../../app.module";
-
 import { TestBed } from "@angular/core/testing";
-import { TestScheduler } from "rxjs/testing";
 import { initialState as mobileUiState } from "./../../../mobileUiState/mobileUiState.reducer";
+import { mobileUiStateReducer } from "./../../../mobileUiState/mobileUiState.reducer";
+import { categoriesReducer } from "./../../../categories.reducer";
 
 export let store: Store;
-export let effects: CategoryTreeEffects;
 
 export const setupTestBed = (
-  mockCategoriesService,
   applyMetaReducers?: "withLocalStorageSync" | "noLocalStorageSync",
-  testInitialState?: CategoryTreeState,
 ) => {
   TestBed.configureTestingModule({
     imports: [
@@ -33,7 +19,11 @@ export const setupTestBed = (
         {
           initialState: {
             categories: {
-              categoryTreeState: testInitialState || defaultInitialState,
+              categoryTreeState: {
+                data: null,
+                isLoading: false,
+                error: null,
+              },
               mobileUiState: mobileUiState,
             },
           },
@@ -41,21 +31,11 @@ export const setupTestBed = (
             applyMetaReducers === "withLocalStorageSync" ? metaReducers : [],
         },
       ),
-      StoreModule.forFeature("categoryTree", categoryTreeReducer),
-      EffectsModule.forRoot(),
-      EffectsModule.forFeature([CategoryTreeEffects]),
+      StoreModule.forFeature("mobileUiState", mobileUiStateReducer),
     ],
-    providers: [
-      Store,
-      {
-        provide: CategoriesService,
-        useValue: mockCategoriesService,
-      },
-      CategoryTreeEffects,
-    ],
+    providers: [Store],
   });
   store = TestBed.inject(Store);
-  effects = TestBed.inject(CategoryTreeEffects);
 };
 
 describe("SETUP", () => {
