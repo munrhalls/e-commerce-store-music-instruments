@@ -1,12 +1,12 @@
 import { combineReducers, createFeatureSelector } from "@ngrx/store";
-import { uiStateReducer } from "./uiState/ui-state.reducer";
+import { mobileUiStateReducer } from "./mobileUiState/ui-state.reducer";
 import { categoryTreeReducer } from "./categoryTreeState/category-tree.reducer";
 import { CategoryTree } from "../categories.model";
-import { UiState } from "./uiState/ui-state.model";
+import { mobileUiState } from "./mobileUiState/ui-state.model";
 import { CategoryTreeState } from "./categoryTreeState/category-tree.reducer";
 
 export interface CategoriesState {
-  uiState: UiState;
+  mobileUiState: mobileUiState;
   categoryTreeState: CategoryTreeState;
 }
 
@@ -16,6 +16,6 @@ export const selectCategoriesState =
   createFeatureSelector<CategoriesState>(categoriesFeatureKey);
 
 export const categoriesReducer = combineReducers({
-  uiState: uiStateReducer,
+  mobileUiState: mobileUiStateReducer,
   categoryTreeState: categoryTreeReducer,
 });
