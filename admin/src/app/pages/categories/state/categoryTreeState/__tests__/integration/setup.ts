@@ -34,7 +34,8 @@ export const setupTestBed = (
           initialState: {
             categories: {
               categoryTreeState: testInitialState || defaultInitialState,
-              mobileUiState: mobileUiState,
+              mobileUiState: null,
+              desktopUiState: null,
             },
           },
           metaReducers:

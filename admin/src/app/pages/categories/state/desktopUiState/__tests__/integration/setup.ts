@@ -1,18 +1,18 @@
 import { Store, StoreModule } from "@ngrx/store";
 import { metaReducers } from "../../../../../../app.module";
 import { TestBed } from "@angular/core/testing";
-import { initialState } from "./../../../mobileUiState/mobileUiState.reducer";
+import { initialState } from "./../../../desktopUiState/desktopUiState.reducer";
 import {
-  mobileUiStateReducer,
-  MobileUiState,
-} from "./../../../mobileUiState/mobileUiState.reducer";
+  desktopUiStateReducer,
+  DesktopUiState,
+} from "./../../../desktopUiState/desktopUiState.reducer";
 import { categoriesReducer } from "./../../../categories.reducer";
 
 export let store: Store;
 
 export const setupTestBed = (
   applyMetaReducers?: "withLocalStorageSync" | "noLocalStorageSync",
-  initialTestState?: MobileUiState,
+  initialTestState?: DesktopUiState,
 ) => {
   TestBed.configureTestingModule({
     imports: [
@@ -28,15 +28,17 @@ export const setupTestBed = (
                 isLoading: false,
                 error: null,
               },
-              mobileUiState: initialTestState ? initialTestState : initialState,
-              desktopUiState: null,
+              mobileUiState: null,
+              desktopUiState: initialTestState
+                ? initialTestState
+                : initialState,
             },
           },
           metaReducers:
             applyMetaReducers === "withLocalStorageSync" ? metaReducers : [],
         },
       ),
-      StoreModule.forFeature("mobileUiState", mobileUiStateReducer),
+      StoreModule.forFeature("desktopUiState", desktopUiStateReducer),
     ],
     providers: [Store],
   });
