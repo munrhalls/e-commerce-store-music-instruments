@@ -1,12 +1,9 @@
 import { setupTestBed } from "./setup";
 import { TestScheduler } from "rxjs/testing";
-import * as mobileUiStateActions from "./../../../mobileUiState/mobileUiState.actions";
-import { selectMobileUiState } from "./../../../mobileUiState/mobileUiState.selectors";
+import * as mobileUiStateActions from "../../mobileUiState.actions";
+import { selectMobileUiState } from "../../mobileUiState.selectors";
 import { ReplaySubject } from "rxjs";
-import {
-  MobileUiState,
-  initialState,
-} from "./../../../mobileUiState/mobileUiState.reducer";
+import { MobileUiState, initialState } from "../../mobileUiState.reducer";
 import { select } from "@ngrx/store";
 import { Store } from "@ngrx/store";
 import { store } from "./setup";

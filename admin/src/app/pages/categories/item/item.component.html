@@ -4,7 +4,7 @@
     <button>
       <nb-icon size="tiny" [icon]="'menu'"></nb-icon>
     </button>
-    <button [disabled]="!categoryTree.children.length">
+    <button *nfIf="!categoryTree.children.length">
       <nb-icon size="tiny" [icon]="'chevron-down'"></nb-icon>
     </button>
   </div>

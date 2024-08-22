@@ -57,8 +57,8 @@
 //   effects = TestBed.inject(CategoryTreeEffects);
 // };
 
-// describe("SETUP", () => {
-//   it("should setup TestBed", () => {
-//     expect(true).toEqual(true);
-//   });
-// });
+describe("SETUP", () => {
+  it("should setup TestBed", () => {
+    expect(true).toEqual(true);
+  });
+});
