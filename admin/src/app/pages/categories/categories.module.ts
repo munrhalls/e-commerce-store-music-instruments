@@ -18,6 +18,7 @@ import {
   NbButtonModule,
   NbFormFieldModule,
 } from "@nebular/theme";
+import { DesktopUiComponent } from './desktop-ui/desktop-ui.component';
 @NgModule({
   declarations: [
     ListComponent,
@@ -25,6 +26,7 @@ import {
     MenuComponent,
     AddCategoryComponent,
     EditCategoryComponent,
+    DesktopUiComponent,
   ],
   imports: [
     // StoreModule.forFeature(fromCategories.categoriesFeature),
