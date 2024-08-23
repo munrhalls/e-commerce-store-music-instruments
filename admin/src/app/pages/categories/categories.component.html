@@ -1,3 +1,1 @@
-<h1>
-  {{ commonUiState.deviceSize }}
-</h1>
+<ngx-list *ngIf="(commonUiState$ | async)?.deviceSize === 'mobile'"> </ngx-list>
