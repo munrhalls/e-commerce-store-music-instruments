@@ -1,6 +1,4 @@
-import { createSelector } from "@ngrx/store";
-import { CategoriesState } from "./categories/categories.selector";
-import { selectFeatureCategories } from "./categories/categories.selector";
+import { CategoriesState } from "./../pages/categories/state/categories.selector";
 
 export interface AppState {
   categories: CategoriesState;

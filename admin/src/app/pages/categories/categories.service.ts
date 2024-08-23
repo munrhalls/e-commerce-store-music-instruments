@@ -4,7 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, of, throwError } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 import { cloneDeep } from "lodash";
-import { categoryTree as mockCategoryTree } from "./tests/mockData";
+import { categoryTree as mockCategoryTree } from "./__tests__/mockData";
 import { CategoryTree } from "./categories.model";
 import { ServerConnectionError } from "./../../@core/error-handler/errors/serverConnectionError";
 import { HttpErrorResponse } from "@angular/common/http";
