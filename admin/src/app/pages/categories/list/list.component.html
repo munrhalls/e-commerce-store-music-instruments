@@ -1,9 +1,9 @@
-<div *ngIf="categoryTree.children && categoryTree.children.length > 0">
+<div *ngIf="categoryTree?.children && categoryTree.children.length > 0">
   <ul>
     <li *ngFor="let child of categoryTree.children">
       <ngx-item
-        [nestingLevel]="CategoryTree.pathIds.length"
-        [CategoryTree]="child"
+        [nestingLevel]="categoryTree.pathIds.length"
+        [categoryTree]="child"
       ></ngx-item>
     </li>
   </ul>

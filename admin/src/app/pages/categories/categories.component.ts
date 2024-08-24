@@ -15,11 +15,15 @@ import { CommonUiState } from "./state/commonUiState/commonUiState.reducer";
 })
 export class CategoriesComponent implements OnInit, OnDestroy {
   commonUiState$ = this.store.select(selectCommonUiState);
+  categoryTreeState$ = this.store.select(selectCategoryTreeState);
 
   constructor(private store: Store) {} // Removed categoriesService
 
   ngOnInit() {
     this.store.dispatch(categoryTreeActions.apiLoad());
+    this.categoryTreeState$.subscribe((categoryTree) => {
+      console.log(categoryTree);
+    });
   }
 
   ngOnDestroy() {}

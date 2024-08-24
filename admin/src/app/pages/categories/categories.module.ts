@@ -19,6 +19,8 @@ import {
   NbFormFieldModule,
 } from "@nebular/theme";
 import { DesktopUiComponent } from './desktop-ui/desktop-ui.component';
+import { MobileUiComponent } from './mobile-ui/mobile-ui.component';
+import { LoaderComponent } from './loader/loader.component';
 @NgModule({
   declarations: [
     ListComponent,
@@ -27,6 +29,8 @@ import { DesktopUiComponent } from './desktop-ui/desktop-ui.component';
     AddCategoryComponent,
     EditCategoryComponent,
     DesktopUiComponent,
+    MobileUiComponent,
+    LoaderComponent,
   ],
   imports: [
     // StoreModule.forFeature(fromCategories.categoriesFeature),

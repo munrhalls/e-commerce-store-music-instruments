@@ -2,7 +2,7 @@
 import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, of, throwError } from "rxjs";
-import { map, catchError } from "rxjs/operators";
+import { map, catchError, delay } from "rxjs/operators";
 import { cloneDeep } from "lodash";
 import { categoryTree as mockCategoryTree } from "./__tests__/mockData";
 import { CategoryTree } from "./categories.model";
@@ -17,15 +17,18 @@ export class CategoriesService {
   private categoryTree: CategoryTree | null = mockCategoryTree;
 
   fetchCategoryTree(): Observable<CategoryTree> {
-    return this.http.get<CategoryTree>("/api/categories").pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 0) {
-          return throwError(() => new ServerConnectionError());
-        }
-        return throwError(() => new ServerConnectionError());
-      }),
-    );
+    console.log(this.categoryTree);
+    return of(this.categoryTree).pipe(delay(500));
   }
+  // return this.http.get<CategoryTree>("/api/categories").pipe(
+  //   catchError((error: HttpErrorResponse) => {
+  //     if (error.status === 0) {
+  //       return throwError(() => new ServerConnectionError());
+  //     }
+  //     return throwError(() => new ServerConnectionError());
+  //   }),
+  // );
+
   getCategoryTree() {
     return of(cloneDeep(this.categoryTree));
   }

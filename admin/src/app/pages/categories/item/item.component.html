@@ -4,7 +4,7 @@
     <button>
       <nb-icon size="tiny" [icon]="'menu'"></nb-icon>
     </button>
-    <button *nfIf="!categoryTree.children.length">
+    <button *ngIf="!categoryTree.children.length">
       <nb-icon size="tiny" [icon]="'chevron-down'"></nb-icon>
     </button>
   </div>

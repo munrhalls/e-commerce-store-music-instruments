@@ -1,1 +1,24 @@
-<ngx-list *ngIf="(commonUiState$ | async)?.deviceSize === 'mobile'"> </ngx-list>
+<div
+  class="mobile-container"
+  *ngIf="(commonUiState$ | async)?.deviceSize === 'mobile'"
+>
+  <ngx-list
+    *ngIf="(categoryTreeState$ | async)?.data"
+    [categoryTree]="(categoryTreeState$ | async)?.data"
+  ></ngx-list>
+  <ngx-loader *ngIf="(categoryTreeState$ | async)?.isLoading"></ngx-loader>
+</div>
+
+<div
+  class="desktop-container"
+  *ngIf="(commonUiState$ | async)?.deviceSize === 'desktop'"
+>
+  <div class="display-mode-mobile">
+    <!-- <ngx-list
+      *ngIf="(categoryTreeState$ | async)?.data"
+      [categoryTree]="(categoryTreeState$ | async)?.data"
+    ></ngx-list> -->
+  </div>
+
+  <!-- <div class="display-mode-desktop"></div> -->
+</div>
